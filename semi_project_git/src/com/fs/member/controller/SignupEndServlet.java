@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fs.member.model.service.MemberService;
-import com.fs.member.model.vo.Member;
+import com.fs.model.vo.Member;
 
 /**
  * Servlet implementation class LoginSignupEndServlet

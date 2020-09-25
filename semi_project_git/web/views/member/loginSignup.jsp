@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.fs.member.model.vo.Member" %>
+<%@ page import="com.fs.model.vo.Member" %>
 
 <%
 	//아이디 저장하기 : LoginEndServlet에서  저장한 Cookie getName=saveId 가져오기

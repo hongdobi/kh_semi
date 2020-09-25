@@ -1,4 +1,4 @@
-package com.fs.member.model.vo;
+package com.fs.model.vo;
 
 import java.sql.Date;
 

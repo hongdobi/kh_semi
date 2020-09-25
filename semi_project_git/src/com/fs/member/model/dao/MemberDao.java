@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.fs.member.model.vo.Member;
+import com.fs.model.vo.Member;
 
 public class MemberDao {
 	

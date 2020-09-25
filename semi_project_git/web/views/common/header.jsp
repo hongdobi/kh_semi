@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.fs.member.model.vo.Member" %>
+<%@ page import="com.fs.model.vo.Member" %>
 
 <%
 	//로그인 된 상태 LoginEndServlet에서 지정한 session값으로 불러오기

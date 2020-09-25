@@ -8,7 +8,7 @@ import static com.fs.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 
 import com.fs.member.model.dao.MemberDao;
-import com.fs.member.model.vo.Member;
+import com.fs.model.vo.Member;
 
 public class MemberService {
 	
