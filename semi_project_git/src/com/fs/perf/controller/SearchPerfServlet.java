@@ -1,6 +1,7 @@
 package com.fs.perf.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,12 +33,13 @@ public class SearchPerfServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		request.getRequestDispatcher("/views/search/search.jsp").forward(request, response);
 		
 		String keyword = request.getParameter("keyword");
+		ArrayList<Performance> list = new PerfService().searchPerformance(keyword);
 		
-		Performance p = new PerfService().searchPerformance(keyword);
-		System.out.println(p);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/views/common/search.jsp").forward(request, response);
 	}
 
 	/**

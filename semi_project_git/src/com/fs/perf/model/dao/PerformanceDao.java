@@ -1,6 +1,7 @@
 package com.fs.perf.model.dao;
 
 import static com.fs.common.JDBCTemplate.close;
+import static com.fs.common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.fs.model.vo.Performance;
@@ -30,18 +31,31 @@ private Properties prop = new Properties();
 	}
 
 	
-	public Performance searchPerformance(Connection conn,String keyword) {
+	public ArrayList<Performance> searchPerformance(Connection conn,String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Performance p = null;
+		ArrayList<Performance> list = new ArrayList<Performance>();
+		Performance perf = null;
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("searchPerformance"));
-			pstmt.setString(1, keyword);
+			pstmt.setString(1, "%" + keyword + "%");
 			
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				p.setPerfName(rs.getString("perf_name"));
-				p.setPerfLocation(rs.getString("perf_location"));
+			while(rs.next()) {
+				perf=new Performance();
+	            perf.setPerfNo(rs.getString("perf_no"));
+	            perf.setPerfName(rs.getString("perf_name"));
+	            perf.setPerfRuntime(rs.getInt("perf_runtime"));
+	            perf.setPerfStart(rs.getDate("perf_start"));
+	            perf.setPerfEnd(rs.getDate("perf_end"));
+	            perf.setPerfPg(rs.getInt("perf_pg"));
+	            perf.setPerfLocation(rs.getString("perf_location"));
+	            perf.setPerfAddress(rs.getString("perf_address"));
+	            perf.setPerfCapacity(rs.getInt("perf_capacity"));
+	            perf.setPerfPoster(rs.getString("perf_poster"));
+	            perf.setPerfTimeInfo(rs.getString("perf_timeinfo"));
+	            perf.setPerfPriceInfo(rs.getString("perf_priceInfo"));
+				list.add(perf);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -49,7 +63,7 @@ private Properties prop = new Properties();
 			close(rs);
 			close(pstmt);
 		}
-		return p;
+		return list;
 	}
 	
 	public Performance selectPerformance(Connection conn,String perfNo) {
