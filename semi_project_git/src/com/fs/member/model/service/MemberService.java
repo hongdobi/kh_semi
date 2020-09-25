@@ -1,0 +1,39 @@
+package com.fs.member.model.service;
+
+import static com.fs.common.JDBCTemplate.close;
+import static com.fs.common.JDBCTemplate.commit;
+import static com.fs.common.JDBCTemplate.getConnection;
+import static com.fs.common.JDBCTemplate.rollback;
+
+import java.sql.Connection;
+
+import com.fs.member.model.dao.MemberDao;
+import com.fs.member.model.vo.Member;
+
+public class MemberService {
+	
+	private MemberDao dao = new MemberDao();
+	
+	//회원등록 메소드
+	public int insertMember(Member m) {
+		Connection conn = getConnection();
+		int result = dao.insertMember(conn, m);
+		
+		//트렌젝션 처리
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	//로그인 메소드
+	public Member selectMember(String memberId, String memberPw) {
+		Connection conn = getConnection();
+		Member m = dao.selectMember(conn, memberId, memberPw);
+		close(conn);
+		return m;
+	}
+	
+	
+
+}

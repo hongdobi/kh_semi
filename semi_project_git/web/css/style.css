@@ -1,0 +1,190 @@
+@charset "UTF-8";
+    <style>
+        /* reset */
+        html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family:"Noto Sans KR";
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+        a {
+            text-decoration: none;
+            color:#333;
+        }
+        
+        /* common */        
+        .box-guide {
+            width: 1200px;
+            margin: 0 auto;
+        }
+        /* common text style */
+        .text-small-1 {
+            font-size: 13px;
+            font-family:"Noto Sans KR";
+            color: #999;
+        }
+
+
+        /* header */
+        header {
+            display: flex;
+            height: 100px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px 0 30px;
+        }
+
+        header ul {
+            display: flex;
+        }
+
+        header ul li a {
+            padding: 0px 12px;
+            color: black;
+            size: 18px;
+        }
+
+        /* container */
+        .container .area-text h3 {
+            font-size: 15px;
+            font-family:"Noto Sans KR";
+            color: #333;
+        }
+
+        .container .area-text .text-fire-1 {
+            display: block;
+            width: 45px;
+            height: 45px;
+            background-color: orange;
+            font-size: 16px;
+            font-family:"Noto Sans KR";
+            color: white;
+            line-height: 45px;
+        }
+
+        /* container > ranking */
+        .container .ranking {
+            text-align: center;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        .container .ranking>h2 {
+            font-size: 30px;
+            font-family:"Noto Sans KR";
+        }
+
+        .container .ranking .tab-list {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .container .ranking .tab-list>li {
+            margin: 0 20px;
+        }
+
+        .container .ranking .tab-contents {
+            margin-top: 40px;
+        }
+
+        .container .ranking .tab-contents .tab-content {
+            display: flex;
+            justify-content: center;
+        }
+
+        .container .ranking .tab-contents .tab-content>li {
+            width: 380px;
+        }
+
+        .container .ranking .tab-contents .tab-content>li+li {
+            margin-left: 30px;
+        }
+
+        .container .ranking .tab-contents .tab-content>li img {
+            height: 400px;
+        }
+
+        .container .ranking .tab-contents .tab-content .area-text {
+            padding: 26px 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .container .ranking .tab-contents .tab-content .area-text .text-fire-1 {
+            position: absolute;
+            margin-left: 70px;
+            margin-top: -90px;
+            z-index: 1;
+        }
+
+        /* footer */
+        footer{
+            border-top: 1px solid #ddd;
+        }
+        footer .box-top{
+            border-bottom:1px solid #f6f6f6;
+        }
+        footer .box-top .list-link {
+            display: flex;
+            height:70px;
+            align-items: center;
+        }
+
+        footer .box-top .list-link>li {
+            padding: 0 20px;
+            font-size:15px;
+            font-family:"Noto Sans KR";
+        }
+
+        footer .box-bottom {
+            display: flex;
+            margin-top: 30px;
+        }
+        footer .box-bottom a{
+            margin:0 40px 0 30px;
+        }
+        footer .box-bottom .box-text{}
+        footer .box-bottom .box-text p{font-size: 13px; font-family:"Noto Sans KR"; color: #999;}
+        footer .box-bottom .box-text p + p{margin-top: 3px;}
+        footer .box-bottom .box-text + p {margin-left: auto; font-family:"Noto Sans KR"; font-size: 12px;}
+        
+    </style>
