@@ -62,7 +62,8 @@
           <form class="forms_form" action="<%=request.getContextPath() %>/loginEnd">
             <fieldset class="forms_fieldset">
               <div class="forms_field">
-                <input type="text" class="forms_field-input" name="memberId" id="memberId" placeholder="아이디" required autofocus>
+                <input type="text" class="forms_field-input" name="memberId" id="memberId" placeholder="아이디" required autofocus
+                 value='<%=saveId!=null?saveId:""%>'>
               </div>
               <div class="forms_field">
                 <input type="password" class="forms_field-input" name="memberPw" id="memberPw" placeholder="비밀번호" required>
