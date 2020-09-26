@@ -101,21 +101,19 @@
           <form class="forms_form" action="<%=request.getContextPath() %>/signupEnd" method="post">
             <fieldset class="forms_fieldset">
               <div class="forms_field">
-                <input type="text" name="memberId" id="memberId_" placeholder="아이디 : 영문소문자/숫자 조합" class="forms_field-input" required>
+                <input type="text" name="memberId" id="memberId_" placeholder="아이디:영문소문자/숫자 조합" class="forms_field-input" required>
                 <button onclick="" name="" id="selfcheck">중복확인</button>
               </div>
               <div class="forms_field">
-                <input type="password" name="memberPw" id="memberPw_" placeholder="비밀번호 : 영문 숫자/특수문자 조합 8자 이상" class="forms_field-input" required>
+                <input type="password" name="memberPw" id="memberPw_" placeholder="비밀번호:영문 숫자/특수문자 조합 8자 이상" class="forms_field-input" required>
               </div>
               <div class="forms_field">
                 <input type="password" id="memberPw_2" placeholder="비밀번호확인" class="forms_field-input" required>
+              	<span id="result"></span>
               </div>
               <div class="forms_field">
                 <input type="email" name="email" placeholder="Email" class="forms_field-input" required>
                 <button onclick="" name="" id="selfcheck">중복확인</button>
-                <div>
-                  <input type="checkbox" name="chk_info" value="agreement">SMS,이메일을 통한 상품 및 이벤트 정보 수신에 동의
-                </div>
               </div>
               <div class="forms_field">
                 <input type="text" name="phone" placeholder="휴대폰 번호" class="forms_field-input" required>
@@ -157,6 +155,21 @@
         userForms.classList.add("bounceRight");
       },false
     );
+    
+    //비밀번호 확인
+    $(function(){
+      $("#memberPw_2").keyup(function(){
+        let pw = $("#memberPw_").val().trim();
+        let pwck = $(this).val().trim();
+
+        if(pw==pwck){
+          $("#result").html("비밀번호가 일치합니다").css("color","grey");
+        }else{
+          $("#result").html("비밀번호가 불일치합니다").css("color","lightcoral");
+        }
+      })
+    });
+    
   </script>
 </body>
 </html>

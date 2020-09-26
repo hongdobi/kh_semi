@@ -471,4 +471,12 @@
       padding: 50px 45px;
     }
   }
+  
+   /* 비밀번호확인 */
+  span{
+      font-family: "Noto Sans KR";
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.15rem;
+    }
 </style>
