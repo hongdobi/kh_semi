@@ -25,7 +25,7 @@
             <li><a href="">뮤지컬</a></li>
             <li><a href="">전시</a></li>
             <li><a href="">연극</a></li>
-            <li><a href="<%=request.getContextPath()%>/views/perf/perfRank.jsp">랭킹</a></li>
+            <li><a href="<%=request.getContextPath()%>/perf/RankList.do">랭킹</a></li>
             <li><a href="">이벤트</a></li>
         </ul>
         <div>

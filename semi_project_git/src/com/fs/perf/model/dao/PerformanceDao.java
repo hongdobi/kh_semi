@@ -1,7 +1,6 @@
 package com.fs.perf.model.dao;
 
 import static com.fs.common.JDBCTemplate.close;
-import static com.fs.common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,8 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import com.fs.model.vo.PerfSsn;
 import com.fs.model.vo.Performance;
 
 
@@ -30,7 +31,7 @@ private Properties prop = new Properties();
 		
 	}
 
-	
+	//검색페이지 
 	public ArrayList<Performance> searchPerformance(Connection conn,String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -65,7 +66,7 @@ private Properties prop = new Properties();
 		}
 		return list;
 	}
-	
+	//상세페이지
 	public Performance selectPerformance(Connection conn,String perfNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -89,7 +90,6 @@ private Properties prop = new Properties();
 				perf.setPerfTimeInfo(rs.getString("perf_timeinfo"));
 				perf.setPerfPriceInfo(rs.getString("perf_priceInfo"));
 			}
-			System.out.println(perf.getPerfName());
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -97,6 +97,41 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 		return perf;
+	}
+
+	//랭킹페이지 공연정보
+	public List<Performance> rankPerformance(Connection conn,List<PerfSsn> rkList) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Performance> list=new ArrayList();
+		Performance perf = null;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectPerformance"));
+			for(int i=0; i<rkList.size();i++) {
+				PerfSsn ssn=new PerfSsn();
+				String perfNo=ssn.getPerfNo();
+				pstmt.setString(i+1, perfNo);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					perf=new Performance();
+					perf.setPerfNo(rs.getString("perf_no"));
+					perf.setPerfName(rs.getString("perf_name"));
+					perf.setPerfStart(rs.getDate("perf_start"));
+					perf.setPerfEnd(rs.getDate("perf_end"));
+					perf.setPerfLocation(rs.getString("perf_location"));
+					perf.setPerfPoster(rs.getString("perf_poster"));
+					
+				}
+				list.add(perf);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
 	}
 
 
