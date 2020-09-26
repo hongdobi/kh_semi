@@ -99,40 +99,6 @@ private Properties prop = new Properties();
 		return perf;
 	}
 
-	//랭킹페이지 공연정보
-	public List<Performance> rankPerformance(Connection conn,List<PerfSsn> rkList) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<Performance> list=new ArrayList();
-		Performance perf = null;
-		
-		try {
-			pstmt = conn.prepareStatement(prop.getProperty("selectPerformance"));
-			for(int i=0; i<rkList.size();i++) {
-				PerfSsn ssn=new PerfSsn();
-				String perfNo=ssn.getPerfNo();
-				pstmt.setString(i+1, perfNo);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					perf=new Performance();
-					perf.setPerfNo(rs.getString("perf_no"));
-					perf.setPerfName(rs.getString("perf_name"));
-					perf.setPerfStart(rs.getDate("perf_start"));
-					perf.setPerfEnd(rs.getDate("perf_end"));
-					perf.setPerfLocation(rs.getString("perf_location"));
-					perf.setPerfPoster(rs.getString("perf_poster"));
-					
-				}
-				list.add(perf);
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rs);
-			close(pstmt);
-		}
-		return list;
-	}
 
 
 

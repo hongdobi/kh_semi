@@ -27,11 +27,5 @@ public class PerfService {
 		return perf;
 	}
 	
-	//랭킹 1-6순위  공연정보 가져오기
-	public List<Performance> rankPerformance(List rkList){
-		Connection conn = getConnection();
-		List<Performance>list = dao.rankPerformance(conn,rkList);
-		close(conn);
-		return list;
-	}
+
 }
