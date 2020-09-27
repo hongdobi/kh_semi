@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.fs.model.vo.PerfSsn;
 import com.fs.model.vo.Performance;
-import com.fs.perf.model.service.PerfService;
 import com.fs.perfSsn.model.service.PerfSsnService;
 
 /**
@@ -40,14 +38,14 @@ public class RankingEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//랭킹페이지에서 받는 정보에 따라 랭킹정보가지고 이동
 		String month=null;
-		if(request.getParameter("month")!=null) {
+		if(request.getParameter("month").length()>0) {
 			month=request.getParameter("month")+"-01";
-			
 			System.out.println("달력날짜 받아오기 성공"+month);
+			
 		}else {
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 			month=sdf.format(new Date());
-			System.out.println("달력오늘날짜 성공");
+			System.out.println("달력오늘날짜 성공"+month);
 		}
 		String cate=request.getParameter("cate");
 
@@ -61,7 +59,7 @@ public class RankingEndServlet extends HttpServlet {
 				j=new JSONObject(); 
 				j.put("perfNo",perf.getPerfNo());
 				j.put("perfName",perf.getPerfName());
-				SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월 dd일");
+				SimpleDateFormat sdf=new SimpleDateFormat("MM월 dd일");
 				j.put("start",sdf.format(perf.getPerfStart()));
 				j.put("end",sdf.format(perf.getPerfEnd()));
 				j.put("location",perf.getPerfLocation()); 

@@ -42,8 +42,7 @@ public class RankingServlet extends HttpServlet {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		String month=sdf.format(new Date());
 		String cate="ALL";
-		
-		
+
 		List <Performance>list=new PerfSsnService().rank(month,cate);
 		
 		request.setAttribute("list", list);

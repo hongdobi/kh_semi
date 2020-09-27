@@ -38,7 +38,7 @@ public class PerfSsnDao {
 			pstmt =conn.prepareStatement(prop.getProperty("selectRank"));
 			pstmt.setString(1, month);
 			pstmt.setString(2, month);
-			if(cate.equals("ALL")) {
+			if(cate==null||cate.equals("ALL")) {
 				pstmt.setString(3, "%");
 			}else {
 				pstmt.setString(3, cate+"_%");
