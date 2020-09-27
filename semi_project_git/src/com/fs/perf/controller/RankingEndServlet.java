@@ -39,37 +39,43 @@ public class RankingEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//랭킹페이지에서 받는 정보에 따라 랭킹정보가지고 이동
-		
-		String month=request.getParameter("month");
+		String month=null;
+		if(request.getParameter("month")!=null) {
+			month=request.getParameter("month")+"-01";
+			
+			System.out.println("달력날짜 받아오기 성공"+month);
+		}else {
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			month=sdf.format(new Date());
+			System.out.println("달력오늘날짜 성공");
+		}
 		String cate=request.getParameter("cate");
 
-		List <PerfSsn>rkList=new PerfSsnService().rank(month,cate);
-		List <Performance>perfList=new PerfService().rankPerformance(rkList);
 		
-		JSONArray rkArr=new JSONArray();
-		JSONArray perfArr=new JSONArray();
-		for(PerfSsn ssn:rkList) { 
-			JSONObject j=new JSONObject(); 
-			j.put("perfNo",ssn.getPerfNo());
-			j.put("count",ssn.getNthCount()); 
-			rkArr.add(j);
+		List <Performance>list=new PerfSsnService().rank(month,cate);
+		
+		JSONArray arr=new JSONArray();
+		JSONObject j;
+		if(list!=null) {
+			for(Performance perf:list) { 
+				j=new JSONObject(); 
+				j.put("perfNo",perf.getPerfNo());
+				j.put("perfName",perf.getPerfName());
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월 dd일");
+				j.put("start",sdf.format(perf.getPerfStart()));
+				j.put("end",sdf.format(perf.getPerfEnd()));
+				j.put("location",perf.getPerfLocation()); 
+				j.put("poster",perf.getPerfPoster());
+				j.put("count",perf.getPerfCount()); 
+				arr.add(j);
+			}
 		}
-		for(Performance perf:perfList) { 
-			JSONObject j2=new JSONObject(); 
-			j2.put("perfNo2",perf.getPerfNo());
-			j2.put("perf",perf.getPerfName());
-			j2.put("start",perf.getPerfStart());
-			j2.put("end",perf.getPerfEnd());
-			j2.put("location",perf.getPerfLocation()); 
-			j2.put("poster",perf.getPerfPoster());
-			perfArr.add(j2);
-		}
-
 		response.setContentType("application/json;charset=utf-8");
-		response.getWriter().print(rkArr);
-		response.getWriter().print(perfArr);
-		
-	}
+	
+		response.getWriter().print(arr);
+			
+	}		
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

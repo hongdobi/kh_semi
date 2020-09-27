@@ -1,5 +1,7 @@
 package com.fs.perfSsn.model.dao;
 
+import static com.fs.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -7,11 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
-import static com.fs.common.JDBCTemplate.close;
+
 import com.fs.model.vo.PerfSsn;
+import com.fs.model.vo.Performance;
 
 public class PerfSsnDao {
 	
@@ -27,33 +29,39 @@ public class PerfSsnDao {
 	}
 	
 	//랭킹 : 공연넘버별 한달 예매수 합계
-	public List<PerfSsn> rank(Connection conn,String month,String cate){
+	public List<Performance> rank(Connection conn,String month,String cate){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		List<PerfSsn> rkList=new ArrayList();
-		PerfSsn ssn=null; 
+		List<Performance> list=new ArrayList();
+		Performance perf=null; 
 		try {
-			pstmt =conn.prepareStatement("selectRank");
+			pstmt =conn.prepareStatement(prop.getProperty("selectRank"));
 			pstmt.setString(1, month);
 			pstmt.setString(2, month);
-			if(cate!=null) {
-				pstmt.setString(3, cate+"_");
-			}else {
+			if(cate.equals("ALL")) {
 				pstmt.setString(3, "%");
+			}else {
+				pstmt.setString(3, cate+"_%");
 			}
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				ssn=new PerfSsn();
-				ssn.setPerfNo(rs.getString("perf_No"));
-				ssn.setNthCount(rs.getInt("nth_count"));
-				rkList.add(ssn);
+				perf=new Performance();
+				perf.setPerfNo(rs.getString("perf_no"));
+				perf.setPerfName(rs.getString("perf_name"));
+				perf.setPerfStart(rs.getDate("perf_start"));
+				perf.setPerfEnd(rs.getDate("perf_end"));
+				perf.setPerfLocation(rs.getString("perf_location"));
+				perf.setPerfPoster(rs.getString("perf_poster"));
+				perf.setPerfCount(rs.getInt("cnt"));
+				list.add(perf);
 			}
+			System.out.println(list+"dao");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rs);
 			close(pstmt);
-		}return rkList;
+		}return list;
 	}
 	
 }

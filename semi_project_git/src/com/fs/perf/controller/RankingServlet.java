@@ -41,11 +41,12 @@ public class RankingServlet extends HttpServlet {
 		//메뉴에서 랭킹페이지로 랭킹정보가지고 이동
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		String month=sdf.format(new Date());
-		String cate="";
+		String cate="ALL";
 		
-		List <PerfSsn>rkList=new PerfSsnService().rank(month,cate);
-		List <Performance>perfList=new PerfService().rankPerformance(rkList);
 		
+		List <Performance>list=new PerfSsnService().rank(month,cate);
+		
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("/views/perf/perfRank.jsp").forward(request, response);;
 	}
 

@@ -40,13 +40,7 @@ public class Performance {
 		this.perfPriceInfo = perfPriceInfo;
 	}
 
-	public int getPerfCount() {
-		return perfCount;
-	}
 
-	public void setPerfCount(int perfCount) {
-		this.perfCount = perfCount;
-	}
 
 	public Performance(String perfNo, String perfName, int perfRuntime, Date perfStart, Date perfEnd, int perfPg,
 			String perfLocation, String perfAddress, int perfCapacity, String perfPoster, String perfTimeInfo,
@@ -162,7 +156,13 @@ public class Performance {
 	public void setPerfPriceInfo(String perfPriceInfo) {
 		this.perfPriceInfo = perfPriceInfo;
 	}
+	public int getPerfCount() {
+		return perfCount;
+	}
 
+	public void setPerfCount(int perfCount) {
+		this.perfCount = perfCount;
+	}
 	@Override
 	public String toString() {
 		return "Performance [perfNo=" + perfNo + ", perfName=" + perfName + ", perfRuntime=" + perfRuntime

@@ -4,12 +4,8 @@
 	import="com.fs.model.vo.Performance,com.fs.model.vo.PerfSsn,java.util.List,java.util.ArrayList" %>
 <%@ include file="/views/common/header.jsp"%>
 <% 
-	List <PerfSsn>rkList=(List)request.getAttribute("rkList");
-	List <Performance>perfList=(List)request.getAttribute("perfList");
+	List <Performance>list=(List)request.getAttribute("list");
 %>
-<script src="js/jquery-3.5.1.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
 <style>
 section {
 	padding: 50px;
@@ -26,6 +22,7 @@ section>div#title {
 
 ul.Rank-nav {
 	min-width: 1000px;
+
 }
 
 ul.Rank-nav li {
@@ -52,78 +49,40 @@ div.Rank-content {
 	padding: 50px;
 	width: 1000px;
 	margin: auto;
-	background-color: rgb(228, 225, 225);
+	/* background-color: rgb(228, 225, 225); */
+	background-color: lightpink;
 	border-radius: 10px;
 	justify-content: space-around;
 }
 /* 순위박스 */
 div.Rank-content>div {
 	margin: 20px;
-	width: 280px;
-	height: 330px;
+	width: 280px;	
+	height:380px;
 	display: inline-block;
 	background-color: black;
 	border-radius: 10px;
 	text-align: center;
-	padding-top: 30px;
+	
 }
 
-div.Rank-content>div>img {
-	width:260px;
+div.Rank-content>div img {
+	height:280px;
+
 }
 
+div.rk p{
+	color:white;
+	font-wieght:bolder;
+	font-size:20px;
+	padding:3px;
+}
 </style>
-<script>
-$(function(){
-	
-	 $(".rk-li").each((i,v) => {
-		 $(v).click(e=>{
-			 //선택한 리스트만 클릭시 배경색 유지
-			 $(e.target).parents().children('li').attr("style","background-color:white; color: black;");
-             $(e.target).attr("style","background-color:lightcoral; color: white;");
-             //해당 리스트 값 받기
-             let v=$(v).html();
-             let cate=null;
-             if(v=='전체') cate="";
-             else if(v=='뮤지컬')cate="M";
-             else if(v=='연극') cate="S";
-             else if(v=='전시') cate="E";
-             
-     		$("#rankMonth").change(e =>{ 
-    			$.ajax({
-    				url:"<%=request.getContextPath()%>/perf/rankingEnd.do", 
-    				data:{"month":$("#rankMonth").val(),"cate":cate},
-    				dataType:"json",
-    				success: date=>{ 
-    					$("#Rank-content").html("");
-    					let div=$("<div>");
-    					
-    					for(let i=0;i<data.length;i++){ 
-    						let rk=$("<div>").append($("<div>").html(data[i]["poster"]));
-    						div.append(rk);
-    					}	
-    					
-    					$("#Rank-content").html(div);
-    				}
-    				
-    			});
-    				
-    		});
-     		
-             
-             
-             
-         })
 
-     })
-
-});
-	
-</script>
 <section>
 	<div id="title">
 		<h1>
-			<span style="color: lightcoral">오성티켓</span> 이달의 랭킹
+			<span style="color: lightcoral">오성티켓</span> 랭킹
 		</h1>
 	</div>
 	<br>
@@ -144,24 +103,102 @@ $(function(){
 	<br>
 	<br>
 	<div class="Rank-content">
-		<% if(rkList!=null&&perfList!=null){%>
-		<%for(PerfSsn ssn:rkList){%>
-			<%for(Performance perf:perfList){%>
-				<%if(perf.getPerfNo().equals(ssn.getPerfNo())){%> 
-			
+		<% if(list!=null){
+			int i=1;%>
+			<%for(Performance perf:list){%>
 			<div class="rk">
-				<a href="<%=request.getContextPath()%>/perf/perfView.do?perfNo=<%=ssn.getPerfNo()%>">
-				<img src="<%=request.getContextPath()%>/image/perf/<%=ssn.getPerfNo()%>/<%=perf.getPerfPoster()%>" alt="<%=request.getContextPath() %>/<%=perf.getPerfName() %>" height="280px"></a>
+				<p>TOP <%=(i)%></p>
+				<a href="<%=request.getContextPath()%>/perf/perfView.do?perfNo=<%=perf.getPerfNo()%>">
+					<img src="<%=request.getContextPath()%>/image/perf/<%=perf.getPerfNo()%>/<%=perf.getPerfPoster()%>" alt="<%=request.getContextPath() %>/<%=perf.getPerfName() %>">
+				</a>
 			</div>
-			
-				<%}%>
-			<%} 
-			}
+			<%i++;
+			} 
 		}%>
 
 	</div>
 
 </section>
-
+<script>
+$(function(){
+	
+	 $(".rk-li").each((i,v) => {
+		 $(v).click(e=>{
+			
+			 $(e.target).parents().children('li').attr("style","background-color:white; color: black;");
+             $(e.target).attr("style","background-color:lightcoral; color: white;");
+             //해당 리스트 값 받기
+             let c=$(e.target).html();
+             let cate=null;
+             if(c=='전체') cate="ALL";
+             else if(c=='뮤지컬')cate="M";
+             else if(c=='연극') cate="S";
+             else if(c=='전시') cate="E";
+             console.log(cate);
+             
+     		$("input#rankMonth").change(e =>{ 
+    			$.ajax({
+    				url:"<%=request.getContextPath()%>/perf/rankingEnd.do", 
+    				data:{"month":$("input#rankMonth").val(),"cate":cate},
+    				type:"post",
+    				dataType:"json",
+    				success: data=>{  
+    					$(".Rank-content").html("");
+     					for(let i=0;i<6;i++){
+     						
+     						let perfNo=data[i]["perfNo"];	
+     						let poster=data[i]["poster"];
+     						console.log(poster);
+     					
+     						let div=$("<div class='rk'>");
+    						let p=$("<p>").html("TOP"+(i+1));
+     						let a=$("<a>").attr("href","<%=request.getContextPath()%>/perf/perfView.do?perfNo="+perfNo);
+     						let img=$("<img>").attr("src","<%=request.getContextPath()%>/image/perf/"+perfNo+"/"+poster);
+     						a.append(img);
+     						div.append(p);
+     						div.append(a);
+     						$('div.Rank-content').append(div);
+     					}		
+     					
+     				}
+    			});	
+    		});
+          
+     		
+      		$.ajax({
+ 				url:"<%=request.getContextPath()%>/perf/rankingEnd.do", 
+ 				data:{"cate":cate},
+ 				type:"post",
+ 				dataType:"json",
+ 				success: data=>{  
+ 					$(".Rank-content").html("");
+ 					for(let i=0;i<6;i++){
+ 						
+ 						let perfNo=data[i]["perfNo"];	
+ 						let poster=data[i]["poster"];
+ 						console.log(poster);
+ 					
+ 						let div=$("<div class='rk'>");
+						let p=$("<p>").html("TOP"+(i+1));
+ 						let a=$("<a>").attr("href","<%=request.getContextPath()%>/perf/perfView.do?perfNo="+perfNo);
+ 						let img=$("<img>").attr("src","<%=request.getContextPath()%>/image/perf/"+perfNo+"/"+poster);
+ 						a.append(img);
+ 						div.append(p);
+ 						div.append(a);
+ 						$('div.Rank-content').append(div);
+ 					}	
+ 					
+ 				}
+ 				
+ 			}); 
+          
+     		
+     		
+         });
+     });
+	 
+});
+	
+</script>
 
 <%@ include file="/views/common/footer.jsp"%>
