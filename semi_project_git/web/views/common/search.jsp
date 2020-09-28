@@ -34,10 +34,10 @@
           	<%if(p.getPerfNo().substring(0,1).equals("S")){ %>
           <dd class="detail-result">
             <div class="box-poster">
-              <img src="/semiproject/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="">
+              <img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
             </div>
             <div class="box-text">
-              <h4><%=p.getPerfName() %></h4>
+              <h4>[연극]<%=p.getPerfName() %></h4>
               <p><%=p.getPerfPg() %>세 이상</p>
             </div>
           </dd>
@@ -48,10 +48,10 @@
           	<%if(p.getPerfNo().substring(0,1).equals("M")){ %>
           <dd class="detail-result">
             <div class="box-poster">
-              <img src="/semiproject/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="">
+              <img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
             </div>
             <div class="box-text">
-              <h4><%=p.getPerfName() %></h4>
+              <h4>[뮤지컬]<%=p.getPerfName() %></h4>
               <p><%=p.getPerfPg() %>세 이상</p>
             </div>
           </dd>
@@ -62,10 +62,10 @@
           	<%if(p.getPerfNo().substring(0,1).equals("E")){ %>
           <dd class="detail-result">
             <div class="box-poster">
-              <img src="/semiproject/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="">
+              <img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
             </div>
             <div class="box-text">
-              <h4><%=p.getPerfName() %></h4>
+              <h4>[전시]<%=p.getPerfName() %></h4>
               <p><%=p.getPerfPg() %>세 이상</p>
             </div>
           </dd>
@@ -104,6 +104,7 @@
     body, html, div,h1,h2,h3,h4,p,dl,dt,dd{margin: 0; padding: 0}
     button{appearance: none; background-color: transparent; border: none;}
     h3{margin-top: 20px;}
+    .poster{height: 260px; width: 218px;margin-left:15px;}
     /* top  */
     .area-top{
       display: flex;
@@ -114,7 +115,7 @@
       background-color: salmon;
       text-align: center;
     }
-    .area-top h2 + p{margin-top: 20px; font-size: 20px;}
+    .area-top h2 + p{margin-top: 20px; font-size: 20px; color:white;}
     .area-top p .word-search{font-size: 1.3em; font-weight: bold;}
     .area-top .box-input{display: flex; justify-content: center; margin-top: 20px;}
     .area-top .box-input input{width: 240px; padding: 10px; border: 1px solid #ccc;}
@@ -125,7 +126,7 @@
     .area-contents{padding: 70px 0;}
     .area-contents .inner{width: 1120px; margin: 0 auto;}
     .area-contents .list-result .title-result{padding-bottom: 15px; font-size: 24px; border-bottom: 1px solid #ccc;}
-    .area-contents .list-result .detail-result{display: flex; padding: 20px 0;}
+    .area-contents .list-result .detail-result{display: flex; padding: 20px 0;border: 1px lightpink solid;}
     .area-contents .list-result .detail-result .box-poster{ width: 200px; height: 250px; }
     .area-contents .list-result .detail-result .box-text{display: flex; flex-direction: column; flex: 1; justify-content: center;  margin-left: 100px;}
     .area-contents .list-result .detail-result .box-text h4{font-size: 20px;}
