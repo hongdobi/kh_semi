@@ -88,15 +88,9 @@
 		})
 	});
 	$("#helpCenter").click(e=>{
-		$.ajax({
-			url:"<%=request.getContextPath()%>/member/helpCenter",
-			type:"get",
-			data:{"memberId":"<%=loginMember.getMemberId()%>"},
-			success:function(data){
-				$("#result").html(data);
-			}
-		})
+		    location.href="<%=request.getContextPath()%>/admin/helpCenter";
 	});
+
 
 </script>
 
