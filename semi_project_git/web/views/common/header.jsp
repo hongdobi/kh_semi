@@ -20,7 +20,7 @@
 </head>
 <body>
     <header>
-        <h1><a href="/"><img src="http://tkfile.yes24.com/imgNew/common/pf-logo.png" alt="YES24티켓"></a></h1>
+        <h1><a href="<%=request.getContextPath() %>/"><img src="http://tkfile.yes24.com/imgNew/common/pf-logo.png" alt="YES24티켓"></a></h1>
         <ul>
             <li><a href="">콘서트</a></li>
             <li><a href="">뮤지컬</a></li>
