@@ -107,7 +107,16 @@ div.rk div.in>button{
 <script>
 
 $(function(){
-
+	
+	//이번달까지만 랭킹조회 가능하게 구성
+ 	let date=new Date();
+    let yyyy=date.getFullYear();
+    let mm=date.getMonth()+1>9?date.getMonth()+1:"0"+(date.getMonth()+1);
+    $("input#rankMonth").attr("max",yyyy+"-"+mm);
+    console.log($("#rankMonth").attr("max"));
+	
+	
+	
 	let month=null;
 	let cate=null;
 
