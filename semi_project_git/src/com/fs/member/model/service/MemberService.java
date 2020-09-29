@@ -33,7 +33,27 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
-	
+	public Member memberInfo(String memberId) {
+		Connection conn = getConnection();
+		Member m = dao.memberInfo(conn, memberId);
+		close(conn);
+		return m;
+		
+	}
+	public int updateMember(Member m) {
+		Connection conn=getConnection();
+		int result=dao.updateMember(conn, m);
+		if(result>0) {
+			System.out.println("회원정보 수정 성공");
+			commit(conn);
+		}
+		else {
+			System.out.println("회원정보 수정 실패");
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 
 }
