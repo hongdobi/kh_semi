@@ -10,15 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <%
-	Member m = (Member)session.getAttribute("loginMember");
+	
 	//해당 공연정보 가져오기
-	Performance perf = (Performance) request.getAttribute("performance");
+	Performance perf = (Performance)request.getAttribute("performance");
 	//공연 상세이미지 가져오기
 	List<PerfFile> fList = (List) request.getAttribute("fList");
 	//해당 공연 리뷰목록 가져오기
 	List<Review> rvList=(List)request.getAttribute("rvList");
 	//회원의 공연 관람일시 가져오기
-	Booking book=(Booking)request.getAttribute("book");
+	//Booking book=(Booking)request.getAttribute("book");
 	
 	
 	//공연번호로 카테고리만들기
@@ -252,12 +252,14 @@ $(function(){
             console.log($("input[type=date]").attr("min"));
 
         //리뷰작성 팝업창 (띄우기전 로그인, 공연관람여부 확인 함수 추가 필요)
-        $("#addBtn").on("click",e=>{
-			
+    <%--     $("#addBtn").on("click",e=>{
+        	if(loginMember!=null){
+	
              let review=open("<%=request.getContextPath()%>/review/reviewWrite?perfNo=<%=perf.getPerfNo()%>","","width=800, height=600");
-            
+    
+        	}            
                
-        });
+        }); --%>
        
 </script>
 <section>
@@ -331,11 +333,11 @@ $(function(){
 		<form action="">
 			<div id="cal">
 				<P>예매날짜를 선택해주세요</P>
-				<input type="date" name="day" max="">
+<%-- 				<input type="date" name="day" max="">
 				<%if (m != null && perf != null) {%>
 				<input type="hidden" value="<%=m.getMemberId()%>" name="memberId">
 				<input type="hidden" value="<%=perf.getPerfNo()%>" name="perfNo">
-				<%}%>
+				<%}%> --%>
 				<br>
 				<br>
 				<!-- <table>
@@ -417,7 +419,6 @@ $(function(){
 	<div id="review">
 		<div class="subTitle">
 			<h2>관람후기</h2>
-		<%-- 	<%if<loginMember!=null&&perf과람기록이 없으면.. 관람후기 등록 불가 %> --%>
 			<button id="addBtn">관람후기 등록</button>
 		</div>
 		<div>
@@ -464,6 +465,7 @@ $(function(){
 	<br>
 
 </section>
+
 <script>
 
 /*지도*/
@@ -483,24 +485,24 @@ var address='<%=perf.getPerfAddress()%>';
 // 주소로 좌표를 검색합니다
 geocoder.addressSearch(address, function(result, status) {
 
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
+// 정상적으로 검색이 완료됐으면 
+if (status === kakao.maps.services.Status.OK) {
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
+// 결과값으로 받은 위치를 마커로 표시합니다
+var marker = new kakao.maps.Marker({
+     map: map,
+     position: coords
+});
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=perf.getPerfLocation()%></div>'
-        });
-        infowindow.open(map, marker);
+// 인포윈도우로 장소에 대한 설명을 표시합니다
+var infowindow = new kakao.maps.InfoWindow({
+     content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=perf.getPerfLocation()%></div>'
+});
+infowindow.open(map, marker);
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
 });    

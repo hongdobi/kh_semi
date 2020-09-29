@@ -34,13 +34,12 @@ public class PerfViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//이전 페이지에서 포스터나 그림 클릭시 공연넘버를 넘겨줌
-//		String perfNo=(String)request.getAttribute("perfNo");
-		String perfNo="E1";//확인을 위한 임의 값
+		//이전 페이지에서 포스터 클릭시 공연넘버를 넘겨줌
+		String perfNo=(String)request.getParameter("perfNo");
 		
+		//공연정보, 상세페이지 가져오기
 		Performance perf=new PerfService().selectPerformance(perfNo);
 		List<PerfFile> fList=new PerfFileService().selectPerfFile(perfNo);		
-		
 		
 		int cPage;
 		try {
@@ -51,12 +50,13 @@ public class PerfViewServlet extends HttpServlet {
 		}
 		
 		int numPerPage=5;
-		
-		List<Review> rvList=new ReviewService().selectReview(cPage,numPerPage, perfNo);
+		//해당공연리뷰 블러오기
+		List<Review> rvList=new ReviewService().selectReview(cPage,numPerPage,perfNo);
+		//리뷰 데이터 수, 페이지 배분
 		int totalData=new ReviewService().selectReviewCount();
-		
 		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
 		
+		//페이지바구성
 		int pageBarSize=5; 
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;  
 		int pageEnd=pageNo+pageBarSize-1;
