@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.fs.model.vo.Member,com.fs.model.vo.Performance,com.fs.model.vo.Booking, java.sql.Date" %>	
-
+<%@ page import="com.fs.model.vo.Member,com.fs.model.vo.Performance,com.fs.model.vo.Booking, java.sql.Date, java.util.List" %>	
 
 <% 
-	Performance perf=(Performance)request.getAttribute("performance");
-	Booking bk=(Booking)request.getAttribute("Booking");
-	Date dateTime=(Date)request.getAttribute("dateTime");
-
+	String perfName=(String)request.getAttribute("perfName");
+	String perfNo=(String)request.getParameter("perfNo");
+	//List<Booking> bkList=(List)request.getAttribute("bkList");
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,10 +96,10 @@
             width: 30px;
             height: 30px;
             cursor: pointer;
-            background-image: url(img/ico-star-off.png);
+            background-image: url(image/ico-star-off.png);
         }
         .off{
-            background-image: url(img/ico-star-off.png); 
+            background-image: url(image/ico-star-off.png); 
 
             width: 30px;
             height: 30px;
@@ -116,7 +115,7 @@
 </head>
 <body>
 	<section>
-		<form action="<%=request.getContextPath() %>/perf/perfView.do" mothod="post">
+		<form action="<%=request.getContextPath() %>/review/reviewWirteEnd.do" mothod="post">
 			<div>
 				<br>
 				<table id="revieWrite">
