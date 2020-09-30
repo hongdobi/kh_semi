@@ -59,12 +59,14 @@ public class MemberDao {
 			
 			if(rs.next()) {
 				m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
 				m.setMemberId(rs.getString("member_id"));
 				m.setMemberPw(rs.getString("member_pw"));
 				m.setMemberName(rs.getString("member_name"));
 				m.setPhone(rs.getString("phone"));
 				m.setEmail(rs.getString("email"));
 				m.setBday(rs.getDate("bday"));
+				m.setManagerYn(rs.getString("manager_yn"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
