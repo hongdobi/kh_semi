@@ -2,13 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ page
 	import="com.fs.model.vo.Performance,com.fs.model.vo.PerfFile,com.fs.model.vo.Member, 
-	com.fs.model.vo.Review,com.fs.model.vo.Booking, java.util.List"%>
+	com.fs.model.vo.Review, java.util.List"%>
 
 <%@ include file="/views/common/header.jsp"%>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7a77949d7c0700b7221c0e03857ac002&libraries=services"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/style.css" rel="stylesheet">
 <%
 	
 	//해당 공연정보 가져오기
@@ -17,8 +17,7 @@
 	List<PerfFile> fList = (List) request.getAttribute("fList");
 	//해당 공연 리뷰목록 가져오기
 	List<Review> rvList=(List)request.getAttribute("rvList");
-	//회원의 공연 관람일시 가져오기
-	//Booking book=(Booking)request.getAttribute("book");
+
 	
 	
 	//공연번호로 카테고리만들기
@@ -244,23 +243,26 @@ $(function(){
 
 		    
         //오늘날짜 예약가능 최소 날짜로 넣기, 공연 마지막날짜도 불러와서 똑같이 할용
-         	let date=new Date();
+         	/* let date=new Date();
             let yyyy=date.getFullYear();
             let mm=date.getMonth()+1>9?date.getMonth()+1:"0"+(date.getMonth()+1);
             let dd=date.getDate()>9?date.getDate():"0"+date.getDate();
             $("input[type=date]").attr("min",yyyy+"-"+mm+"-"+dd);
             console.log($("input[type=date]").attr("min"));
-
+ */
         //리뷰작성 팝업창 (띄우기전 로그인, 공연관람여부 확인 함수 추가 필요)
-    <%--     $("#addBtn").on("click",e=>{
-        	if(loginMember!=null){
-	
-             let review=open("<%=request.getContextPath()%>/review/reviewWrite?perfNo=<%=perf.getPerfNo()%>","","width=800, height=600");
-    
-        	}            
+       $("#addBtn").on("click",e=>{
+        	 //if(loginMember!=null){
+             	const url="<%=request.getContextPath()%>/review/reviewWrite.do?perfNo=<%=perf.getPerfNo()%>"; 
+ 				const status="width=800px, height=600px, top=200px, left=500px";
+ 				open(url,"",status);
+        	//}else{
+        	//	alert('로그인후 이용이 가능합니다.');
+        			
+        	//}
                
-        }); --%>
-       
+        }); 
+});        
 </script>
 <section>
 
@@ -419,7 +421,13 @@ $(function(){
 	<div id="review">
 		<div class="subTitle">
 			<h2>관람후기</h2>
-			<button id="addBtn">관람후기 등록</button>
+			<form id="revform" action="reviewWrite">
+				<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>">
+				<input type="hidden" name="perfNo" value="<%=perf.getPerfNo()%>">
+				<input type="hidden" name="perfName" value="<%=perf.getPerfName() %>">
+			</form>
+			
+			<button id="addBtn" onclick="fn_addReview();">관람후기 등록</button>
 		</div>
 		<div>
 			<%if(rvList!=null){
@@ -468,7 +476,7 @@ $(function(){
 
 <script>
 
-/*지도*/
+/*카카오 지도API*/
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
