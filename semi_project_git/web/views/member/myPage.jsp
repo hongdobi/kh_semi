@@ -59,7 +59,7 @@
 	
 	$("#bookCheck").click(e=>{
 		$.ajax({
-			url:"<%=request.getContextPath()%>/member/bookCheck",
+			url:"<%=request.getContextPath()%>/member/bookChecker",
 			type:"get",
 			data:{"memberId":"<%=loginMember.getMemberId()%>"},
 			success:function(data){
