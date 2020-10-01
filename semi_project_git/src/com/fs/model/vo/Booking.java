@@ -11,7 +11,6 @@ public class Booking {
 	private int totalPrice;
 	private Date bookDate;
 	private String bookYn;
-	private String memberId;
 	private Date perfDate;//관람일자 멤버변수 추가
 	
 	
@@ -21,7 +20,7 @@ public class Booking {
 
 
 	public Booking(String bookNo, int memberNo, String perfNo, String nthPerf, int buyTicket, int totalPrice,
-			Date bookDate, String bookYn, String memberId, Date perfDate) {
+			Date bookDate, String bookYn, Date perfDate) {
 		super();
 		this.bookNo = bookNo;
 		this.memberNo = memberNo;
@@ -31,7 +30,6 @@ public class Booking {
 		this.totalPrice = totalPrice;
 		this.bookDate = bookDate;
 		this.bookYn = bookYn;
-		this.memberId = memberId;
 		this.perfDate = perfDate;
 	}
 
@@ -116,16 +114,6 @@ public class Booking {
 	}
 
 
-	public String getMemberId() {
-		return memberId;
-	}
-
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-
-
 	public Date getPerfDate() {
 		return perfDate;
 	}
@@ -140,7 +128,7 @@ public class Booking {
 	public String toString() {
 		return "Booking [bookNo=" + bookNo + ", memberNo=" + memberNo + ", perfNo=" + perfNo + ", nthPerf=" + nthPerf
 				+ ", buyTicket=" + buyTicket + ", totalPrice=" + totalPrice + ", bookDate=" + bookDate + ", bookYn="
-				+ bookYn + ", memberId=" + memberId + ", perfDate=" + perfDate + "]";
+				+ bookYn + ", perfDate=" + perfDate + "]";
 	}
 
 	
