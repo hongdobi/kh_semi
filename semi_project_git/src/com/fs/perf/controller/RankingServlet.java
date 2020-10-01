@@ -22,7 +22,7 @@ import com.fs.perfSsn.model.service.PerfSsnService;
 /**
  * Servlet implementation class RankingServlet
  */
-@WebServlet("/perf/RankList.do")
+@WebServlet("/perf/RankList")
 public class RankingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

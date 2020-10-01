@@ -131,7 +131,7 @@ $(function(){
 			else if(c=='전시') cate="E";
 			console.log(cate,month);
 		    $.ajax({
-			   	url:"<%=request.getContextPath()%>/perf/rankingEnd.do", 
+			   	url:"<%=request.getContextPath()%>/perf/rankingEnd", 
 			   	data:{"month":month,"cate":cate},
 			   	type:"post",
 			   	dataType:"json",
@@ -145,7 +145,7 @@ $(function(){
 		month=$("input#rankMonth").val();
 		console.log(cate,month);
 		    $.ajax({
-		   	url:"<%=request.getContextPath()%>/perf/rankingEnd.do", 
+		   	url:"<%=request.getContextPath()%>/perf/rankingEnd", 
 		   	data:{"month":month,"cate":cate},
 		   	type:"post",
 		   	dataType:"json",
@@ -161,7 +161,7 @@ $(function(){
 		for(let i=0;i<data.length;i++){
 			let div=$("<div class='rk'>");
 			let p=$("<h3>").html("TOP"+(i+1));
-			let a=$("<a>").attr("href","<%=request.getContextPath()%>/perf/perfView.do?perfNo="+data[i]["perfNo"]);
+			let a=$("<a>").attr("href","<%=request.getContextPath()%>/perf/perfView?perfNo="+data[i]["perfNo"]);
 			let img=$("<img id='poster'>").attr("src","<%=request.getContextPath()%>/image/perf/"+data[i]["perfNo"]+"/"+data[i]["poster"]);
 			let indiv=$("<div class='in'>").html("<h3>"+data[i]["perfName"]+"</h3>"+data[i]["start"]+"~"+data[i]["end"]+"<br>"+data[i]["location"]+"<br><br>"+"<button>예약하기</button>");
 			a.append(indiv);
@@ -214,16 +214,17 @@ $(function(){
 			else listB.add(list.get(i));
         }
 		for(int j=0;j<2;j++){
-        	List<Performance> rkList=null;
-        	if(j==0)rkList=listA;
-        	else rkList=listB;%>
+        	List<Performance> rkList=new ArrayList();
+        	if(j==0){rkList=listA;}
+        	else{rkList=listB;}%>
         	<div class="rkOut">
-        	<%for(int k=0;k<3;k++){
-        		Performance perf=rkList.get(k);%>
+        	<%for(int k=0;k<rkList.size();k++){ //랭킹순위가 6개가 안되더라도 오류나지 않도록 변경
+        		Performance perf=rkList.get(k);
+        		int a=k;%>
         		<div class="rk">
-					<h3>TOP <%=(j==0)?k+1:k+4 %></h3>
+					<h3>TOP <%=(j==0)?a+1:a+4 %></h3>
 					<img id="poster" src="<%=request.getContextPath()%>/image/perf/<%=perf.getPerfNo()%>/<%=perf.getPerfPoster()%>" alt="<%=request.getContextPath() %>/<%=perf.getPerfName() %>">
-					<a href="<%=request.getContextPath()%>/perf/perfView.do?perfNo=<%=perf.getPerfNo()%>">
+					<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=perf.getPerfNo()%>">
 						<div class="in">					
 							<h3><%=perf.getPerfName() %></h3>
 							<%=sdf.format(perf.getPerfStart()) %>~<%=sdf.format(perf.getPerfEnd()) %>
