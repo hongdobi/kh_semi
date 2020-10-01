@@ -311,7 +311,7 @@
     font-family:"Noto Sans KR";
     font-size: 1rem;
     font-weight: 300;
-    color:grey;
+    color:initial;
     letter-spacing: 0.1rem;
     -webkit-transition: border-color 0.2s ease-in-out;
     transition: border-color 0.2s ease-in-out;
