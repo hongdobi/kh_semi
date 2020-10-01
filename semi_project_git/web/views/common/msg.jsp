@@ -16,6 +16,7 @@
 <body>
 	<script>
 		alert('<%=msg%>');
+		<%=request.getAttribute("script")!=null? request.getAttribute("script"):""%>
 		location.replace('<%=request.getContextPath()%><%=loc%>');
 	</script>
 

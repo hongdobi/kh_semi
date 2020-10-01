@@ -1,13 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.fs.model.vo.Member" %>
-
 <%
 	//로그인 된 상태 LoginEndServlet에서 지정한 session값으로 불러오기
 	Member loginMember = (Member)session.getAttribute("loginMember");
-
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +21,7 @@
             <li><a href="">뮤지컬</a></li>
             <li><a href="">전시</a></li>
             <li><a href="">연극</a></li>
-            <li><a href="<%=request.getContextPath()%>/perf/RankList.do">랭킹</a></li>
+            <li><a href="<%=request.getContextPath()%>/perf/RankList">랭킹</a></li>
             <li><a href="">이벤트</a></li>
         </ul>
         <div>
