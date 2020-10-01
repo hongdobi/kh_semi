@@ -58,10 +58,9 @@ input[id*="answer"]:checked + label em {
             <li><a href="#a">회원정보</a></li>
           </ul>
         </div>
-      </div>  
-          
-          
-   <div id="faq-container">
+      </div>
+      
+      <div id="faq-container">
       <div id="tbl-FAQ">
          <%if (list != null) {
             for (FAQ f : list) {%>
@@ -72,6 +71,9 @@ input[id*="answer"]:checked + label em {
          }%>
       </div>
    </div>
+        
+          
+          
 <!-- </section>    -->
           
         
@@ -101,7 +103,11 @@ input[id*="answer"]:checked + label em {
 
 <div class="accordion">
         <h2>1:1 문의내역</h2>
-        <input type="button" value="1:1 문의하기">타입 radio 로 할지, checkbox로 할지 ? 
+        <input type="button" value="1:1 문의하기" onclick="fn_inquiry();">
+        <form action="" name="inquiry">
+        	<input type="hidden" name="<%=loginMember.getMemberId()%>">
+        </form>
+        
         <input type="checkbox" name="accordion" id="answer1" />
         <label for="answer1">컨텐츠 제목 부분</label>
         <div><p>여기에 추가된는 부분이 자주 묻는 질문의 답변 내용</p></div>

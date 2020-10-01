@@ -16,7 +16,7 @@ import com.fs.model.vo.Member;
 /**
  * Servlet implementation class EditMemberServlet
  */
-@WebServlet("/member/editMember")
+@WebServlet(name="editMember", urlPatterns="/member/editMember")
 public class EditMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

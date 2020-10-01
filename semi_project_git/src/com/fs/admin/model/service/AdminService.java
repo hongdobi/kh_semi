@@ -21,7 +21,6 @@ public class AdminService {
 		Connection conn = getConnection();
 		List<FAQ> list = dao.allFAQ(conn);
 		close(conn);
-		System.out.println("service"+list);
 		return list;
 	}
 

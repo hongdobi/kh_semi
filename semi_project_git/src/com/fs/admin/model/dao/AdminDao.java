@@ -44,7 +44,6 @@ public class AdminDao {
 				f.setFaqHashTag(rs.getString("faq_hashtag"));
 				list.add(f);
 			}
-			System.out.println("dao"+list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

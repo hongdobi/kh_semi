@@ -18,7 +18,7 @@ import com.fs.model.vo.Member;
  * Servlet implementation class LoginSignupEndServlet
  */
 //회원가입 페이지 서블릿, 클라이언트가 보낸 데이터를 DB에 저장하는 서블릿
-@WebServlet("/signupEnd")
+@WebServlet(name="signupEnd",urlPatterns="/signupEnd")
 public class SignupEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

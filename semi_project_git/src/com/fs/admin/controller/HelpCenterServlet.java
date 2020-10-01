@@ -35,8 +35,6 @@ public class HelpCenterServlet extends HttpServlet {
 		
 		List<FAQ> list = new AdminService().allFAQ();
 		
-		System.out.println("servlet"+list);
-		
 		request.setAttribute("FAQ", list);
 		
 		request.getRequestDispatcher("/views/admin/helpCenter.jsp").forward(request, response);
