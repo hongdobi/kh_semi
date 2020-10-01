@@ -8,7 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.fs.booking.model.service.BookingService;
+import com.fs.model.vo.Booking;
+import com.fs.model.vo.Member;
 import com.fs.model.vo.PerfFile;
 import com.fs.model.vo.Performance;
 import com.fs.model.vo.Review;
@@ -18,7 +22,7 @@ import com.fs.review.model.service.ReviewService;
 
 
 
-@WebServlet("/perf/perfView.do")
+@WebServlet("/perf/perfView")
 public class PerfViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,13 +38,24 @@ public class PerfViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session=request.getSession();
+		Member m=(Member)session.getAttribute("loginMember");
+		
+		int memberNo=0;
+		if(m!=null){
+			
+			memberNo=m.getMemberNo();
+		
+		}
+		
+		
 		//이전 페이지에서 포스터 클릭시 공연넘버를 넘겨줌
 		String perfNo=(String)request.getParameter("perfNo");
-		
 		//공연정보, 상세페이지 가져오기
 		Performance perf=new PerfService().selectPerformance(perfNo);
 		List<PerfFile> fList=new PerfFileService().selectPerfFile(perfNo);		
-		
+		List<Booking> bkList=new BookingService().selectBooking(perfNo, memberNo);
+
 		int cPage;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -52,6 +67,7 @@ public class PerfViewServlet extends HttpServlet {
 		int numPerPage=5;
 		//해당공연리뷰 블러오기
 		List<Review> rvList=new ReviewService().selectReview(cPage,numPerPage,perfNo);
+		
 		//리뷰 데이터 수, 페이지 배분
 		int totalData=new ReviewService().selectReviewCount();
 		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
@@ -67,7 +83,8 @@ public class PerfViewServlet extends HttpServlet {
 			pageBar+="<span>[이전]</span>"; 
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
-					+"/perf/perfView.do?cPage="+(pageNo-1)+"'>[이전]</a>";
+					
+					+"/perf/perfView?perfNo="+perfNo+"&cPage="+(pageNo-1)+"'>[이전]</a>";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)){
@@ -76,7 +93,7 @@ public class PerfViewServlet extends HttpServlet {
 				pageBar+="<span>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()
-				+"/perf/perfView.do?cPage="+pageNo+"'>"+pageNo+"</a>";
+				+"/perf/perfView?perfNo="+perfNo+"&cPage="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++; 
 		}
@@ -87,11 +104,12 @@ public class PerfViewServlet extends HttpServlet {
 	
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
-					+"/perf/perfView.do?cPage="+pageNo+"'>[다음]</a>";
+					+"/perf/perfView?perfNo="+perfNo+"&cPage="+pageNo+"'>[다음]</a>";
 		}
 		
 		request.setAttribute("performance", perf);
 		request.setAttribute("fList", fList);
+		request.setAttribute("bkList", bkList);
 		request.setAttribute("rvList",rvList);
 		request.setAttribute("pageBar", pageBar);
 		request.getRequestDispatcher("/views/perf/perfView.jsp").forward(request, response);

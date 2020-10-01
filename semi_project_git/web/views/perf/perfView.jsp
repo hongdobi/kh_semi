@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="com.fs.model.vo.Performance,com.fs.model.vo.PerfFile,com.fs.model.vo.Member, 
-	com.fs.model.vo.Review, java.util.List"%>
+	import="com.fs.model.vo.Performance,com.fs.model.vo.PerfFile,com.fs.model.vo.Member,com.fs.model.vo.Booking, 
+	com.fs.model.vo.Review, java.util.List, java.util.ArrayList"%>
 
 <%@ include file="/views/common/header.jsp"%>
 <script type="text/javascript"
@@ -17,8 +17,12 @@
 	List<PerfFile> fList = (List) request.getAttribute("fList");
 	//해당 공연 리뷰목록 가져오기
 	List<Review> rvList=(List)request.getAttribute("rvList");
-
 	
+	List<Booking>bkList=new ArrayList();
+	if(request.getAttribute("bkList")!=null){
+		bkList=(List)request.getAttribute("bkList");
+	}
+
 	
 	//공연번호로 카테고리만들기
 	String category = "";
@@ -233,9 +237,6 @@ div#pageBar{
 	text-align: center;
 }
 </style>
-
-
-
 <script>
 $(function(){
 
@@ -251,21 +252,42 @@ $(function(){
             console.log($("input[type=date]").attr("min"));
  */
         //리뷰작성 팝업창 (띄우기전 로그인, 공연관람여부 확인 함수 추가 필요)
-       $("#addBtn").on("click",e=>{
-        	 //if(loginMember!=null){
-             	const url="<%=request.getContextPath()%>/review/reviewWrite.do?perfNo=<%=perf.getPerfNo()%>"; 
- 				const status="width=800px, height=600px, top=200px, left=500px";
- 				open(url,"",status);
-        	//}else{
-        	//	alert('로그인후 이용이 가능합니다.');
-        			
-        	//}
-               
-        }); 
+      $("#addBtn").on("click",e=>{
+    	var m ="<%=loginMember%>"; 
+    	var size="<%=bkList.size()%>";
+    	if(m!=null&&size>=1){
+    		
+	        const url="<%=request.getContextPath()%>/review/reviewWrite"; 
+            const title="revform";
+            const status="width=800px, height=600px, top=100px, left=200px";
+ 			open("",title,status);
+ 			revform.action=url;
+	        revform.target=title;
+	        revform.method="post";
+	        revform.submit();  
+    	}else{
+    		
+        	alert('관람하신 회원만 이용이 가능합니다. 로그인했는지 확인해주세요');
+        	return;
+        }
+	}); 
+    
 });        
 </script>
+
+
+
 <section>
 
+	<form id="revform" name="revform">
+		<%int result=0;
+		if(loginMember!=null){
+			result=loginMember.getMemberNo();
+		}%>
+		<input type="hidden" id="memberNo" name="memberNo" value="<%=result%>">
+		<input type="hidden" id="perfNo" name="perfNo" value="<%=perf.getPerfNo()%>">
+		
+	</form> 
 	<div>
 		<p><%=category%></p>
 		<h1>
@@ -397,19 +419,15 @@ $(function(){
 	<hr>
 	<br>
 	<div id="mapBox">
-		<div class="subTitle">
-			<h2>오시는 길</h2>
-		</div>
+		<div class="subTitle"> <h2>오시는 길</h2> </div>
 		<div>
 			<p id="placeName"><%=perf.getPerfLocation()%></p>
 			<p id="address"><%=perf.getPerfAddress()%></p>
 			<br>
-			<!-- <div id="map" style="width: 500px; height: 400px;"></div> -->
 			<div class="mapWrap">
 				<div id="map" style="width: 70%; height: 400px;"></div>
 			</div>
 			<div id="coordXY"></div>
-
 		</div>
 		<div>
 			<a href="#cal">△예매하기</a>
@@ -421,47 +439,34 @@ $(function(){
 	<div id="review">
 		<div class="subTitle">
 			<h2>관람후기</h2>
-			<form id="revform" action="reviewWrite">
-				<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>">
-				<input type="hidden" name="perfNo" value="<%=perf.getPerfNo()%>">
-				<input type="hidden" name="perfName" value="<%=perf.getPerfName() %>">
-			</form>
-			
-			<button id="addBtn" onclick="fn_addReview();">관람후기 등록</button>
+			<button type="button" id="addBtn">관람후기 등록</button>
 		</div>
 		<div>
-			<%if(rvList!=null){
-				for(Review rv: rvList){%>
+		<%if(rvList.size()>0){
+			for(Review rv: rvList){%>
 			<div>
 				<div class="reviewInfo">
 					<span class="userId"><%=rv.getMemberId()%></span> <span class="date">관람일시:<%=rv.getRevDate() %></span>
-					
 					<span class="star">
 						<%for(int i=0;i<5;i++){
-							if(i<rv.getRevScore()){%>
-								★
-							<%}else{%>
-								☆
-							<%}
+							if(i<rv.getRevScore()){%>★<%}
+							else{%>☆<%}
 						} %>
 					</span>
 				</div>
-				<div class="reviewText">
-					<%=rv.getRevContent() %>
+				<div class="reviewText"><%=rv.getRevContent() %></div>
+			</div>
+				<br>
+			<%}%>
+				<br>	
+				<br>
+				<div id="pageBar">
+					<%=(String)request.getAttribute("pageBar")%>
 				</div>
-			</div>
-			<br>
-				<%}%>
-			<br>	
-			<br>
-			
-			<div id="pageBar">
-				<%=request.getAttribute("pageBar") %>
-			</div>
-			
-			<%}else{ %>
-				<div>등록된 리뷰가 없습니다.</div>
-			<%} %>
+				
+		<%}else{ %>
+			<div style="text-align:center; font-weight:bolder">등록된 리뷰가 없습니다.</div>
+		<%} %>
 		</div>
 		<br>
 		<div>
@@ -475,40 +480,39 @@ $(function(){
 </section>
 
 <script>
-
-/*카카오 지도API*/
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-
-var address='<%=perf.getPerfAddress()%>';
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch(address, function(result, status) {
-
-// 정상적으로 검색이 완료됐으면 
-if (status === kakao.maps.services.Status.OK) {
-
-var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-// 결과값으로 받은 위치를 마커로 표시합니다
-var marker = new kakao.maps.Marker({
-     map: map,
-     position: coords
-});
-
-// 인포윈도우로 장소에 대한 설명을 표시합니다
-var infowindow = new kakao.maps.InfoWindow({
-     content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=perf.getPerfLocation()%></div>'
-});
-infowindow.open(map, marker);
+	/*카카오 지도API*/
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+	
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	
+	var address='<%=perf.getPerfAddress()%>';
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch(address, function(result, status) {
+	
+	// 정상적으로 검색이 완료됐으면 
+	if (status === kakao.maps.services.Status.OK) {
+	
+	var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+	// 결과값으로 받은 위치를 마커로 표시합니다
+	var marker = new kakao.maps.Marker({
+	     map: map,
+	     position: coords
+	});
+	
+	// 인포윈도우로 장소에 대한 설명을 표시합니다
+	var infowindow = new kakao.maps.InfoWindow({
+	     content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=perf.getPerfLocation()%></div>'
+	});
+	infowindow.open(map, marker);
 
     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);

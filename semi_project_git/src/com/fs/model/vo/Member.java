@@ -18,6 +18,18 @@ public class Member {
 
 	
 
+	public Member(String memberId, String memberPw, String memberName, String phone, String email, Date bday) {
+		super();
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+		this.memberName = memberName;
+		this.phone = phone;
+		this.email = email;
+		this.bday = bday;
+	}
+
+
+
 	public Member(int memberNo, String memberId, String memberPw, String memberName, String phone, String email,
 			Date bday, String managerYn) {
 		super();
@@ -31,7 +43,7 @@ public class Member {
 		this.managerYn = managerYn;
 	}
 
-	
+
 
 	public int getMemberNo() {
 		return memberNo;
