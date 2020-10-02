@@ -10,10 +10,11 @@ import static com.fs.common.JDBCTemplate.close;
 
 public class BookingService {
 	private BookingDao dao=new BookingDao();
-						
-	public List<Booking> selectBooking(String perfNo, int memberNo) {
+	
+	//회원이 예약한 목록(오늘날짜이전에 관람한, 리뷰를 작성하지 않은)
+	public List<Booking> selectBookingRV(String perfNo, int memberNo) {
 		Connection conn=getConnection();
-		List<Booking> bkList=dao.selectBooking(conn,perfNo,memberNo);
+		List<Booking> bkList=dao.selectBookingRV(conn,perfNo,memberNo);
 		System.out.println("service옴"+bkList);
 									
 		close(conn);
