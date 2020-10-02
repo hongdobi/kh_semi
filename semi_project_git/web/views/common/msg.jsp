@@ -16,6 +16,9 @@
 <body>
 	<script>
 		alert('<%=msg%>');
+		<%if(request.getAttribute("opener")!=null){%>
+			location.replace('<%=request.getContextPath()%><%=request.getAttribute("opener")%>);
+		<%}%>
 		<%=request.getAttribute("script")!=null? request.getAttribute("script"):""%>
 		location.replace('<%=request.getContextPath()%><%=loc%>');
 	</script>

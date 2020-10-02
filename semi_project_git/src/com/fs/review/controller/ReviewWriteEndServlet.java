@@ -50,16 +50,19 @@ public class ReviewWriteEndServlet extends HttpServlet {
 		String msg="";
 		String loc="/review/reviewWrite?memberNo="+memberNo+"&perfNo="+perfNo; 
 		String script="";
+		String opener="";
+		
 		if(result>0){
 			msg="관람후기 등록 성공";
 			script="self.close()"; 
-			
+			opener="/review/reviewWrite?memberNo="+memberNo+"&perfNo="+perfNo;
 		}else {
 			msg="관람후기 등록실패";
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		request.setAttribute("script", script);
+		request.setAttribute("opener", opener);
 		
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
