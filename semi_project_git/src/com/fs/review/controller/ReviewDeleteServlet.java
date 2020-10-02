@@ -1,27 +1,25 @@
 package com.fs.review.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fs.model.vo.Review;
 import com.fs.review.model.service.ReviewService;
 
 /**
- * Servlet implementation class ReviewWriteServlet
+ * Servlet implementation class ReviewDelteServlet
  */
-@WebServlet("/review/reviewWirteEnd")
-public class ReviewWriteEndServlet extends HttpServlet {
+@WebServlet("/review/reviewDelete")
+public class ReviewDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewWriteEndServlet() {
+    public ReviewDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,38 +28,21 @@ public class ReviewWriteEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		Review rv=new Review();
-		
-		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
-		rv.setMemberNo(memberNo);
+		String bookNo=request.getParameter("bNo");
 		String perfNo=request.getParameter("perfNo");
-		rv.setPerfNo(perfNo);
-		rv.setRevContent(request.getParameter("reviewtext"));
-		int revScore=Integer.parseInt(request.getParameter("revScore"));
-		rv.setRevScore(revScore);
-		rv.setBookNo(request.getParameter("bookNo"));
-		
-		
-		System.out.println(rv);
-		
-		int result=new ReviewService().insertReview(rv);
+		int result=new ReviewService().deleteReview(bookNo);
 		
 		String msg="";
-		String loc="/review/reviewWrite?memberNo="+memberNo+"&perfNo="+perfNo; 
-		String script="";
+		String loc="/perf/perfView?perfNo="+perfNo; 
 		if(result>0){
-			msg="관람후기 등록 성공";
-			script="self.close()"; 
-			
+			msg="관람후기 삭제 성공";
 		}else {
-			msg="관람후기 등록실패";
+			msg="관람후기 삭제 실패";
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		request.setAttribute("script", script);
-		
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+	
 	}
 
 	/**

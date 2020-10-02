@@ -22,9 +22,9 @@ public class ReviewService {
 		
 	}
 	
-	public int selectReviewCount() {
+	public int selectReviewCount(String perfNo) {
 		Connection conn=getConnection();
-		int count=dao.selectReviewCount(conn);
+		int count=dao.selectReviewCount(conn,perfNo);
 		close(conn);
 		return count;
 	}
@@ -32,6 +32,14 @@ public class ReviewService {
 	public int insertReview(Review rv) {
 		Connection conn=getConnection();
 		int result=dao.insertReview(conn,rv);
+		if(result>0)commit(conn);
+		else rollback(conn);
+		return result;
+	}
+
+	public int deleteReview(String bookNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteReview(conn,bookNo);
 		if(result>0)commit(conn);
 		else rollback(conn);
 		return result;

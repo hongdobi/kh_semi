@@ -30,7 +30,7 @@ public class ReviewDao {
 	}
 	
 	
-	
+	//페이징처리해서 해당공연 리뷰 전체 불러오기
 	public List<Review> selectReview(Connection conn, int cPage, int numPerPage,String perfNo) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -52,6 +52,8 @@ public class ReviewDao {
 				rv.setRevScore(rs.getInt("REV_SCORE"));
 				rv.setRevDate(rs.getDate("REV_DATE"));
 				rv.setMemberId(rs.getString("MEMBER_ID"));
+				rv.setPerfDate(rs.getDate("DATE_TIME"));
+				rv.setBookNo(rs.getString("BOOK_NO"));
 				
 				
 				rvList.add(rv);
@@ -66,13 +68,14 @@ public class ReviewDao {
 		return rvList;
 	}
 
-
-	public int selectReviewCount(Connection conn) {
+	//페이징처리를 위한 해당 공연 리뷰 개수 가져오기
+	public int selectReviewCount(Connection conn,String perfNo) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(prop.getProperty("selectReviewCount"));
+			pstmt.setString(1, perfNo);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				result=rs.getInt(1);
@@ -85,7 +88,7 @@ public class ReviewDao {
 		}
 		return result;
 	}
-
+	//리뷰등록하기
 	public int insertReview(Connection conn, Review rv) {
 		PreparedStatement pstmt=null;
 		int result=0;
@@ -95,6 +98,24 @@ public class ReviewDao {
 			pstmt.setString(2, rv.getPerfNo());
 			pstmt.setString(3, rv.getRevContent());
 			pstmt.setInt(4, rv.getRevScore());
+			pstmt.setString(5,rv.getBookNo());
+			
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	//리뷰삭제하기
+	public int deleteReview(Connection conn, String bookNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("deleteReview"));
+			pstmt.setString(1, bookNo);
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
