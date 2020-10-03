@@ -121,5 +121,26 @@ public class MemberDao {
 			System.out.println("회원정보 DAO");
 		}return result;
 	}
+	
+	public String emailDuplicate(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String result = null;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("emailDuplicate"));
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+		
+	}
 
 }

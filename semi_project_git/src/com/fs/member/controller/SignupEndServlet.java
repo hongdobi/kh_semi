@@ -73,17 +73,19 @@ public class SignupEndServlet extends HttpServlet {
 		String msg = "";
 		String loc = "";
 		
+		
 		if(result>0) {
 			//회원등록 성공 -> 메시지 띄어주기 -> 메인으로 이동
 			msg = "오성티켓에 가입해주셔서 감사드립니다";
 		}else {
-			//회원등록 실패 -> 메시지 띄어주기 -> 메인으로 이동
+			//회원등록 실패 -> 메시지 띄어주기 -> 현재페이지 
 			msg = "회원등록을 다시 시도해주시기 바랍니다";
 		}
-		
+
 		//메시지 띄울 것 넣기 
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
+		
 		//화면 이동
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		

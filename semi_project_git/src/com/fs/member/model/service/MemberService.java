@@ -57,5 +57,14 @@ public class MemberService {
 		return result;
 	}
 	
+	//이메일 중복확인
+	public String emailDuplicate(String email) {
+		Connection conn = getConnection();
+		String result = dao.emailDuplicate(conn, email);
+		close(conn);
+		return result;
+	}
+
+	
 
 }
