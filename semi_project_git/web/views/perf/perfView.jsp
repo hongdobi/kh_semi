@@ -48,9 +48,7 @@ section {
 }
 
 /* a태그 밑줄없애기 */
-a {
-	text-decoration: none;
-}
+a {text-decoration: none;}
 /* 구분선 */
 section hr {
 	width: 100%;
@@ -87,14 +85,23 @@ div.perfInfo>div>table {
 
 div.perfInfo>div>table th {
 	width: 200px;
-	font-size: 18px;
+	font-size: 15px;
 	text-align: left;
 }
 
 div.perfInfo>div>table td {
 	padding-left: 20px;
 	font-size: 20px;
-	font-family: Noto Sans KR;
+	
+}
+div.perfInfo ul {
+	padding: 0;
+	padding-left: 0;
+	margin: 0;
+}
+div.perfInfo ul>li {
+	padding-bottom: 10px;
+	font-size:18px;
 }
 /* 예매가능일자 */
 div#cal {
@@ -192,10 +199,10 @@ div#map {
 }
 
 /* 리뷰 */
-div#review>div:nth-of-type(2) {
-	padding: 30px;
+div#review li {
+	padding: 5px;
 }
-
+/*관람후기버튼*/
 button#addBtn {
 	width: 120px;
 	height: 50px;
@@ -204,74 +211,105 @@ button#addBtn {
 	color: white;
 	border: none;
 }
-
+/*리뷰출력시 상단*/
 div.reviewInfo>span {
-	margin-right: 30px;
+	margin-right: 20px;
+	line-height: 30px;
 }
-
 span.star {
 	color: lightcoral;
 	font-size: 20px;
+	letter-spacing: -3px;
 }
-
+/*리뷰글*/
 div.reviewText {
 	font-family: Nato Sans 300;
 }
-
+/*리뷰수정, 삭제버튼*/
+button.del,button.update{
+	font-size:10px;
+	border: 1px lightcoral solid;
+	background-color:white;
+	border-radius:10px;
+	
+}
+#up,#cc{
+	font-size:10px;
+	color:white;
+	border: 1px lightcoral solid;
+	background-color:lightcoral;
+	border-radius:10px;
+}
 /* 예매하기버튼으로 빠른이동버튼 */
 a[href="#cal"] {
 	margin-right: 20px;
 	color: lightcoral;
 }
-
-div.perfInfo ul {
-	padding: 0;
-	padding-left: 0;
-	margin: 0;
-}
-
-div.perfInfo ul>li {
-	padding-bottom: 10px;
-}
 div#pageBar{
 	text-align: center;
 }
+
 </style>
 <script>
 $(function(){
 
-		 //예매하기 버튼 누르면 나이 체크후 예매창 팝업 띄우기   
+	//예매하기 버튼 누르면 나이 체크후 예매창 팝업 띄우기   
 
 		    
-        //오늘날짜 예약가능 최소 날짜로 넣기, 공연 마지막날짜도 불러와서 똑같이 할용
+	//오늘날짜 예약가능 최소 날짜로 넣기, 공연 마지막날짜도 불러와서 똑같이 할용
          	/* let date=new Date();
             let yyyy=date.getFullYear();
             let mm=date.getMonth()+1>9?date.getMonth()+1:"0"+(date.getMonth()+1);
             let dd=date.getDate()>9?date.getDate():"0"+date.getDate();
             $("input[type=date]").attr("min",yyyy+"-"+mm+"-"+dd);
             console.log($("input[type=date]").attr("min"));
- */
-        //리뷰작성 팝업창 (띄우기전 로그인, 공연관람여부 확인 함수 추가 필요)
-      $("#addBtn").on("click",e=>{
-    	var m ="<%=loginMember%>"; 
-    	var size="<%=bkList.size()%>";
-    	if(m!=null&&size>=1){
-    		
-	        const url="<%=request.getContextPath()%>/review/reviewWrite"; 
-            const title="revform";
-            const status="width=800px, height=600px, top=100px, left=200px";
- 			open("",title,status);
- 			revform.action=url;
-	        revform.target=title;
-	        revform.method="post";
-	        revform.submit();  
-    	}else{
-    		
-        	alert('관람하신 회원만 이용이 가능합니다. 로그인했는지 확인해주세요');
-        	return;
-        }
-	}); 
+		 */
+		 
+	//리뷰작성 팝업창 (띄우기전 로그인, 공연관람여부 확인 함수 추가 필요)
+	$("#addBtn").on("click",e=>{
+        <%if(loginMember!=null){%>
+        	<%if(bkList.size()>0){%>
+	        	const url="<%=request.getContextPath()%>/review/reviewWrite"; 
+	            const title="revform";
+	            const status="width=800px, height=600px, top=100px, left=200px";
+	 			open("",title,status);
+	 			revform.action=url;
+		        revform.target=title;
+		        revform.method="post";
+		        revform.submit(); 
+        	<%}else{%>
+	        	alert('작성할 리뷰가 없습니다. 관람 후에 작성이 가능합니다.');
+	        	return;	
+        	<%}
+         }else{%>
+	        alert('로그인 후 이용가능합니다.');
+	    	return;
+		<%}%>
+    });
+ 
+ 	//리뷰에서 리뷰 삭제버튼클릭시 
+	$(".del").on("click",e=>{
+		let bNo=$(e.target).parent().children("input[name=bNo]").val();
+		console.log(bNo);
+		 let result=confirm("해당 관람후기를 삭제하시겠습니까?");
+         if(result==false){
+             return false;
+         }else{
+        	 location.replace("<%=request.getContextPath()%>/review/reviewDelete?bNo="+bNo+"&perfNo=<%=perf.getPerfNo()%>");
+         }
+		
+  	}); 
     
+    $(".update").one("click",e=>{
+    	
+    	let bNo=$(e.target).parent().children("input[name=bNo]").val();
+    	const url="<%=request.getContextPath()%>/review/reviewUpdate?bNo="+bNo+"&perfName=<%=perf.getPerfName()%>"; 
+        const status="width=800px, height=600px, top=100px, left=200px";
+		open(url,"",status);
+
+  	});
+   
+
 });        
 </script>
 
@@ -286,7 +324,6 @@ $(function(){
 		}%>
 		<input type="hidden" id="memberNo" name="memberNo" value="<%=result%>">
 		<input type="hidden" id="perfNo" name="perfNo" value="<%=perf.getPerfNo()%>">
-		
 	</form> 
 	<div>
 		<p><%=category%></p>
@@ -441,22 +478,39 @@ $(function(){
 			<h2>관람후기</h2>
 			<button type="button" id="addBtn">관람후기 등록</button>
 		</div>
-		<div>
+		<ul>
 		<%if(rvList.size()>0){
 			for(Review rv: rvList){%>
-			<div>
+			<li id="reviewResult">
 				<div class="reviewInfo">
-					<span class="userId"><%=rv.getMemberId()%></span> <span class="date">관람일시:<%=rv.getRevDate() %></span>
+					<span class="userId"><%=rv.getMemberId()%></span> 
+					<span class="revDate"><%=rv.getRevDate()%></span> 
 					<span class="star">
 						<%for(int i=0;i<5;i++){
 							if(i<rv.getRevScore()){%>★<%}
 							else{%>☆<%}
 						} %>
 					</span>
+					<span class="perfDate">(관람일시:<%=rv.getPerfDate() %>)</span>
+					<span>
+					<%if(loginMember!=null){
+						 if(loginMember.getManagerYn().equals("Y")){ %>
+						 	<input type="hidden" name="bNo" value="<%=rv.getBookNo() %>">
+							<%if(loginMember.getMemberNo()==rv.getMemberNo()){ %>
+								<button class="update">수정</button>
+							<%} %>
+							<button class="del">삭제</button>
+						<%}else if(loginMember.getMemberNo()==rv.getMemberNo()){%>
+							<input type="hidden" id="bNo" name="bNo" value="<%=rv.getBookNo() %>">
+							<button class="update">수정</button> <button class="del">삭제</button>
+							
+						<%}%>
+					 <%} %>
+					</span>
 				</div>
 				<div class="reviewText"><%=rv.getRevContent() %></div>
-			</div>
-				<br>
+			</li>
+				
 			<%}%>
 				<br>	
 				<br>
@@ -467,7 +521,7 @@ $(function(){
 		<%}else{ %>
 			<div style="text-align:center; font-weight:bolder">등록된 리뷰가 없습니다.</div>
 		<%} %>
-		</div>
+		</ul>
 		<br>
 		<div>
 			<a href="#cal">△예매하기</a>
@@ -510,7 +564,7 @@ $(function(){
 	
 	// 인포윈도우로 장소에 대한 설명을 표시합니다
 	var infowindow = new kakao.maps.InfoWindow({
-	     content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=perf.getPerfLocation()%></div>'
+	     content: '<div style="width:150px;text-align:center;padding:6px 0;font-size:10px;"><%=perf.getPerfLocation()%></div>'
 	});
 	infowindow.open(map, marker);
 

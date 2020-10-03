@@ -43,18 +43,15 @@ public class PerfViewServlet extends HttpServlet {
 		
 		int memberNo=0;
 		if(m!=null){
-			
 			memberNo=m.getMemberNo();
-		
 		}
-		
 		
 		//이전 페이지에서 포스터 클릭시 공연넘버를 넘겨줌
 		String perfNo=(String)request.getParameter("perfNo");
 		//공연정보, 상세페이지 가져오기
 		Performance perf=new PerfService().selectPerformance(perfNo);
 		List<PerfFile> fList=new PerfFileService().selectPerfFile(perfNo);		
-		List<Booking> bkList=new BookingService().selectBooking(perfNo, memberNo);
+		List<Booking> bkList=new BookingService().selectBookingRV(perfNo, memberNo);
 
 		int cPage;
 		try {
@@ -69,7 +66,7 @@ public class PerfViewServlet extends HttpServlet {
 		List<Review> rvList=new ReviewService().selectReview(cPage,numPerPage,perfNo);
 		
 		//리뷰 데이터 수, 페이지 배분
-		int totalData=new ReviewService().selectReviewCount();
+		int totalData=new ReviewService().selectReviewCount(perfNo);
 		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
 		
 		//페이지바구성
@@ -84,7 +81,7 @@ public class PerfViewServlet extends HttpServlet {
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
 					
-					+"/perf/perfView?perfNo="+perfNo+"&cPage="+(pageNo-1)+"'>[이전]</a>";
+					+"/perf/perfView?perfNo="+perfNo+"&cPage="+(pageNo-1)+"#review'>[이전]</a>";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)){
@@ -93,9 +90,9 @@ public class PerfViewServlet extends HttpServlet {
 				pageBar+="<span>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()
-				+"/perf/perfView?perfNo="+perfNo+"&cPage="+pageNo+"'>"+pageNo+"</a>";
+				+"/perf/perfView?perfNo="+perfNo+"&cPage="+pageNo+"#review'>"+pageNo+"</a>";
 			}
-			pageNo++; 
+			pageNo++;
 		}
 		
 		
@@ -104,7 +101,7 @@ public class PerfViewServlet extends HttpServlet {
 	
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
-					+"/perf/perfView?perfNo="+perfNo+"&cPage="+pageNo+"'>[다음]</a>";
+					+"/perf/perfView?perfNo="+perfNo+"&cPage="+pageNo+"#review'>[다음]</a>";
 		}
 		
 		request.setAttribute("performance", perf);
