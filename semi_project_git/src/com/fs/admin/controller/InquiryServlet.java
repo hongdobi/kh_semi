@@ -1,4 +1,4 @@
-package com.fs.member.controller;
+package com.fs.admin.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class HelpCenterServlet
+ * Servlet implementation class InquiryServlet
  */
-@WebServlet("/member/helpCenter")
-public class HelpCenterServlet extends HttpServlet {
+//1:1문의 화면으로 페이지 전환용 
+@WebServlet("/admin/inquiry")
+public class InquiryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HelpCenterServlet() {
+    public InquiryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +27,9 @@ public class HelpCenterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/member/helpCenter.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("/views/admin/inquiry.jsp").forward(request, response);
+	
 	}
 
 	/**
