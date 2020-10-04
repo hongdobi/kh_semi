@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="com.fs.model.vo.Performance,com.fs.model.vo.PerfSsn,java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
+	import="com.fs.model.vo.Performance,com.fs.model.vo.PerfSsn,java.util.List,java.util.ArrayList,java.text.SimpleDateFormat, java.text.DecimalFormat" %>
 <%@ include file="/views/common/header.jsp"%>
 <% 
 	List <Performance>list=(List)request.getAttribute("list");
+
+	int total=Integer.parseInt(request.getAttribute("total").toString());
 	SimpleDateFormat sdf=new SimpleDateFormat("MM월 dd일");
 %>
 <script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
@@ -102,7 +104,15 @@ div.rk div.in>button{
 .rk:hover .in{
   opacity:0.9;
 }
-
+/*예매 퍼센트*/
+div.count{
+	font-size:20px;
+	line-height:20px;
+	width:150px;
+	margin:auto;
+	color: yellow;
+	margin-top:10px;
+}
 </style>
 <script>
 
@@ -164,6 +174,8 @@ $(function(){
 			let a=$("<a>").attr("href","<%=request.getContextPath()%>/perf/perfView?perfNo="+data[i]["perfNo"]);
 			let img=$("<img id='poster'>").attr("src","<%=request.getContextPath()%>/image/perf/"+data[i]["perfNo"]+"/"+data[i]["poster"]);
 			let indiv=$("<div class='in'>").html("<h3>"+data[i]["perfName"]+"</h3>"+data[i]["start"]+"~"+data[i]["end"]+"<br>"+data[i]["location"]+"<br><br>"+"<button>예약하기</button>");
+			let countDiv=$("<div class='count'>").html((parseInt(data[i]["count"])/parseInt(data[i]["total"])*100).toFixed(2)+"%");
+			indiv.append(countDiv);
 			a.append(indiv);
 			div.append(p);
 			div.append(img);
@@ -230,7 +242,13 @@ $(function(){
 							<%=sdf.format(perf.getPerfStart()) %>~<%=sdf.format(perf.getPerfEnd()) %>
 							<br>
 							<%=perf.getPerfLocation()%><br><br>
-							<button>예약하기</button>						
+							<button>예약하기</button><br>
+							<div class="count">
+							<!-- 소수점 두자리까짐만 표시 -->
+							<% DecimalFormat df = new DecimalFormat("0.##");%>
+							<%double c=(perf.getPerfCount());%>
+							<%=df.format(c/total*100)%>% 
+							</div>						
 						</div>
 					</a>
 				</div>

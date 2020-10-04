@@ -44,7 +44,8 @@ public class RankingServlet extends HttpServlet {
 		String cate="ALL";
 
 		List <Performance>list=new PerfSsnService().rank(month,cate);
-		
+		int total=new PerfSsnService().ticketTotal(month, cate);
+		request.setAttribute("total", total);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/views/perf/perfRank.jsp").forward(request, response);;
 	}

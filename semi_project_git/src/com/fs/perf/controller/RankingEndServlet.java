@@ -51,7 +51,7 @@ public class RankingEndServlet extends HttpServlet {
 
 		
 		List <Performance>list=new PerfSsnService().rank(month,cate);
-		
+		int total=new PerfSsnService().ticketTotal(month, cate);
 		JSONArray arr=new JSONArray();
 		JSONObject j;
 		if(list!=null) {
@@ -64,7 +64,8 @@ public class RankingEndServlet extends HttpServlet {
 				j.put("end",sdf.format(perf.getPerfEnd()));
 				j.put("location",perf.getPerfLocation()); 
 				j.put("poster",perf.getPerfPoster());
-				j.put("count",perf.getPerfCount()); 
+				j.put("count",perf.getPerfCount());
+				j.put("total",total);
 				arr.add(j);
 			}
 		}
