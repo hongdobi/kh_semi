@@ -14,10 +14,12 @@ import com.fs.booking.model.service.BookingService;
 import com.fs.model.vo.Booking;
 import com.fs.model.vo.Member;
 import com.fs.model.vo.PerfFile;
+import com.fs.model.vo.PerfSsn;
 import com.fs.model.vo.Performance;
 import com.fs.model.vo.Review;
 import com.fs.perf.model.service.PerfService;
 import com.fs.perfFile.model.service.PerfFileService;
+import com.fs.perfSsn.model.service.PerfSsnService;
 import com.fs.review.model.service.ReviewService;
 
 
@@ -48,11 +50,13 @@ public class PerfViewServlet extends HttpServlet {
 		
 		//이전 페이지에서 포스터 클릭시 공연넘버를 넘겨줌
 		String perfNo=(String)request.getParameter("perfNo");
-		//공연정보, 상세페이지 가져오기
+		//공연정보, 상세페이지 가져오기,해당 공연회차정보가져오기
 		Performance perf=new PerfService().selectPerformance(perfNo);
 		List<PerfFile> fList=new PerfFileService().selectPerfFile(perfNo);		
 		List<Booking> bkList=new BookingService().selectBookingRV(perfNo, memberNo);
-
+		//공연 날짜만 가져오기
+		List dateList=new PerfSsnService().selectDateTime(perfNo);		
+		System.out.println("servlet"+dateList);
 		int cPage;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -105,6 +109,7 @@ public class PerfViewServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("performance", perf);
+		request.setAttribute("dateList", dateList);
 		request.setAttribute("fList", fList);
 		request.setAttribute("bkList", bkList);
 		request.setAttribute("rvList",rvList);
