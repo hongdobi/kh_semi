@@ -14,7 +14,6 @@ import com.fs.booking.model.service.BookingService;
 import com.fs.model.vo.Booking;
 import com.fs.model.vo.Member;
 import com.fs.model.vo.PerfFile;
-import com.fs.model.vo.PerfSsn;
 import com.fs.model.vo.Performance;
 import com.fs.model.vo.Review;
 import com.fs.perf.model.service.PerfService;

@@ -1,4 +1,4 @@
-package com.fs.perf.controller;
+package com.fs.perfSsn.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

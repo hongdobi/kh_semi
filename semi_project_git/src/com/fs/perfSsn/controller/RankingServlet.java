@@ -1,4 +1,4 @@
-package com.fs.perf.controller;
+package com.fs.perfSsn.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -11,12 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import com.fs.model.vo.PerfSsn;
 import com.fs.model.vo.Performance;
-import com.fs.perf.model.service.PerfService;
 import com.fs.perfSsn.model.service.PerfSsnService;
 
 /**
