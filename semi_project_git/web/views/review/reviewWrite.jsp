@@ -175,9 +175,9 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
 						<th>작성내용</th>
 						<td>
 							<%if(revUpdate!=null){ %>
-								<textarea name="reviewtext" id="reviewtext" cols="80" rows="20" resize=none maxlength=300 required><%=revUpdate.getRevContent() %></textarea>
+								<textarea name="reviewtext" id="reviewtext" cols=80 rows=10 resize=none maxlength=250 required><%=revUpdate.getRevContent() %></textarea>
 							<%}else{ %>
-								<textarea name="reviewtext" id="reviewtext" cols="80" rows="20" resize=none maxlength=300 placeholder=" 작성시 300자 이내로 적어주세요." required></textarea>
+								<textarea name="reviewtext" id="reviewtext" cols=80 rows=10 resize=none maxlength=250 placeholder=" 작성시  250자 이내로 적어주세요." required></textarea>
 							<%} %>
 						</td>
 					</tr>
