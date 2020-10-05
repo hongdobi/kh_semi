@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fs.booking.model.service.BookingService;
 import com.fs.model.vo.Booking;
 
 /**
  * Servlet implementation class ReviewWriteServlet
  */
-@WebServlet("/review/reviewWrite")
+@WebServlet("/review/reviewWrite.do")
 public class ReviewWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,21 +31,17 @@ public class ReviewWriteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		/*
-		 * String memberNo=request.getParameter("memberNo");
-		 * 
-		 * String result=new MemberService().selectMemberId(userId);
-		 * 
-		 * request.setAttribute("result",result);
-		 * request.getRequestDispatcher("/views/member/checkIdDuplicate.jsp").forward(
-		 * request, response);
-		 */
-//		String perfNo=request.getParameter("perfNo");
-//		String memberId=request.getParameter("memberId");
-//		Booking book=new BookingSevice().selectBooking(memberId);
-//		request.setAttribute("perfNo", perfNo);
-//		request.setAttribute("Book", book);
-		request.getRequestDispatcher("/views/perf/reviewWrite.jsp").forward(request, response);
+	
+		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
+		String perfNo=request.getParameter("perfNo");
+		String perfName=request.getParameter("perfName");
+		//회원번호랑, 공연번호로 회원이 관람한 공연 내역 불러오기
+		//List<Booking> bkList=new BookingService().selectBooking("perfNo","memberNo");
+				
+		
+		request.setAttribute("perfName", perfName);
+//		request.setAttribute("bkList", bkList);
+		request.getRequestDispatcher("/views/review/reviewWrite.jsp").forward(request, response);
 		
 	}
 

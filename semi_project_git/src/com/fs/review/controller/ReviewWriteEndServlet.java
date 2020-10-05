@@ -14,7 +14,7 @@ import com.fs.review.model.service.ReviewService;
 /**
  * Servlet implementation class ReviewWriteServlet
  */
-@WebServlet("/review/reviewWirteEnd")
+@WebServlet("/review/reviewWirteEnd.do")
 public class ReviewWriteEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
