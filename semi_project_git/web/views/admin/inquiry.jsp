@@ -73,7 +73,8 @@
         </div>
         <br>
         <div>
-          <input type="hidden" value="<%=loginMember.getMemberNo()%>" name="memberNo">
+        
+          <input type="hidden" value="<%=loginMember.getMemberNo() %>" name="memberNo">
           <input type="button" value="닫기" onclick="self.close();"/>
           <input type="submit" value="등록"/>
         </div>

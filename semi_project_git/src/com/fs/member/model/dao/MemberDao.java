@@ -27,7 +27,7 @@ public class MemberDao {
 	
 	public int insertMember(Connection conn, Member m) {
 		PreparedStatement pstmt = null;
-		int result = 0;
+		int result = 0; 
 		
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("insertMember"));
@@ -59,7 +59,7 @@ public class MemberDao {
 			
 			if(rs.next()) {
 				m = new Member();
-				m.setMemberNo(rs.getString("member_no"));
+				m.setMemberNo(rs.getInt("member_no"));
 				m.setMemberId(rs.getString("member_id"));
 				m.setMemberPw(rs.getString("member_pw"));
 				m.setMemberName(rs.getString("member_name"));
