@@ -116,6 +116,7 @@ input[id*="answer"]:checked + label em {
         <div><p>여기에 추가된는 부분이 자주 묻는 질문의 답변 내용</p></div>
       </div>
       </div>
-    </section> -->
+    </section>
     
+
    <%@ include file="/views/common/footer.jsp" %>
