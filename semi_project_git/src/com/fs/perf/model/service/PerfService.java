@@ -26,6 +26,11 @@ public class PerfService {
 		close(conn);
 		return perf;
 	}
-	
+	public String findPerfName(String perfNo) {
+		Connection conn = getConnection();
+		String perfName = dao.findPerfName(conn, perfNo);
+		close(conn);
+		return perfName;
+	}
 
 }

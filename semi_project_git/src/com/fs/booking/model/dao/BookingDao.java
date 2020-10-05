@@ -44,17 +44,16 @@ public class BookingDao {
 	 * 
 	 * }
 	 */
-	@SuppressWarnings("null")
-	public Booking findBooking(Connection conn, int memberNo) {
+	public List<Booking> findBooking(Connection conn, int memberNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Booking b = null;
+		List<Booking> list = new ArrayList();
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("findBookingByMemNo"));
 			pstmt.setInt(1, memberNo);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				System.out.println("여기까지 괜찮");
+			while(rs.next()) {
+				Booking b = new Booking();
 				b.setBookNo(rs.getNString("book_no"));
 				b.setMemberNo(rs.getInt("member_no"));
 				b.setPerfNo(rs.getNString("perf_no"));
@@ -62,7 +61,8 @@ public class BookingDao {
 				b.setBuyTicket(rs.getInt("buy_ticket"));
 				b.setTotalPrice(rs.getInt("total_price"));
 				b.setBookDate(rs.getDate("book_date"));
-				b.setBookYn(rs.getNString("book_yn"));				
+				b.setBookYn(rs.getNString("book_yn"));
+				list.add(b);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -70,7 +70,7 @@ public class BookingDao {
 			close(rs);
 			close(pstmt);
 		}
-		return b;
+		return list;
 		
 	}
 }

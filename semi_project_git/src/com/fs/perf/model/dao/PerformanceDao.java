@@ -98,9 +98,26 @@ private Properties prop = new Properties();
 		}
 		return perf;
 	}
-
-
-
-
+	public String findPerfName(Connection conn,String perfNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Performance perf = null;
+		String perfName = "";
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("findPerfName"));
+			pstmt.setString(1, perfNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				perfName += rs.getNString("perf_name");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			System.out.println("performanceDao" + perfName);
+			close(rs);
+			close(pstmt);
+		}
+		return perfName;
+	}
 	
 }

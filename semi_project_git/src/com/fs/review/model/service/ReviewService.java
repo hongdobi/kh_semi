@@ -36,4 +36,11 @@ public class ReviewService {
 		else rollback(conn);
 		return result;
 	}
+	public List<Review> myReview(int memberNo){
+		Connection conn=getConnection();
+		List<Review>rvList=dao.myReview(conn,memberNo);
+		close(conn);
+		return rvList;
+		
+	}
 }

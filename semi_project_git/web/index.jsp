@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ko">
-
+ -->
 <body>
 	<%@ include file="/views/common/header.jsp" %>
     <div class="container">

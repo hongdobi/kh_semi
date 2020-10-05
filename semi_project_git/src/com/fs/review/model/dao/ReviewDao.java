@@ -103,4 +103,32 @@ public class ReviewDao {
 		}
 		return result;
 	}
+	public List<Review> myReview(Connection conn, int memberNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Review> rvList=new ArrayList();
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("myReview"));
+			
+			pstmt.setInt(1, memberNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Review rv=new Review();
+				rv.setMemberNo(rs.getInt("MEMBER_NO"));
+				rv.setPerfNo(rs.getString("PERF_NO"));
+				rv.setRevContent(rs.getString("REV_CONTENT"));
+				rv.setRevScore(rs.getInt("REV_SCORE"));
+				rv.setRevDate(rs.getDate("REV_DATE"));
+				
+				rvList.add(rv);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return rvList;
+	}
 }

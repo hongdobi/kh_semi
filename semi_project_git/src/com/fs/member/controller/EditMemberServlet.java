@@ -35,7 +35,7 @@ public class EditMemberServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		Member m = new Member();
 		m.setMemberId(request.getParameter("memberId"));
-		m.setMemberPw(request.getParameter("memberPw"));
+		m.setMemberPw(request.getParameter("newPw"));
 		m.setMemberName(request.getParameter("memberName"));
 		m.setPhone(request.getParameter("Phone"));
 		m.setEmail(request.getParameter("Email"));		
