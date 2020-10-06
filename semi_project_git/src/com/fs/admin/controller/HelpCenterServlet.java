@@ -33,7 +33,9 @@ public class HelpCenterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		List<FAQ> list = new AdminService().allFAQ();
+		String keyword = request.getParameter("keyword");
+		List<FAQ> list = new AdminService().allFAQ(keyword);
+		System.out.println("servlet"+list);
 		
 		request.setAttribute("FAQ", list);
 		
