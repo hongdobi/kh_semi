@@ -56,6 +56,20 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	public String memberNo(String memberId) {
+		Connection conn = getConnection();
+		String memberNo = dao.memberNo(conn, memberId);
+		if(memberNo!=null) {
+			System.out.println("회원번호 확보");
+			commit(conn);
+		}
+		else {
+			System.out.println("회원정보 확보 실패");
+			rollback(conn);
+		}
+		close(conn);
+		return memberNo;
+	}
 	
 	//이메일 중복확인
 	public String emailDuplicate(String email) {

@@ -3,7 +3,6 @@ package com.fs.model.vo;
 import java.sql.Date;
 
 public class Member {
-	
 	private int memberNo;
 	private String memberId;
 	private String memberPw;
@@ -11,6 +10,7 @@ public class Member {
 	private String phone;
 	private String email;
 	private Date bday;
+	private String managerYn;
 	
 	public Member() {
 		// TODO Auto-generated constructor stub
@@ -30,8 +30,6 @@ public class Member {
 		this.bday = bday;
 	}
 
-
-
 	public Member(String memberId, String memberPw, String memberName, String phone, String email, Date bday) {
 		super();
 		this.memberId = memberId;
@@ -42,6 +40,18 @@ public class Member {
 		this.bday = bday;
 	}
 
+	public Member(int memberNo, String memberId, String memberPw, String memberName, String phone, String email,
+			Date bday, String managerYn) {
+		super();
+		this.memberNo = memberNo;
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+		this.memberName = memberName;
+		this.phone = phone;
+		this.email = email;
+		this.bday = bday;
+		this.managerYn = managerYn;
+	}
 
 
 	public int getMemberNo() {
@@ -127,12 +137,27 @@ public class Member {
 	}
 
 
+	public String getManagerYn() {
+		return managerYn;
+	}
+
+
+
+	public void setManagerYn(String managerYn) {
+		this.managerYn = managerYn;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberName="
-				+ memberName + ", phone=" + phone + ", email=" + email + ", bday=" + bday + "]";
+				+ memberName + ", phone=" + phone + ", email=" + email + ", bday=" + bday + ", managerYn=" + managerYn
+				+ "]";
 	}
+
+
+	
 	
 	
 

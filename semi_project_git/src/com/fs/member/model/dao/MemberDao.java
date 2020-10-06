@@ -66,6 +66,7 @@ public class MemberDao {
 				m.setPhone(rs.getString("phone"));
 				m.setEmail(rs.getString("email"));
 				m.setBday(rs.getDate("bday"));
+				m.setManagerYn(rs.getString("manager_yn"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -144,4 +145,22 @@ public class MemberDao {
 		
 	}
 
+	public String memberNo(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String memberNo = "";
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("memberNo"));
+			pstmt.setNString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				memberNo = rs.getNString("member_no");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			System.out.println(memberNo);
+		}return memberNo;
+	}
 }

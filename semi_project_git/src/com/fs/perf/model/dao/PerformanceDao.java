@@ -98,6 +98,37 @@ private Properties prop = new Properties();
 		}
 		return perf;
 	}
+	
+	//랜덤하게 해당 카테고리 공연 6개 가져오기
+	public List<Performance> randomPerf(Connection conn, String cate) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Performance> list = new ArrayList<Performance>();
+		Performance perf = null;
+		System.out.println("dao왔다"+cate);
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("randomPerf"));
+			pstmt.setString(1, cate+"_");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				perf=new Performance();
+	            perf.setPerfNo(rs.getString("perf_no"));
+	            perf.setPerfName(rs.getString("perf_name"));
+	            perf.setPerfStart(rs.getDate("perf_start"));
+	            perf.setPerfEnd(rs.getDate("perf_end"));
+	            perf.setPerfLocation(rs.getString("perf_location"));
+	            perf.setPerfPoster(rs.getString("perf_poster"));
+
+				list.add(perf);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 
 
 

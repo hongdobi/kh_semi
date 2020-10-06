@@ -6,11 +6,16 @@ import static com.fs.common.JDBCTemplate.getConnection;
 import static com.fs.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fs.admin.model.dao.AdminDao;
 import com.fs.model.vo.FAQ;
 import com.fs.model.vo.Inquiry;
+import com.fs.model.vo.Performance;
 
 
 public class AdminService {
@@ -34,6 +39,14 @@ public class AdminService {
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+
+	public List<Performance> searchPerf(String name, String cate) {
+		Connection conn = getConnection();
+		List<Performance> list = dao.searchPerf(conn,name,cate);
+		System.out.println(list);
+		close(conn);
+		return list;
 	}
 
 }
