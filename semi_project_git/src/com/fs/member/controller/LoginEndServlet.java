@@ -17,7 +17,11 @@ import com.fs.model.vo.Member;
  * Servlet implementation class LoginEndServlet
  */
 //로그인 서블릿
+<<<<<<< HEAD
 @WebServlet(name="loginEnd", urlPatterns="/loginEnd")
+=======
+@WebServlet(name="loginEnd",urlPatterns="/loginEnd")
+>>>>>>> branch 'develop' of https://github.com/hongdobi/kh_semi.git
 public class LoginEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

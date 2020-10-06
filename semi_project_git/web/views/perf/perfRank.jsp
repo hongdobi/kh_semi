@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="com.fs.model.vo.Performance,com.fs.model.vo.PerfSsn,java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
+	import="com.fs.model.vo.Performance,com.fs.model.vo.PerfSsn,java.util.List,java.util.ArrayList,java.text.SimpleDateFormat, java.text.DecimalFormat" %>
 <%@ include file="/views/common/header.jsp"%>
 <% 
 	List <Performance>list=(List)request.getAttribute("list");
+
+	int total=Integer.parseInt(request.getAttribute("total").toString());
 	SimpleDateFormat sdf=new SimpleDateFormat("MM월 dd일");
 %>
 <script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
@@ -102,7 +104,15 @@ div.rk div.in>button{
 .rk:hover .in{
   opacity:0.9;
 }
-
+/*예매 퍼센트*/
+div.count{
+	font-size:20px;
+	line-height:20px;
+	width:150px;
+	margin:auto;
+	color: yellow;
+	margin-top:10px;
+}
 </style>
 <script>
 
@@ -131,7 +141,7 @@ $(function(){
 			else if(c=='전시') cate="E";
 			console.log(cate,month);
 		    $.ajax({
-			   	url:"<%=request.getContextPath()%>/perf/rankingEnd.do", 
+			   	url:"<%=request.getContextPath()%>/perf/rankingEnd", 
 			   	data:{"month":month,"cate":cate},
 			   	type:"post",
 			   	dataType:"json",
@@ -145,7 +155,7 @@ $(function(){
 		month=$("input#rankMonth").val();
 		console.log(cate,month);
 		    $.ajax({
-		   	url:"<%=request.getContextPath()%>/perf/rankingEnd.do", 
+		   	url:"<%=request.getContextPath()%>/perf/rankingEnd", 
 		   	data:{"month":month,"cate":cate},
 		   	type:"post",
 		   	dataType:"json",
@@ -161,9 +171,11 @@ $(function(){
 		for(let i=0;i<data.length;i++){
 			let div=$("<div class='rk'>");
 			let p=$("<h3>").html("TOP"+(i+1));
-			let a=$("<a>").attr("href","<%=request.getContextPath()%>/perf/perfView.do?perfNo="+data[i]["perfNo"]);
+			let a=$("<a>").attr("href","<%=request.getContextPath()%>/perf/perfView?perfNo="+data[i]["perfNo"]);
 			let img=$("<img id='poster'>").attr("src","<%=request.getContextPath()%>/image/perf/"+data[i]["perfNo"]+"/"+data[i]["poster"]);
 			let indiv=$("<div class='in'>").html("<h3>"+data[i]["perfName"]+"</h3>"+data[i]["start"]+"~"+data[i]["end"]+"<br>"+data[i]["location"]+"<br><br>"+"<button>예약하기</button>");
+			let countDiv=$("<div class='count'>").html((parseInt(data[i]["count"])/parseInt(data[i]["total"])*100).toFixed(2)+"%");
+			indiv.append(countDiv);
 			a.append(indiv);
 			div.append(p);
 			div.append(img);
@@ -214,22 +226,29 @@ $(function(){
 			else listB.add(list.get(i));
         }
 		for(int j=0;j<2;j++){
-        	List<Performance> rkList=null;
-        	if(j==0)rkList=listA;
-        	else rkList=listB;%>
+        	List<Performance> rkList=new ArrayList();
+        	if(j==0){rkList=listA;}
+        	else{rkList=listB;}%>
         	<div class="rkOut">
-        	<%for(int k=0;k<3;k++){
-        		Performance perf=rkList.get(k);%>
+        	<%for(int k=0;k<rkList.size();k++){ //랭킹순위가 6개가 안되더라도 오류나지 않도록 변경
+        		Performance perf=rkList.get(k);
+        		int a=k;%>
         		<div class="rk">
-					<h3>TOP <%=(j==0)?k+1:k+4 %></h3>
+					<h3>TOP <%=(j==0)?a+1:a+4 %></h3>
 					<img id="poster" src="<%=request.getContextPath()%>/image/perf/<%=perf.getPerfNo()%>/<%=perf.getPerfPoster()%>" alt="<%=request.getContextPath() %>/<%=perf.getPerfName() %>">
-					<a href="<%=request.getContextPath()%>/perf/perfView.do?perfNo=<%=perf.getPerfNo()%>">
+					<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=perf.getPerfNo()%>">
 						<div class="in">					
 							<h3><%=perf.getPerfName() %></h3>
 							<%=sdf.format(perf.getPerfStart()) %>~<%=sdf.format(perf.getPerfEnd()) %>
 							<br>
 							<%=perf.getPerfLocation()%><br><br>
-							<button>예약하기</button>						
+							<button>예약하기</button><br>
+							<div class="count">
+							<!-- 소수점 두자리까짐만 표시 -->
+							<% DecimalFormat df = new DecimalFormat("0.##");%>
+							<%double c=(perf.getPerfCount());%>
+							<%=df.format(c/total*100)%>% 
+							</div>						
 						</div>
 					</a>
 				</div>

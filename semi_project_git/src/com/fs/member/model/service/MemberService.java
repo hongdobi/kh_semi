@@ -19,7 +19,6 @@ public class MemberService {
 		Connection conn = getConnection();
 		int result = dao.insertMember(conn, m);
 		
-		//트렌젝션 처리
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);
@@ -33,13 +32,16 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	
+	//회원정보
 	public Member memberInfo(String memberId) {
 		Connection conn = getConnection();
 		Member m = dao.memberInfo(conn, memberId);
 		close(conn);
 		return m;
-		
 	}
+	
+	//회원정보수정
 	public int updateMember(Member m) {
 		Connection conn=getConnection();
 		int result=dao.updateMember(conn, m);
@@ -68,6 +70,7 @@ public class MemberService {
 		close(conn);
 		return memberNo;
 	}
+
 	//이메일 중복확인
 	public String emailDuplicate(String email) {
 		Connection conn = getConnection();
@@ -87,4 +90,6 @@ public class MemberService {
 		return b;
 		
 	}
+
+
 }

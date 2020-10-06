@@ -26,11 +26,19 @@ public class PerfService {
 		close(conn);
 		return perf;
 	}
+
 	public String findPerfName(String perfNo) {
 		Connection conn = getConnection();
 		String perfName = dao.findPerfName(conn, perfNo);
 		close(conn);
 		return perfName;
+	}
+
+	public List<Performance> randomPerf(String cate) {
+		Connection conn = getConnection();
+		List<Performance> list = new PerformanceDao().randomPerf(conn, cate);
+		close(conn);
+		return list;
 	}
 
 }

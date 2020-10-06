@@ -18,8 +18,22 @@ public class Member {
 	
 	
 
+
 	public Member(String memberId, String memberPw, String memberName, String phone, String email, Date bday) {
 		super();
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+		this.memberName = memberName;
+		this.phone = phone;
+		this.email = email;
+		this.bday = bday;
+	}
+
+
+	public Member(int memberNo, String memberId, String memberPw, String memberName, String phone, String email,
+			Date bday) {
+		super();
+		this.memberNo = memberNo;
 		this.memberId = memberId;
 		this.memberPw = memberPw;
 		this.memberName = memberName;
@@ -43,7 +57,6 @@ public class Member {
 		this.managerYn = managerYn;
 	}
 
-	
 
 	public int getMemberNo() {
 		return memberNo;
@@ -128,7 +141,6 @@ public class Member {
 	}
 
 
-
 	public String getManagerYn() {
 		return managerYn;
 	}
@@ -143,16 +155,9 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName + ", phone="
-				+ phone + ", email=" + email + ", bday=" + bday + "]";
+		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberName="
+				+ memberName + ", phone=" + phone + ", email=" + email + ", bday=" + bday + ", managerYn=" + managerYn
+				+ "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

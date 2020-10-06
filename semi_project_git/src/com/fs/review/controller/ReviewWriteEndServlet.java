@@ -14,7 +14,7 @@ import com.fs.review.model.service.ReviewService;
 /**
  * Servlet implementation class ReviewWriteServlet
  */
-@WebServlet("/review/reviewWirteEnd.do")
+@WebServlet("/review/reviewWirteEnd")
 public class ReviewWriteEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,20 +32,40 @@ public class ReviewWriteEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Review rv=new Review();
-		rv.setPerfNo(request.getParameter("perfNo"));
 		
-		rv.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
-		rv.setMemberId(request.getParameter("memberId"));
+		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
+		rv.setMemberNo(memberNo);
+		String perfNo=request.getParameter("perfNo");
+		rv.setPerfNo(perfNo);
+		rv.setRevContent(request.getParameter("reviewtext"));
+		int revScore=Integer.parseInt(request.getParameter("revScore"));
+		rv.setRevScore(revScore);
+		rv.setBookNo(request.getParameter("bookNo"));
 		
+		
+		System.out.println(rv);
 		
 		int result=new ReviewService().insertReview(rv);
 		
 		String msg="";
-		if(result>0) {
-			msg="관람 후기 등록성공";
-			
-			
+		String loc="/review/reviewWrite?memberNo="+memberNo+"&perfNo="+perfNo; 
+		String script="";
+		String opener="";
+		
+		if(result>0){
+			msg="관람후기 등록 성공";
+			script="self.close()"; 
+			opener="window.opener.location.reload()";
+
+		}else {
+			msg="관람후기 등록실패";
 		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.setAttribute("script", script);
+		request.setAttribute("opener", opener);
+		
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
 
 	/**

@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.fs.model.vo.Member,com.fs.model.vo.Performance,com.fs.model.vo.Booking, java.sql.Date, java.util.List" %>	
+<%@ page import="com.fs.model.vo.Member,com.fs.model.vo.Performance,com.fs.model.vo.Booking, com.fs.model.vo.Review,
+java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>	
 
 <% 
-	String perfName=(String)request.getAttribute("perfName");
-	String perfNo=(String)request.getParameter("perfNo");
-	//List<Booking> bkList=(List)request.getAttribute("bkList");
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	Review revUpdate=null;
+	int memberNo=0;
+	Performance perf=null;
+	List<Booking> bkList=new ArrayList();
+	if(request.getAttribute("revUpdate")!=null){
+		revUpdate=(Review)request.getAttribute("revUpdate");
+	}else{
+	   	memberNo=Integer.parseInt(request.getParameter("memberNo"));
+		perf=(Performance)request.getAttribute("perf");
+		bkList=(List)request.getAttribute("bkList");
+	}
 %>
 
 <!DOCTYPE html>
@@ -14,9 +24,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>오성티켓-리뷰페이지</title>
-<script src="js/jquery-3.5.1.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/style.css" rel="stylesheet">
     <style>
         body{
             font-family: Noto Sans KR;
@@ -66,7 +76,7 @@
             border: 1px black solid;
         }
 
-        section input[type="reset"]{
+        section input[type="button"]{
             width:100px;
             height:40px;
             color: lightcoral;
@@ -96,60 +106,79 @@
             width: 30px;
             height: 30px;
             cursor: pointer;
-            background-image: url(image/ico-star-off.png);
+            background-image: url("<%=request.getContextPath() %>/image/ico-star-off.png");
         }
         .off{
-            background-image: url(image/ico-star-off.png); 
+            background-image: url("<%=request.getContextPath() %>/image/ico-star-off.png"); 
 
             width: 30px;
             height: 30px;
         }
         .on{
-            background-image: url(img/ico-star-on.png); 
-            width: 30px;
+            background-image: url("<%=request.getContextPath() %>/image/ico-star-on.png"); 
+            width: 30p
             height: 30px;
             background-repeat:no-repeat;
         }
     </style>
-    
+
 </head>
 <body>
 	<section>
-		<form action="<%=request.getContextPath() %>/review/reviewWirteEnd.do" mothod="post">
+		<%if(revUpdate!=null){ %>
+			<form action="<%=request.getContextPath() %>/review/reviewUpdateEnd" mothod="post">
+		<%}else{ %>
+			<form action="<%=request.getContextPath() %>/review/reviewWirteEnd" mothod="post">
+		<%} %>	
 			<div>
 				<br>
 				<table id="revieWrite">
 					<tr>
 						<th colspan="2">
-							공연명<%-- <%=perf.getPerfName() %> --%>
+						<%if(revUpdate!=null){ %>
+							<%=request.getAttribute("perfName") %>
+						<%}else{ %>
+							<%=perf.getPerfName() %>  
+						<%}%>
 						</th>
 					</tr>
 					<tr>
 						<th>관람일시</th>
-						<td></td>
+						<td>
+							<%if(revUpdate!=null){ %>
+								<%=sdf.format(revUpdate.getPerfDate()) %>
+							<%}else{ %>
+								<select name="perfDate" id="perfDate">
+									<option value="noChoice">관람일시를 선택해주세요</option>
+									<%for(Booking bk:bkList){%>
+										<%String day=sdf.format(bk.getPerfDate());%>
+										<option value="<%=day %>,<%=bk.getNthPerf()%>,<%=bk.getBookNo()%>"><%=day %></option>
+									<%} %>
+								</select>
+							<%} %>
+						</td>
 					</tr>
 					<tr>
 						<th>별점</th>
 						<td>
 							<div class="star-box">
-						
 								<span class="star"></span> 
 								<span class="star"></span> 
 								<span class="star"></span> 
 								<span class="star"></span> 
 								<span class="star"></span>
 							</div>
-							
-							<input type="hidden" id="revScore" name="revScore" >
 						</td>
 					</tr>
-
-					<%-- <input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>"> --%>
-						
+					
 					<tr>
 						<th>작성내용</th>
 						<td>
-							<textarea name="reviewtext" id="reviewtext" cols="80" rows="20" resize=none required></textarea>
+							<%if(revUpdate!=null){ %>
+								<textarea name="reviewtext" id="reviewtext" cols=80 rows=10 resize=none maxlength=250 required><%=revUpdate.getRevContent() %></textarea>
+							<%}else{ %>
+								<textarea name="reviewtext" id="reviewtext" cols=80 rows=10 resize=none maxlength=250 placeholder=" 작성시  250자 이내로 적어주세요." required></textarea>
+							<%} %>
 						</td>
 					</tr>
 					<tr>
@@ -168,30 +197,58 @@
 			</div>
 			<br>
 			<div>
-				<input type="reset" value="취소">&nbsp;&nbsp;&nbsp;
-				<input type="submit" value="등록" onclick="fn_close();">
+			<%if(revUpdate!=null){ %>
+				<input type="hidden" name="revScore">
+				<input type="hidden" name="memberNo" value="<%=revUpdate.getMemberNo()%>">
+				<input type="hidden" name="perfNo" value="<%=revUpdate.getPerfNo()%>">
+				<input type="hidden" name="bookNo" value="<%=revUpdate.getBookNo()%>">
+				<input type="button" value="닫기" onclick="self.close();">&nbsp;&nbsp;&nbsp;
+				<input type="submit" value="수정">
+			<%}else{ %>
+				<input type="hidden" name="memberNo" value="<%=memberNo%>">
+				<input type="hidden" name="bookNo">
+				<input type="hidden" name="nthPerf">
+				<input type="hidden" name="perfDate">
+				<input type="hidden" name="revScore">
+				<input type="hidden" name="perfNo" value="<%=perf.getPerfNo()%>">
+				<input type="button" value="닫기" onclick="self.close();">&nbsp;&nbsp;&nbsp;
+				<input type="submit" value="등록">
+			<%} %>	
 			</div>
 		</form>
 	</section>
-</body>
-<script>
-	//별점 부여
+	<script>
 	$(function(){
-		$(".star").on('click', function() {
-			var idx = $(this).index();
-			$(".star").removeClass("on");
-			for (let i = 0; i <= idx; i++) {
-				$(".star").eq(i).addClass("on");
-				
-				var count=idx+1
-				document.getElementById("revScore").val() = count;
-				}
+		
+		//별점 부여
+		$(".star").on("click",function() {
+			$(this).parent().children(".star").removeClass("on");  
+            $(this).addClass("on").prevAll(".star").addClass("on"); 
+			let idx=$(".on").length;
+			console.log(idx);
+			$("input[name=revScore]").val(idx);	
 		});
 		
-		function fn_close(){
-			
-			close(); 
-		}
-	})
+		 
+		//관람일시 선택시 히든값으로 보내기
+        $("#perfDate").change(e=>{ 
+        	let v= $(e.target).val();
+        	if(v=='noChoice'){
+        		console.log(v);
+        		alert('관람일시를 선택해주세요');
+        	}else{
+        		let arr=v.split(",");
+	        	console.log(arr[0]);
+	        	console.log(arr[1]);
+	        	console.log(arr[2]);
+	        	$("input[name=perfDate]").val(arr[0]); 
+	        	$("input[name=nthPerf]").val(arr[1]); 
+	        	$("input[name=bookNo]").val(arr[2]); 
+        	}
+        });
+		
+	});
 </script>
+</body>
+
 </html>
