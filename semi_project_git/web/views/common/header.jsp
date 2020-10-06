@@ -33,6 +33,8 @@
             <% if(loginMember==null) {%>
 	            <!-- 로그인 안 했을 때 -> 로그인페이지로 이동 -> 메인으로 이동 -->
 	            <a href="<%=request.getContextPath()%>/loginSignup"><img src="http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png" alt="로그인" id="login_alarm"></a>
+           <%--  <%} else if(<%=loginMember.getManagerYn()=='Y') %>
+            	<!-- 관리자여부체크하기 --> --%>
             
             <%} else {%>
             <!-- 로그인 했을 때 -> 마이페이지로 이동, -->

@@ -3,54 +3,45 @@
 <%@ include file="/views/common/header.jsp" %>
 
 <%@ page import="java.util.List, com.fs.model.vo.FAQ"%>
+<%@ page import="com.fs.model.vo.Inquiry" %>
+
 <%
    List<FAQ> list = (List)request.getAttribute("FAQ");
+	List<Inquiry> list2 = (List)request.getAttribute("Inquiry");
 %>
 
 <style>
-  input [id*="answer"] {
-    display: none;
-  }
-
-  input[type="checkbox"] {
-    display: none;
-  }
-
-  input[id*="answer"]+label {
-    display: block;
-    padding: 20px;
-    border: 1px solid blueviolet;
-    border-bottom: 0;
-    color: whitesmoke;
-    font-weight: 900;
-    background-color: pink;
-    cursor: pointer;
-    position: relative;
-  }
-
-  input[id*="answer"]+label+div {
-    max-height: 0;
-    transition: all 0.35s;
-    overflow: hidden;
-    background: peru;
-    font-size: 11px;
-  }
-
-  input[id*="answer"]+label+div p {
-    display: inline-block;
-    padding: 20px;
-  }
-
-  input[id*="answer"]:checked+label+div {
-    max-height: 100px;
-  }
-
-  input[id*="answer"]:checked+label em {
-    background-position: 0 -30px;
-  }
+	div#wrap-inquiry{
+		margin: 0 auto;
+    	padding: 57px 0 60px;
+    	border: solid 1px #d8d8d8;
+    	background-color: #fff;
+	}
+	div#inquiry-container{
+		width:500px;
+		height:200px;
+		text-align:center;
+		border-radius:3px;
+		background-color: #f8f8f8;
+	}
+	table#tbl-inquiry tr td{
+		text-align:center;
+	}
+	.nodata{
+		font-family:"Noto Sans KR";
+		font-size:14px;
+		padding:70px 0 20px 0;
+	}
+	.btn{
+		margin-top:10px;
+		border:1px solid grey;
+		
+	}
+	
 </style>
+
 <section>
-  <div>
+<%--   <div>
     <h1 align="center">고객센터</h1>
   </div>
   <div class="accordion">
@@ -75,46 +66,32 @@
       <%}
          }%>
     </div>
-  </div>
+  </div> --%>
 
 
-
-  <!-- </section>    -->
-
-
-  <!-- 타입 radio 로 할지, checkbox로 할지 ?  -->
-  <!-- <div class="tabs type1">
-        <input type="checkbox" name="accordion" id="answer01" />
-        <label for="answer01"> 컨텐츠 제목 부분</a></label>
-        <div><p>여기에 추가된는 부분이 자주 묻는 질문의 답변 내용</p></div>
-        </div>
-        <div class="munutab">
-        <input type="checkbox" name="accordion" id="answer02" />
-        <label for="answer02">컨텐츠 제목 부분</label>
-        <div><p>여기에 추가된는 부분이 자주 묻는 질문의 답변 내용</p></div>
-      </div>
-      <div class="munutab">
-        <input type="checkbox" name="accordion" id="answer03" />
-        <label for="answer03">컨텐츠 제목 부분</label>
-        <div><p>여기에 추가된는 부분이 자주 묻는 질문의 답변 내용</p></div>
-        </div>
-        <div class="munutab">
-        <input type="checkbox" name="accordion" id="answer04" />
-        <label for="answer04">컨텐츠 제목 부분</label>
-        <div><p>여기에 추가된는 부분이 자주 묻는 질문의 답변 내용</p></div>
-        </div>
-      </div> -->
-
-
-  <div id="inquiry_container">    
-    <h2>1:1 문의내역</h2>
-    <input type="button" onclick="fn_inquiry();" value="1:1 문의하기">
-    <table>
-      <%-- <%for(Inquiry iq : list) %> --%>
-      <tr>
-        <td></td>
-      </tr>
-    </table>
+  <div id="wrap-inquiry">
+	  <h2>1:1 문의내역</h2>
+	  <input type="button" onclick="fn_inquiry();" class="btn" value="문의하기">
+	  <div id="inquiry-container">
+	    <table id="tbl-inquiry">
+	    	<tr>
+		      <%if(list2.isEmpty()) {%>
+		      	<tr>
+		      		<p class="nodata">문의하신 내역이 없습니다.<br>
+		      		오성티켓에 대한 모든 궁금증은 1:1 문의하기로 부담없이 확인하세요.
+		      		</p>
+		      	</tr>
+		    <%}else{
+		          for (Inquiry iq : list2) {%>
+		        <tr>  
+			      	<td><%=iq.getInqTitle() %></td>
+			      	<td><%=iq.getInqContent() %></td>
+			      	<td><%=iq.getInqDate() %></td>
+	        	</tr>
+		      	<%}
+		    }%>   
+	    </table>  
+	  </div>
   </div>  
 
 </section>

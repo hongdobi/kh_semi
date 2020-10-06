@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fs.admin.model.service.AdminService;
 import com.fs.model.vo.FAQ;
+import com.fs.model.vo.Inquiry;
 
 /**
  * Servlet implementation class HelpCenterServlet
@@ -32,10 +33,13 @@ public class HelpCenterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		
 		List<FAQ> list = new AdminService().allFAQ();
+		List<Inquiry> list2 = new AdminService().selectInquiry(memberNo);
 		
 		request.setAttribute("FAQ", list);
+		request.setAttribute("Inquiry", list2);
 		
 		request.getRequestDispatcher("/views/admin/helpCenter.jsp").forward(request, response);
 	
