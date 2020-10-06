@@ -5,12 +5,12 @@
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <style>
 	#sidebar{
-		background-color:bisque;
+		background-color:ghostwhite;
 		width:200px;
 		position:fixed;
-		top:25%;
-		left:2%;
-		border: 3px solid brown;
+		top:30%;
+		left:3%;
+		border: 3px solid lightpink;
 		text-align:center;
 		display:flex;
 		flex-direction:column;
@@ -18,12 +18,11 @@
 	}
 		
 	#result{
-		background-color:lightblue;
 		width: 800px;
 		height: 500px;
-		border: 3px solid;
+/* 		border: 3px solid; */
 		position:relative;
-		left:350px;
+		left:300px;
 		top:100px;
 	}
 </style>
@@ -45,13 +44,11 @@
 	</div>
 	<div>
 		<p id="memberInfo">회원정보 수정</p>
-		<p id="memberInfo">회원 탈퇴</p>
 		<p id="helpCenter">고객센터</p>	
 	</div>
 </div>
 
-<div id="result" onload="">
-	<h1>result</h1>
+<div id="result">
 
 </div>
 
@@ -59,7 +56,7 @@
 	
 	$("#bookCheck").click(e=>{
 		$.ajax({
-			url:"<%=request.getContextPath()%>/member/bookCheck",
+			url:"<%=request.getContextPath()%>/member/bookChecker",
 			type:"get",
 			data:{"memberId":"<%=loginMember.getMemberId()%>"},
 			success:function(data){
@@ -92,9 +89,22 @@
 	});
 
 
+	$(document).ready(e=>{
+		$.ajax({
+			url:"<%=request.getContextPath()%>/member/memberInfo",
+			type:"get",
+			data:{"memberId":"<%=loginMember.getMemberId()%>"},
+			success:function(data){
+				$("#result").html(data);
+			}
+		})
+	});
+
+
 </script>
-
-
+<div>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
 
 
 <%@ include file="/views/common/footer.jsp" %>
