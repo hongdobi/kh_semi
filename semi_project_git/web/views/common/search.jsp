@@ -32,13 +32,17 @@
           <dt class="title-result"><h3>연극</h3></dt>
           <%for(Performance p : list) {%>
           	<%if(p.getPerfNo().substring(0,1).equals("S")){ %>
+          	
           <dd class="detail-result">
             <div class="box-poster">
+            <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
               <img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
             </div>
             <div class="box-text">
+              <span class="visitable">판매중</span>
               <h4>[연극]<%=p.getPerfName() %></h4>
               <p><%=p.getPerfPg() %>세 이상</p>
+              </a>
             </div>
           </dd>
             <%} %>
@@ -48,11 +52,14 @@
           	<%if(p.getPerfNo().substring(0,1).equals("M")){ %>
           <dd class="detail-result">
             <div class="box-poster">
+            <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
               <img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
             </div>
             <div class="box-text">
+              <span class="visitable">판매중</span>
               <h4>[뮤지컬]<%=p.getPerfName() %></h4>
               <p><%=p.getPerfPg() %>세 이상</p>
+              </a>
             </div>
           </dd>
             <%} %>
@@ -62,11 +69,14 @@
           	<%if(p.getPerfNo().substring(0,1).equals("E")){ %>
           <dd class="detail-result">
             <div class="box-poster">
+            <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
               <img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
             </div>
             <div class="box-text">
+              <span class="visitable">판매중</span>
               <h4>[전시]<%=p.getPerfName() %></h4>
               <p><%=p.getPerfPg() %>세 이상</p>
+              </a>
             </div>
           </dd>
             <%} %>
@@ -115,6 +125,7 @@
       background-color: salmon;
       text-align: center;
     }
+    .visitable{color: orange; margin-bottom:10px;height: 5px; border:1px solid orange;}
     .area-top h2 + p{margin-top: 20px; font-size: 20px; color:white;}
     .area-top p .word-search{font-size: 1.3em; font-weight: bold;}
     .area-top .box-input{display: flex; justify-content: center; margin-top: 20px;}
@@ -129,7 +140,7 @@
     .area-contents .list-result .detail-result{display: flex; padding: 20px 0;border: 1px lightpink solid;}
     .area-contents .list-result .detail-result .box-poster{ width: 200px; height: 250px; }
     .area-contents .list-result .detail-result .box-text{display: flex; flex-direction: column; flex: 1; justify-content: center;  margin-left: 100px;}
-    .area-contents .list-result .detail-result .box-text h4{font-size: 20px;}
+    .area-contents .list-result .detail-result .box-text h4{font-size: 20px;margin-top:10px}
     .area-contents .list-result .detail-result .box-text h4 + p{margin-top: 10px;}
   </style>
 </html>
