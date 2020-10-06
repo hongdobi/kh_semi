@@ -20,14 +20,14 @@
     cursor: pointer;
   }
 
-  #selfcheck {
+  .selfcheck {
     border: 1px solid lightpink;
     background-color: white;
     color: lightpink;
     padding: 4px;
   }
 
-  #selfcheck:hover {
+  .selfcheck:hover {
     color: white;
     background-color: lightpink;
   }
@@ -299,7 +299,8 @@
   }
 
   .user_options-forms .forms_field:not(:last-of-type) {
-    margin-bottom: 20px;
+    margin-top: 3px;
+    margin-bottom: 17px;
   }
 
   /*text입력칸 width:100% -> 70%로 조정*/
@@ -311,7 +312,7 @@
     font-family:"Noto Sans KR";
     font-size: 1rem;
     font-weight: 300;
-    color:grey;
+    color:initial;
     letter-spacing: 0.1rem;
     -webkit-transition: border-color 0.2s ease-in-out;
     transition: border-color 0.2s ease-in-out;

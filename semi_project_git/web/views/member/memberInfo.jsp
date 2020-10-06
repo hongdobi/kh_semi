@@ -122,7 +122,7 @@
 <script>
 	//정규표현식 비밀번호
 	var memberPwck = RegExp(/^.*(?=^.{8,15})(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%%^&*()]).*$/);
-	$("#newPw").blur(function(){
+	$("#newPw").keyup(function(){
 	  if(!memberPwck.test($("#newPw").val())){
 	    $("#result1").html("영문 숫자/특수문자 조합 8자 이상 입력해주세요").css("color","lightcoral");
 	    return false;
@@ -145,7 +145,7 @@
 	
 	//정규표현식 이메일
 	var emailck = RegExp(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i);
-	$("#Email").blur(function(){
+	$("#Email").keyup(function(){
 	  if(!emailck.test($("#Email").val())){
 	    $("#result4").html("이메일 형식에 맞춰 입력해주세요").css("color","lightcoral");
 	    return false;
@@ -159,10 +159,11 @@
 		let checkPw = $("#checkPw").val();
 		const memberPw = "<%= loginMember.getMemberPw()%>";
 		let oldPw = $("#memberPw").val();
-		if(oldPw.trim() != memberPw.trim()){
+		/* if(oldPw.trim() != memberPw.trim()){
 			alert("비밃번호를 잘못 입력하였습니다");
 			return false;
-		}else if(newPw.trim() != checkPw.trim()){
+		}else  */
+		if(newPw.trim() != checkPw.trim()){
 			alert("비밀번호가 일치하지 않습니다");
 			return false;
 		}else if(!emailck.test($("#Email").val())){
@@ -172,7 +173,9 @@
 			alert("영문 숫자/특수문자 조합 8자 이상 입력해주세요");
 			return false;
 		}else{
-			alert("회원정보 수정 완료");
+			mainForm.submit();
+			let msg = request.getAttribute("msg");
+			alert(msg);
 		}
 	}
 	

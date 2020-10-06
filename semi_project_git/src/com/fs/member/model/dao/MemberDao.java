@@ -110,7 +110,6 @@ public class MemberDao {
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(prop.getProperty("updateMember"));
-			//pstmt.setNString(1, m.getPassword());
 			pstmt.setNString(1, m.getMemberPw());
 			pstmt.setNString(2, m.getPhone());
 			pstmt.setNString(3, m.getEmail());
@@ -141,5 +140,54 @@ public class MemberDao {
 			close(pstmt);
 			System.out.println(memberNo);
 		}return memberNo;
+	}
+	public String emailDuplicate(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String result = null;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("emailDuplicate"));
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;	
+	}
+	
+	/*
+	 * public Member totalSearch(Connection conn, String s) { PreparedStatement
+	 * pstmt = null; ResultSet rs = null; Member m = null; try { m = new Member();
+	 * pstmt = conn.prepareStatement(prop.getProperty("totalSearch"));
+	 * pstmt.setNString(1, s); rs = pstmt.executeQuery(); }catch(SQLException e) {
+	 * e.printStackTrace(); }finally { close(rs); close(pstmt); }return m; }
+	 */
+	public Boolean checkPw(Connection conn, String memberId, String memberPw) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Boolean b = false;
+		String pw ="";
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("checkPw"));
+			pstmt.setNString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				pw += rs.getNString("member_pw");
+			}
+			if(pw.equals(memberPw)) {
+				b = true;
+			}else b = false;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return b;
 	}
 }
