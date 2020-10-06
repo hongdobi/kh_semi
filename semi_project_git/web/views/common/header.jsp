@@ -18,11 +18,10 @@
     <header>
         <h1><a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath() %>/image/logo.png" alt="오성티켓" width="250px"></a></h1>
         <ul>
-            <li><a href="">뮤지컬</a></li>
-            <li><a href="">전시</a></li>
-            <li><a href="">연극</a></li>
+            <li><a href="<%=request.getContextPath()%>/perf/categoryView?cate=M">뮤지컬</a></li>
+            <li><a href="<%=request.getContextPath()%>/perf/categoryView?cate=E">전시</a></li>
+            <li><a href="<%=request.getContextPath()%>/perf/categoryView?cate=S">연극</a></li>
             <li><a href="<%=request.getContextPath()%>/perf/RankList">랭킹</a></li>
-            <li><a href="">이벤트</a></li>
         </ul>
         <div>
         	<form action="<%=request.getContextPath() %>/search.do" method="get">

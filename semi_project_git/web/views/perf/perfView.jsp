@@ -320,7 +320,7 @@ $(function(){
             const title="bookSelect";
             const status="width=800px, height=600px, top=100px, left=300px";
  			open("",title,status);
- 			bookSelect.action=url;
+ 			bookSelect.action=url;              
  			bookSelect.target=title;
  			bookSelect.method="post";
  			bookSelect.submit(); 
@@ -417,12 +417,14 @@ $(function(){
         ,minDate: "-0D" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
         ,maxDate: new Date("<%=perf.getPerfEnd()%>") //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후) 
 		<%if(dateList!=null){%>
+			//조건에 맞는 날짜,
 			,beforeShowDay:available
 		<%}%> 
+		//선택한 날짜
 		,onSelect: function(dateText, inst) { 
-	          let select=dateText.substring(4);
-	          console.log(select);
-	          $("input[name=day]").val(select);
+	          let d=dateText.substring(4);
+	          console.log(d);
+	          $("input[name=day]").val(d);
 	     }
 	});  
     
@@ -528,12 +530,14 @@ $(function(){
 					<div id="calNo">상시상품으로 날짜지정이 별도로 없습니다. 하단의 예매하기를 눌러 예매를 진행해주세요</div>
 				<%}
 			}%>
-			<div>
-				<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo() %>">
+			 <div>
+			 	<%if(loginMember!=null){ %>
+					<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo() %>">
+				<%} %>
 				<input type="hidden" name="perfNo" value="<%=perf.getPerfNo() %>">
 				<input type="hidden" name="day">
 				<button id="bookBtn" type="button">예매하기</button>
-			</div>
+			</div> 
 		</form>
 	</div>
  	<%} %>

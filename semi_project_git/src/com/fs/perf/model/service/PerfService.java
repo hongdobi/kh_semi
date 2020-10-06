@@ -26,6 +26,12 @@ public class PerfService {
 		close(conn);
 		return perf;
 	}
+	public List<Performance> randomPerf(String cate) {
+		Connection conn = getConnection();
+		List<Performance> list = new PerformanceDao().randomPerf(conn, cate);
+		close(conn);
+		return list;
+	}
 	
 
 }
