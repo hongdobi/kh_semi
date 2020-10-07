@@ -22,10 +22,10 @@
             </div>
             <div class="box-bottom">
                 <div>
-                    <a href=""><img src="http://tkfile.yes24.com/imgNew/common/flogo.png" alt="YES24 티켓"></a>
+                    <a href=""><img src="<%=request.getContextPath() %>/image/logo.png" style="width:150px;height:100px;" alt="YES24 티켓"></a>
                 </div>
                 <div class="box-text">
-                    <p><b>예스이십사㈜</b></p>
+                    <p><b>FIVE STAR</b></p>
                     <p class="text-small-1">
                         서울시 영등포구 은행로 11, 5층~6층(여의도동,일신빌딩) <br>
                         대표 김석환 | 개인정보보호책임자 : 권민석 yes24help@yes24.com<br>
