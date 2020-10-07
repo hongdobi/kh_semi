@@ -57,5 +57,21 @@ public class AdminService {
 		close(conn);
 		return list;
 	}
+	
+	//1:1문의 페이징처리
+	public List<Inquiry> inquiryList(int cPage, int numPerPage){
+		Connection conn = getConnection();
+		List<Inquiry> list = dao.inquiryList(conn, cPage, numPerPage);
+		close(conn);
+		return list;
+	}
+	
+	//1:1문의 갯수
+	public int inquiryCount() {
+		Connection conn = getConnection();
+		int count = dao.inquiryCount(conn);
+		close(conn);
+		return count;
+	}
 
 }

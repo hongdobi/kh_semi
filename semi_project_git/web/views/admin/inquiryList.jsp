@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List, com.fs.model.vo.Inquiry" %>
+    
+<%
+	List<Inquiry> list = (List)request.getAttribute("list");
+	String pageBar = (String)request.getAttribute("pageBar");
+%>
+
 <%@ include file="/views/common/header.jsp" %>
 <style>
 	section {
@@ -29,13 +36,30 @@
 	}
 
 	#adminView{
-		width:1200px;
-		height:600px;
+		width:1100px;
+		height:500px;
 		border:3px solid gainsboro;
 		display: inline-block;
+		text-align:center;
 	}
-	
+    table#table-inquiry{
+		width:100%; 
+		margin:0 auto; 
+		border:1px solid grey; 
+		border-collapse:collapse;
+	}
+    table#table-inquiry th, table#table-inquiry td {
+		border:1px solid; 
+		padding: 5px 0; 
+		text-align:center;
+		font-size:17px;
+	}
+	#pageBar{
+		margin:auto;
+		padding:20px;
+	}
 </style>
+
 <section>
 	<div id="title">
 		<h1>
@@ -53,14 +77,31 @@
 		</ul>
 	</nav>
 	<div id="adminView">
-		<br>
-		<br>
-		<br>
-		<br>
-		<h1>내용</h1>
+	<h2>1:1문의</h2>
+	<table id="table-inquiry">
+		<tr>
+			<td>번호</td>
+			<td>문의유형</td>
+			<td>제목</td>
+			<td>문의날짜</td>
+			<td>답변여부</td>
+		</tr>
+	<% for(Inquiry iq : list) {%>
+		<tr>
+			<td><%=iq.getInqNo() %></td>
+			<td><%=iq.getInqCategory() %></td>
+			<td><%=iq.getInqTitle() %></td>
+			<td><%=iq.getInqDate() %></td>
+			<td><%=iq.getInqYn() %></td>
+		</tr>
+	<%} %>
+	</table>
+	<div id="pageBar">
+		<%=pageBar %>	
 	</div>
-
+	</div>
 </section>
+
 <script>
 	$(function(){
 		$(".rk-li").hover(function(){
@@ -71,7 +112,6 @@
 		});
 	});
 
-</script>      
-
-
+</script>     
+   
 <%@ include file="/views/common/footer.jsp" %>
