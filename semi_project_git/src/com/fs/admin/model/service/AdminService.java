@@ -23,10 +23,11 @@ public class AdminService {
 	private AdminDao dao = new AdminDao();
 	
 	//FAQ 가져오기
-	public List<FAQ> allFAQ() {
+	public List<FAQ> allFAQ(String keyword) {
 		Connection conn = getConnection();
-		List<FAQ> list = dao.allFAQ(conn);
+		List<FAQ> list = dao.allFAQ(conn,keyword);
 		close(conn);
+		System.out.println("service"+list);
 		return list;
 	}
 	

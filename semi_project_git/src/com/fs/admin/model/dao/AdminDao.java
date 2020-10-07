@@ -30,7 +30,7 @@ public class AdminDao {
 	}
 	
 	//FAQ 가져오기
-	public List<FAQ> allFAQ(Connection conn){
+	public List<FAQ> allFAQ(Connection conn, String keyword){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<FAQ> list = new ArrayList();
@@ -38,6 +38,7 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("allFAQ"));
+			pstmt.setString(1, keyword);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
