@@ -125,9 +125,8 @@ private Properties prop = new Properties();
 	public List<Performance> randomPerf(Connection conn, String cate) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<Performance> list = new ArrayList<Performance>();
+		List<Performance> list = new ArrayList();
 		Performance perf = null;
-		System.out.println("dao왔다"+cate);
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("randomPerf"));
 			pstmt.setString(1, cate+"_");
@@ -140,9 +139,9 @@ private Properties prop = new Properties();
 	            perf.setPerfEnd(rs.getDate("perf_end"));
 	            perf.setPerfLocation(rs.getString("perf_location"));
 	            perf.setPerfPoster(rs.getString("perf_poster"));
-
 				list.add(perf);
 			}
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {

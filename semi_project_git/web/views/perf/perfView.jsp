@@ -413,9 +413,16 @@ $(function(){
         ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
         ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
         ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
-        ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-        ,minDate: "-0D" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-        ,maxDate: new Date("<%=perf.getPerfEnd()%>") //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후) 
+        ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] 
+        <%int com=perf.getPerfStart().compareTo(new Date());
+     	if(com<0){ %>
+    		,minDate:"-0D"
+    	<%}else{ %> 
+    		,minDate:new Date("<%=perf.getPerfStart()%>")
+    		
+    	<%}%>
+        	
+		,maxDate: new Date("<%=perf.getPerfEnd()%>") //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후) 
 		<%if(dateList!=null){%>
 			//조건에 맞는 날짜,
 			,beforeShowDay:available
@@ -423,9 +430,12 @@ $(function(){
 		//선택한 날짜
 		,onSelect: function(dateText, inst) { 
 	          let d=dateText.substring(4);
-	          console.log(d);
 	          $("input[name=day]").val(d);
+	          console.log($("input[name=day]"));
 	     }
+		
+		//$( "#datepicker1" ).datepicker( "getDate" );
+		 
 	});  
     
 
