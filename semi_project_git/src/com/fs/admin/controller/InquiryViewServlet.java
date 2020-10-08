@@ -12,16 +12,16 @@ import com.fs.admin.model.service.AdminService;
 import com.fs.model.vo.Inquiry;
 
 /**
- * Servlet implementation class InquiryEndServlet
+ * Servlet implementation class InquiryResponseServlet
  */
-@WebServlet("/admin/InquiryEnd")
-public class InquiryEndServlet extends HttpServlet {
+@WebServlet("/admin/inquiryView")
+public class InquiryViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InquiryEndServlet() {
+    public InquiryViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,36 +30,31 @@ public class InquiryEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Inquiry iq = new Inquiry();
 		
-		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		int inqNo = Integer.parseInt(request.getParameter("inqNo"));
 		
-		iq.setMemberNo(memberNo);
-		iq.setInqCategory(request.getParameter("inqCategory"));
-		iq.setInqTitle(request.getParameter("inqTitle"));
-		iq.setInqContent(request.getParameter("inqContent"));
-		System.out.println(iq);
-		
-		int result = new AdminService().insertInquiry(iq);
+		Inquiry iq = new AdminService().selectInquiryNo(inqNo);
 		
 		String msg = "";
-		String loc = "/admin/inquiry?memberNo="+memberNo;
-		String script = "";
-		
-		if(result>0) {
-			//1:1문의 등록 성공 -> 메시지 띄어주기 -> 1:1문의 창 닫고, 고객센터 페이지로 이동
-			msg = "1:1 문의가 접수되었습니다";
-			script = "self.close();";
+		String loc = "";
+		String path = "";
+		if(iq==null) {
+			msg = "선택한 1:1문의가 존재하지 않습니다";
+			loc = "/admin/inquiryView";
+			path = "/views/common/msg.jsp";
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
 		}else {
-			msg = "문의사항을 다시 작성해주시기 바랍니다";
+			request.setAttribute("inquiry", iq);
+			path = "/views/admin/inquiryView.jsp";
 		}
 		
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.setAttribute("script", script);
+		request.getRequestDispatcher(path).forward(request, response);
 		
-		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		
+		
+		
+		request.getRequestDispatcher("/views/admin/inquiryView.jsp").forward(request, response);
 	}
 
 	/**

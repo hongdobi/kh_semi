@@ -73,5 +73,27 @@ public class AdminService {
 		close(conn);
 		return count;
 	}
+	
+	//1:1문의 팝업 상세페이지로 이동
+	public Inquiry selectInquiryNo(int inqNo) {
+		Connection conn = getConnection();
+		Inquiry iq = dao.selectInquiryNo(conn, inqNo);
+		close(conn);
+		return iq;
+	}
+	
+	//1:1문의 답변
+	public int inquiryResponse(int inqNo, String inqAnswer, String inqYn) {
+		Connection conn = getConnection();
+		int result = -1;
+		Inquiry iq = dao.selectInquiryNo(conn, inqNo);
+		if(iq!=null) {
+			result = dao.updateInquiry(conn, inqAnswer, inqYn, inqNo);
+			if(result>0) commit(conn);
+			else rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 }

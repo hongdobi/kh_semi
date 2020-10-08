@@ -195,6 +195,55 @@ public class AdminDao {
 			close(pstmt);
 		}return result;
 	}
+	
+	//1:1문의 팝업 상세페이지로 이동
+	public Inquiry selectInquiryNo(Connection conn, int inqNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Inquiry iq = null;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectInquiry"));
+			pstmt.setInt(1, inqNo);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				iq = new Inquiry();
+				iq.setInqNo(rs.getInt("inq_no"));
+				iq.setMemberNo(rs.getInt("member_no"));
+				iq.setInqCategory(rs.getString("inq_category"));
+				iq.setInqTitle(rs.getString("inq_title"));
+				iq.setInqContent(rs.getString("inq_content"));
+				iq.setInqDate(rs.getDate("inq_date"));
+				iq.setInqYn(rs.getString("inq_yn"));
+				iq.setInqAnswer(rs.getString("inq_answer"));
+				iq.setInqAnsDate(rs.getDate("inq_ans_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return iq;
+	}
+	
+	//1:1문의 답변
+	public int updateInquiry(Connection conn, String inqAnswer, String inqYn, int inqNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("updateInquiry"));
+			pstmt.setString(1, inqAnswer);
+			pstmt.setString(2, inqYn);
+			pstmt.setInt(3, inqNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 
 
 }

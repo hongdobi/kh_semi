@@ -90,7 +90,7 @@
 		<tr>
 			<td><%=iq.getInqNo() %></td>
 			<td><%=iq.getInqCategory() %></td>
-			<td><%=iq.getInqTitle() %></td>
+			<td><a href="<%=request.getContextPath()%>/admin/inquiryView?inqNo=<%=iq.getInqNo()%>" onclick="open(this.href,'','top=100px, left=300px, width=600px, height=400px, scrollbars=no');return false;"><%=iq.getInqTitle() %></a></td>
 			<td><%=iq.getInqDate() %></td>
 			<td><%=iq.getInqYn() %></td>
 		</tr>
@@ -103,6 +103,7 @@
 </section>
 
 <script>
+	//카테고리 hover 효과
 	$(function(){
 		$(".rk-li").hover(function(){
 			$(this).css("background-color","lightcoral");
@@ -111,6 +112,7 @@
 			$(this).css("background-color","initial");
 		});
 	});
+	
 
 </script>     
    
