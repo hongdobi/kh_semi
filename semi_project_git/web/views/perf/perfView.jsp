@@ -431,10 +431,8 @@ $(function(){
 		,onSelect: function(dateText, inst) { 
 	          let d=dateText.substring(4);
 	          $("input[name=day]").val(d);
-	          console.log($("input[name=day]"));
+	          console.log($("input[name=day]").val());
 	     }
-		
-		//$( "#datepicker1" ).datepicker( "getDate" );
 		 
 	});  
     
