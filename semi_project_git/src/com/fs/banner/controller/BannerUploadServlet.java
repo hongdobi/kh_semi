@@ -1,4 +1,4 @@
-package com.fs.admin.controller;
+package com.fs.banner.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,9 +37,10 @@ public class BannerUploadServlet extends HttpServlet {
 		int maxSize=1024*1024*1000; 
 		MultipartRequest mr=new MultipartRequest(request, path,maxSize,"UTF-8",new DefaultFileRenamePolicy()); 
 	
-		String cate=mr.getParameter("cate");
+		String choice=mr.getParameter("choice");
 		String link=mr.getParameter("link");
-
+		
+		
 		List<String> saveFiles=new ArrayList(); 
 		Enumeration<String> fileNames=mr.getFileNames();
 		
@@ -53,8 +54,10 @@ public class BannerUploadServlet extends HttpServlet {
 		String loc="/admin/bannerAdd"; 
 		String script="";
 		String opener="";
+		
+		int result=new BannerService().insertBanner(banner);
 		/*
-		 * int result=new BannerService().insertBanner(banner);
+		 * 
 		 * 
 		 * if(result>0){ msg="배너 등록 성공"; script="self.close()";
 		 * opener="window.opener.location.reload()"; }else { msg="배너 등록실패"; }

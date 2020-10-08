@@ -1,4 +1,4 @@
-package com.fs.admin.controller;
+package com.fs.banner.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
