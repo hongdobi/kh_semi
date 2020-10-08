@@ -84,7 +84,7 @@ public class AdminDao {
 			pstmt = conn.prepareStatement(prop.getProperty("searchPerf"));
 			pstmt.setString(1, "%" + name + "%");
 			System.out.println(cate);
-			if(cate==null||cate.equals("")) {
+			if(cate==null||cate.equals("All")) {
 				pstmt.setString(2, "%");
 			}else {
 				pstmt.setString(2, cate+"_%");
@@ -92,7 +92,6 @@ public class AdminDao {
 			rs = pstmt.executeQuery();
 			System.out.println(rs);
 			while(rs.next()) {
-				System.out.println("왜안ㄴ되지ㅓ랮ㄷ러");
 				perf=new Performance();
 	            perf.setPerfNo(rs.getString("perf_no"));
 	            perf.setPerfName(rs.getString("perf_name"));
