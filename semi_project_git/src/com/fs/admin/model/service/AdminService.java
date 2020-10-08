@@ -23,14 +23,15 @@ public class AdminService {
 	private AdminDao dao = new AdminDao();
 	
 	//FAQ 가져오기
-	public List<FAQ> allFAQ() {
+	public List<FAQ> allFAQ(String keyword) {
 		Connection conn = getConnection();
-		List<FAQ> list = dao.allFAQ(conn);
+		List<FAQ> list = dao.allFAQ(conn,keyword);
 		close(conn);
+		System.out.println("service"+list);
 		return list;
 	}
 	
-	//사용자가 1대1문의 문의하기
+	//사용자가 1:1문의 문의하기
 	public int insertInquiry(Inquiry iq) {
 		Connection conn = getConnection();
 		int result = dao.insertInquiry(conn, iq);
@@ -45,6 +46,14 @@ public class AdminService {
 		Connection conn = getConnection();
 		List<Performance> list = dao.searchPerf(conn,name,cate);
 		System.out.println(list);
+		close(conn);
+		return list;
+	}
+	
+	//1:1문의 가져오기
+	public List<Inquiry> selectInquiry(int memberNo){
+		Connection conn = getConnection();
+		List<Inquiry> list = dao.selectInquiry(conn, memberNo);
 		close(conn);
 		return list;
 	}

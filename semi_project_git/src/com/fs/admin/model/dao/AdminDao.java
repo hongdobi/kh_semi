@@ -30,7 +30,7 @@ public class AdminDao {
 	}
 	
 	//FAQ 가져오기
-	public List<FAQ> allFAQ(Connection conn){
+	public List<FAQ> allFAQ(Connection conn, String keyword){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<FAQ> list = new ArrayList();
@@ -38,6 +38,7 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("allFAQ"));
+			pstmt.setString(1, keyword);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -108,6 +109,37 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public List<Inquiry> selectInquiry(Connection conn, int memberNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Inquiry> list = new ArrayList();
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectInquiry"));
+			pstmt.setInt(1, memberNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				Inquiry iq = new Inquiry();
+				iq.setInqNo(rs.getInt("inq_no"));
+				iq.setMemberNo(rs.getInt("member_no"));
+				iq.setInqCategory(rs.getString("inq_category"));
+				iq.setInqTitle(rs.getString("inq_title"));
+				iq.setInqContent(rs.getString("inq_content"));
+				iq.setInqDate(rs.getDate("inq_date"));
+				iq.setInqYn(rs.getString("inq_yn"));
+				iq.setInqAnswer(rs.getString("inq_answer"));
+				iq.setInqAnsDate(rs.getDate("inq_ans_date"));
+				list.add(iq);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
 	}
 
 
