@@ -9,17 +9,7 @@
 	int s = 0;
 	int e = 0;
 	boolean b = false;
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	Date now = new Date();
-	String end = sdf.format(list.get(0).getPerfEnd());
-	try{
-		Date endTime = sdf.parse(end);
-		if(now.getTime()<endTime.getTime()){
-			b = true;
-		}
-	}catch(ParseException ee){
-		ee.printStackTrace();
-	}
 	
 	if(list!=null){
 		for(Performance p : list){
@@ -51,8 +41,10 @@
         <p><span class="word-search">'<%=keyword %>'</span>에 대한 검색결과 '<%=list.size() %>'건 입니다.</p>
         <p></p>
         <div class="box-input">
-          <input type="text" placeholder="검색어를 입력하세요">
-          <button class="btn-search">search</button>
+        <form action="<%=request.getContextPath()%>/search.do">
+          <input type="text" name="keyword"placeholder="검색어를 입력하세요">
+          <button class="btn-search" type="submit">search</button>
+          </form>
         </div>
       </div>
     </div>
@@ -77,8 +69,10 @@
               <%}else { %>
               	<span class="unvisitable">판매종료</span>
               <%} %>
+              <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
                 <h4>[연극]<%=p.getPerfName() %></h4>
                 <p><%=p.getPerfPg() %>세 이상</p>
+              </a>
               </div>
               <div class="wrap-text sub">
                 <p><%=p.getPerfStart() %> - <%=p.getPerfEnd()%></p>
@@ -108,8 +102,10 @@
               <%}else { %>
               	<span class="unvisitable">판매종료</span>
               <%} %>
+                <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
                 <h4>[뮤지컬]<%=p.getPerfName() %></h4>
                 <p><%=p.getPerfPg() %>세 이상</p>
+              </a>
               </div>
               <div class="wrap-text sub">
                 <p><%=p.getPerfStart() %> - <%=p.getPerfEnd()%></p>
@@ -139,8 +135,10 @@
               <%}else { %>
               	<span class="unvisitable">판매종료</span>
               <%} %>
+                <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
                 <h4>[전시]<%=p.getPerfName() %></h4>
                 <p><%=p.getPerfPg() %>세 이상</p>
+              </a>
               </div>
               <div class="wrap-text sub">
                 <p><%=p.getPerfStart() %> - <%=p.getPerfEnd()%></p>
@@ -174,7 +172,8 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> 
+  
 <%} %>
 <%@ include file="/views/common/footer.jsp" %>
 </body>
