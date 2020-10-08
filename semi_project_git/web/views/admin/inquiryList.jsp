@@ -85,6 +85,7 @@
 			<td>제목</td>
 			<td>문의날짜</td>
 			<td>답변여부</td>
+			<td>답변날짜</td>
 		</tr>
 	<% for(Inquiry iq : list) {%>
 		<tr>
@@ -93,6 +94,11 @@
 			<td><a href="<%=request.getContextPath()%>/admin/inquiryView?inqNo=<%=iq.getInqNo()%>" onclick="open(this.href,'','top=100px, left=300px, width=600px, height=400px, scrollbars=no');return false;"><%=iq.getInqTitle() %></a></td>
 			<td><%=iq.getInqDate() %></td>
 			<td><%=iq.getInqYn() %></td>
+			<% if(iq.getInqYn().equals("N")){%>
+				<td>미답</td>			
+			<%}else {%>
+				<td><%=iq.getInqAnsDate() %></td>
+			<%} %>
 		</tr>
 	<%} %>
 	</table>
