@@ -2,6 +2,7 @@ package com.fs.model.vo;
 
 public class Banner {
 	private String perfNo;
+	private String perfName;
 	private String banner1;
 	private String banner2;
 	private String src;
@@ -9,6 +10,16 @@ public class Banner {
 	public Banner() {
 		// TODO Auto-generated constructor stub
 	}
+
+	public Banner(String perfNo, String perfName, String banner1, String banner2, String src) {
+		super();
+		this.perfNo = perfNo;
+		this.perfName = perfName;
+		this.banner1 = banner1;
+		this.banner2 = banner2;
+		this.src = src;
+	}
+
 
 	public Banner(String perfNo, String banner1, String banner2, String src) {
 		super();
@@ -18,6 +29,15 @@ public class Banner {
 		this.src = src;
 	}
 
+
+
+	public String getPerfName() {
+		return perfName;
+	}
+	
+	public void setPerfName(String perfName) {
+		this.perfName = perfName;
+	}
 	public String getPerfNo() {
 		return perfNo;
 	}
@@ -52,7 +72,8 @@ public class Banner {
 
 	@Override
 	public String toString() {
-		return "Banner [perfNo=" + perfNo + ", banner1=" + banner1 + ", banner2=" + banner2 + ", src=" + src + "]";
+		return "Banner [perfNo=" + perfNo + ", perfName=" + perfName + ", banner1=" + banner1 + ", banner2=" + banner2
+				+ ", src=" + src + "]";
 	}
 	
 }
