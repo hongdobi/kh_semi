@@ -137,9 +137,13 @@ public class BannerDao {
 			while(rs.next()) {
 				b=new Banner();
 				b.setPerfNo(rs.getString("perf_No"));
+				b.setPerfName(rs.getString("perf_name"));
 				b.setBanner1(rs.getString("banner1"));
 				b.setBanner2(rs.getString("banner2"));
 				b.setSrc(rs.getString("SRC"));
+				b.setLocation(rs.getString("perf_location"));
+				b.setPerfStart(rs.getDate("perf_start"));
+				b.setPerfEnd(rs.getDate("perf_end"));	
 				System.out.println(b);
 				list.add(b);
 			}
@@ -153,6 +157,8 @@ public class BannerDao {
 		return list;
 		
 	}
+	
+	
 	//동영상목록[카테고리화면용]
 	public List<Banner> selectVideo(Connection conn, String cate) {
 		PreparedStatement pstmt=null;

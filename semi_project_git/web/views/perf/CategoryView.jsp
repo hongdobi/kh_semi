@@ -3,7 +3,12 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.Banner,java.util.List, java.util.ArrayList,java.text.SimpleDateFormat"%>
 <%@ include file="/views/common/header.jsp"%>
-
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/slick/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/slick/slick-theme.css">
+ 
 <% 	
 	String cate=(String)request.getAttribute("cate");
 	List<Banner> list=(List)request.getAttribute("list");
@@ -74,8 +79,9 @@ div.videoText{
 	width: 400px;
 	height:500px;	
 	color:white;
-	background-color: rgba(0,0,0,0.3);
+	background-color: rgba(0,0,0,0.6);
 	position: absolute;
+	text-align:center;
 	
 }
 div.videoText>h1{
@@ -83,7 +89,7 @@ div.videoText>h1{
 	
 }
 img.contetnPoster{
-	opacity: 0.5;
+	opacity: 0.4;
 	width: 400px;
 	height:500px;	
 	position: absolute;
@@ -97,61 +103,62 @@ div.video{
 	background-size:cover;
 	
 }
+/*유튜브 동영상 프레임*/
 div#perfContent iframe{
 	margin-top: 50px;
 	width:750px;
-	height:400px;
-	
+	height:400px;	
 }
 
-#imgContainer>img{
-	width: 300px;
-	height: 300px;
-	position : relative;
+/* 화살표 */
+.slick-arrow{
+  z-index: 2; /* prev버튼은 위치 이동시 이미지 뒤로 숨겨짐 */
+  position:absolute;  /* 원하는 위치에 지정  */
+  top: 40%; 
+  width: 50px; 
+  height: 50px; 
+  transform: translateY(-25px);
 }
-#slide{
+.slick-prev.slick-arrow{ /* prev 이전 */
+	left: 0;
+}
+.slick-next.slick-arrow{ /* next 다음 */
+	right: 0;
+}
+
+/* 아래점 */
+.slick-dots{ 
+	text-align: center;
+}
+.slick-dots li{
+  display: inline-block; 
+  margin: 0 5px;
+}
+div.slider.slick-initialized.slick-slider img{
+
 	height: 350px;
-	border: 1px blue solid;
-	margin: auto;
-	position: relative;
-	min-width: 1000px;
-	width:1000px;
-   	overflow: hidden;
-   	text-align: center;
+	width: 350px; 
+	margin:0px;
 }
-.banner{
-	height: 380px;
-	width: 380px;
-	border: 1px yellow solid;
-	position : absolute;
-	display:inline-block;
+div.slick-slide.slick-current.slick-active.slick-center img{
+	height: 400px;
+	width:400px;
 	
 }
-.banner img{
-height: 380px;
-	width: 380px;
-
-}
-div#prev{	
-	background-image: url(<%=request.getContextPath()%>/image/ico-star-on.png);
-	position : absolute;
-	top:200px;
-	left:10px;
-	border:none;
-	width:50px;
-	height:100px;
-	background-repeat:no-repeat;
-}
-div#next{
-	background-image: url(<%=request.getContextPath()%>/image/ico-star-on.png);
-	position : absolute;
-	top:200px;
-	right:0px;
-	border:none;
-	width:50px;
-	height:100px;
-	background-repeat:no-repeat;
-}
+div.slider{
+	width: 100%;
+    max-width: 1920px;
+    min-width: 1300px;
+    overflow: hidden;
+    margin: 0 auto;
+    height: 400px;
+    position: relative;
+ }
+ div.bannerText{   position: absolute;
+    text-align: center;
+    bottom: 20px;
+    width: 100%;
+    transition: 0.3s all;} 
 </style>
 <script>
 $(function(){
@@ -204,7 +211,34 @@ $(function(){
 	
 
 
-		
+	  $('.slider').slick({
+		  centerMode: true,
+		  centerPadding: '50px',
+		  slidesToShow: 3,
+		  speed:300, // 슬라이드 스피드
+		  autoplay: true, //자동플레이 유무( false시 자동플레이 안됨 )
+		  autoplaySpeed:4000, // 자동플레이 스피드
+	       responsive: [
+	      {
+	        breakpoint: 768,
+	        settings: {
+	          arrows: false,
+	          centerMode: true,
+	          centerPadding: '40px',
+	          slidesToShow: 3
+	        }
+	      },
+	      {
+	        breakpoint: 480,
+	        settings: {
+	          arrows: false,
+	          centerMode: true,
+	          centerPadding: '40px',
+	          slidesToShow: 1
+	        }
+	      }
+	    ]
+	  });
 })
 
 
@@ -218,17 +252,22 @@ $(function(){
 	<button id="addBtn">배너 등록/수정</button>
 <%} %>  
 
-<div id="slide">
-	<div class="bn1 banner"><img src="<%=request.getContextPath()%>/image/perf/M2/poster.jpg"></div>
-	<div class="bn2 banner"></div>
-	<div class="bn3 banner"></div>
-	<div class="bn4 banner"></div>
-	<div class="bn5 banner"></div>
-	<div class="bn6 banner"></div>
-	<div id="prev"></div>
-	<div id="next"></div>
-</div>
 
+<div class="slider">
+	<%if(list!=null){
+		for(Banner b:list){%>
+			<div>
+			<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=b.getPerfNo()%>">
+			<img class="banner" src="<%=request.getContextPath()%>/image/banner/<%=b.getBanner2()%>">
+			<div class="bannerText">
+				<h2 style="font-size:50px"><%=b.getPerfName() %></h2>
+				<p><%=sdf.format(b.getPerfStart()) %> ~ <%=sdf.format(b.getPerfEnd()) %></p>
+				<p><%=b.getLocation() %></p>
+			</div>
+			</a></div>
+		<%}
+	} %>
+</div>
 <br>
 <br>
 
@@ -242,19 +281,17 @@ $(function(){
 
 
 <div id="perfContent">
-<%if(list!=null){%>
-	<% for(Banner b:vList){ %>
-		<div class="video">
-		<%=b.getSrc()%>
-		</div>
+<%if(vList!=null){
+	for(Banner b:vList){ %>
+		<div class="video"><%=b.getSrc()%></div>
 		<div class="contentInfo">
 			<img class="contetnPoster" src="<%=request.getContextPath()%>/image/perf/<%=b.getPerfNo()%>/<%=b.getPerfPoster()%>" alt="<%=request.getContextPath() %>/<%=b.getPerfName() %>">		
 			<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=b.getPerfNo()%>">
-			<div class="videoText">
+<%-- 			<div class="videoText">
 				<h1 style="font-size:50px"><%=b.getPerfName() %></h1>
 				<h4><%=sdf.format(b.getPerfStart()) %> ~ <%=sdf.format(b.getPerfEnd()) %></h4>
 				<h3><span style="color:coral">'<%=b.getLocation() %>'</span>에서 만나요~</h3>
-			</div>
+			</div> --%>
 			</a>
 		</div>  
 	<%}
