@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.Banner,java.util.List, java.util.ArrayList"%>
 <%@ include file="/views/common/header.jsp"%>
+
 <% 	
-	String cate=request.getParameter("cate");
+	String cate=(String)request.getAttribute("cate");
+	List<Banner> list=(List)request.getAttribute("list");
 %>
 <style>
 /*오성티켓 pick*/
@@ -46,31 +49,6 @@ div.in h3{
 	margin-top: 30px;
 }
 
-/*관리자 배너 등록*/
-/* div#manager{
-	border: 1px red solid;
-	width: 1000px;
-	margin:auto;
-	padding:15px;
-}
-
-table#searchTbl{
-	margin:auto;
-	width: 950px;
-	
-}
-table#searchTbl th{
-	background-color:lightcoral;
-	color:white;
-	line-height: 33px;
-}
-table#searchTbl td{
-	text-align:center;
-	border-bottom: 1px lightcoral solid;
-	line-height: 30px;
-
-} 
- */
 /*동영상 잡지 출력화면*/
 div#perfContent{
 	width:100%;
@@ -217,10 +195,11 @@ $(function(){
 <br>
 
 <div id="perfContent">
-<%if(loginMember!=null&&loginMember.getManagerYn().equals("Y")){ %>
-	<input type="text" name="video" placeholder="업로드할 페이지 소스를 등록해주세요">
-	<button id="videoAdd">프로모션 등록</button>	
-<%} %>
+<%if(list!=null){%>
+	<% for(Banner b:list){ %>
+		<img alt="" src="<%=request.getContextPath()%>/image/banner/<%=b.getBanner2()%>">
+	<%}
+} %>
 
 <!--뮤지컬일때는 동영상, 아닐때는 잡지 -->
 <%if(cate.equals("M")){ %>
@@ -233,10 +212,9 @@ $(function(){
 	
 <%}else{ %>
 	<div id="magazine">
-		
-		
+
 	</div>
-<%} %>
+<%}%>
 </div>
 
 </section>
