@@ -2,12 +2,39 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 <%@ page import="java.util.List, com.fs.model.vo.FAQ,java.util.ArrayList"%>
-
+<%@ page import="com.fs.model.vo.Inquiry" %>
 
 <%
-       List<FAQ> list = (List) request.getAttribute("FAQ");
+   List<FAQ> list = (List)request.getAttribute("FAQ");
+	List<Inquiry> list2 = (List)request.getAttribute("Inquiry");
 %>
 <style>
+	div#wrap-inquiry{
+		margin: 0 auto;
+    	padding: 57px 0 60px;
+    	border: solid 1px #d8d8d8;
+    	background-color: #fff;
+	}
+	div#inquiry-container{
+		width:500px;
+		height:200px;
+		text-align:center;
+		border-radius:3px;
+		background-color: #f8f8f8;
+	}
+	table#tbl-inquiry tr td{
+		text-align:center;
+	}
+	.nodata{
+		font-family:"Noto Sans KR";
+		font-size:14px;
+		padding:70px 0 20px 0;
+	}
+	.btn{
+		margin-top:10px;
+		border:1px solid grey;
+		
+	}
     .tabs {
         display: flex;
         flex-wrap: wrap;
@@ -88,45 +115,16 @@
    div#tbl-notice p{font-size: 50px;} 
    div#tbl-FAQ div, div#title{width:100%; height:30px; background-color: pink; cursor:pointer;}
    div#tbl-FAQ div+p{display:none; width:100%; height:auto; }
-   
-
-  
 </style>
-<script type="text/javascript">
-
-
-   
-$(function(){
-	$("#faq-container div, div#title").click(function(){
-		$("#faq-container p").slideUp("slow");
-		if(!$(this).next().is(":visible"))
-		{
-			$(this).next().slideDown();
-		}
-	})
- 
-
-  
-     $("input[name=tab]").click(e=>{
-    	 let key=$(e.target).val();
-    	 console.log(key);
-		 location.href="<%=request.getContextPath()%>/admin/helpCenter?keyword="+key;
-
-     });
-   })
-   
-</script>
-
 
 <section style="text-align:center; id="FAQ-container">
-   <h2>자주하는 질문</h2>
-   
+   <h2>자주하는 질문</h2>            
    <div class="tabs">
    
       <input type="checkbox" name="tab" id="tab1" value="회원" checked />
       <label for="tab1"> 회원 </label>
       <div class="tab">
-     
+   
    
    <div id="faq-container">
       <div id="tbl-FAQ">
@@ -214,6 +212,61 @@ $(function(){
    
    </div>
    
+   <div id="wrap-inquiry">
+	  <h2>1:1 문의내역</h2>
+	  <input type="button" onclick="fn_inquiry();" class="btn" value="문의하기">
+	  <div id="inquiry-container">
+	    <table id="tbl-inquiry">
+	    	<tr>
+		      <%if(list2.isEmpty()) {%>
+		      	<tr>
+		      		<p class="nodata">문의하신 내역이 없습니다.<br>
+		      		오성티켓에 대한 모든 궁금증은 1:1 문의하기로 부담없이 확인하세요.
+		      		</p>
+		      	</tr>
+		    <%}else{
+		          for (Inquiry iq : list2) {%>
+		        <tr>  
+			      	<td><%=iq.getInqTitle() %></td>
+			      	<td><%=iq.getInqContent() %></td>
+			      	<td><%=iq.getInqDate() %></td>
+	        	</tr>
+		      	<%}
+		    }%>   
+	    </table>  
+	  </div>
+</div>  
+   
 </section>
+
+<script>
+//1:1 문의하기로 이동
+function fn_inquiry() {
+  const url = "<%=request.getContextPath()%>/admin/inquiry?memberNo=<%=loginMember.getMemberNo()%>";
+  const status = "top=100px, left=300px, width=600px, height=400px";
+  open(url, "", status);
+}
+
+ 
+$(function(){
+	$("#faq-container div, div#title").click(function(){
+		$("#faq-container p").slideUp("slow");
+		if(!$(this).next().is(":visible"))
+		{
+			$(this).next().slideDown();
+		}
+	})
+
+
+
+   $("input[name=tab]").click(e=>{
+  	 let key=$(e.target).val();
+  	 console.log(key);
+		 location.href="<%=request.getContextPath()%>/admin/helpCenter?memberNo=<%=loginMember.getMemberNo()%>&keyword="+key;
+
+   });
+ })
+ 
+</script>
 
    <%@ include file="/views/common/footer.jsp" %>

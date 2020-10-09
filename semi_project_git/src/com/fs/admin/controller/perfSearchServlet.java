@@ -46,11 +46,11 @@ public class perfSearchServlet extends HttpServlet {
 			JSONObject jobj=new JSONObject(); 
 			jobj.put("perfNo",p.getPerfNo()); 
 			jobj.put("perfName",p.getPerfName()); 			
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월 dd일"); 
 			jobj.put("perfStart",sdf.format(p.getPerfStart()));
 			jobj.put("perfEnd",sdf.format(p.getPerfEnd()));
-			jobj.put("perfLocation",p.getPerfLocation()); 			
-			jobj.put("perfPoster",p.getPerfPoster()); 			
+			jobj.put("location",p.getPerfLocation()); 			
+			jobj.put("poster",p.getPerfPoster()); 			
 			
 			arr.add(jobj);
 		}

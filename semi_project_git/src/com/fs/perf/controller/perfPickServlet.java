@@ -44,17 +44,15 @@ public class perfPickServlet extends HttpServlet {
 				j=new JSONObject(); 
 				j.put("perfNo",perf.getPerfNo());
 				j.put("perfName",perf.getPerfName());
-				SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 mm월 dd일");
-				j.put("start",sdf.format(perf.getPerfStart()));
-				j.put("end",sdf.format(perf.getPerfEnd()));
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월 dd일");
+				j.put("perfStart",sdf.format(perf.getPerfStart()));
+				j.put("perfEnd",sdf.format(perf.getPerfEnd()));
 				j.put("location",perf.getPerfLocation()); 
 				j.put("poster",perf.getPerfPoster());
-
 				arr.add(j);
 			}
 		}
 		response.setContentType("application/json;charset=utf-8");
-	
 		response.getWriter().print(arr);
 	}
 

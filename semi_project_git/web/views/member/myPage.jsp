@@ -91,7 +91,7 @@
 		})
 	});
 	$("#helpCenter").click(e=>{
-		    location.href="<%=request.getContextPath()%>/admin/helpCenter?keyword=회원";
+		    location.href="<%=request.getContextPath()%>/admin/helpCenter?memberNo=<%=loginMember.getMemberNo() %>&keyword=회원";
 	});
 
 

@@ -32,7 +32,7 @@ public class AdminService {
 		return list;
 	}
 	
-	//사용자가 1대1문의 문의하기
+	//사용자가 1:1문의 문의하기
 	public int insertInquiry(Inquiry iq) {
 		Connection conn = getConnection();
 		int result = dao.insertInquiry(conn, iq);
@@ -49,6 +49,52 @@ public class AdminService {
 		System.out.println(list);
 		close(conn);
 		return list;
+	}
+	
+	//1:1문의 가져오기
+	public List<Inquiry> selectInquiry(int memberNo){
+		Connection conn = getConnection();
+		List<Inquiry> list = dao.selectInquiry(conn, memberNo);
+		close(conn);
+		return list;
+	}
+	
+	//1:1문의 페이징처리
+	public List<Inquiry> inquiryList(int cPage, int numPerPage){
+		Connection conn = getConnection();
+		List<Inquiry> list = dao.inquiryList(conn, cPage, numPerPage);
+		close(conn);
+		return list;
+	}
+	
+	//1:1문의 갯수
+	public int inquiryCount() {
+		Connection conn = getConnection();
+		int count = dao.inquiryCount(conn);
+		close(conn);
+		return count;
+	}
+	
+	//1:1문의 팝업 상세페이지로 이동
+	public Inquiry selectInquiryNo(int inqNo) {
+		Connection conn = getConnection();
+		Inquiry iq = dao.selectInquiryNo(conn, inqNo);
+		close(conn);
+		return iq;
+	}
+	
+	//1:1문의 답변
+	public int inquiryResponse(int inqNo, String inqAnswer, String inqYn) {
+		Connection conn = getConnection();
+		int result = -1;
+		Inquiry iq = dao.selectInquiryNo(conn, inqNo);
+		if(iq!=null) {
+			result = dao.updateInquiry(conn, inqAnswer, inqYn, inqNo);
+			if(result>0) commit(conn);
+			else rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 

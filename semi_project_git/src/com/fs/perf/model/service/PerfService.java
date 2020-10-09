@@ -33,7 +33,7 @@ public class PerfService {
 		close(conn);
 		return perfName;
 	}
-
+	//오성티켓 pick에쓸 공연 6개 랜덤하게 받아오기
 	public List<Performance> randomPerf(String cate) {
 		Connection conn = getConnection();
 		List<Performance> list = new PerformanceDao().randomPerf(conn, cate);

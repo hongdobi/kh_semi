@@ -85,7 +85,7 @@ public class AdminDao {
 			pstmt = conn.prepareStatement(prop.getProperty("searchPerf"));
 			pstmt.setString(1, "%" + name + "%");
 			System.out.println(cate);
-			if(cate==null||cate.equals("")) {
+			if(cate==null||cate.equals("All")) {
 				pstmt.setString(2, "%");
 			}else {
 				pstmt.setString(2, cate+"_%");
@@ -93,7 +93,6 @@ public class AdminDao {
 			rs = pstmt.executeQuery();
 			System.out.println(rs);
 			while(rs.next()) {
-				System.out.println("왜안ㄴ되지ㅓ랮ㄷ러");
 				perf=new Performance();
 	            perf.setPerfNo(rs.getString("perf_no"));
 	            perf.setPerfName(rs.getString("perf_name"));
@@ -111,6 +110,139 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public List<Inquiry> selectInquiry(Connection conn, int memberNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Inquiry> list = new ArrayList();
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectInquiry"));
+			pstmt.setInt(1, memberNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				Inquiry iq = new Inquiry();
+				iq.setInqNo(rs.getInt("inq_no"));
+				iq.setMemberNo(rs.getInt("member_no"));
+				iq.setInqCategory(rs.getString("inq_category"));
+				iq.setInqTitle(rs.getString("inq_title"));
+				iq.setInqContent(rs.getString("inq_content"));
+				iq.setInqDate(rs.getDate("inq_date"));
+				iq.setInqYn(rs.getString("inq_yn"));
+				iq.setInqAnswer(rs.getString("inq_answer"));
+				iq.setInqAnsDate(rs.getDate("inq_ans_date"));
+				list.add(iq);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	
+	//1:1문의 페이징처리
+	public List<Inquiry> inquiryList(Connection conn, int cPage, int numPerPage){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Inquiry> list = new ArrayList();
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("inquiryList"));
+			pstmt.setInt(1, (cPage-1)*numPerPage+1);
+			pstmt.setInt(2, cPage*numPerPage);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Inquiry iq = new Inquiry();
+				iq.setInqNo(rs.getInt("inq_no"));
+				iq.setMemberNo(rs.getInt("member_no"));
+				iq.setInqCategory(rs.getString("inq_category"));
+				iq.setInqTitle(rs.getString("inq_title"));
+				iq.setInqContent(rs.getString("inq_content"));
+				iq.setInqDate(rs.getDate("inq_date"));
+				iq.setInqYn(rs.getString("inq_yn"));
+				iq.setInqAnswer(rs.getString("inq_answer"));
+				iq.setInqAnsDate(rs.getDate("inq_ans_date"));
+				list.add(iq);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	
+	//1:1문의 갯수
+	public int inquiryCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("inquiryCount"));
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	//1:1문의 팝업 상세페이지로 이동
+	public Inquiry selectInquiryNo(Connection conn, int inqNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Inquiry iq = null;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectInquiry"));
+			pstmt.setInt(1, inqNo);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				iq = new Inquiry();
+				iq.setInqNo(rs.getInt("inq_no"));
+				iq.setMemberNo(rs.getInt("member_no"));
+				iq.setInqCategory(rs.getString("inq_category"));
+				iq.setInqTitle(rs.getString("inq_title"));
+				iq.setInqContent(rs.getString("inq_content"));
+				iq.setInqDate(rs.getDate("inq_date"));
+				iq.setInqYn(rs.getString("inq_yn"));
+				iq.setInqAnswer(rs.getString("inq_answer"));
+				iq.setInqAnsDate(rs.getDate("inq_ans_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return iq;
+	}
+	
+	//1:1문의 답변
+	public int updateInquiry(Connection conn, String inqAnswer, String inqYn, int inqNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("updateInquiry"));
+			pstmt.setString(1, inqAnswer);
+			pstmt.setString(2, inqYn);
+			pstmt.setInt(3, inqNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
 	}
 
 	public List<Member> memList(Connection conn, int cPage, int numPerPage){

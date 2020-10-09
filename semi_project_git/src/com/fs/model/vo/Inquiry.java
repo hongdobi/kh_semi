@@ -1,5 +1,7 @@
 package com.fs.model.vo;
 
+import java.sql.Date;
+
 public class Inquiry {
 	
 	private int memberNo;
@@ -7,23 +9,27 @@ public class Inquiry {
 	private String inqCategory;
 	private String inqTitle;
 	private String inqContent;
+	private Date inqDate;
 	private String inqYn;
 	private String inqAnswer;
+	private Date inqAnsDate;
 	
 	public Inquiry() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Inquiry(int memberNo, int inqNo, String inqCategory, String inqTitle, String inqContent, String inqYn,
-			String inqAnswer) {
+	public Inquiry(int memberNo, int inqNo, String inqCategory, String inqTitle, String inqContent, Date inqDate,
+			String inqYn, String inqAnswer, Date inqAnsDate) {
 		super();
 		this.memberNo = memberNo;
 		this.inqNo = inqNo;
 		this.inqCategory = inqCategory;
 		this.inqTitle = inqTitle;
 		this.inqContent = inqContent;
+		this.inqDate = inqDate;
 		this.inqYn = inqYn;
 		this.inqAnswer = inqAnswer;
+		this.inqAnsDate = inqAnsDate;
 	}
 
 	public int getMemberNo() {
@@ -66,6 +72,14 @@ public class Inquiry {
 		this.inqContent = inqContent;
 	}
 
+	public Date getInqDate() {
+		return inqDate;
+	}
+
+	public void setInqDate(Date inqDate) {
+		this.inqDate = inqDate;
+	}
+
 	public String getInqYn() {
 		return inqYn;
 	}
@@ -82,11 +96,22 @@ public class Inquiry {
 		this.inqAnswer = inqAnswer;
 	}
 
+	public Date getInqAnsDate() {
+		return inqAnsDate;
+	}
+
+	public void setInqAnsDate(Date inqAnsDate) {
+		this.inqAnsDate = inqAnsDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Inquiry [memberNo=" + memberNo + ", inqNo=" + inqNo + ", inqCategory=" + inqCategory + ", inqTitle="
-				+ inqTitle + ", inqContent=" + inqContent + ", inqYn=" + inqYn + ", inqAnswer=" + inqAnswer + "]";
+				+ inqTitle + ", inqContent=" + inqContent + ", inqDate=" + inqDate + ", inqYn=" + inqYn + ", inqAnswer="
+				+ inqAnswer + ", inqAnsDate=" + inqAnsDate + "]";
 	}
+
+	
 	
 	
 
