@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>배너 등록/수정 페이지 -관리자-</title>
+<title>배너/프로모션관리 -관리자-</title>
 <script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <style>
 		body{
@@ -53,7 +53,6 @@
 			margin:auto;
 			text-align: center;
 			width: 600px;
-			height: 400px;
 			border: 1px black solid;
 		}
 	
@@ -136,7 +135,6 @@ $(function(){
 							let v=$(e.target).parent().parent().children().html();
 							console.log(v);
 							$("#inPerfNo").append($("<input>").attr({"type":"text","id":"perfNo","value":v})); 
-
 						});
 						let tr=$("<tr>").append($("<td>").html(data[i]["perfNo"]))
 						.append($("<td>").html(data[i]["perfName"]))
@@ -145,16 +143,40 @@ $(function(){
 						.append($("<td>").html(data[i]["location"]))
 						.append($("<td>").html(btn));
 						table.append(tr);
-
 					}
 				}
-				
 				$("#searchResult").html(table);
 			}
 		});
 	});  
-		
+	
+	$.ajax({
+		url:"<%=request.getContextPath()%>/banner/bannerList", 
+		data:{"cate":"All"},
+		type:"post",
+		dataType:"json",
+		success: function(data){ 
+			fn_bannerList(data);
+		}
+	}); 
 
+	//등록된 배너 리스트
+	$("#category2").change(e=>{ 
+        let v= $(e.target).val();
+        console.log(v)
+		$.ajax({
+			url:"<%=request.getContextPath()%>/banner/bannerList", 
+			data:{"cate":v},
+			type:"post",
+			dataType:"json",
+			success: function(data){ 
+				fn_bannerList(data);
+			}
+		}); 
+	});	
+	
+	
+	
 	//파일 업로드시 해당 그림 미리보기 출력하기
 	$("#upload").change(e=>{
 		let reader=new FileReader();
@@ -175,8 +197,9 @@ $(function(){
  		if($("input[name=cate]").val()=== undefined){
         	alert('배너 페이지를 선택해주세요');
         }
-		form.append("choice",$("input[name=coice]").val());
-		form.append("link",$("#link").val());
+		form.append("choice",$("input[name='choice']:checked").val());
+		form.append("link",$("textarea#link").val());
+		form.append("perfNo",$("input[name=perfNo]").val());
 		form.append("upload",$("#upload")[0].files[0]);
 		$.ajax({
 			url:"<%=request.getContextPath()%>/admin/bannerUpload",
@@ -185,11 +208,75 @@ $(function(){
 			processData:false,
 			contentType:false,
 			success:data=>{
-				alert("업로드 성공");
-				self.close();
+				if(data>0){
+					alert("배너등록성공");				
+					window.opener.location.reload(); 
+					self.close();
+				}else{
+					alert("배너등록실패! 해당 공연 배너가 등록있는지 확인해주세요");
+				}
 			}
 		});
 	});	
+	
+	
+	function fn_bannerList(data){
+		
+		let table=$("<table id='boxTbl'>");
+		let th=$("<tr>").append($("<th>").html("공연넘버"))
+			.append($("<th>").html("메인배너"))
+			.append($("<th>").html("카테고리배너"))
+			.append($("<th>").html("동영상주소"))
+			.append($("<th>").html("등록선택"))
+		table.append(th);
+		
+		if(data.length<1){
+			let tr=$("<tr>").append($("<td colspan='5'>").html("등록된 배너가 없습니다."));
+			table.append(tr);
+		}else{
+			for(let i=0;i<data.length;i++){	
+				let btn1=$("<button>").attr({"type":"button","class":"updateBtn"}).html("수정");
+				let btn2=$("<button>").attr({"type":"button","class":"deleteBtn"}).html("삭제");
+				btn1.click(e=>{
+
+				});
+				btn2.click(e=>{
+
+				});
+				
+				let tr=$("<tr>").append($("<td>").html(data[i]["perfNo"]));
+				
+				if(data[i]["banner1"]!=null){						
+					tr.append($("<td>").html(data[i]["banner1"]));
+				}else{
+					tr.append($("<td>").html("없음"));
+				}
+				
+				if(data[i]["banner2"]!=null){
+					
+					tr.append($("<td>").html(data[i]["banner2"]));
+				}else{
+					tr.append($("<td>").html("없음"));
+				}
+				
+				if(data[i]["link"]!=null){
+					tr.append($("<td>").html("영상있음"));
+				}else{
+					tr.append($("<td>").html("없음"));
+				}
+				
+				let td=$("<td>");
+				tr.append(td.append(btn1));
+				tr.append(td.append(btn2));
+				
+				table.append(tr);
+
+			}
+		}
+		
+		$("#boxTblDiv").html("");
+		$("#boxTblDiv").html(table);
+	}
 	
 });
 </script>
@@ -199,12 +286,12 @@ $(function(){
 	<section>
 		<form action="<%=request.getContextPath() %>/perf/bannerAdd" mothod="post">
 			<table>
-			<caption><h1>[관리자]배너등록/수정</h1> </caption>
+			<caption><h1>[관리자]배너/프로모션관리</h1></caption>
 				<tr>
 					<th>배너 위치</th>
 					<td>
-						<label><input type="radio" name="choice" value="banner1" required>메인</label>
-						<label><input type="radio" name="choice" value="banner2" required>공연 카테고리</label>
+						<label><input type="radio" name="choice" value="메인" checked>메인</label>
+						<label><input type="radio" name="choice" value="공연" >공연 카테고리</label>
 						<br>
 						<p id="inPerfNo">등록할 공연번호 입력:<input type="text" name="perfNo" required></p>
 						<div style="background-color:lightgray; height:">
@@ -227,17 +314,24 @@ $(function(){
 					배너등록상황
 					</th>
 					<td>
-						<div style="overflow:auto; width:600px; height:150px;">
+						<div>
+						<select name="category2" id="category2">
+							<option value="All">All</option>
+							<option value="S">연극</option>
+							<option value="E">전시</option>
+							<option value="M">뮤지컬</option>
+						</select>
+						</div>
+						<div id="boxTblDiv" style="overflow:auto; width:600px; height:150px;">
 							<table id="boxTbl">
-								<!--<tr>
-									<th>공연번호</th>
-									<th>공연이름</th>
-									<th>메인배너</th>
-									<th>카테고리배너</th>
-									<th>연결URL</th>
-								</tr> -->
 							</table>
 						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>동영상</th>
+					<td>
+						<textarea id="link" name="link" rows="5" cols="80" placeholder="동영상 소스코드를  넣어주세요" ></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -249,15 +343,8 @@ $(function(){
 					</td>
 				</tr>
 				<tr>
-					<th>동영상</th>
-					<td>
-						<textarea id="link" name="link" rows="5" cols="80" placeholder="동영상 소스코드를  넣어주세요" ></textarea>
-						
-					</td>
-				</tr>
-				<tr>
 					<td colspan="2">
-						<input type="file" name="upload" id="upload" required>
+						<input type="file" name="upload" id="upload">
 						<br><br>
 						<div id="imgContainer"></div>
 					    <br><br>
