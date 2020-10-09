@@ -6,6 +6,7 @@ import static com.fs.common.JDBCTemplate.getConnection;
 import static com.fs.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.fs.member.model.dao.MemberDao;
 import com.fs.model.vo.Member;
@@ -90,6 +91,5 @@ public class MemberService {
 		return b;
 		
 	}
-	
 
 }
