@@ -219,11 +219,12 @@ $(function(){
 		});
 	});	
 	
-	
+	//등록된 배너 리스트 
 	function fn_bannerList(data){
 		
 		let table=$("<table id='boxTbl'>");
 		let th=$("<tr>").append($("<th>").html("공연넘버"))
+			.append($("<th>").html("공연이름"))
 			.append($("<th>").html("메인배너"))
 			.append($("<th>").html("카테고리배너"))
 			.append($("<th>").html("동영상주소"))
@@ -245,7 +246,7 @@ $(function(){
 				});
 				
 				let tr=$("<tr>").append($("<td>").html(data[i]["perfNo"]));
-				
+				tr.append($("<td>").html(data[i]["perfName"]));
 				if(data[i]["banner1"]!=null){						
 					tr.append($("<td>").html(data[i]["banner1"]));
 				}else{

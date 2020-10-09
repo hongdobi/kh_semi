@@ -94,6 +94,7 @@ public class BannerDao {
 			while(rs.next()) {
 				b=new Banner();
 				b.setPerfNo(rs.getString("perf_No"));
+				b.setPerfName(rs.getString("perf_name"));
 				b.setBanner1(rs.getString("banner1"));
 				b.setBanner2(rs.getString("banner2"));
 				b.setSrc(rs.getString("SRC"));
@@ -107,11 +108,10 @@ public class BannerDao {
 		}
 		System.out.println(list);
 		return list;
-		
 	}
 	
 	
-	//각 카테고리에 맞는 공연배너 리스트 가져오기[카테고리용]
+	//각 카테고리에 맞는 공연배너 리스트 가져오기[카테고리화면용]
 	public List<Banner> selectBanner(Connection conn, String cate) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -140,6 +140,7 @@ public class BannerDao {
 				b.setBanner1(rs.getString("banner1"));
 				b.setBanner2(rs.getString("banner2"));
 				b.setSrc(rs.getString("SRC"));
+				System.out.println(b);
 				list.add(b);
 			}
 		}catch(SQLException e) {
@@ -148,8 +149,45 @@ public class BannerDao {
 			close(rs);
 			close(pstmt);
 		}
-		System.out.println(list);
+		System.out.println("배너용리스트"+list);
 		return list;
 		
 	}
+	//동영상목록[카테고리화면용]
+	public List<Banner> selectVideo(Connection conn, String cate) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Banner> list=new ArrayList();
+		Banner b=null;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectVideo"));
+			if(!cate.equals("All")) {
+				pstmt.setString(1, cate + "%");
+			}else {
+				pstmt.setString(1, "%");
+			}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				b=new Banner();
+				b.setPerfNo(rs.getString("perf_No"));
+				b.setPerfName(rs.getString("perf_name"));
+				b.setSrc(rs.getString("SRC"));
+				b.setLocation(rs.getString("perf_location"));
+				b.setPerfStart(rs.getDate("perf_start"));
+				b.setPerfEnd(rs.getDate("perf_end"));	
+				b.setPerfPoster(rs.getString("perf_poster"));	
+				System.out.println(b);
+				list.add(b);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println("영상리스트"+list);
+		return list;
+	}
+	
+
 }

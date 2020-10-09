@@ -26,7 +26,7 @@ public class BannerService {
 		close(conn);
 		return result;
 	}
-	//배너 목록 가져오기[관리자용]
+	//배너 목록 가져오기[관리자 등록용]
 	public List<Banner> selectBannerList(String cate) {
 		Connection conn = getConnection();
 		List<Banner> list = dao.selectBannerList(conn, cate);
@@ -34,10 +34,17 @@ public class BannerService {
 		return list;
 	}
 	
-	//배너 목록 가져오기[카테고리용]
+	//배너 목록 가져오기[카테고리화면용]
 	public List<Banner> selectBanner(String cate) {
 		Connection conn = getConnection();
 		List<Banner> list = dao.selectBanner(conn, cate);
+		close(conn);
+		return list;
+	}
+	//동영상목록[카테고리화면용]
+	public List<Banner> selectVideo(String cate) {
+		Connection conn = getConnection();
+		List<Banner> list = dao.selectVideo(conn, cate);
 		close(conn);
 		return list;
 	}

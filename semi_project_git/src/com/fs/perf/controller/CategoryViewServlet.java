@@ -36,9 +36,11 @@ public class CategoryViewServlet extends HttpServlet {
 		String cate=request.getParameter("cate");
 		
 		List <Banner> list=new BannerService().selectBanner(cate);
-		
+		List <Banner> vList=new BannerService().selectVideo(cate);
 		request.setAttribute("cate", cate);
 		request.setAttribute("list", list);
+		request.setAttribute("vList", vList);
+		System.out.println("카테고리뷰용 배너리스트"+list);
 		request.getRequestDispatcher("/views/perf/CategoryView.jsp").forward(request, response);
 	}
 
