@@ -105,8 +105,8 @@
 		margin-top:10px;
 	}
 	#adminView{
-		width:800px;
-		height:500px;
+		width:70%;
+		height:900px;
 		border:3px solid gainsboro;
 		display: inline-block;
 		
@@ -123,22 +123,54 @@
 	<nav>
 		<ul class="Rank-nav">
 			<li class="rk-li">공연 등록/삭제</li>
-			<li class="rk-li">회원관리</li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
 			<li class="rk-li">리뷰관리</li>
 			<li class="rk-li">FAQ</li>
 			<li class="rk-li">1:1문의</li>
 		</ul>
 	</nav>
-	<div id="adminView">
-		<br>
-		<br>
-		<br>
-		<br>
+	<!-- <div id="adminView">
 		<h1>내용</h1>
-	</div>
-
+	</div> -->
+	<h1><%=loginMember.getMemberName() %>님 환영합니다</h1>
 </section>
-      
-
+<script>
+<%-- 	$("#memberMG").click(e=>{
+		$.ajax({
+			url:"<%=request.getContextPath()%>/admin/memberMG",
+			type:"get",
+			success:function(data){
+				$("#adminView").html(data);
+			}
+		})
+	}); --%>
+	$(".pageNo").click(function(event){
+		let pageNo = $(event.target).text();		
+		let msg = "<%=request.getContextPath()%>/admin/memberMG?cPage=" + pageNo;
+		alert(msg);
+		
+	});
+		
+		
+		<%-- $.ajax({
+			url:"<%=request.getContextPath()%>/admin/memberMG",
+			type:"get",
+			success:function(data){
+				$("#adminView").html(data);
+			}
+		}) --%>
+	/* }; */
+<%-- 	$(document).ready(e=>{
+		$.ajax({
+			url:"<%=request.getContextPath()%>/member/memberInfo",
+			type:"get",
+			data:{"memberId":"<%=loginMember.getMemberId()%>"},
+			success:function(data){
+				$("#result").html(data);
+			}
+		})
+	});
+ --%>
+</script>
 
 <%@ include file="/views/common/footer.jsp" %>

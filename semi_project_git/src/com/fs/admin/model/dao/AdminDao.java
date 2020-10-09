@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.fs.model.vo.FAQ;
 import com.fs.model.vo.Inquiry;
+import com.fs.model.vo.Member;
 import com.fs.model.vo.Performance;
 
 public class AdminDao {
@@ -112,5 +113,136 @@ public class AdminDao {
 		return list;
 	}
 
-
+	public List<Member> memList(Connection conn, int cPage, int numPerPage){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Member> memList = new ArrayList<Member>();
+		Member m = null;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("memList"));
+			pstmt.setInt(1, (cPage-1)*numPerPage+1);
+			pstmt.setInt(2, cPage*numPerPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberId(rs.getNString("member_id"));
+				m.setMemberPw(rs.getNString("member_pw"));
+				m.setMemberName(rs.getNString("member_name"));
+				m.setPhone(rs.getNString("phone"));
+				m.setEmail(rs.getNString("email"));
+				m.setBday(rs.getDate("bday"));
+				m.setManagerYn(rs.getNString("manager_yn"));
+				memList.add(m);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return memList;
+	}
+	
+	public int memberCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("memberCount"));
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(SQLException e) {
+				e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+	
+		return result;
+	}
+	public List<Member> searchMemberList(Connection conn, String type, String key, int cPage, int numPerPage){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Member> list = new ArrayList();
+		try {
+			String sql= prop.getProperty("searchMemberList").replaceAll("@type", type);
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setNString(1, "%"+key+"%");
+			pstmt.setInt(2, (cPage-1)*numPerPage+1);
+			pstmt.setInt(3, cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Member m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberId(rs.getNString("member_id"));
+				m.setMemberPw(rs.getNString("member_pw"));
+				m.setMemberName(rs.getNString("member_name"));
+				m.setPhone(rs.getNString("phone"));
+				m.setEmail(rs.getNString("email"));
+				m.setBday(rs.getDate("bday"));
+				m.setManagerYn(rs.getNString("manager_yn"));
+				list.add(m);
+			}
+		}catch(SQLException e) {
+				e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}return list;	
+	}
+	public int searchCount(Connection conn, String type, String key) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			System.out.println(type);
+			System.out.println(key);
+			String sql = prop.getProperty("searchCount").replaceAll("@type", type);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setNString(1, "%"+key+"%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(SQLException e) {
+				e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+	
+		return result;
+	}
+	
+	
+	public int authMG(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("authMG"));
+			pstmt.setNString(1, "Y");
+			pstmt.setNString(2, memberId);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	public int delAuth(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("authMG"));
+			pstmt.setNString(1, "N");
+			pstmt.setNString(2, memberId);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 }
