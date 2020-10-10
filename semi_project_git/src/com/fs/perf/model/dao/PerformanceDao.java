@@ -150,6 +150,34 @@ private Properties prop = new Properties();
 		}
 		return list;
 	}
+	//티켓오픈 
+	public List<Performance> ticketOpen(Connection conn, String cate) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Performance>list =new ArrayList();
+		Performance perf=null;
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("ticketOpen"));
+			pstmt.setString(1, cate+"%");
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				perf=new Performance();
+	            perf.setPerfNo(rs.getString("perf_no"));
+	            perf.setPerfName(rs.getString("perf_name"));
+	            perf.setPerfStart(rs.getDate("perf_start"));
+	            perf.setPerfLocation(rs.getString("perf_location"));
+	            perf.setPerfPoster(rs.getString("perf_poster"));
+	            perf.setdDay(rs.getInt("DDAY")*(-1));
+				list.add(perf);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 
 
 	

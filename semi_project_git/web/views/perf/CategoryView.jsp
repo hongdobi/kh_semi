@@ -44,14 +44,14 @@ table#pickTbl td{
 	text-align: center;
 	position: relative;
 }
-img#poster{
+table#pickTbl img#poster{
 	width: 250px;
 	height: 250px;
 }
-td:hover .in{
+table#pickTbl td:hover .in{
   opacity:0.9;
 }
-div.in{
+table#pickTbl div.in{
 	position: absolute;
 	width: 230px;
 	height: 230px;
@@ -64,7 +64,7 @@ div.in{
   	top: 0px;
   	border:10px rgba(255,255,255,0.6) double;
 } 
-div.in h3{
+table#pickTbl div.in h3{
 	margin-top: 30px;
 }
 
@@ -138,9 +138,9 @@ div.perfContent .slick-next:before {
 }
 
 .slider1 {
-	width: 1200px;
+	width: 1300px;
 	margin: auto;
-	min-width:1200px;
+	min-width:1300px;
 }
 
 .slider1 .slick-slide {
@@ -148,36 +148,34 @@ div.perfContent .slick-next:before {
   }
 
 .slider1 .slick-slide img {
-      width: 100%;
+     width: 100% ;
  }
 
 .slider1 .slick-prev:before,
 .slider1 .slick-next:before {
-      color: black;
-    }
+    color: black;
+}
 
 .slider1 .slick-slide {
-      transition: all ease-in-out .3s;
-      opacity: .3;
-    }
+    transition: all ease-in-out .3s;
+    opacity: .3;
+}
     
 .slider1 .slick-active {
-      opacity: .7;
+   opacity: .7;
     	
-    }
+}
 
 .slider1 .slick-current {
-      opacity: 1;
-    }
-    
-.slider1 img.banner{
-    width:300px;
-    height:300px;
+     opacity: 1;
+     
 }
-.slider1 .slick-current img.banner{
-    width:310px;
-    height:310px;
-    
+.slider1 .slick-current img{
+     transform:scale(1.1);
+}    
+.slider1 img.banner{
+    width:350px;
+    height:350px;
 }
 
  .slider1 div.bannerText{  
@@ -185,8 +183,7 @@ div.perfContent .slick-next:before {
     text-align: center;
     bottom: 0px;
     margin:auto;
-    width:300px;
-   
+    width:350px;
     background-color: rgba(0,0,0,0.2);
    } 
    
@@ -194,9 +191,49 @@ div.perfContent .slick-next:before {
  	text-align: center;
  	position: relative;
  	color:white;
-
  }
+ 
+ 
+ 
+ /*티켓 오픈*/
+ div#ticketOpen{
+ 	text-align:center;
+ 	margin:auto;
+ }
+table#openTbl{
+ 	margin:auto;
+ 	background:linear-gradient(45deg,lightcoral, #FFD8D8 40%,#FFEAEA 45%);
+}
+table#openTbl td{
+  position:relative;
+  padding: 40px;
+  
+}
+table#openTbl td:hover img{
+	transform:scale(1.05);
+}
+div.day{
+	background-color: lightcoral;
+	border-radius: 100%;
+	width:100px;
+	height:100px;
+	line-height:60px;
+	color:white;
+	position:absolute; 
+	top:260px; 
+	right:30px;
+	border: 3px white solid;
 
+}
+.openPoster{
+	height:300px;
+	width: 230px;
+	
+}
+/*부제목 크기*/
+caption>h1{
+	font-size: 30px;
+}
 </style>
 <script>
 $(function(){
@@ -210,6 +247,35 @@ $(function(){
 	 	open(url,"",status);	
     });
 	
+	//티켓오픈
+	$.ajax({
+		url:"<%=request.getContextPath()%>/perf/ticketOpen",
+		data:{"cate":cate},
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			if(data.length>0){
+			$("table#openTbl").children().remove();
+			let tr=$("<tr>");
+			for(let i=0;i<data.length;i++){
+				let td=$("<td>");
+				let a=$("<a>").attr("href","<%=request.getContextPath()%>/perf/perfView?perfNo="+data[i]["perfNo"]);
+				let img=$("<img class='openPoster'>").attr("src","<%=request.getContextPath()%>/image/perf/"+data[i]["perfNo"]+"/"+data[i]["poster"]);
+				let div=$("<div class='day'>").html("<h3> D-<span style='color:yellow; font-size: 40px;'>"+data[i]["dDay"]+"</span></h3>");
+				let info=$("<div class='info'>").html("<h4>"+data[i]["perfName"]+"</h4> OPEN:"+data[i]["perfStart"]+"<br>"+data[i]["location"]);
+				a.append(img);
+				td.append(a);
+				td.append(div);				
+				td.append(info)
+				tr.append(td);
+			}
+			
+			$("table#openTbl").append($("<caption>").html($("<h1>").html("Ticket OPEN")));
+			$("table#openTbl").append(tr);
+			}
+		}
+	});
+	
 	//페이지 로드시 오성티켓's pick
 	$.ajax({
 		url:"<%=request.getContextPath()%>/perf/perfPick", 
@@ -220,7 +286,7 @@ $(function(){
 			$("table#pickTbl").children().remove();
 			let tr1=$("<tr>");
 			let tr2=$("<tr>");
-			for(let i=0;i<6;i++){
+			for(let i=0;i<8;i++){
 				let td=$("<td>");
 				let div=$("<div>");
 				if(i<data.length){
@@ -234,9 +300,9 @@ $(function(){
 					div.html("준비중입니다."+"<br>"+"-오성티켓-");
 				}
 				td.append(div);
-				if(i<3){
+				if(i<4){
 					tr1.append(td);
-				}else if(i<6){
+				}else if(i<8){
 					tr2.append(td);
 				}
 			}  
@@ -313,22 +379,20 @@ $(function(){
 		<%}
 	} %>
 </div>
-<br>
-<br>
+<br><br>
 
+<!--티켓오픈 -->
 <div id="ticketOpen">
-	
-
+	<table id="openTbl"></table>	
 </div>
 
-
+<br><br>
+<!--오성티켓 pick -->
 <div id="pick">
-	<table id="pickTbl">
-	</table>
+	<table id="pickTbl"></table>
 </div>
 
-<br>
-<br>
+<br><br>
 
 
 <div class="perfContent">
