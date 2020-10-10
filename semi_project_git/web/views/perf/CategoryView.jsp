@@ -60,105 +60,131 @@ div.in h3{
 }
 
 /*콘텐츠 박스*/
-div#perfContent{
+div.perfContent{
 	background-color:black;
 	color:white;
-	display:flex;
-    align-items:center;
-	justify-content: space-around;
+	width: 1400px;
 	height:500px;
-	
+	margin: auto;
+}
+div.vBox{
+	height:500px;
+	display: -webkit-flex;
+	display: flex;
+	width: 1400px;
 }
 div.contentInfo{
-	min-width: 400px;
+	justify-content: space-around; 
 	width: 400px;
-	height:500px;
-	position: relative;	
+	height:350px;
+	border: 1px lime solid;
 }
-div.videoText{
+
+div.perfContent .slick-slide {
+     margin: 0px 20px;
+  }
+
+div.perfContent .slick-slide img {
+      width: 100%;
+ }
+
+
+/* div.videoText{
+
 	width: 400px;
 	height:500px;	
 	color:white;
 	background-color: rgba(0,0,0,0.6);
-	position: absolute;
 	text-align:center;
-	
 }
 div.videoText>h1{
 	margin-top:130px;
-	
 }
 img.contetnPoster{
 	opacity: 0.4;
 	width: 400px;
 	height:500px;	
-	position: absolute;
-}
+} */
 div.video{
+	justify-content: space-around; 
 	text-align:center;
-	width:900px;
-	height:500px;
+	width:800px;
+	height:500px; 
 	background-image: url(<%=request.getContextPath()%>/image/무대배경.jpg);
-	background-repeat:no-repeat;
-	background-size:cover;
-	
+	background-repeat:no-repeat; 
+	background-size:cover; 
 }
 /*유튜브 동영상 프레임*/
-div#perfContent iframe{
-	margin-top: 50px;
+div.perfContent iframe{
 	width:750px;
-	height:400px;	
+	height:400px;
+	margin-top:50px;	
+
 }
 
-/* 화살표 */
-.slick-arrow{
-  z-index: 2; /* prev버튼은 위치 이동시 이미지 뒤로 숨겨짐 */
-  position:absolute;  /* 원하는 위치에 지정  */
-  top: 40%; 
-  width: 50px; 
-  height: 50px; 
-  transform: translateY(-25px);
-}
-.slick-prev.slick-arrow{ /* prev 이전 */
-	left: 0;
-}
-.slick-next.slick-arrow{ /* next 다음 */
-	right: 0;
+div.perfContent .slick-prev:before,
+div.perfContent .slick-next:before {
+      color: beige;
 }
 
-/* 아래점 */
-.slick-dots{ 
-	text-align: center;
+.slider1 {
+	width: 1200px;
+	margin: auto;
+	min-width:1200px;
 }
-.slick-dots li{
-  display: inline-block; 
-  margin: 0 5px;
-}
-div.slider.slick-initialized.slick-slider img{
 
-	height: 350px;
-	width: 350px; 
-	margin:0px;
-}
-div.slick-slide.slick-current.slick-active.slick-center img{
-	height: 400px;
-	width:400px;
-	
-}
-div.slider{
-	width: 100%;
-    max-width: 1920px;
-    min-width: 1300px;
-    overflow: hidden;
-    margin: 0 auto;
-    height: 400px;
-    position: relative;
+.slider1 .slick-slide {
+     margin: 0px 20px;
+  }
+
+.slider1 .slick-slide img {
+      width: 100%;
  }
- div.bannerText{   position: absolute;
+
+.slider1 .slick-prev:before,
+.slider1 .slick-next:before {
+      color: black;
+    }
+
+.slider1 .slick-slide {
+      transition: all ease-in-out .3s;
+      opacity: .3;
+    }
+    
+.slider1 .slick-active {
+      opacity: .7;
+    	
+    }
+
+.slider1 .slick-current {
+      opacity: 1;
+    }
+    
+.slider1 img.banner{
+    width:300px;
+    height:300px;
+}
+.slider1 .slick-current img.banner{
+    width:310px;
+    height:310px;
+}
+
+ .slider1 div.bannerText{  
+ 	position: absolute;
     text-align: center;
-    bottom: 20px;
-    width: 100%;
-    transition: 0.3s all;} 
+    bottom: 0px;
+    margin:auto;
+    width:300px;
+    background-color: rgba(0,0,0,0.2);
+   } 
+   
+ .slider1 div.pannel{
+ 	text-align: center;
+ 	position: relative;
+ 	color:white;
+
+ }
+
 </style>
 <script>
 $(function(){
@@ -167,8 +193,8 @@ $(function(){
 	
 	//관리자 배너 등록 팝업창 열기
 	$("#addBtn").on("click",e=>{
-	    const url="<%=request.getContextPath()%>/admin/bannerAdd"; 
-	    const status="width=800px, height=600px, top=100px, left=300px";
+	    const url="<%=request.getContextPath()%>/banner/bannerAdd"; 
+	    const status="width=920px, height=600px, top=100px, left=300px";
 	 	open(url,"",status);	
     });
 	
@@ -210,35 +236,40 @@ $(function(){
 	});
 	
 
-
-	  $('.slider').slick({
+	$('.slider1').slick({
 		  centerMode: true,
-		  centerPadding: '50px',
+		  centerPadding: '60px',
 		  slidesToShow: 3,
-		  speed:300, // 슬라이드 스피드
-		  autoplay: true, //자동플레이 유무( false시 자동플레이 안됨 )
-		  autoplaySpeed:4000, // 자동플레이 스피드
-	       responsive: [
-	      {
-	        breakpoint: 768,
-	        settings: {
-	          arrows: false,
-	          centerMode: true,
-	          centerPadding: '40px',
-	          slidesToShow: 3
-	        }
-	      },
-	      {
-	        breakpoint: 480,
-	        settings: {
-	          arrows: false,
-	          centerMode: true,
-	          centerPadding: '40px',
-	          slidesToShow: 1
-	        }
-	      }
-	    ]
-	  });
+	      dots: true,
+		  responsive: [
+		    {
+		      breakpoint: 768,
+		      settings: {
+		        arrows: false,
+		        centerMode: true,
+		        centerPadding: '40px',
+		        slidesToShow: 3
+		      }
+		    },
+		    {
+		      breakpoint: 480,
+		      settings: {
+		        arrows: false,
+		        centerMode: true,
+		        centerPadding: '40px',
+		        slidesToShow: 1
+		      }
+		    }
+		  ]
+		});
+ 
+    $('.perfContent').slick({
+      dots: true,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 1,
+      adaptiveHeight: true
+    });
 })
 
 
@@ -253,18 +284,20 @@ $(function(){
 <%} %>  
 
 
-<div class="slider">
+<div class="slider1">
 	<%if(list!=null){
 		for(Banner b:list){%>
-			<div>
+			
+			<div class="pannel">
 			<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=b.getPerfNo()%>">
 			<img class="banner" src="<%=request.getContextPath()%>/image/banner/<%=b.getBanner2()%>">
+			</a>
 			<div class="bannerText">
-				<h2 style="font-size:50px"><%=b.getPerfName() %></h2>
+				<p ><%=b.getPerfName() %></p>
 				<p><%=sdf.format(b.getPerfStart()) %> ~ <%=sdf.format(b.getPerfEnd()) %></p>
 				<p><%=b.getLocation() %></p>
+			</div> 
 			</div>
-			</a></div>
 		<%}
 	} %>
 </div>
@@ -280,20 +313,22 @@ $(function(){
 <br>
 
 
-<div id="perfContent">
+<div class="perfContent">
 <%if(vList!=null){
 	for(Banner b:vList){ %>
+	<div class="vBox">
 		<div class="video"><%=b.getSrc()%></div>
 		<div class="contentInfo">
 			<img class="contetnPoster" src="<%=request.getContextPath()%>/image/perf/<%=b.getPerfNo()%>/<%=b.getPerfPoster()%>" alt="<%=request.getContextPath() %>/<%=b.getPerfName() %>">		
 			<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=b.getPerfNo()%>">
-<%-- 			<div class="videoText">
+ 			<div class="videoText">
 				<h1 style="font-size:50px"><%=b.getPerfName() %></h1>
 				<h4><%=sdf.format(b.getPerfStart()) %> ~ <%=sdf.format(b.getPerfEnd()) %></h4>
 				<h3><span style="color:coral">'<%=b.getLocation() %>'</span>에서 만나요~</h3>
-			</div> --%>
+			</div>
 			</a>
 		</div>  
+	</div>
 	<%}
 } %>
 </div>

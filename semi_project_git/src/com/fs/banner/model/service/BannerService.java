@@ -16,11 +16,9 @@ public class BannerService {
 
 	private BannerDao dao=new BannerDao();
 	//배너등록
-	public int insertBanner(Banner b) {
+	public int insertBanner(Banner b,String choice) {
 		Connection conn=getConnection();
-		int result=dao.insertBanner(conn,b);
-		System.out.println(result +"service");
-		
+		int result=dao.insertBanner(conn,b,choice);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);
@@ -47,5 +45,14 @@ public class BannerService {
 		List<Banner> list = dao.selectVideo(conn, cate);
 		close(conn);
 		return list;
+	}
+	//해당 공연 파일전체 삭제
+	public int deleteBanner(String perfNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteBanner(conn,perfNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
 }

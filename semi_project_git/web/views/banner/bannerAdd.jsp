@@ -46,7 +46,7 @@
             border-bottom: 1px black solid;
             height: 25px;      
         }
-        tr:last-of-type>td{
+        #lastTd{
         	text-align: center;
         }
 		div#imgContainer{
@@ -64,49 +64,50 @@
             border:1px lightcoral solid;
             border-radius: 10px;
         }
-        #submit{
-            width:100px;
-            height:40px;
-            background-color: lightcoral;
-            color:white;
-            border:none;
-            border-radius: 10px;
-        }
-		table#searchTbl{
-			margin:auto;
-			width: 600px;
-			font-size:12px;
-		}
-		table#searchTbl th{
-			background-color:lightcoral;
-			color:white;
-			line-height: 18px;
-			text-align:center;
-		}
-		table#searchTbl td{
+   #submit{
+       width:100px;
+       height:40px;
+       background-color: lightcoral;
+       color:white;
+       border:none;
+       border-radius: 10px;
+    }
+	table#searchTbl{
+		
+		width: 700px;
+		font-size:12px;
+	}
+	table#searchTbl th{
+		background-color:lightcoral;
+		color:white;
+		line-height: 18px;
+		text-align:center;
+	}
+	table#searchTbl td{
 			text-align:center;
 			border-bottom: 1px lightcoral solid;
 			line-height: 15px;
-		} 
+	} 
 	table#boxTbl{
 		margin:auto;
-		width: 600px;
+		width: 750px;
 		font-size:12px;
 	}
+
 </style>
 <script>
 $(function(){
-	//선택한 category를 다른곳에서 선택가능하게 히든값에 담기
+	//공연검색을 위한 선택한category를 다른곳에서 선택가능하게 히든값에 담기
 	$("#category").change(e=>{ 
         let v= $(e.target).val();
         console.log(v);
 	   $("input[name=cate]").val(v); 
 	});
 	
-	//공연검색
+	//공연검색[공연번호찾기]
 	$("#searchBtn").on("click",e=>{
 		let perfName=$("input[name=perfSearch]").val();
-		if(perfName.length==0){
+		if(perfName.length<1){
 			alert('등록하실 공연이름을 입력해주세요.');
 			return;
 		}
@@ -132,11 +133,11 @@ $(function(){
 						let btn=$("<button>").attr({"type":"button","class":"pBtn"}).html("선택");
 						btn.click(e=>{
 							$("#inPerfNo").children().remove();
-							let v=$(e.target).parent().parent().children().html();
+							let v=$(e.target).parent().parent().children("#no").text();
 							console.log(v);
-							$("#inPerfNo").append($("<input>").attr({"type":"text","id":"perfNo","value":v})); 
+							$("#inPerfNo").append($("<input>").attr({"type":"text","name":"perfNo","value":v,"required":"required"})); 
 						});
-						let tr=$("<tr>").append($("<td>").html(data[i]["perfNo"]))
+						let tr=$("<tr>").append($("<td id='no'>").html(data[i]["perfNo"]))
 						.append($("<td>").html(data[i]["perfName"]))
 						.append($("<td>").html(data[i]["perfStart"]))
 						.append($("<td>").html(data[i]["perfEnd"]))
@@ -177,32 +178,56 @@ $(function(){
 	
 	
 	
-	//파일 업로드시 해당 그림 미리보기 출력하기
+
+
+	
+	//동영상,메인배너, 서브배너 선택
+	$("input[name='choice']").change(e=>{
+		$("#resultTR").html("");
+		let choice=$(e.target).val();
+		console.log(choice);
+		if((choice==("공연"))||(choice==("메인"))){
+			let td=$("<td colspan='2'>");
+			let file=$("<input type='file' name='upload' id='upload'>");
+			let num1=$("<input type='number' name='w' id='w' min=1 placeholder='폭'>");
+			let num2=$("<input type='number' name='h' id='h' min=1 placeholder='넓이'>");
+			let con=$("<div id='imgContainer'>");
+			$("#resultTR").append(td);
+			td.append(file);
+			td.append(num1);
+			td.append(num2);
+			td.append(con);
+		}else if(choice=="동영상"){
+			let textarea=$("<textarea rows='5' cols='80' placeholder='동영상 소스코드를  넣어주세요'>").attr({"id":"link","name":"link"});
+			$("#resultTR").html(textarea);
+		}
+	})
+	
+	//파일 업로드시 해당 그림 미리보기 출력하기(미작동!!!!!!!!!!!!!!!!!)
 	$("#upload").change(e=>{
+		let width=$("[input name='w']").val();
+		let height=$("[input name='h']").val();
 		let reader=new FileReader();
+		console.log(width);
+		console.log(height);
 		reader.onload=e=>{
-			let width=$("#w").val();
-			let height=$("#h").val();
 			let img=$("<img>").attr({"src":e.target.result,"width":width,"height":height});
 			$("#imgContainer").html("");
 			$("#imgContainer").append(img);
 		}
 		reader.readAsDataURL($(e.target)[0].files[0]);
 	});
-		
-
+	
 	//전송 클릭시 실행할 로직
 	$("#submit").click(e=>{
 		let form=new FormData();
- 		if($("input[name=cate]").val()=== undefined){
-        	alert('배너 페이지를 선택해주세요');
-        }
-		form.append("choice",$("input[name='choice']:checked").val());
-		form.append("link",$("textarea#link").val());
+        form.append("choice",$("input[name='choice']:checked").val());
+		form.append("link",($("textarea#link").val()==undefined?"":$("textarea#link").val()));
 		form.append("perfNo",$("input[name=perfNo]").val());
-		form.append("upload",$("#upload")[0].files[0]);
+		form.append("upload",($("#upload").val()!=null?$("#upload")[0].files[0]:""));
+		console.log($("upload").hasOwnProperty("files"));
 		$.ajax({
-			url:"<%=request.getContextPath()%>/admin/bannerUpload",
+			url:"<%=request.getContextPath()%>/banner/bannerUpload",
 			data:form, 
 			type:"post",
 			processData:false,
@@ -210,10 +235,9 @@ $(function(){
 			success:data=>{
 				if(data>0){
 					alert("배너등록성공");				
-					window.opener.location.reload(); 
-					self.close();
+					window.location.reload(); 
 				}else{
-					alert("배너등록실패! 해당 공연 배너가 등록있는지 확인해주세요");
+					alert("배너등록실패");
 				}
 			}
 		});
@@ -221,13 +245,12 @@ $(function(){
 	
 	//등록된 배너 리스트 
 	function fn_bannerList(data){
-		
 		let table=$("<table id='boxTbl'>");
 		let th=$("<tr>").append($("<th>").html("공연넘버"))
 			.append($("<th>").html("공연이름"))
 			.append($("<th>").html("메인배너"))
-			.append($("<th>").html("카테고리배너"))
-			.append($("<th>").html("동영상주소"))
+			.append($("<th>").html("서브배너"))
+			.append($("<th>").html("동영상"))
 			.append($("<th>").html("등록선택"))
 		table.append(th);
 		
@@ -236,42 +259,49 @@ $(function(){
 			table.append(tr);
 		}else{
 			for(let i=0;i<data.length;i++){	
-				let btn1=$("<button>").attr({"type":"button","class":"updateBtn"}).html("수정");
-				let btn2=$("<button>").attr({"type":"button","class":"deleteBtn"}).html("삭제");
+				let btn1=$("<button>").attr({"type":"button","class":"updateBtn"}).html("삭제");
 				btn1.click(e=>{
-
+					let perfNo=$(e.target).parent().parent().children("#no").text();
+					let b1=$(e.target).parent().parent().children("#b1").text();
+					let b2=$(e.target).parent().parent().children("#b2").text();
+					$.ajax({
+						url:"<%=request.getContextPath()%>/banner/bannerDelete",
+						data:{"perfNo":perfNo,"b1":b1,"b2":b2}, 
+						type:"post",
+						success:data=>{
+							if(data>0){
+								alert("배너삭제성공");				
+								window.location.reload(); 
+							}else{
+								alert("배너삭제실패");
+							}
+						}
+					});
 				});
-				btn2.click(e=>{
-
-				});
-				
-				let tr=$("<tr>").append($("<td>").html(data[i]["perfNo"]));
+		
+				let tr=$("<tr>").append($("<td id='no'>").html(data[i]["perfNo"]));
 				tr.append($("<td>").html(data[i]["perfName"]));
 				if(data[i]["banner1"]!=null){						
-					tr.append($("<td>").html(data[i]["banner1"]));
+					tr.append($("<td id='b1'>").html(data[i]["banner1"]));
 				}else{
-					tr.append($("<td>").html("없음"));
+					tr.append($("<td id='b1'>").html("X"));
 				}
 				
 				if(data[i]["banner2"]!=null){
 					
-					tr.append($("<td>").html(data[i]["banner2"]));
+					tr.append($("<td id='b2'>").html(data[i]["banner2"]));
 				}else{
-					tr.append($("<td>").html("없음"));
+					tr.append($("<td id='b2'>").html("X"));
 				}
 				
 				if(data[i]["link"]!=null){
-					tr.append($("<td>").html("영상있음"));
+					tr.append($("<td>").html("<img alt='' src='<%=request.getContextPath() %>/image/동영상.png' height='20px'>"));
 				}else{
-					tr.append($("<td>").html("없음"));
+					tr.append($("<td>").html("X"));
 				}
-				
 				let td=$("<td>");
 				tr.append(td.append(btn1));
-				tr.append(td.append(btn2));
-				
 				table.append(tr);
-
 			}
 		}
 		
@@ -286,35 +316,11 @@ $(function(){
 <body>
 	<section>
 		<form action="<%=request.getContextPath() %>/perf/bannerAdd" mothod="post">
-			<table>
+			<table id="big">
 			<caption><h1>[관리자]배너/프로모션관리</h1></caption>
+				<tr ><th colspan="2">현재 배너등록상황</th></tr>
 				<tr>
-					<th>배너 위치</th>
-					<td>
-						<label><input type="radio" name="choice" value="메인" checked>메인</label>
-						<label><input type="radio" name="choice" value="공연" >공연 카테고리</label>
-						<br>
-						<p id="inPerfNo">등록할 공연번호 입력:<input type="text" name="perfNo" required></p>
-						<div style="background-color:lightgray; height:">
-						<h5>공연번호 찾기</h5> 
-						<select name="category" id="category">
-							<option value="All">All</option>
-							<option value="S">연극</option>
-							<option value="E">전시</option>
-							<option value="M">뮤지컬</option>
-						</select>
-						
-						공연명:<input type="search" name="perfSearch" id="perfSearch" placeholder="공연명을 입력해주세요">
-						<button type="button" id="searchBtn">검색</button>
-						<div id="searchResult" style="overflow:auto; width:600px; height:150px;"></div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>
-					배너등록상황
-					</th>
-					<td>
+					<td colspan="2">
 						<div>
 						<select name="category2" id="category2">
 							<option value="All">All</option>
@@ -323,34 +329,40 @@ $(function(){
 							<option value="M">뮤지컬</option>
 						</select>
 						</div>
-						<div id="boxTblDiv" style="overflow:auto; width:600px; height:150px;">
+						<div id="boxTblDiv" style="overflow:auto; width:750px; height:250px;">
 							<table id="boxTbl">
 							</table>
 						</div>
 					</td>
 				</tr>
-				<tr>
-					<th>동영상</th>
-					<td>
-						<textarea id="link" name="link" rows="5" cols="80" placeholder="동영상 소스코드를  넣어주세요" ></textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>미리보기 사이즈</th>
-					<td>
-						<input type="number" name="w" id="w" min=1 placeholder="폭">
-						*
-						<input type="number" name="h" id="h" min=1 placeholder="넓이">
-					</td>
-				</tr>
+				
+				<tr><th colspan="2">공연번호검색</th></tr>
 				<tr>
 					<td colspan="2">
-						<input type="file" name="upload" id="upload">
-						<br><br>
-						<div id="imgContainer"></div>
-					    <br><br>
+						<div style="background-color:lightgray;">
+						<select name="category" id="category">
+							<option value="All">All</option>
+							<option value="S">연극</option>
+							<option value="E">전시</option>
+							<option value="M">뮤지컬</option>
+						</select>
+						공연명:<input type="search" name="perfSearch" id="perfSearch" placeholder="공연명을 입력해주세요">
+						<button type="button" id="searchBtn">검색</button>
+						<div id="searchResult" style="overflow:auto; width:750px; max-height:150px;"></div>
+						</div>
+						<p id="inPerfNo">배너 등록/수정 공연번호: <input type="text" name="perfNo" required="required"></p>
+						<label><input type="radio" name="choice" value="메인" checked>메인배너</label>
+						<label><input type="radio" name="choice" value="공연" >서브 배너</label>
+						<label><input type="radio" name="choice" value="동영상" >동영상</label>
+					</td>
+				</tr>
+				<tr id="resultTR">
+					
+				</tr>
+				<tr>
+					<td colspan="2" id="lastTd">
 					    <input type="hidden" name="cate">
-					    <input type="button" id="submit" value="등록">
+					    <input type="button" id="submit" value="수정/등록">
 					    <input type="button" value="닫기" onclick="self.close();">
 					</td>
 				</tr>

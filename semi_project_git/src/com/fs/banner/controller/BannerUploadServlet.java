@@ -20,7 +20,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 /**
  * Servlet implementation class BannerUploadServlet
  */
-@WebServlet("/admin/bannerUpload")
+@WebServlet("/banner/bannerUpload")
 public class BannerUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -53,18 +53,11 @@ public class BannerUploadServlet extends HttpServlet {
 		
 		Banner b = new Banner();
 
+		String choice = mr.getParameter("choice");
+
 		String perfNo = mr.getParameter("perfNo");
 		b.setPerfNo(perfNo);
-		System.out.println(perfNo);
-		
-		String choice = mr.getParameter("choice");
-		//String link = mr.getParameter("link");
-		
-		if(mr.getParameter("link")!=null) {
-			b.setSrc(mr.getParameter("link"));
-		}
 	
-		
 		System.out.println(choice);
 		System.out.println(perfNo);
 		
@@ -72,14 +65,20 @@ public class BannerUploadServlet extends HttpServlet {
 			System.out.println("배너1");
 			b.setBanner1(fileName);
 		}
-		if(choice.equals("공연")) {
+		else if(choice.equals("공연")) {
 			System.out.println("배너2");
 			b.setBanner2(fileName);
 		}
-
-		System.out.println(b);
-		int result = new BannerService().insertBanner(b);
+		else if(choice.equals("동영상")) {
+			System.out.println("동영상");
+			b.setSrc(mr.getParameter("link"));
+		}
+		
+		System.out.println("정상입력여부"+b);
+		int result = new BannerService().insertBanner(b,choice);
+		
 		System.out.println(result +"servlet");
+		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out =response.getWriter();
 		out.write(result+"");
