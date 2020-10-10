@@ -55,4 +55,11 @@ public class BannerService {
 		close(conn);
 		return result;
 	}
+	//이전 파일 이름 가져오기
+	public String oldFileName(String perfNo, String choice) {
+		Connection conn=getConnection();
+		String name=dao.oldFileName(conn,perfNo,choice);
+		close(conn);
+		return name;
+	}
 }

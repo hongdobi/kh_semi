@@ -226,6 +226,32 @@ public class BannerDao {
 		}
 		return result;
 	}
+	public String oldFileName(Connection conn, String perfNo, String choice) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String name="";
+		String type="";
+		try {
+			if(choice.equals("메인")) {
+				type="Banner1";
+			}else if(choice.equals("공연")){
+				type="Banner2";
+			}
+			String sql=prop.getProperty("oldFileName").replaceAll("@type", type);
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, perfNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				name=rs.getString(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return name;
+	}
 	
 
 }

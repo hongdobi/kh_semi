@@ -1,5 +1,6 @@
 package com.fs.banner.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -73,9 +74,23 @@ public class BannerUploadServlet extends HttpServlet {
 			System.out.println("동영상");
 			b.setSrc(mr.getParameter("link"));
 		}
-		
-		System.out.println("정상입력여부"+b);
+		String old="";
+		//예전 파일 이름
+		if(choice.equals("메인")||choice.equals("공연")) {
+			old=new BannerService().oldFileName(perfNo,choice);
+		}
 		int result = new BannerService().insertBanner(b,choice);
+		
+		if(choice.equals("메인")||choice.equals("공연")) {
+			if(result>0) {
+				//업데이트 성공시 기존 파일 지우기
+				String filePath=getServletContext().getRealPath("/image/banner/");
+				filePath+=old;
+				File f=new File(filePath);
+				System.out.println(filePath);
+				if(f.exists())f.delete();
+			}
+		}
 		
 		System.out.println(result +"servlet");
 		
