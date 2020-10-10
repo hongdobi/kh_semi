@@ -18,6 +18,15 @@
 
 %>
 <style>
+#addBtn{
+	width: 120px;
+	height: 40px;
+	background-color: lightcoral;
+	color:white;
+	border-radius: 10px;
+	border:none;
+	margin: 40px;
+}
 /*오성티켓 pick*/
 div#pick{
 	width: 900px;
@@ -89,7 +98,7 @@ div.perfContent .slick-slide img {
  }
 
 
-/* div.videoText{
+ div.videoText{
 
 	width: 400px;
 	height:500px;	
@@ -104,7 +113,8 @@ img.contetnPoster{
 	opacity: 0.4;
 	width: 400px;
 	height:500px;	
-} */
+} 
+
 div.video{
 	justify-content: space-around; 
 	text-align:center;
@@ -167,6 +177,7 @@ div.perfContent .slick-next:before {
 .slider1 .slick-current img.banner{
     width:310px;
     height:310px;
+    
 }
 
  .slider1 div.bannerText{  
@@ -175,6 +186,7 @@ div.perfContent .slick-next:before {
     bottom: 0px;
     margin:auto;
     width:300px;
+   
     background-color: rgba(0,0,0,0.2);
    } 
    
@@ -293,7 +305,7 @@ $(function(){
 			<img class="banner" src="<%=request.getContextPath()%>/image/banner/<%=b.getBanner2()%>">
 			</a>
 			<div class="bannerText">
-				<p ><%=b.getPerfName() %></p>
+				<p  style="font-weight:bolder;"><%=b.getPerfName() %></p>
 				<p><%=sdf.format(b.getPerfStart()) %> ~ <%=sdf.format(b.getPerfEnd()) %></p>
 				<p><%=b.getLocation() %></p>
 			</div> 
@@ -303,6 +315,12 @@ $(function(){
 </div>
 <br>
 <br>
+
+<div id="ticketOpen">
+	
+
+</div>
+
 
 <div id="pick">
 	<table id="pickTbl">
@@ -316,7 +334,7 @@ $(function(){
 <div class="perfContent">
 <%if(vList!=null){
 	for(Banner b:vList){ %>
-	<div class="vBox">
+	<div class="vBox"></div>
 		<div class="video"><%=b.getSrc()%></div>
 		<div class="contentInfo">
 			<img class="contetnPoster" src="<%=request.getContextPath()%>/image/perf/<%=b.getPerfNo()%>/<%=b.getPerfPoster()%>" alt="<%=request.getContextPath() %>/<%=b.getPerfName() %>">		

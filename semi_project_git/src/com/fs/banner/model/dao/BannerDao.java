@@ -128,7 +128,7 @@ public class BannerDao {
 	}
 	
 	
-	//각 카테고리에 맞는 공연배너 리스트 가져오기[카테고리화면용]
+	//각 카테고리에 맞는 공연배너 리스트,공연정 가져오기[카테고리화면용]
 	public List<Banner> selectBanner(Connection conn, String cate) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -211,7 +211,7 @@ public class BannerDao {
 		System.out.println("영상리스트"+list);
 		return list;
 	}
-	//해당공연넘버 지우기
+	//해당공연넘버 전체배너 파일,동영상경로 지우기
 	public int deleteBanner(Connection conn, String perfNo) {
 		PreparedStatement pstmt=null;
 		int result=0;
