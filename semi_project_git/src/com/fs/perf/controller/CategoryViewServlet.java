@@ -1,23 +1,29 @@
-package com.fs.member.controller;
+package com.fs.perf.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fs.banner.model.service.BannerService;
+import com.fs.model.vo.Banner;
+
 /**
- * Servlet implementation class HelpCenterServlet
+ * Servlet implementation class MusicalViewServlet
  */
-@WebServlet("/member/helpCenter")
-public class HelpCenterServlet extends HttpServlet {
+@WebServlet("/perf/categoryView")
+public class CategoryViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HelpCenterServlet() {
+    public CategoryViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +32,16 @@ public class HelpCenterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/member/helpCenter.jsp").forward(request, response);
+		//주소값으로 전달 받은 카테고리 파라미터가지고 해당페이지로 이동
+		String cate=request.getParameter("cate");
+		
+		List <Banner> list=new BannerService().selectBanner(cate);
+		List <Banner> vList=new BannerService().selectVideo(cate);
+		request.setAttribute("cate", cate);
+		request.setAttribute("list", list);
+		request.setAttribute("vList", vList);
+		System.out.println("카테고리뷰용 배너리스트"+list);
+		request.getRequestDispatcher("/views/perf/CategoryView.jsp").forward(request, response);
 	}
 
 	/**

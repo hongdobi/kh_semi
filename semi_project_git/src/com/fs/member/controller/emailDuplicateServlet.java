@@ -1,9 +1,6 @@
-package com.fs.perf.controller;
+package com.fs.member.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,25 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import com.fs.model.vo.PerfSsn;
-import com.fs.model.vo.Performance;
-import com.fs.perf.model.service.PerfService;
-import com.fs.perfSsn.model.service.PerfSsnService;
+import com.fs.member.model.service.MemberService;
 
 /**
- * Servlet implementation class RankingServlet
+ * Servlet implementation class emailDuplicateServlet
  */
-@WebServlet("/perf/RankList.do")
-public class RankingServlet extends HttpServlet {
+@WebServlet("/member/emailDuplicate")
+public class emailDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RankingServlet() {
+    public emailDuplicateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,15 +29,20 @@ public class RankingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//메뉴에서 랭킹페이지로 랭킹정보가지고 이동
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		String month=sdf.format(new Date());
-		String cate="ALL";
-
-		List <Performance>list=new PerfSsnService().rank(month,cate);
+		String email = request.getParameter("email");
+		String result = new MemberService().emailDuplicate(email);
+		String str = "";
 		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("/views/perf/perfRank.jsp").forward(request, response);;
+		if(result!=null) {
+			str = "중복된 이메일이 존재합니다";
+		}else {
+			str = "멋진 이메일이네요";
+		}
+		
+		request.setAttribute("str", str);
+		request.getRequestDispatcher("/views/member/Duplicate.jsp").forward(request, response);
+		
+	
 	}
 
 	/**

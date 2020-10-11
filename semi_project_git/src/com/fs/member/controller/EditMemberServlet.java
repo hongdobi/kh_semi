@@ -16,7 +16,7 @@ import com.fs.model.vo.Member;
 /**
  * Servlet implementation class EditMemberServlet
  */
-@WebServlet("/member/editMember")
+@WebServlet(name="editMember", urlPatterns="/member/editMember")
 public class EditMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,19 +33,26 @@ public class EditMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String memberId = request.getParameter("memberId");
+		String memberPw = request.getParameter("memberPw");
+		Boolean b = new MemberService().checkPw(memberId, memberPw);
+		System.out.println("checkpoint 1" + b);
 		Member m = new Member();
+		String msg="";
+		String loc="";		
 		m.setMemberId(request.getParameter("memberId"));
-		m.setMemberPw(request.getParameter("memberPw"));
+		m.setMemberPw(request.getParameter("newPw"));
 		m.setMemberName(request.getParameter("memberName"));
 		m.setPhone(request.getParameter("Phone"));
 		m.setEmail(request.getParameter("Email"));		
 		Date bday = Date.valueOf(request.getParameter("Bday"));
 		m.setBday(bday);
+		int result = 0;
+		System.out.println("checkpoint 2");
+		if(b == true) {
+			result = new MemberService().updateMember(m);			
+		}else System.out.println("비밀번호가 틀렸습니다");
 		
-		int result = new MemberService().updateMember(m);
-		
-		String msg="";
-		String loc="";
 		
 		if(result>0) {
 			msg="회원정보가 수정되었습니다";
@@ -53,11 +60,10 @@ public class EditMemberServlet extends HttpServlet {
 		}else {
 			msg="회원정보 수정 실패";
 			loc="/";
-		}
-		System.out.println(m);
+		}		
 		request.getSession().removeAttribute("loginMember");
 		request.getSession().setAttribute("loginMember", m);
-		
+		request.getSession().setAttribute("msg", msg);
 		request.getRequestDispatcher("/views/member/myPage.jsp").forward(request, response);
 	}
 
