@@ -185,13 +185,13 @@ private Properties prop = new Properties();
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<String> list=new ArrayList();
-		
+		System.out.println(cate);
 		try {
-			pstmt=conn.prepareStatement("locationList");
+			pstmt=conn.prepareStatement(prop.getProperty("locationList"));
 			pstmt.setString(1, cate+"%");
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				String str=rs.getString("loc");
+				String str=rs.getString(1);
 				list.add(str);
 			}
 		}catch(SQLException e) {
@@ -207,17 +207,27 @@ private Properties prop = new Properties();
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		Map<String,Performance> map=new HashMap<String, Performance>();
-		Performance p=null;
+		Performance perf=null;
 		try {
-			pstmt=conn.prepareStatement("locationPick");
-			
-			pstmt.setString(1, ); 
-			pstmt.setString(2, cate+"%"); 
-			rs=pstmt.executeQuery();
-			while(rs.next()) { 
-				String str=rs.getString("loc"); 
-				list.add(str); }
-			
+			for(int i=0;i<list.size();i++) {
+				String loc=list.get(i);
+				pstmt=conn.prepareStatement(prop.getProperty("locationPick"));
+				pstmt.setString(1,loc+"%"); 
+				pstmt.setString(2, cate+"%"); 
+				rs=pstmt.executeQuery();
+				if(rs.next()) { 
+					perf=new Performance();
+					perf.setPerfNo(rs.getString("perf_no"));
+					perf.setPerfName(rs.getString("perf_name"));
+					perf.setPerfStart(rs.getDate("perf_start"));
+					perf.setPerfEnd(rs.getDate("perf_end"));
+					perf.setPerfLocation(rs.getString("perf_location"));
+					perf.setPerfAddress(rs.getString("perf_address"));
+					perf.setPerfPoster(rs.getString("perf_poster"));
+					
+					map.put(loc, perf);
+				}
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {

@@ -1,7 +1,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.Banner,java.util.List, java.util.ArrayList,java.text.SimpleDateFormat"%>
+<%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.Banner,java.util.List, java.util.ArrayList,java.util.Iterator,java.util.Map,java.util.Set,java.text.SimpleDateFormat"%>
 <%@ include file="/views/common/header.jsp"%>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -13,7 +13,8 @@
 	String cate=(String)request.getAttribute("cate");
 	List<Banner> list=(List)request.getAttribute("list");
 	List<Banner> vList=(List)request.getAttribute("vList");
-	List<Banner> cateList=new ArrayList();
+	Map<String,Performance> map=(Map)request.getAttribute("map");
+	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월 dd일");
 
 %>
@@ -160,6 +161,7 @@ div.perfContent .slick-next:before {
 .slider1 img.banner{
     width:350px;
     height:350px;
+   box-shadow: 2px 2px 1px 1px gray;
 }
 .slider1 .slick-current {
 	opacity: 1;
@@ -213,13 +215,16 @@ div.day{
 	color:white;
 	position:absolute; 
 	top:260px; 
-	right:30px;
+	right:25px;
 	border: 3px white solid;
 }
 .openPoster{
 	height:300px;
-	width: 230px;
-	
+	width: 230px;	
+}
+div.info{
+	background-color: rgba(255,255,255,0.6);
+	border-radius: 10px;
 }
 /*부제목 크기*/
 caption>h1{
@@ -227,6 +232,22 @@ caption>h1{
 	text-shadow:3px 2px 2px lightpink, 1px 2px 2px lightgray;
 	color: lightcoral;
 }
+img.locPoster{
+	height:250px;
+	width: 250px;
+	border-radius: 100%;	
+}
+img.locPoster:hover{
+	transform:scale(1.1);	
+}
+table#locTbl{
+	text-align:center;
+	margin:auto;
+}
+table#locTbl td{
+	padding: 20px;
+}
+.small{font-size: 12px;}
 </style>
 <script>
 $(function(){
@@ -253,14 +274,13 @@ $(function(){
 				let a=$("<a>").attr("href","<%=request.getContextPath()%>/perf/perfView?perfNo="+data[i]["perfNo"]);
 				let img=$("<img class='openPoster'>").attr("src","<%=request.getContextPath()%>/image/perf/"+data[i]["perfNo"]+"/"+data[i]["poster"]);
 				let div=$("<div class='day'>").html("<h3> D-<span style='color:yellow; font-size: 40px;'>"+ data[i]["dDay"]+"</span></h3>");
-				let info=$("<div class='info'>").html("<h4>"+data[i]["perfName"]+"</h4> <span style='font-size:20px; color:yellow'>OPEN </span>"+ data[i]["perfStart"]+"<br>"+data[i]["location"]);
+				let info=$("<div class='info'>").html("<h4>"+data[i]["perfName"]+"</h4> <span style='font-size:20px; color:orange; font-weight: bolder;'>OPEN </span>"+ data[i]["perfStart"]+"<br>"+data[i]["location"]);
 				a.append(img);
 				td.append(a);
 				td.append(div);				
 				td.append(info)
 				tr.append(td);
 			}
-			
 			$("table#openTbl").append($("<caption>").html($("<h1>").html("Ticket OPEN")));
 			$("table#openTbl").append(tr);
 			}
@@ -304,20 +324,6 @@ $(function(){
 		}
 	});
 	
-	//지역추천
-<%-- 	$.ajax({
-		url:"<%=location.getContextPaht()%>/perf/perfLocation",
-		data:{"cate":cate},
-		type:"post",
-		dataType:"json",
-		success:function(data){
-			$("table#locTbl").html("");
-			
-		}
-		
-	}); --%>
-	
-	
 	//상단 슬라이드
 	$('.slider1').slick({
 		centerMode: true,
@@ -349,6 +355,7 @@ $(function(){
 		    }
 		  ]
 		});
+	
  	//하단 동영상 슬라이드 
     $('.perfContent').slick({
       dots: true,
@@ -375,7 +382,7 @@ $(function(){
 				<img class="banner" src="<%=request.getContextPath()%>/image/banner/<%=b.getBanner2()%>">
 				</a>
 				<div class="bannerText">
-					<h2><%=b.getPerfName() %></h2>
+					<h3><%=b.getPerfName() %></h3>
 					<p style="font-size:10px;"><%=sdf.format(b.getPerfStart()) %> ~ <%=sdf.format(b.getPerfEnd()) %></p>
 					<p style="font-size:10px;"><%=b.getLocation() %></p>
 				</div> 
@@ -391,17 +398,44 @@ $(function(){
 </div>
 
 <br><br>
-<!--오성티켓 pick -->
-<div id="pick">
-	<table id="pickTbl"></table>
-</div>
-
-<br><br>
-
 <!--지역추천 -->
 <div id="locPick">
-	<table id="locTbl"></table>
+	<table id="locTbl">
+	<caption><h1>지역별 추천</h1></caption>
+	<tr>
+	<%Set mapEntry=map.entrySet();
+	Iterator it=mapEntry.iterator();
+	while(it.hasNext()){
+		Map.Entry entry=(Map.Entry)it.next();%>
+		<td>
+		<%Performance p=(Performance)entry.getValue(); 
+			String perfNo=p.getPerfNo();
+			String perfName=p.getPerfName();
+			String perfStart=sdf.format(p.getPerfStart());
+			String perfEnd=sdf.format(p.getPerfEnd());
+			String location=p.getPerfLocation();
+			String poster=p.getPerfPoster();%>
+		<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=perfNo%>">
+			<div><h3><img src="<%=request.getContextPath()%>/image/위치표시.png" width="20px;"><%=entry.getKey()%></h3></div>
+			<img class="locPoster" src="<%=request.getContextPath()%>/image/perf/<%=perfNo%>/<%=poster%>" alt="<%=perfName %>">		
+			<div >
+				<h3><%=perfName %></h3>
+				<p class="small"><%=perfStart %>~<%=perfEnd %></p>
+				<p class="small"><%=location %></p>
+			</div>
+		</a>	
+		</td>
+	<% }%>
+	</tr>
+	</table>
 </div>
+<br><br>
+<!--오성티켓 pick -->
+<div id="pick">
+	<table id="pickTbl">
+	</table>
+</div>
+
 <br><br>
 <div class="perfContent">
 <%if(vList!=null){

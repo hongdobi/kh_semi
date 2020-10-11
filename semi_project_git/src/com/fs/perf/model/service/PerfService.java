@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.fs.model.vo.Banner;
 import com.fs.model.vo.Performance;
 import com.fs.perf.model.dao.PerformanceDao;
 
@@ -61,4 +62,5 @@ public class PerfService {
 		close(conn);
 		return map;
 	}
+
 }
