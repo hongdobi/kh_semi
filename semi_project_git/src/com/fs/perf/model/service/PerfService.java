@@ -2,11 +2,10 @@ package com.fs.perf.model.service;
 
 import static com.fs.common.JDBCTemplate.close;
 import static com.fs.common.JDBCTemplate.getConnection;
-import static com.fs.common.JDBCTemplate.close;
-import static com.fs.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fs.model.vo.Performance;
 import com.fs.perf.model.dao.PerformanceDao;
@@ -27,6 +26,6 @@ public class PerfService {
 		close(conn);
 		return perf;
 	}
-
 	
+
 }

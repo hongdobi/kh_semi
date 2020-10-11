@@ -62,7 +62,8 @@
           <form class="forms_form" action="<%=request.getContextPath() %>/loginEnd">
             <fieldset class="forms_fieldset">
               <div class="forms_field">
-                <input type="text" class="forms_field-input" name="memberId" id="memberId" placeholder="아이디" required autofocus>
+                <input type="text" class="forms_field-input" name="memberId" id="memberId" placeholder="아이디" required autofocus
+                 value='<%=saveId!=null?saveId:""%>'>
               </div>
               <div class="forms_field">
                 <input type="password" class="forms_field-input" name="memberPw" id="memberPw" placeholder="비밀번호" required>
@@ -97,30 +98,32 @@
        <!-- 회원가입 form -->
         <div class="user_forms-signup">
           <h2 class="forms_title">Sign Up</h2>
-          <form class="forms_form" action="<%=request.getContextPath() %>/signupEnd" method="post">
+         <form class="forms_form" action="<%=request.getContextPath() %>/signupEnd" method="post">
             <fieldset class="forms_fieldset">
               <div class="forms_field">
-                <input type="text" name="memberId" id="memberId_" placeholder="아이디 : 영문소문자/숫자 조합" class="forms_field-input" required>
-                <button onclick="" name="" id="selfcheck">중복확인</button>
+                <input type="text" name="memberId" id="memberId_" placeholder="아이디:영소문자/숫자 5~15자 이내" class="forms_field-input" required>
+                <button onclick="" name="" id="selfcheck">중복확인</button><br>
+                <span id="result1"></span>
               </div>
               <div class="forms_field">
-                <input type="password" name="memberPw" id="memberPw_" placeholder="비밀번호 : 영문 숫자/특수문자 조합 8자 이상" class="forms_field-input" required>
+                <input type="password" name="memberPw" id="memberPw_" placeholder="비밀번호:영문 숫자/특수문자 조합 8자 이상" class="forms_field-input" required><br>
+                <span id="result2"></span>
               </div>
               <div class="forms_field">
-                <input type="password" id="memberPw_2" placeholder="비밀번호확인" class="forms_field-input" required>
+                <input type="password" id="memberPw_2" placeholder="비밀번호확인" class="forms_field-input" required><br>
+                <span id="result3"></span>
               </div>
               <div class="forms_field">
-                <input type="email" name="email" placeholder="Email" class="forms_field-input" required>
-                <button onclick="" name="" id="selfcheck">중복확인</button>
-                <div>
-                  <input type="checkbox" name="chk_info" value="agreement">SMS,이메일을 통한 상품 및 이벤트 정보 수신에 동의
-                </div>
+                <input type="email" name="email" id="email" placeholder="Email" class="forms_field-input" required>
+                <button onclick="" name="" id="selfcheck">중복확인</button><br>
+                <span id="result4"></span>
               </div>
               <div class="forms_field">
-                <input type="text" name="phone" placeholder="휴대폰 번호" class="forms_field-input" required>
+                <input type="text" name="phone" placeholder="휴대폰:-없이 입력" class="forms_field-input" required>
               </div>
               <div class="forms_field">
-                <input type="text" name="bday" placeholder="생년월일 : 8자리 입력(YYYYMMDD)" class="forms_field-input" required>
+                <input type="text" name="bday" id="bday" placeholder="생년월일:8자리 입력(YYYYMMDD)" class="forms_field-input" required><br>
+                <span id="result5"></span>
               </div>
               <div class="forms_field">
                 <input type="text" name="memberName" placeholder="이름" class="forms_field-input" required>
@@ -156,6 +159,68 @@
         userForms.classList.add("bounceRight");
       },false
     );
+    
+
+    $(function(){
+      //정규표현식 아이디
+      var memberIdck = RegExp(/^[a-z0-9]{5,15}$/);
+      $("#memberId_").blur(function(){
+        if(!memberIdck.test($("#memberId_").val())){
+          $("#result1").html("영문소문자/숫자 조합, 5~15자 이내 입력해주세요").css("color","lightcoral");
+          return false;
+        }else{
+          $("#result1").html("");
+        }
+      });
+    
+      //정규표현식 비밀번호
+      var memberPwck = RegExp(/^.*(?=^.{8,15})(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%%^&*()]).*$/);
+      $("#memberPw_").blur(function(){
+        if(!memberPwck.test($("#memberPw_").val())){
+          $("#result2").html("영문 숫자/특수문자 조합 8자 이상 입력해주세요").css("color","lightcoral");
+          return false;
+        }else{
+          $("#result2").html("");
+        }
+      });
+    
+      //비밀번호 확인
+      $("#memberPw_2").keyup(function(){
+        let pw = $("#memberPw_").val().trim();
+        let pwck = $(this).val().trim();
+
+        if(pw==pwck){
+          $("#result3").html("비밀번호가 일치합니다").css("color","grey");
+        }else{
+          $("#result3").html("비밀번호가 불일치합니다").css("color","lightcoral");
+        }
+      });
+
+      //정규표현식 이메일
+      var emailck = RegExp(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i);
+      $("#email").blur(function(){
+        if(!emailck.test($("#email").val())){
+          $("#result4").html("이메일 형식에 맞춰 입력해주세요").css("color","lightcoral");
+          return false;
+        }else{
+          $("#result4").html("");
+        }
+      });
+
+      //정규표현식 생년월일
+      var bdayck = RegExp(/^[0-9]{8}$/);
+      $("#bday").blur(function(){
+        if(!bdayck.test($("#bday").val())){
+          $("#result5").html("8자리 숫자로 입력해주세요").css("color","lightcoral");
+          return false;
+        }else{
+          $("#result5").html("");
+        }
+      });
+
+      
+    });
+    
   </script>
 </body>
 </html>
