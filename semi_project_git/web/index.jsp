@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
 <%
 	
 %>
@@ -14,7 +12,7 @@
 	%>
 	<script>
 		document.getElementById("buttonImg").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-srch.png");
-		document.getElementById("myImg").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+		document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
 	</script>
     <div class="container">
         <div class="top-picture"
@@ -31,7 +29,7 @@
                     <li><a href="">#뮤지컬</a></li>
                     <li><a href="">#연극</a></li>
                     <li><a href="">#전시</a></li>
-                    <li><a href="<%=request.getContextPath()%>/perf/RankList.do">#랭킹</a></li>
+                    <li><a href="<%=request.getContextPath()%>/perf/RankList">#랭킹</a></li>
                 </ul>
                 <ul class="tab-contents">
                     <li>
