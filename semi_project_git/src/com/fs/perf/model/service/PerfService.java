@@ -6,6 +6,7 @@ import static com.fs.common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.fs.model.vo.Performance;
 import com.fs.perf.model.dao.PerformanceDao;
@@ -47,5 +48,17 @@ public class PerfService {
 		close(conn);
 		return list;
 	}
-
+	//지역조회
+	public List searchLocation(String cate) {
+		Connection conn= getConnection();
+		List <String> list=dao.searchLocation(conn,cate);
+		close(conn);
+		return list;
+	}
+	public Map<String,Performance> locationPick(List<String> list,String cate) {
+		Connection conn= getConnection();
+		Map<String,Performance> map=dao.locationPick(conn,list,cate);
+		close(conn);
+		return map;
+	}
 }

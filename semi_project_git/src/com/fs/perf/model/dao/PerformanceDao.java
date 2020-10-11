@@ -9,10 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
-import com.fs.model.vo.PerfSsn;
 import com.fs.model.vo.Performance;
 
 
@@ -179,6 +180,54 @@ private Properties prop = new Properties();
 		return list;
 	}
 
+	//지역조회
+	public List<String> searchLocation(Connection conn, String cate) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<String> list=new ArrayList();
+		
+		try {
+			pstmt=conn.prepareStatement("locationList");
+			pstmt.setString(1, cate+"%");
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				String str=rs.getString("loc");
+				list.add(str);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	//지역마다 공연 랜덤하게 하나
+	public Map<String,Performance> locationPick(Connection conn, List<String> list,String cate) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Map<String,Performance> map=new HashMap<String, Performance>();
+		Performance p=null;
+		try {
+			pstmt=conn.prepareStatement("locationPick");
+			
+			pstmt.setString(1, ); 
+			pstmt.setString(2, cate+"%"); 
+			rs=pstmt.executeQuery();
+			while(rs.next()) { 
+				String str=rs.getString("loc"); 
+				list.add(str); }
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return map;
+	}
 
+	
+	
 	
 }

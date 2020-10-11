@@ -18,6 +18,7 @@
 
 %>
 <style>
+/*관리자용 배너 등록 버튼*/
 #addBtn{
 	width: 120px;
 	height: 40px;
@@ -29,17 +30,15 @@
 }
 /*오성티켓 pick*/
 div#pick{
-	width: 900px;
+	
 	height: 700px;
 	margin: auto;
 	margin-top: 30px;
-	
 }
 table#pickTbl{
 	border-collapse: collapse;
 	margin:auto;
 }
-
 table#pickTbl td{	
 	text-align: center;
 	position: relative;
@@ -72,71 +71,64 @@ table#pickTbl div.in h3{
 div.perfContent{
 	background-color:black;
 	color:white;
-	width: 1400px;
-	height:500px;
 	margin: auto;
+	position: relative;
+	height: 500px;
 }
 div.vBox{
 	height:500px;
+	width: 1400px;
 	display: -webkit-flex;
 	display: flex;
-	width: 1400px;
-}
+	-webkit-justify-content: space-around;
+	justify-content: space-around;
+} 
 div.contentInfo{
-	justify-content: space-around; 
+	display: inline-block;
 	width: 400px;
-	height:350px;
-	border: 1px lime solid;
+	height:500px;
+	position: relative;
 }
-
-div.perfContent .slick-slide {
+div.video{
+	display: inline-block;
+	text-align:center;
+	width:1000px;
+	height:500px; 
+	background-image: url(<%=request.getContextPath()%>/image/무대배경.jpg);
+	background-repeat:no-repeat; 
+	background-size:cover;
+}
+ div.perfContent .slick-slide {
      margin: 0px 20px;
-  }
-
-div.perfContent .slick-slide img {
-      width: 100%;
- }
-
-
- div.videoText{
-
+     display: flex;
+}
+div.videoText{
 	width: 400px;
 	height:500px;	
 	color:white;
 	background-color: rgba(0,0,0,0.6);
 	text-align:center;
+	position: absolute;
+	top:0px;
 }
 div.videoText>h1{
 	margin-top:130px;
 }
 img.contetnPoster{
-	opacity: 0.4;
+	opacity: 0.6;
 	width: 400px;
 	height:500px;	
 } 
-
-div.video{
-	justify-content: space-around; 
-	text-align:center;
-	width:800px;
-	height:500px; 
-	background-image: url(<%=request.getContextPath()%>/image/무대배경.jpg);
-	background-repeat:no-repeat; 
-	background-size:cover; 
-}
-/*유튜브 동영상 프레임*/
-div.perfContent iframe{
+div.video>iframe{
 	width:750px;
 	height:400px;
 	margin-top:50px;	
-
-}
-
+} 
 div.perfContent .slick-prev:before,
 div.perfContent .slick-next:before {
       color: beige;
 }
-
+/*상단 슬라이드*/
 .slider1 {
 	width: 1300px;
 	margin: auto;
@@ -153,7 +145,7 @@ div.perfContent .slick-next:before {
 
 .slider1 .slick-prev:before,
 .slider1 .slick-next:before {
-    color: black;
+    color: lightgray;
 }
 
 .slider1 .slick-slide {
@@ -165,36 +157,37 @@ div.perfContent .slick-next:before {
    opacity: .7;
     	
 }
-
-.slider1 .slick-current {
-     opacity: 1;
-     
-}
-.slider1 .slick-current img{
-     transform:scale(1.1);
-}    
 .slider1 img.banner{
     width:350px;
     height:350px;
 }
-
- .slider1 div.bannerText{  
- 	position: absolute;
-    text-align: center;
-    bottom: 0px;
+.slider1 .slick-current {
+	opacity: 1;
+     
+}
+.slider1 .slick-current img{
+transform:scale(1.1);
+}    
+.slider1 .slick-current .bannerText{
+transform:scale(1.1);
+} 
+.slider1 div.bannerText{  
+	position: absolute;
+	text-align: center;
+    top: 250px;
     margin:auto;
     width:350px;
+    color:white;
     background-color: rgba(0,0,0,0.2);
-   } 
-   
- .slider1 div.pannel{
- 	text-align: center;
- 	position: relative;
- 	color:white;
- }
- 
- 
- 
+ } 
+.slider1 div.pannel{
+ text-align: center;
+ position: relative;
+ color:white;
+} 
+.slick-track{
+	height: 400px;
+}
  /*티켓 오픈*/
  div#ticketOpen{
  	text-align:center;
@@ -202,12 +195,11 @@ div.perfContent .slick-next:before {
  }
 table#openTbl{
  	margin:auto;
- 	background:linear-gradient(45deg,lightcoral, #FFD8D8 40%,#FFEAEA 45%);
+ 	background:linear-gradient(160deg,#FFEAEA 50%,#FFD8D8 25%,lightcoral);
 }
 table#openTbl td{
   position:relative;
-  padding: 40px;
-  
+  padding: 40px;  
 }
 table#openTbl td:hover img{
 	transform:scale(1.05);
@@ -223,7 +215,6 @@ div.day{
 	top:260px; 
 	right:30px;
 	border: 3px white solid;
-
 }
 .openPoster{
 	height:300px;
@@ -233,20 +224,20 @@ div.day{
 /*부제목 크기*/
 caption>h1{
 	font-size: 30px;
+	text-shadow:3px 2px 2px lightpink, 1px 2px 2px lightgray;
+	color: lightcoral;
 }
 </style>
 <script>
 $(function(){
 	//페이지 로드시 카테고리
 	let cate="<%=cate%>";
-	
 	//관리자 배너 등록 팝업창 열기
 	$("#addBtn").on("click",e=>{
 	    const url="<%=request.getContextPath()%>/banner/bannerAdd"; 
 	    const status="width=920px, height=600px, top=100px, left=300px";
 	 	open(url,"",status);	
     });
-	
 	//티켓오픈
 	$.ajax({
 		url:"<%=request.getContextPath()%>/perf/ticketOpen",
@@ -261,8 +252,8 @@ $(function(){
 				let td=$("<td>");
 				let a=$("<a>").attr("href","<%=request.getContextPath()%>/perf/perfView?perfNo="+data[i]["perfNo"]);
 				let img=$("<img class='openPoster'>").attr("src","<%=request.getContextPath()%>/image/perf/"+data[i]["perfNo"]+"/"+data[i]["poster"]);
-				let div=$("<div class='day'>").html("<h3> D-<span style='color:yellow; font-size: 40px;'>"+data[i]["dDay"]+"</span></h3>");
-				let info=$("<div class='info'>").html("<h4>"+data[i]["perfName"]+"</h4> OPEN:"+data[i]["perfStart"]+"<br>"+data[i]["location"]);
+				let div=$("<div class='day'>").html("<h3> D-<span style='color:yellow; font-size: 40px;'>"+ data[i]["dDay"]+"</span></h3>");
+				let info=$("<div class='info'>").html("<h4>"+data[i]["perfName"]+"</h4> <span style='font-size:20px; color:yellow'>OPEN </span>"+ data[i]["perfStart"]+"<br>"+data[i]["location"]);
 				a.append(img);
 				td.append(a);
 				td.append(div);				
@@ -275,7 +266,6 @@ $(function(){
 			}
 		}
 	});
-	
 	//페이지 로드시 오성티켓's pick
 	$.ajax({
 		url:"<%=request.getContextPath()%>/perf/perfPick", 
@@ -298,6 +288,7 @@ $(function(){
 					div.append(a);
 				}else{
 					div.html("준비중입니다."+"<br>"+"-오성티켓-");
+					
 				}
 				td.append(div);
 				if(i<4){
@@ -313,13 +304,31 @@ $(function(){
 		}
 	});
 	
-
+	//지역추천
+<%-- 	$.ajax({
+		url:"<%=location.getContextPaht()%>/perf/perfLocation",
+		data:{"cate":cate},
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			$("table#locTbl").html("");
+			
+		}
+		
+	}); --%>
+	
+	
+	//상단 슬라이드
 	$('.slider1').slick({
-		  centerMode: true,
-		  centerPadding: '60px',
-		  slidesToShow: 3,
-	      dots: true,
-		  responsive: [
+		centerMode: true,
+		centerPadding: '60px',
+		slidesToShow: 3,
+		autoplay: true, 
+        arrows: true, 
+        autoplaySpeed:5000,
+        speed:1000 , 
+        pauseOnHover:true,
+		responsive: [
 		    {
 		      breakpoint: 768,
 		      settings: {
@@ -340,18 +349,14 @@ $(function(){
 		    }
 		  ]
 		});
- 
+ 	//하단 동영상 슬라이드 
     $('.perfContent').slick({
       dots: true,
       infinite: true,
       speed: 300,
-      slidesToShow: 1,
-      adaptiveHeight: true
+      slidesToShow: 1
     });
-})
-
-
-    
+})   
 </script>
 
 
@@ -365,16 +370,15 @@ $(function(){
 <div class="slider1">
 	<%if(list!=null){
 		for(Banner b:list){%>
-			
 			<div class="pannel">
-			<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=b.getPerfNo()%>">
-			<img class="banner" src="<%=request.getContextPath()%>/image/banner/<%=b.getBanner2()%>">
-			</a>
-			<div class="bannerText">
-				<p  style="font-weight:bolder;"><%=b.getPerfName() %></p>
-				<p><%=sdf.format(b.getPerfStart()) %> ~ <%=sdf.format(b.getPerfEnd()) %></p>
-				<p><%=b.getLocation() %></p>
-			</div> 
+				<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=b.getPerfNo()%>">
+				<img class="banner" src="<%=request.getContextPath()%>/image/banner/<%=b.getBanner2()%>">
+				</a>
+				<div class="bannerText">
+					<h2><%=b.getPerfName() %></h2>
+					<p style="font-size:10px;"><%=sdf.format(b.getPerfStart()) %> ~ <%=sdf.format(b.getPerfEnd()) %></p>
+					<p style="font-size:10px;"><%=b.getLocation() %></p>
+				</div> 
 			</div>
 		<%}
 	} %>
@@ -394,11 +398,15 @@ $(function(){
 
 <br><br>
 
-
+<!--지역추천 -->
+<div id="locPick">
+	<table id="locTbl"></table>
+</div>
+<br><br>
 <div class="perfContent">
 <%if(vList!=null){
 	for(Banner b:vList){ %>
-	<div class="vBox"></div>
+	<div class="vBox">
 		<div class="video"><%=b.getSrc()%></div>
 		<div class="contentInfo">
 			<img class="contetnPoster" src="<%=request.getContextPath()%>/image/perf/<%=b.getPerfNo()%>/<%=b.getPerfPoster()%>" alt="<%=request.getContextPath() %>/<%=b.getPerfName() %>">		
@@ -414,9 +422,5 @@ $(function(){
 	<%}
 } %>
 </div>
-
 </section>
-
-
-
 <%@ include file="/views/common/footer.jsp"%>
