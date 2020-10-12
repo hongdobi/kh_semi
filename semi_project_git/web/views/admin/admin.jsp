@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 <style>
@@ -125,7 +125,7 @@
 			<li class="rk-li">공연 등록/삭제</li>
 			<li class="rk-li">회원관리</li>
 			<li class="rk-li">리뷰관리</li>
-			<li class="rk-li">FAQ</li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li">1:1문의</li>
 		</ul>
 	</nav>
