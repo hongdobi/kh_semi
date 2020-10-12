@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.fs.model.vo.FAQ;
 import com.fs.model.vo.Inquiry;
+import com.fs.model.vo.Member;
 import com.fs.model.vo.Performance;
 
 public class AdminDao {
@@ -84,7 +85,7 @@ public class AdminDao {
 			pstmt = conn.prepareStatement(prop.getProperty("searchPerf"));
 			pstmt.setString(1, "%" + name + "%");
 			System.out.println(cate);
-			if(cate==null||cate.equals("")) {
+			if(cate==null||cate.equals("All")) {
 				pstmt.setString(2, "%");
 			}else {
 				pstmt.setString(2, cate+"_%");
@@ -92,7 +93,6 @@ public class AdminDao {
 			rs = pstmt.executeQuery();
 			System.out.println(rs);
 			while(rs.next()) {
-				System.out.println("왜안ㄴ되지ㅓ랮ㄷ러");
 				perf=new Performance();
 	            perf.setPerfNo(rs.getString("perf_no"));
 	            perf.setPerfName(rs.getString("perf_name"));
@@ -111,6 +111,301 @@ public class AdminDao {
 		}
 		return list;
 	}
+	
+	public List<Inquiry> selectInquiry(Connection conn, int memberNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Inquiry> list = new ArrayList();
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectInquiry"));
+			pstmt.setInt(1, memberNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				Inquiry iq = new Inquiry();
+				iq.setInqNo(rs.getInt("inq_no"));
+				iq.setMemberNo(rs.getInt("member_no"));
+				iq.setInqCategory(rs.getString("inq_category"));
+				iq.setInqTitle(rs.getString("inq_title"));
+				iq.setInqContent(rs.getString("inq_content"));
+				iq.setInqDate(rs.getDate("inq_date"));
+				iq.setInqYn(rs.getString("inq_yn"));
+				iq.setInqAnswer(rs.getString("inq_answer"));
+				iq.setInqAnsDate(rs.getDate("inq_ans_date"));
+				list.add(iq);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	
+	//1:1문의 페이징처리
+	public List<Inquiry> inquiryList(Connection conn, int cPage, int numPerPage){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Inquiry> list = new ArrayList();
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("inquiryList"));
+			pstmt.setInt(1, (cPage-1)*numPerPage+1);
+			pstmt.setInt(2, cPage*numPerPage);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Inquiry iq = new Inquiry();
+				iq.setInqNo(rs.getInt("inq_no"));
+				iq.setMemberNo(rs.getInt("member_no"));
+				iq.setInqCategory(rs.getString("inq_category"));
+				iq.setInqTitle(rs.getString("inq_title"));
+				iq.setInqContent(rs.getString("inq_content"));
+				iq.setInqDate(rs.getDate("inq_date"));
+				iq.setInqYn(rs.getString("inq_yn"));
+				iq.setInqAnswer(rs.getString("inq_answer"));
+				iq.setInqAnsDate(rs.getDate("inq_ans_date"));
+				list.add(iq);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	
+	//1:1문의 갯수
+	public int inquiryCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("inquiryCount"));
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	//1:1문의 팝업 상세페이지로 이동
+	public Inquiry selectInquiryNo(Connection conn, int inqNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Inquiry iq = null;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectInquiry"));
+			pstmt.setInt(1, inqNo);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				iq = new Inquiry();
+				iq.setInqNo(rs.getInt("inq_no"));
+				iq.setMemberNo(rs.getInt("member_no"));
+				iq.setInqCategory(rs.getString("inq_category"));
+				iq.setInqTitle(rs.getString("inq_title"));
+				iq.setInqContent(rs.getString("inq_content"));
+				iq.setInqDate(rs.getDate("inq_date"));
+				iq.setInqYn(rs.getString("inq_yn"));
+				iq.setInqAnswer(rs.getString("inq_answer"));
+				iq.setInqAnsDate(rs.getDate("inq_ans_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return iq;
+	}
+	
+	//1:1문의 답변
+	public int updateInquiry(Connection conn, String inqAnswer, String inqYn, int inqNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("updateInquiry"));
+			pstmt.setString(1, inqAnswer);
+			pstmt.setString(2, inqYn);
+			pstmt.setInt(3, inqNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	//공연등록
+	public int insertPerformance(Connection conn, String perfNo, Performance p) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("insertPerformance").replaceAll("@perfNo", perfNo);
+			System.out.println("변경 sql : "+sql);
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, p.getPerfNo());
+			pstmt.setString(2, p.getPerfName());
+			pstmt.setInt(3, p.getPerfRuntime());
+			pstmt.setDate(4, p.getPerfStart());
+			pstmt.setDate(5, p.getPerfEnd());
+			pstmt.setInt(6, p.getPerfPg());
+			pstmt.setString(7, p.getPerfLocation());
+			pstmt.setString(8, p.getPerfAddress());
+			pstmt.setInt(9, p.getPerfCapacity());
+			pstmt.setString(10, p.getPerfTimeInfo());
+			pstmt.setString(11, p.getPerfPriceInfo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			System.out.println("dao"+result);
+		}return result;
+	}
+		
 
-
+	public List<Member> memList(Connection conn, int cPage, int numPerPage){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Member> memList = new ArrayList<Member>();
+		Member m = null;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("memList"));
+			pstmt.setInt(1, (cPage-1)*numPerPage+1);
+			pstmt.setInt(2, cPage*numPerPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberId(rs.getNString("member_id"));
+				m.setMemberPw(rs.getNString("member_pw"));
+				m.setMemberName(rs.getNString("member_name"));
+				m.setPhone(rs.getNString("phone"));
+				m.setEmail(rs.getNString("email"));
+				m.setBday(rs.getDate("bday"));
+				m.setManagerYn(rs.getNString("manager_yn"));
+				memList.add(m);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return memList;
+	}
+	
+	public int memberCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("memberCount"));
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(SQLException e) {
+				e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+	
+		return result;
+	}
+	public List<Member> searchMemberList(Connection conn, String type, String key, int cPage, int numPerPage){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Member> list = new ArrayList();
+		try {
+			String sql= prop.getProperty("searchMemberList").replaceAll("@type", type);
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setNString(1, "%"+key+"%");
+			pstmt.setInt(2, (cPage-1)*numPerPage+1);
+			pstmt.setInt(3, cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Member m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberId(rs.getNString("member_id"));
+				m.setMemberPw(rs.getNString("member_pw"));
+				m.setMemberName(rs.getNString("member_name"));
+				m.setPhone(rs.getNString("phone"));
+				m.setEmail(rs.getNString("email"));
+				m.setBday(rs.getDate("bday"));
+				m.setManagerYn(rs.getNString("manager_yn"));
+				list.add(m);
+			}
+		}catch(SQLException e) {
+				e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}return list;	
+	}
+	public int searchCount(Connection conn, String type, String key) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			System.out.println(type);
+			System.out.println(key);
+			String sql = prop.getProperty("searchCount").replaceAll("@type", type);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setNString(1, "%"+key+"%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(SQLException e) {
+				e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+	
+		return result;
+	}
+	
+	
+	public int authMG(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("authMG"));
+			pstmt.setNString(1, "Y");
+			pstmt.setNString(2, memberId);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	public int delAuth(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("authMG"));
+			pstmt.setNString(1, "N");
+			pstmt.setNString(2, memberId);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 }

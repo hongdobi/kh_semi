@@ -6,15 +6,18 @@
 <style>
 	#sidebar{
 		background-color:ghostwhite;
+		height:500px;
 		width:200px;
-		position:fixed;
-		top:30%;
-		left:3%;
+		position:absolute;
+		top:300px;
+		left:5%;
 		border: 3px solid lightpink;
 		text-align:center;
 		display:flex;
 		flex-direction:column;
 		font-weight:bolder;
+		font-size:20px;
+		display:inline-block;
 	}
 		
 	#result{
@@ -22,35 +25,38 @@
 		height: 500px;
 /* 		border: 3px solid; */
 		position:relative;
-		left:300px;
+		left:350px;
 		top:100px;
+		display:inline-block;
 	}
 </style>
 
 
 <%@ include file="/views/common/header.jsp" %>
+<section>
+	<div id="sidebar">
+		<div>
+			<h1>MY PAGE</h1>
+		</div>
+		<div>
+			<p><%=loginMember.getMemberName() %>님</p>
+			<p>포인트: 000점</p><br>
+		</div>
+		<div>
+			<p id="bookCheck">예매확인 / 취소</p>
+			<p id="myReview">나의 리뷰</p><br>
+		</div>
+		<div>
+			<p id="memberInfo">회원정보 수정</p>
+			<p id="helpCenter">고객센터</p>	
+		</div>
+	</div>
+	
+	<div id="result">
+	
+	</div>
+</section>
 
-<div id="sidebar">
-	<div>
-		<h1>MY PAGE</h1>
-	</div>
-	<div>
-		<p><%=loginMember.getMemberName() %>님</p>
-		<p>포인트: 000점</p>
-	</div>
-	<div>
-		<p id="bookCheck">예매확인 / 취소</p>
-		<p id="myReview">나의 리뷰</p>
-	</div>
-	<div>
-		<p id="memberInfo">회원정보 수정</p>
-		<p id="helpCenter">고객센터</p>	
-	</div>
-</div>
-
-<div id="result">
-
-</div>
 
 <script>
 	
@@ -85,7 +91,7 @@
 		})
 	});
 	$("#helpCenter").click(e=>{
-		    location.href="<%=request.getContextPath()%>/admin/helpCenter?keyword=회원";
+		    location.href="<%=request.getContextPath()%>/admin/helpCenter?memberNo=<%=loginMember.getMemberNo() %>&keyword=회원";
 	});
 
 

@@ -43,7 +43,7 @@ public class InquiryEndServlet extends HttpServlet {
 		int result = new AdminService().insertInquiry(iq);
 		
 		String msg = "";
-		String loc = "/admin/Inquiry?memberNo="+memberNo;
+		String loc = "/admin/inquiry?memberNo="+memberNo;
 		String script = "";
 		
 		if(result>0) {

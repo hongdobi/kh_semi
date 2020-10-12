@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fs.admin.model.service.AdminService;
 import com.fs.model.vo.FAQ;
+import com.fs.model.vo.Inquiry;
 
 /**
  * Servlet implementation class HelpCenterServlet
@@ -37,8 +38,11 @@ public class HelpCenterServlet extends HttpServlet {
 		List<FAQ> list = new AdminService().allFAQ(keyword);
 		System.out.println("servlet"+list);
 		
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		List<Inquiry> list2 = new AdminService().selectInquiry(memberNo);
+		
 		request.setAttribute("FAQ", list);
-
+		request.setAttribute("Inquiry", list2);
 		
 		request.getRequestDispatcher("/views/admin/helpCenter.jsp").forward(request, response);
 	
