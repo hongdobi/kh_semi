@@ -74,7 +74,6 @@
             <input type="checkbox" name="saveId" id="saveId" <%=saveId!=null?"checked":"" %>>
             <label for="saveId">아이디저장</label>
             <div class="forms_buttons">
-              <button type="button" class="forms_buttons-forgot">아이디/비밀번호 찾기</button>
               <input type="submit" value="Log In" class="forms_buttons-action">
             </div>
           </form>

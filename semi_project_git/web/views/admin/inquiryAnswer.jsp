@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css"></link>
     <script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
-    <title>1:1 문의하기</title>
+    <title>1:1 문의 답변</title>
   </head>
   
  <style>
@@ -39,7 +39,7 @@
   
   <body>
     <section>
-      <form name="" action="<%=request.getContextPath()%>/admin/inquiryViewEnd" method="post">
+      <%-- <form name="" action="<%=request.getContextPath()%>/admin/inquiryViewEnd" method="post"> --%>
         <div>
           <ul>
             <li>평일 오후 5시 이후 문의는 당일 답변이 어려울 수 있습니다.</li>
@@ -65,16 +65,6 @@
                 </ul>
               </td>
             </tr>
-            <tr>
-              <td>파일첨부</td>
-              <td>
-                <input type="file" id="fileName" name="fileName" accept="image/png",image/jpeg>
-                <ul>
-                  <li>첨부가능 파일 확장자 : jpg,jpeg</li>
-                  <li>첨부파일 중 개인 정보가 포함되어있는 파일은 상담 외의 목적으로는 사용되지 않습니다.</li>
-                </ul>
-              </td>
-            </tr>
             <%if(iq.getInqAnswer()!=null) {%>
 	            <tr>
 	              <td>답변</td>
@@ -83,10 +73,7 @@
             <%}else{ %>
             	<tr>
             		<td>답변</td>
-	              <td>
-	              	<textarea rows="15" cols="60" name="inqAnswer" placeholder="답변을 작성해주세요" onKeyUp="javascript:fnChkByte(this,'1000')"></textarea>
-	              	<span id="byteInfo">0</span> 1000bytes
-	              </td>
+	              	<td>답변이 등록되지 않았습니다</td>
             	</tr>
            	<%} %>  
           </table>
@@ -96,7 +83,6 @@
         	<input type="hidden" name="inqNo" value="<%=iq.getInqNo() %>">
         	<input type="hidden" name="inqYn" value="<%=iq.getInqYn() %>">
           <input type="button" value="닫기" onclick="self.close();"/>
-          <input type="submit" value="등록"/>
         </div>
       </form>
     </section>

@@ -203,7 +203,7 @@ public class AdminDao {
 		Inquiry iq = null;
 		
 		try {
-			pstmt = conn.prepareStatement(prop.getProperty("selectInquiry"));
+			pstmt = conn.prepareStatement(prop.getProperty("selectInquiryNo"));
 			pstmt.setInt(1, inqNo);
 			rs = pstmt.executeQuery();
 			

@@ -1,7 +1,6 @@
 package com.fs.admin.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +11,16 @@ import com.fs.admin.model.service.AdminService;
 import com.fs.model.vo.Inquiry;
 
 /**
- * Servlet implementation class InquiryResponseServlet
+ * Servlet implementation class InquiryAnswerServlet
  */
-@WebServlet("/admin/inquiryView")
-public class InquiryViewServlet extends HttpServlet {
+@WebServlet("/admin/inquiryAnswer")
+public class InquiryAnswerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InquiryViewServlet() {
+    public InquiryAnswerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,8 +29,7 @@ public class InquiryViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int inqNo = Integer.parseInt(request.getParameter("inqNo"));
+int inqNo = Integer.parseInt(request.getParameter("inqNo"));
 		
 		Inquiry iq = new AdminService().selectInquiryNo(inqNo);
 		
@@ -46,12 +44,13 @@ public class InquiryViewServlet extends HttpServlet {
 			request.setAttribute("loc", loc);
 		}else {
 			request.setAttribute("inquiry", iq);
-			path = "/views/admin/inquiryView.jsp";
+			path = "/views/admin/inquiryAnswer.jsp";
 		}
 		
 		request.getRequestDispatcher(path).forward(request, response);
 		
-		request.getRequestDispatcher("/views/admin/inquiryView.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/inquiryAnswer.jsp").forward(request, response);
+	
 	}
 
 	/**
