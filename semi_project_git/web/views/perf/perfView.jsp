@@ -30,8 +30,8 @@
 	//해당공연 예매가능일 가져오기
 	List dateList=(List)request.getAttribute("dateList");
 	
-
 	
+		
 	//공연번호로 카테고리만들기
 	String category = "";
 	String cg = "";
@@ -299,7 +299,7 @@ div#pageBar{
 </style>
 <script>
 $(function(){
-	//오늘날짜 예약가능 최소 날짜로 넣기, 공연 마지막날짜도 불러와서 똑같이 할용
+	//날짜 계산식
  	let date=new Date();
     let yyyy=date.getFullYear();
     let mm=date.getMonth()+1>9?date.getMonth()+1:"0"+(date.getMonth()+1);
@@ -314,6 +314,11 @@ $(function(){
 			let okAge="<%=perf.getPerfPg()%>";
 			if(age<okAge){
 				alert('해당공연의 관람 연령에 적합하지 않습니다.');
+				return;
+			}
+			let day=$("input[name=day]").val();
+			if(day==""){
+				alert("날짜를 선택해주세요");
 				return;
 			}
 			const url="<%=request.getContextPath()%>/book/booking"; 
@@ -376,9 +381,6 @@ $(function(){
 
   	});
 
-    
-
-    
   //선택가능 날짜 
 	var availableDates = [];
     <%if(dateList.size()>0){
@@ -407,21 +409,19 @@ $(function(){
     //datepicker설정하기
 	$('#datepicker').datepicker({
         dateFormat: 'yyyy-mm-dd' 
-        ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시             
-        ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-        ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
-        ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
-        ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
-        ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+        ,showMonthAfterYear:true  
+        ,showOn: "both" 
+        ,yearSuffix: "년" 
+        ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] 
+        ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
+        ,dayNamesMin: ['일','월','화','수','목','금','토'] 
         ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] 
         <%int com=perf.getPerfStart().compareTo(new Date());
      	if(com<0){ %>
     		,minDate:"-0D"
     	<%}else{ %> 
     		,minDate:new Date("<%=perf.getPerfStart()%>")
-    		
-    	<%}%>
-        	
+    	<%}%>      	
 		,maxDate: new Date("<%=perf.getPerfEnd()%>") //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후) 
 		<%if(dateList!=null){%>
 			//조건에 맞는 날짜,
@@ -435,7 +435,7 @@ $(function(){
 	     }
 		 
 	});  
-    
+
 
 });        
 </script>
@@ -526,24 +526,22 @@ $(function(){
 		<form id="bookSelect" name="bookSelect">
 			<!-- 공연일 리스트에 null값이 있을 경우 날짜지정 불필요 안내  -->
 			<%if(dateList.size()<1){ %>
-				<div id="cal">
-					<p> 불편을 드려 죄송합니다. 공연정보가 준비되지 못했습니다. 관리자에게 문의바랍니다.</p>
-				</div>
+				<div id="calNo">상시상품으로 날짜지정이 별도로 없습니다. 하단의 예매하기를 눌러 예매를 진행해주세요</div>
 			<%}else{ %>
-				<%if(dateList.get(0)!=null){ %>
-					<div id="cal">
-						<div id="datepicker"></div>
-					</div>
-				<%}else if(dateList.get(0)==null){ %>
-					<div id="calNo">상시상품으로 날짜지정이 별도로 없습니다. 하단의 예매하기를 눌러 예매를 진행해주세요</div>
-				<%}
-			}%>
+				<div id="cal">
+					<div id="datepicker"></div>
+				</div>
+			<%}%>
+			
 			 <div>
 			 	<%if(loginMember!=null){ %>
 					<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo() %>">
 				<%} %>
 				<input type="hidden" name="perfNo" value="<%=perf.getPerfNo() %>">
-				<input type="hidden" name="day">
+				<%if(dateList.size()>0){%>
+					<input type="hidden" name="day">
+					<input type="hidden" name="dateList" value="<%=dateList%>">
+				<%}%>
 				<button id="bookBtn" type="button">예매하기</button>
 			</div> 
 		</form>
