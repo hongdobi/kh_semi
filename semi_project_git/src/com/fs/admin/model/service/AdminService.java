@@ -6,10 +6,6 @@ import static com.fs.common.JDBCTemplate.getConnection;
 import static com.fs.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fs.admin.model.dao.AdminDao;
@@ -96,6 +92,19 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
+	
+	//공연등록 
+	public int insertPerformance(String perfNo, Performance p) {
+		Connection conn = getConnection();
+		int result = dao.insertPerformance(conn, perfNo, p);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		System.out.println("service"+result);
+		return result;
+	}
+	
+	
 
 
 	public List<Member> memList(int cPage, int numPerPage){

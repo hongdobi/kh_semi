@@ -9,10 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
-import com.fs.model.vo.PerfSsn;
 import com.fs.model.vo.Performance;
 
 
@@ -150,7 +151,93 @@ private Properties prop = new Properties();
 		}
 		return list;
 	}
+	//티켓오픈 
+	public List<Performance> ticketOpen(Connection conn, String cate) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Performance>list =new ArrayList();
+		Performance perf=null;
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("ticketOpen"));
+			pstmt.setString(1, cate+"%");
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				perf=new Performance();
+	            perf.setPerfNo(rs.getString("perf_no"));
+	            perf.setPerfName(rs.getString("perf_name"));
+	            perf.setPerfStart(rs.getDate("perf_start"));
+	            perf.setPerfLocation(rs.getString("perf_location"));
+	            perf.setPerfPoster(rs.getString("perf_poster"));
+	            perf.setdDay(rs.getInt("DDAY")*(-1));
+				list.add(perf);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 
+	//지역조회
+	public List<String> searchLocation(Connection conn, String cate) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<String> list=new ArrayList();
+		System.out.println(cate);
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("locationList"));
+			pstmt.setString(1, cate+"%");
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				String str=rs.getString(1);
+				list.add(str);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	//지역마다 공연 랜덤하게 하나
+	public Map<String,Performance> locationPick(Connection conn, List<String> list,String cate) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Map<String,Performance> map=new HashMap<String, Performance>();
+		Performance perf=null;
+		try {
+			for(int i=0;i<list.size();i++) {
+				String loc=list.get(i);
+				pstmt=conn.prepareStatement(prop.getProperty("locationPick"));
+				pstmt.setString(1,loc+"%"); 
+				pstmt.setString(2, cate+"%"); 
+				rs=pstmt.executeQuery();
+				if(rs.next()) { 
+					perf=new Performance();
+					perf.setPerfNo(rs.getString("perf_no"));
+					perf.setPerfName(rs.getString("perf_name"));
+					perf.setPerfStart(rs.getDate("perf_start"));
+					perf.setPerfEnd(rs.getDate("perf_end"));
+					perf.setPerfLocation(rs.getString("perf_location"));
+					perf.setPerfAddress(rs.getString("perf_address"));
+					perf.setPerfPoster(rs.getString("perf_poster"));
+					
+					map.put(loc, perf);
+				}
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return map;
+	}
 
+	
+	
 	
 }

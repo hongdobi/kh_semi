@@ -1,13 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
- -->
+<%
+	
+%>
 <body>
 	<%@ include file="/views/common/header.jsp" %>
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/indexHeader.css"></link>
+	<% 
+		//myImg="http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png";
+ 		//buttonImg="http://tkfile.yes24.com/imgNew/common/pf-srch.png";
+	%>
+	<script>
+		document.getElementById("buttonImg").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-srch.png");
+		document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+	</script>
     <div class="container">
         <div class="top-picture"
-             style="background-color:rgb(205, 190, 158); height: 700px; margin-top: -100px; background-image: url(http://tkfile.yes24.com/Upload2/Display/202007/20200721/wel_mv_cdbe9e.jpg/dims/quality/70/); background-size: auto 100%; background-repeat: no-repeat; background-position: center;">
+             style="background-color:salmon; height: 700px; margin-top: -100px; /* background-image: url(http://tkfile.yes24.com/Upload2/Display/202007/20200721/wel_mv_cdbe9e.jpg/dims/quality/70/); */ background-size: auto 100%; background-repeat: no-repeat; background-position: center;z-index:-1">
+             <div><img src="http://tkfile.yes24.com/Upload2/Display/202009/20200925/wel_mv_37154.jpg/dims/quality/70/"></div>
+             <div><img src="http://tkfile.yes24.com/Upload2/Display/202009/20200924/wel_mv_hope.jpg/dims/quality/70/"></div>
+             <div><img src="http://tkfile.yes24.com/Upload2/Display/202009/20200925/wel_mv_000.jpg/dims/quality/70/"></div>
+             <div><img src="http://tkfile.yes24.com/Upload2/Display/202010/20201007/wel_mv_si.jpg/dims/quality/70/"></div>
         </div>
         <div class="box-guide">
             <div class="ranking">
@@ -16,7 +31,7 @@
                     <li><a href="">#뮤지컬</a></li>
                     <li><a href="">#연극</a></li>
                     <li><a href="">#전시</a></li>
-                    <li><a href="<%=request.getContextPath()%>/perf/RankList">#랭킹</a></li>
+                    <li><a href="<%=request.getContextPath()%>/perf/RankList.do">#랭킹</a></li>
                 </ul>
                 <ul class="tab-contents">
                     <li>
@@ -51,5 +66,16 @@
     </div>
 	<%@ include file="/views/common/footer.jsp" %>
 </body>
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('.top-picture').slick({
+        dots: true,
+        infinite: true,
+        autoplay: true,
+        speed:500,
+        fade:true
+      });
+    });
+    </script>
 
 </html>

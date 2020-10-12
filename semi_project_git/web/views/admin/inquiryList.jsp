@@ -36,8 +36,8 @@
 	}
 
 	#adminView{
-		width:1100px;
-		height:500px;
+		width:1200px;
+		height:600px;
 		border:3px solid gainsboro;
 		display: inline-block;
 		text-align:center;
@@ -69,7 +69,7 @@
 	<br>
 	<nav>
 		<ul class="Rank-nav">
-			<li class="rk-li"><a href="">공연 등록/삭제</a></li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
 			<li class="rk-li"><a href="">회원관리</a></li>
 			<li class="rk-li"><a href="">리뷰관리</a></li>
 			<li class="rk-li"><a href="">FAQ</a></li>
