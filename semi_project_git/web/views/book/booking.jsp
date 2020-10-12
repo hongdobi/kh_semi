@@ -32,7 +32,7 @@
     <!-- <img src="image/curtain.jpg" id="curtain" alt=""> -->
     <div id="container">
         <header>
-            <img src="<%=request.getContextPath() %>/image/logo_book.png" alt="오성티켓" id="logo" width="250" height="66">
+            <img src="<%=request.getContextPath() %>/image/logo_book.png" alt="오성티켓" id="logo" width="208" height="55">
             <nav>
                 <ul id="headerMenu">
                     <li>
@@ -69,7 +69,7 @@
             </div>        
             <div id="cal_div">
                 <div>
-                    <span>날짜/시간 선택</span>
+                    <span>날짜/시간 선택 (공연명: <b><%=perf.getPerfName() %></b>)</span>
                 </div>
                 <%if(bookDate!=null) { %>
                 	<form action="<%=request.getContextPath() %>/book/seating" method="post">
@@ -190,11 +190,14 @@
 	    #container{
 	        background-image:url('<%=request.getContextPath() %>/image/curtain.jpg');
 	        background-size:contain;
-	        min-width:1000px;
+	        max-height:670px;
+	        max-width:1000px;
+	        width:auto;
+	        height:auto;
+	        font-size:14px;
 	    }
 	    #headerMenu{
-	        margin-left:350px;
-	        margin-top:-20px;
+	        margin-left:130px;	       	        	        
 	    }
 	    #headerMenu li{
 	        color:white;
@@ -204,30 +207,30 @@
 	        border-radius: 5px;
 	        justify-content: center;
 	        text-align: center;
-	        padding-left:40px;
-	        padding-right:40px;
-	        padding-top:20px;
-	        padding-bottom:20px;
-	        margin-right:7px;
-	    }
+	        padding-left:26px;
+	        padding-right:26px;
+	        padding-top:14px;
+	        padding-bottom:14px;
+	        margin-right:10px;	        
+	    }	    
 	    #showStepDiv{
 	        display:flex;
 	    }
 	    #showStepTitle{
-            padding-top:16px;
-            padding-bottom:4px;
-            padding-left:40px;          
-            margin-left: 376px;
+            padding-top:14px;
+	        padding-bottom:5px;
+	        padding-left:23px;	        
+	        margin-left: 126px;
             background-color:white;
-            font-weight: bolder;
-            font-size:17px;
+            font-weight: bolder;  
+            font-size:16px;         
             border-radius: 4px;
-            height:36px;
-            width:170px;
-            margin-top:-4px;
+            height:30px;
+            width:146px; 
+            margin-top:7px;          
         }
 	    #cal_div{
-	        margin-left:376px;
+	        margin-left:126px;
 	        display:inline-block;
 	        width:720px;
 	        height:320px;
@@ -239,11 +242,15 @@
 	        color:rgb(228, 220, 220);
 	        font-weight: bolder;
 	    }
+	    #cal_div>div:first-child b{
+	    	color:rgba(255, 158, 74, 0.911);
+	    	font-size:15px;
+	    }
 	    #select_ticket{
-	        margin-left:44px;
-	        font-size:16px;
+	        margin-left:44px;	        
 	        margin-bottom:20px;
 	        width:240px;
+	        font-size:15px;
 	    }
 	    #cal_flex_div{
 	        display: flex;
@@ -254,32 +261,34 @@
 	        padding-top:20px;
 	    }
 	    .ssn_blank{
-	        padding:12px;
+	        padding:7px;
 	        width:200px;
 	        margin-left:44px;
 	        background-color: gray;
 	        color:azure;
 	        text-align: center;
-	        margin-bottom:15px;
+	        margin-bottom:14px;
 	        border-radius: 7px;
-	        font-size:16px;
+	        font-size:15px;	        
 	    }
 	    .ssn_blank:hover{
-	        padding:12px;
+	        padding:7px;
 	        width:200px;
 	        margin-left:44px;
 	        background-color: rgba(244, 165, 96, 0.829);
 	        color:aliceblue;
 	        text-align: center;
 	        font-weight: bolder;
-	        margin-bottom:15px;
+	        margin-bottom:14px;
 	        border-radius: 7px;
-	        font-size:17px;
+	        font-size:16px;
 	    }
 	    #comment{
-	        margin-top:-15px;
-	        margin-left:300px;
+	        margin-top:-28px;
+	        margin-left:85px;
 	        display:flex;
+	        font-size:13px;
+	        padding-bottom:3px;
 	    }
 	    #comment ul{
 	        color:darkgrey;      
@@ -287,13 +296,15 @@
 	    #sideMenu{
 	        background-color:gray;
 	        color:white;
-	        width:30px;
-	        height:110px;
+	        width:20px;
+	        height:80px;
 	        text-align:center;
 	        font-weight:bolder;
 	        padding:5px;
-	        padding-top:25px;
+	        padding-top:15px;
+	        padding-bottom: 15px;
 	        margin-top:20px;
+	        font-size:15px;
 	    }
 	    /* #cpic{
 	        width:50%; 
@@ -301,9 +312,9 @@
 	        padding-left: 25%;
 	    } */
 	    /*datepicker*/
-	    .ui-datepicker table>thead{font-size: 17px; background-color:#f6f6f6;}
+	    .ui-datepicker table>thead{font-size: 15px; background-color:#f6f6f6;}
 	    .ui-datepicker {width: 370px; padding: 0; border: 0;}
-	    .ui-datepicker .ui-widget-header {font-size:21px; padding: 2px; border: 0; background: rgba(80, 74, 74, 0.781); color: #fff; }
+	    .ui-datepicker .ui-widget-header {font-size:20px; padding: 2px; border: 0; background: rgba(80, 74, 74, 0.781); color: #fff; }
 	    .ui-widget.ui-widget-content { border: 0; border-radius: 7px; overflow: hidden; background: #fff; box-shadow: 0 0 8px rgba(0,0,0,0.3) }
 	    /*날짜 칸*/
 	    .ui-widget-content .ui-state-default {
@@ -312,7 +323,7 @@
 	    background: #fff;
 	    font-weight: normal;
 	    color: #000;
-	    font-size: 16px;
+	    font-size: 15px;
 	    border-radius:100px;
 	    }
 	    .ui-widget-content .ui-state-default:hover {
