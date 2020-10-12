@@ -5,6 +5,7 @@ import static com.fs.common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.fs.model.vo.Booking;
+import com.fs.model.vo.Performance;
 
 public class BookingDao {
 
@@ -44,4 +46,31 @@ public class BookingDao {
 	 * 
 	 * }
 	 */
+	
+	//예약날짜 받아오기
+	public Performance selectBookingDate(Connection conn,String perfNo,Date bookDate) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Performance perf=null;
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectBookingDate"));
+			pstmt.setString(1, perfNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				perf=new Performance();
+				perf.setPerfNo(rs.getString("perf_No"));
+				perf.setPerfName(rs.getString("perf_Name"));
+				perf.setPerfStart(rs.getDate("perf_start"));
+				perf.setPerfEnd(rs.getDate("perf_end"));
+				perf.setPerfCapacity(rs.getInt("perf_capacity"));
+				perf.setPerfTimeInfo(rs.getString("perf_timeinfo"));
+				perf.setPerfPriceInfo(rs.getString("perf_priceinfo"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return perf;
+	}
 }

@@ -1,6 +1,7 @@
 package com.fs.model.vo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class PerfSsn {
 	private String nthPerf;
@@ -67,6 +68,12 @@ public class PerfSsn {
 	public String toString() {
 		return "PerfSsn [nthPerf=" + nthPerf + ", perfNo=" + perfNo + ", dateTime=" + dateTime + ", nthCount="
 				+ nthCount + "]";
+	}
+
+
+	public void setDateTime(Timestamp timestamp) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
