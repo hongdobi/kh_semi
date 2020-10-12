@@ -244,6 +244,37 @@ public class AdminDao {
 			close(pstmt);
 		}return result;
 	}
+	
+	//공연등록
+	public int insertPerformance(Connection conn, String perfNo, Performance p) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("insertPerformance").replaceAll("@perfNo", perfNo);
+			System.out.println("변경 sql : "+sql);
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, p.getPerfNo());
+			pstmt.setString(2, p.getPerfName());
+			pstmt.setInt(3, p.getPerfRuntime());
+			pstmt.setDate(4, p.getPerfStart());
+			pstmt.setDate(5, p.getPerfEnd());
+			pstmt.setInt(6, p.getPerfPg());
+			pstmt.setString(7, p.getPerfLocation());
+			pstmt.setString(8, p.getPerfAddress());
+			pstmt.setInt(9, p.getPerfCapacity());
+			pstmt.setString(10, p.getPerfTimeInfo());
+			pstmt.setString(11, p.getPerfPriceInfo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			System.out.println("dao"+result);
+		}return result;
+	}
+		
 
 	public List<Member> memList(Connection conn, int cPage, int numPerPage){
 		PreparedStatement pstmt = null;

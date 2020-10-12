@@ -318,7 +318,7 @@ $(function(){
 			}
 			const url="<%=request.getContextPath()%>/book/booking"; 
             const title="bookSelect";
-            const status="width=800px, height=600px, top=100px, left=300px";
+            const status="width=980px, height=670px, top=70px, left=300px";
  			open("",title,status);
  			bookSelect.action=url;              
  			bookSelect.target=title;
