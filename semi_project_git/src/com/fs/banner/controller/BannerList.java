@@ -43,6 +43,7 @@ public class BannerList extends HttpServlet {
 			JSONObject jobj=new JSONObject(); 
 			
 			jobj.put("perfNo",b.getPerfNo());
+			jobj.put("perfName",b.getPerfName());
 			jobj.put("banner1",b.getBanner1());
 			jobj.put("banner2",b.getBanner2());
 			jobj.put("link",b.getSrc());

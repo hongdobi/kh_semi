@@ -9,7 +9,7 @@
 	String pN[] = perfName.split(",");
 %>
 <style>
-	table, th, td{
+/* 	table, th, td{
 		border: 1px solid black;
 	}
 	table{
@@ -17,13 +17,56 @@
 		position:relative;
 		left:20px;
 		top:20px;
-	}
+	} */
 	td{
 		text-align:center;
 	}
+	#bookings{
+		width: 90%;
+		position:relative;
+		left:20px;
+		top:50px;
+	}
+	table, th, td{
+		border: 3px solid gainsboro;
+		padding:15px;
+	}
+	tr{
+		height:80px;
+	}
+	td{
+		background-color:white;
+	}
+	th{
+		width:80px;
+		background-color:ghostwhite;
+	}
+	.button{
+		position:relative;
+		left:250px;
+		top:50px;
+		background-color:lightpink;
+		border:3px solid gainsboro;
+		font-size:15px;
+		padding:10px;
+		border-radius:10px;
+		font-weight: bold;
+	}
+	#quit{
+		position:relative;
+		left:280px;
+	}
+	input{
+		border: 3px solid gainsboro;
+	}
+	span{
+		font-size: 10px;
+	}
+	
 </style>
+
 <section id="bookings">
-	<h1><%=m.getMemberName() %></h1>
+	<h1><%=m.getMemberName() %>님</h1>
 	<table id="bookTBL">
 		<thead>
 		<tr>

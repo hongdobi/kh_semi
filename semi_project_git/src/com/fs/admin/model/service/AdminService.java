@@ -11,6 +11,7 @@ import java.util.List;
 import com.fs.admin.model.dao.AdminDao;
 import com.fs.model.vo.FAQ;
 import com.fs.model.vo.Inquiry;
+import com.fs.model.vo.Member;
 import com.fs.model.vo.Performance;
 
 
@@ -105,4 +106,52 @@ public class AdminService {
 	
 	
 
+
+	public List<Member> memList(int cPage, int numPerPage){
+		Connection conn = getConnection();
+		List<Member> memList = dao.memList(conn, cPage, numPerPage);
+		close(conn);
+		return memList;
+	}
+	
+	public int memberCount() {
+		Connection conn = getConnection();
+		int count = dao.memberCount(conn);
+		close(conn);
+		return count;
+	}
+	public int searchCount(String type, String key) {
+		Connection conn = getConnection();
+		int count = dao.searchCount(conn, type, key);
+		close(conn);
+		return count;
+	}
+	public List<Member> searchMemberList(String type, String key, int cPage, int numPerPage){
+		Connection conn = getConnection();
+		List<Member> list = dao.searchMemberList(conn, type, key, cPage, numPerPage);
+		close(conn);
+		return list;
+	}
+	
+	public int authMG(String memberId) {
+		Connection conn = getConnection();
+		int result = dao.authMG(conn, memberId);
+		if(result>0) {
+			commit(conn);
+			System.out.println("변경사항 저장" + result);
+		}else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int delAuth(String memberId) {
+		Connection conn = getConnection();
+		int result = dao.delAuth(conn, memberId);
+		if(result>0) {
+			commit(conn);
+			System.out.println("변경사항 저장" + result);
+		}else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
 }

@@ -28,9 +28,10 @@
 		text-align: center;
 	}
 
+/* 		김정민 css */
 	#adminView{
-		width:1200px;
-		height:600px;
+		width:70%;
+		height:900px;
 		border:3px solid gainsboro;
 		display: inline-block;
 	}
@@ -46,22 +47,55 @@
 	<nav>
 		<ul class="Rank-nav">
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
-			<li class="rk-li"><a href="">회원관리</a></li>
-			<li class="rk-li"><a href="">리뷰관리</a></li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
+			<li class="rk-li">리뷰관리</li>
 			<li class="rk-li"><a href="">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
+
 		</ul>
 	</nav>
-	<div id="adminView">
-		<br>
-		<br>
-		<br>
-		<br>
+	<!-- <div id="adminView">
 		<h1>내용</h1>
-	</div>
-
+	</div> -->
+	<h1><%=loginMember.getMemberName() %>님 환영합니다</h1>
 </section>
 <script>
+<%-- 	$("#memberMG").click(e=>{
+		$.ajax({
+			url:"<%=request.getContextPath()%>/admin/memberMG",
+			type:"get",
+			success:function(data){
+				$("#adminView").html(data);
+			}
+		})
+	}); --%>
+	$(".pageNo").click(function(event){
+		let pageNo = $(event.target).text();		
+		let msg = "<%=request.getContextPath()%>/admin/memberMG?cPage=" + pageNo;
+		alert(msg);
+		
+	});
+		
+		
+		<%-- $.ajax({
+			url:"<%=request.getContextPath()%>/admin/memberMG",
+			type:"get",
+			success:function(data){
+				$("#adminView").html(data);
+			}
+		}) --%>
+	/* }; */
+<%-- 	$(document).ready(e=>{
+		$.ajax({
+			url:"<%=request.getContextPath()%>/member/memberInfo",
+			type:"get",
+			data:{"memberId":"<%=loginMember.getMemberId()%>"},
+			success:function(data){
+				$("#result").html(data);
+			}
+		})
+	});
+ --%>
 	$(function(){
 		$(".rk-li").hover(function(){
 			$(this).css("background-color","lightcoral");

@@ -1,5 +1,6 @@
 package com.fs.banner.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 /**
  * Servlet implementation class BannerUploadServlet
  */
-@WebServlet("/admin/bannerUpload")
+@WebServlet("/banner/bannerUpload")
 public class BannerUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -53,18 +54,11 @@ public class BannerUploadServlet extends HttpServlet {
 		
 		Banner b = new Banner();
 
+		String choice = mr.getParameter("choice");
+
 		String perfNo = mr.getParameter("perfNo");
 		b.setPerfNo(perfNo);
-		System.out.println(perfNo);
-		
-		String choice = mr.getParameter("choice");
-		//String link = mr.getParameter("link");
-		
-		if(mr.getParameter("link")!=null) {
-			b.setSrc(mr.getParameter("link"));
-		}
 	
-		
 		System.out.println(choice);
 		System.out.println(perfNo);
 		
@@ -72,14 +66,34 @@ public class BannerUploadServlet extends HttpServlet {
 			System.out.println("배너1");
 			b.setBanner1(fileName);
 		}
-		if(choice.equals("공연")) {
+		else if(choice.equals("공연")) {
 			System.out.println("배너2");
 			b.setBanner2(fileName);
 		}
-
-		System.out.println(b);
-		int result = new BannerService().insertBanner(b);
+		else if(choice.equals("동영상")) {
+			System.out.println("동영상");
+			b.setSrc(mr.getParameter("link"));
+		}
+		String old="";
+		//예전 파일 이름
+		if(choice.equals("메인")||choice.equals("공연")) {
+			old=new BannerService().oldFileName(perfNo,choice);
+		}
+		int result = new BannerService().insertBanner(b,choice);
+		
+		if(choice.equals("메인")||choice.equals("공연")) {
+			if(result>0) {
+				//업데이트 성공시 기존 파일 지우기
+				String filePath=getServletContext().getRealPath("/image/banner/");
+				filePath+=old;
+				File f=new File(filePath);
+				System.out.println(filePath);
+				if(f.exists())f.delete();
+			}
+		}
+		
 		System.out.println(result +"servlet");
+		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out =response.getWriter();
 		out.write(result+"");
