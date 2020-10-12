@@ -2,7 +2,6 @@ package com.fs.member.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -19,7 +18,9 @@ import com.fs.model.vo.Member;
  * Servlet implementation class LoginSignupEndServlet
  */
 //회원가입 페이지 서블릿, 클라이언트가 보낸 데이터를 DB에 저장하는 서블릿
-@WebServlet("/signupEnd")
+
+@WebServlet(name="signupEnd", urlPatterns="/signupEnd")
+
 public class SignupEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,12 +36,13 @@ public class SignupEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//클라이언트가 보낸 파라미터 받기
-		String memberId = request.getParameter("memberId");
-		String memberPw = request.getParameter("memberPw");
-		String memberName = request.getParameter("memberName");
-		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");
+		
+		Member m = new Member();
+		m.setMemberId(request.getParameter("memberId"));
+		m.setMemberPw(request.getParameter("memberPw"));
+		m.setMemberName(request.getParameter("memberName"));
+		m.setPhone(request.getParameter("phone"));
+		m.setEmail(request.getParameter("email"));
 		String bday =  request.getParameter("bday");
 		
 		//bday String -> Date로 형변환하기
@@ -62,29 +64,30 @@ public class SignupEndServlet extends HttpServlet {
 		String transDate = afterFormat.format(tempDate);
 		//반환된 String값을 Date로 변경
 		Date bday2 = Date.valueOf(transDate);
+		m.setBday(bday2);
 		
-		Member m = new Member(memberId, memberPw, memberName, phone, email, bday2);
 		System.out.println(m); 
 		
 		//회원등록 결과를 int형으로 반환 
 		int result = new MemberService().insertMember(m);
 		
-		
 		//회원등록 성공, 실패 메시지 띄어주기!
 		String msg = "";
 		String loc = "";
+		
 		
 		if(result>0) {
 			//회원등록 성공 -> 메시지 띄어주기 -> 메인으로 이동
 			msg = "오성티켓에 가입해주셔서 감사드립니다";
 		}else {
-			//회원등록 실패 -> 메시지 띄어주기 -> 메인으로 이동
-			msg = "회원등록에 실패했습니다";
+			//회원등록 실패 -> 메시지 띄어주기 -> 메인으로 이동 
+			msg = "회원등록을 다시 시도해주시기 바랍니다";
 		}
-		
+
 		//메시지 띄울 것 넣기 
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
+		
 		//화면 이동
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		

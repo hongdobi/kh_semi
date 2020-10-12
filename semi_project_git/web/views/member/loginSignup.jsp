@@ -102,7 +102,7 @@
             <fieldset class="forms_fieldset">
               <div class="forms_field">
                 <input type="text" name="memberId" id="memberId_" placeholder="아이디:영소문자/숫자 5~15자 이내" class="forms_field-input" required>
-                <button onclick="" name="" id="selfcheck">중복확인</button><br>
+                <button id="idcheck" class="selfcheck">중복확인</button><br>
                 <span id="result1"></span>
               </div>
               <div class="forms_field">
@@ -115,23 +115,29 @@
               </div>
               <div class="forms_field">
                 <input type="email" name="email" id="email" placeholder="Email" class="forms_field-input" required>
-                <button onclick="" name="" id="selfcheck">중복확인</button><br>
+                <button id="emailck" class="selfcheck">중복확인</button><br>
                 <span id="result4"></span>
               </div>
               <div class="forms_field">
-                <input type="text" name="phone" placeholder="휴대폰:-없이 입력" class="forms_field-input" required>
+                <input type="text" name="phone" id="phone" placeholder="휴대폰:-없이 입력" class="forms_field-input" required><br>
+                <span id="result5"></span>
               </div>
               <div class="forms_field">
                 <input type="text" name="bday" id="bday" placeholder="생년월일:8자리 입력(YYYYMMDD)" class="forms_field-input" required><br>
-                <span id="result5"></span>
+                <span id="result6"></span>
               </div>
               <div class="forms_field">
                 <input type="text" name="memberName" placeholder="이름" class="forms_field-input" required>
               </div>
             </fieldset>
             <div class="forms_buttons">
-              <input type="submit" value="Sign up" class="forms_buttons-action">
+              <input type="submit" id="signup" value="Sign up" class="forms_buttons-action" >
             </div>
+
+            <!--아이디, 비밀번호 중복확인 체크-->
+            <input type="hidden" name="idcheck" value="">
+            <input type="hidden" name="emailcheck" value="">
+
           </form>
         </div>
       </div>
@@ -142,18 +148,14 @@
       loginButton = document.getElementById("login-button"),
       userForms = document.getElementById("user_options-forms");
 
-    /**
-     * Add event listener to the "Sign Up" button
-     */
+    //Sign up 
     signupButton.addEventListener("click",() => {
         userForms.classList.remove("bounceRight");
         userForms.classList.add("bounceLeft");
       },false
     );
 
-    /**
-     * Add event listener to the "Login" button
-     */
+    //Login
     loginButton.addEventListener("click",() => {
         userForms.classList.remove("bounceLeft");
         userForms.classList.add("bounceRight");
@@ -164,7 +166,7 @@
     $(function(){
       //정규표현식 아이디
       var memberIdck = RegExp(/^[a-z0-9]{5,15}$/);
-      $("#memberId_").blur(function(){
+      $("#memberId_").keyup(function(){
         if(!memberIdck.test($("#memberId_").val())){
           $("#result1").html("영문소문자/숫자 조합, 5~15자 이내 입력해주세요").css("color","lightcoral");
           return false;
@@ -175,7 +177,7 @@
     
       //정규표현식 비밀번호
       var memberPwck = RegExp(/^.*(?=^.{8,15})(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%%^&*()]).*$/);
-      $("#memberPw_").blur(function(){
+      $("#memberPw_").keyup(function(){
         if(!memberPwck.test($("#memberPw_").val())){
           $("#result2").html("영문 숫자/특수문자 조합 8자 이상 입력해주세요").css("color","lightcoral");
           return false;
@@ -198,7 +200,7 @@
 
       //정규표현식 이메일
       var emailck = RegExp(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i);
-      $("#email").blur(function(){
+      $("#email").keyup(function(){
         if(!emailck.test($("#email").val())){
           $("#result4").html("이메일 형식에 맞춰 입력해주세요").css("color","lightcoral");
           return false;
@@ -207,19 +209,83 @@
         }
       });
 
-      //정규표현식 생년월일
-      var bdayck = RegExp(/^[0-9]{8}$/);
-      $("#bday").blur(function(){
-        if(!bdayck.test($("#bday").val())){
-          $("#result5").html("8자리 숫자로 입력해주세요").css("color","lightcoral");
+      //정규표현식 휴대폰
+      var phoneck = RegExp(/^[0-9]{10,11}$/);
+      $("#phone").keyup(function(){
+        if(!phoneck.test($("#phone").val())){
+          $("#result5").html("-없이 숫자로만 입력해주세요").css("color","lightcoral");
           return false;
         }else{
           $("#result5").html("");
         }
+      })
+
+      //정규표현식 생년월일
+      var bdayck = RegExp(/^[0-9]{8}$/);
+      $("#bday").keyup(function(){
+        if(!bdayck.test($("#bday").val())){
+          $("#result6").html("8자리 숫자로 입력해주세요").css("color","lightcoral");
+          return false;
+        }else{
+          $("#result6").html("");
+        }
       });
 
+      //아이디 중복확인
+      $("#idcheck").click(function(){
+        if(!memberIdck.test($("#memberId_").val())){
+          alert("아이디 형식에 맞춰 입력해주세요");
+        }else{
+          $("input[name=idcheck]").val("yes");
+
+          $.ajax({
+            url:"<%=request.getContextPath()%>/member/idDuplicate",
+            data:{"memberId":$("#memberId_").val()},
+            success:function(data){
+              $("#result1").html(data);
+            }
+          });
+        }
+      });
+
+      //이메일 중복확인
+      $("#emailck").click(function(){
+        if(!emailck.test($("#email").val())){
+          alert("이메일 형식에 맞춰 입력해주세요");
+        }else{
+          $("input[name=emailcheck]").val("yes");
+
+          $.ajax({
+            url:"<%=request.getContextPath()%>/member/emailDuplicate",
+            data:{"email":$("#email").val()},
+            success:function(data){
+              $("#result4").html(data);
+            }
+          });
+        }
+      });
       
-    });
+      //아이디, 이메일 중복확인 체크여부
+      $("#signup").click(function(){
+        if($("input[name='idcheck']").val()==""){
+        	alert("아이디 중복확인을 해주세요");
+          $("input[name='idcheck']").focus();
+          return false;
+        }else if($("input[name='emailcheck']").val()==""){
+        	alert("이메일 중복확인을 해주세요");
+          $("input[name='emailcheck']").focus();
+          return false;
+        }
+      });
+
+
+        
+      
+    });//function() 끝
+
+    
+
+    
     
   </script>
 </body>

@@ -1,4 +1,4 @@
-package com.fs.perf.controller;
+package com.fs.perfSsn.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -11,18 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import com.fs.model.vo.PerfSsn;
 import com.fs.model.vo.Performance;
-import com.fs.perf.model.service.PerfService;
 import com.fs.perfSsn.model.service.PerfSsnService;
 
 /**
  * Servlet implementation class RankingServlet
  */
-@WebServlet("/perf/RankList.do")
+@WebServlet("/perf/RankList")
 public class RankingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,7 +39,8 @@ public class RankingServlet extends HttpServlet {
 		String cate="ALL";
 
 		List <Performance>list=new PerfSsnService().rank(month,cate);
-		
+		int total=new PerfSsnService().ticketTotal(month, cate);
+		request.setAttribute("total", total);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/views/perf/perfRank.jsp").forward(request, response);;
 	}

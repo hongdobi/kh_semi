@@ -63,8 +63,31 @@ table {
             color: #999;
         }
 
-
+		.top-content{
+			background-color: #000;
+		 	height:34px;
+		 	width:100%;
+		 	display:block;
+		 	position:relative;
+		 }
+		 .top-content-right{float:right}
+		.top-content a {
+		 	color: #999;
+		 	font-size:13px;
+		}
         /* header */
+        
+  		button{appearance: none; background-color: transparent; border: none;}
+        .searchText{
+        background-color: transparent;
+        border-bottom: 2px solid black;
+        border-left:none;    
+		border-right:none;
+		border-top:none;
+		margin-right:-10px;
+		width:280px;
+		height:20px;
+        }
         header {
             display: flex;
             height: 100px;

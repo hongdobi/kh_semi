@@ -5,61 +5,64 @@
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <style>
 	#sidebar{
-		background-color:bisque;
+		background-color:ghostwhite;
+		height:500px;
 		width:200px;
-		position:fixed;
-		top:25%;
-		left:2%;
-		border: 3px solid brown;
+		position:absolute;
+		top:300px;
+		left:5%;
+		border: 3px solid lightpink;
 		text-align:center;
 		display:flex;
 		flex-direction:column;
 		font-weight:bolder;
+		font-size:20px;
+		display:inline-block;
 	}
 		
 	#result{
-		background-color:lightblue;
 		width: 800px;
 		height: 500px;
-		border: 3px solid;
+/* 		border: 3px solid; */
 		position:relative;
 		left:350px;
 		top:100px;
+		display:inline-block;
 	}
 </style>
 
 
 <%@ include file="/views/common/header.jsp" %>
+<section>
+	<div id="sidebar">
+		<div>
+			<h1>MY PAGE</h1>
+		</div>
+		<div>
+			<p><%=loginMember.getMemberName() %>님</p>
+			<p>포인트: 000점</p><br>
+		</div>
+		<div>
+			<p id="bookCheck">예매확인 / 취소</p>
+			<p id="myReview">나의 리뷰</p><br>
+		</div>
+		<div>
+			<p id="memberInfo">회원정보 수정</p>
+			<p id="helpCenter">고객센터</p>	
+		</div>
+	</div>
+	
+	<div id="result">
+	
+	</div>
+</section>
 
-<div id="sidebar">
-	<div>
-		<h1>MY PAGE</h1>
-	</div>
-	<div>
-		<p><%=loginMember.getMemberName() %>님</p>
-		<p>포인트: 000점</p>
-	</div>
-	<div>
-		<p id="bookCheck">예매확인 / 취소</p>
-		<p id="myReview">나의 리뷰</p>
-	</div>
-	<div>
-		<p id="memberInfo">회원정보 수정</p>
-		<p id="memberInfo">회원 탈퇴</p>
-		<p id="helpCenter">고객센터</p>	
-	</div>
-</div>
-
-<div id="result" onload="">
-	<h1>result</h1>
-
-</div>
 
 <script>
 	
 	$("#bookCheck").click(e=>{
 		$.ajax({
-			url:"<%=request.getContextPath()%>/member/bookCheck",
+			url:"<%=request.getContextPath()%>/member/bookChecker",
 			type:"get",
 			data:{"memberId":"<%=loginMember.getMemberId()%>"},
 			success:function(data){
@@ -88,8 +91,13 @@
 		})
 	});
 	$("#helpCenter").click(e=>{
+		    location.href="<%=request.getContextPath()%>/admin/helpCenter?memberNo=<%=loginMember.getMemberNo() %>&keyword=회원";
+	});
+
+
+	$(document).ready(e=>{
 		$.ajax({
-			url:"<%=request.getContextPath()%>/member/helpCenter",
+			url:"<%=request.getContextPath()%>/member/memberInfo",
 			type:"get",
 			data:{"memberId":"<%=loginMember.getMemberId()%>"},
 			success:function(data){
@@ -98,9 +106,11 @@
 		})
 	});
 
+
 </script>
-
-
+<div>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
 
 
 <%@ include file="/views/common/footer.jsp" %>

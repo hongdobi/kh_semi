@@ -31,7 +31,7 @@ public class PerfSsnDao {
 		}
 	}
 	
-	//랭킹 : 공연넘버별 한달 예매수 합계
+	//랭킹 
 	public List<Performance> rank(Connection conn,String month,String cate){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -57,8 +57,57 @@ public class PerfSsnDao {
 				perf.setPerfPoster(rs.getString("perf_poster"));
 				perf.setPerfCount(rs.getInt("cnt"));
 				list.add(perf);
+
 			}
-			System.out.println(list+"dao");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	//랭킹페이지용 해당 카테고리, 월별 테켓 총합
+	public int ticketTotal(Connection conn,String month,String cate){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt =conn.prepareStatement(prop.getProperty("ticketTotal"));
+			pstmt.setString(1, month);
+			pstmt.setString(2, month);
+			if(cate==null||cate.equals("ALL")) {
+				pstmt.setString(3, "%");
+			}else {
+				pstmt.setString(3, cate+"_%");
+			}
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				result=rs.getInt("total");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	
+	//해당공연이 열리는 공연일 리스트 가져오기(중복값없이)
+	public List selectDateTime(Connection conn, String perfNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List list=new ArrayList();
+		try {
+			pstmt =conn.prepareStatement(prop.getProperty("selectDateTime"));
+			pstmt.setString(1, perfNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				String date=rs.getString(1);
+				
+				list.add(date);
+				
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
