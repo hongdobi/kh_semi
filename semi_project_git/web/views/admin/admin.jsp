@@ -45,7 +45,7 @@
 	<br>
 	<nav>
 		<ul class="Rank-nav">
-			<li class="rk-li"><a href="">공연 등록/삭제</a></li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
 			<li class="rk-li"><a href="">회원관리</a></li>
 			<li class="rk-li"><a href="">리뷰관리</a></li>
 			<li class="rk-li"><a href="">FAQ</a></li>
