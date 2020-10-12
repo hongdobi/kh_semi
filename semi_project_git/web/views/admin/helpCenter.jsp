@@ -249,7 +249,7 @@
                <%}else{
                   for (Inquiry iq : list2) {%>
                   <tr>  
-                     <td><%=iq.getInqTitle() %><a href="<%=request.getContextPath()%>/admin/inquiryAnswer?inqNo=<%=iq.getInqNo()%>" onclick="open(this.href,'','top=100px, left=300px, width=600px, height=400px, scrollbars=no');return false;"><%=iq.getInqTitle() %></a></td>
+                     <td><a href="<%=request.getContextPath()%>/admin/inquiryAnswer?inqNo=<%=iq.getInqNo()%>" onclick="open(this.href,'','top=100px, left=300px, width=600px, height=400px, scrollbars=no');return false;"><%=iq.getInqTitle() %></a></td>
                      <td><% if(iq.getInqYn().equals("N")){%>
                            처리중			
                         <%}else {%>
