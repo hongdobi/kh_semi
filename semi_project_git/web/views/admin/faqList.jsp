@@ -51,7 +51,6 @@ table{
 
 	#faqView{
 		width:1200px;
-		height:600px;
 		border:3px solid gainsboro;
 		display: inline-block;
 		text-align:center;
@@ -96,7 +95,7 @@ table#tbl-faq th, table#tbl-faq td {
 div#pageBar {
 	margin-top: 15px;
 	text-align: center;
-	background-color: pink;
+	
 }
 
 div#pageBar span.cPage {
@@ -110,6 +109,13 @@ div#search-container {
 
 div#search-hashtag {
 	display: inline-block;
+}
+
+div#faq-container{
+
+padding:15px;
+
+
 }
 </style>
 
@@ -131,11 +137,13 @@ div#search-hashtag {
 		</ul>
 	</nav>
 
+<div id="faqView">
 
 	<h2 align="center">FAQ 관리하기</h2>
 
 
 	<button type="button" onclick="fn_move_view()" class="button">FAQ 등록하기</button>	
+			<br>
 			<br>
 	<script>
 	function fn_move_view(){
@@ -147,7 +155,6 @@ div#search-hashtag {
 <div id="search-container"> 
 
 
-</div>
 <div id="search-hashtag">
 
   <form action="<%=request.getContextPath() %>/admin/searchFaq">
@@ -157,8 +164,10 @@ div#search-hashtag {
 </div>
 <br>
 <br>
-<div id="faqVew">
-	<table id="tbl-faq" style="table-layout: fixed;">
+
+
+<div id="faq-container">
+	<table id="tbl-faq" style="table-layout: fixed;" >
 
 		<tr>
 			<td>번호</td>
@@ -187,8 +196,11 @@ div#search-hashtag {
 		%>
 
 	</table>
+	</div>
+	
 	<div id="pageBar">
 		<%=request.getAttribute("pageBar")%>
+	</div>
 	</div>
 	</div>
 </section>

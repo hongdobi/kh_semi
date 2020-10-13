@@ -50,7 +50,6 @@
 
 	#faqView{
 		width:1200px;
-		height:600px;
 		border:3px solid gainsboro;
 		display: inline-block;
 	}
@@ -108,7 +107,6 @@ section#faq-container h2 {
 		<form action="" method="post" id="deleteform">
 		<h2 align="center">FAQ</h2>
 		<div id="editor" ></div>
-		
 		<table id="tbl-faq">
 
 			<tr>
@@ -149,11 +147,9 @@ section#faq-container h2 {
            
            function fn_move_delete(){
         	$("#deleteform").attr("action", "<%=request.getContextPath()%>/admin/deleteFaq"); 
-       		console.log($("#faqNo"));
         	/*  let faqNo = $(event.target).parent().parent().children(":nth-child(2)").text(); */
        		$("#faqNo").val(faqNo);
-       		console.log(faqNo);
-       		alert(<%=f.getFaqNo()%> + "게시글을 삭제하시겠습니까?");
+       		alert(<%=f.getFaqNo()%> + " 번게시글을 삭제하시겠습니까?");
        		$("#deleteform").attr("faqNo", faqNo);
        		location.href="<%=request.getContextPath()%>/admin/deleteFaq"; 
        	}
