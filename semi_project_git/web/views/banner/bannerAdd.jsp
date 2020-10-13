@@ -189,12 +189,29 @@ $(function(){
 		if((choice==("공연"))||(choice==("메인"))){
 			let td=$("<td colspan='2'>");
 			let file=$("<input type='file' name='upload' id='upload'>");
-			let num1=$("<input type='number' name='w' id='w' min=1 placeholder='폭'>");
-			let num2=$("<input type='number' name='h' id='h' min=1 placeholder='넓이'>");
+			let num1=$("<input>").attr({"type":"number","name":"w","id":"w","min":1,"placeholder":"폭"});
+			let num2=$("<input>").attr({"type":"number","name":"h","id":"h","min":1,"placeholder":"넓이"});
 			let con=$("<div id='imgContainer'>");
+			file.change(e=>{
+				let width=num1.val();
+				let height=num2.val();
+				let reader=new FileReader();
+				console.log(width);
+				console.log(height);
+				reader.onload=e=>{
+					let img=$("<img>").attr({"src":e.target.result,"width":width,"height":height});
+					$("#imgContainer").html("");
+					$("#imgContainer").append(img);
+				}
+				reader.readAsDataURL($(e.target)[0].files[0]);
+			})
+			
+
 			$("#resultTR").append(td);
+			td.append("미리보기 크기");
 			td.append(file);
 			td.append(num1);
+			td.append("*");
 			td.append(num2);
 			td.append(con);
 		}else if(choice=="동영상"){
@@ -203,20 +220,7 @@ $(function(){
 		}
 	})
 	
-	//파일 업로드시 해당 그림 미리보기 출력하기(미작동!!!!!!!!!!!!!!!!!)
-	$("#upload").change(e=>{
-		let width=$("[input name='w']").val();
-		let height=$("[input name='h']").val();
-		let reader=new FileReader();
-		console.log(width);
-		console.log(height);
-		reader.onload=e=>{
-			let img=$("<img>").attr({"src":e.target.result,"width":width,"height":height});
-			$("#imgContainer").html("");
-			$("#imgContainer").append(img);
-		}
-		reader.readAsDataURL($(e.target)[0].files[0]);
-	});
+
 	
 	//전송 클릭시 실행할 로직
 	$("#submit").click(e=>{
