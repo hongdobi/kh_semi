@@ -58,6 +58,12 @@
 		 margin-left: 30px; 
 		}
 
+		#login_alarm1,#crown,#logoutBtn{
+			margin: 10px;
+		}
+		.search-bar{
+			margin-top:10px;
+		}
 </style>
 </head>
 <body>
