@@ -124,7 +124,7 @@
           <%if(p.getPerfNo().substring(0,1).equals("E")){ %>
           <dd class="detail-result">
             <div class="box-poster">
-              <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
+              <a href="<%=request.getContextPath() %>/perf/perfVies?perfNo=<%=p.getPerfNo()%>">
                 <img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
               </a>
             </div>
