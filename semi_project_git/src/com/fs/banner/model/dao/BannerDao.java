@@ -21,7 +21,7 @@ public class BannerDao {
 	
 	public BannerDao() {
 		try {
-			String path = BannerDao.class.getResource("/banner/banner_sql.properties").getPath();
+			String path = BannerDao.class.getResource("/sql/banner/banner_sql.properties").getPath();
 			prop.load(new FileReader(path));
 		} catch (IOException e) {
 			e.printStackTrace();
