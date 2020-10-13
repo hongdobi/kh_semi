@@ -277,7 +277,7 @@ function fn_inquiry() {
  
 $(function(){
 	$("#faq-container div, div#title").click(function(){
-		$("#faq-container p").slideUp("slow");
+		$("#faq-container p ").slideUp();
 		if(!$(this).next().is(":visible"))
 		{
 			$(this).next().slideDown();
