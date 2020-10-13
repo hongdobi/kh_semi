@@ -26,12 +26,12 @@
                 <div class="box-text">
                     <p><b>FIVE STAR</b></p>
                     <p class="text-small-1">
-                        서울시 영등포구 은행로 11, 5층~6층(여의도동,일신빌딩) <br>
-                        대표 김석환 | 개인정보보호책임자 : 권민석 yes24help@yes24.com<br>
-                        사업자등록번호 229-81-37000 | 통신판매업신고 제 2005-02682호 사업자 정보확인<br>
-                        호스팅 서비스사업자 : 예스이십사㈜
+                        역삼동 남도빌딩 <br>
+                        대표 김잔디 | 개인정보보호책임자 : 김잔디 jandi@jandi.com<br>
+                        사업자등록번호 555-55-55555 | 통신판매업신고 제 5555-55555호 사업자 정보확인<br>
+                        호스팅 서비스사업자 : 잔디인형과 메밀차
                     </p>
-                    <p><b>Copyright © YES24 Corp. All Rights Reserved.</b></p>
+                    <p><b>Copyright © FiveStar Corp. All Rights Reserved.</b></p>
                 </div>
                 <p class="text-small-1">
                     고객님은 안전거래를 위한 현금 등으로 결제 시<br>

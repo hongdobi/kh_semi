@@ -63,11 +63,11 @@
             	<a href="<%=request.getContextPath() %>/adminPage">
             	<img src="https://www.flaticon.com/svg/static/icons/svg/773/773634.svg" id="crown"  width="30px" height="40px"></a>
             	<%-- <input type="button" onclick="location.replace('<%=request.getContextPath()%>/logout')" value="로그아웃"> --%>
-            	<a onclick="location.replace('<%=request.getContextPath()%>/logout')"><img id="logoutBtn" src="<%=request.getContextPath()%>/image/logout.png"  width="25px" height="20px" ></a>
+            	<a onclick="location.replace('<%=request.getContextPath()%>/logout')"><img id="logoutBtn" src="<%=request.getContextPath()%>/image/logout.png"  width="30px" height="25px" ></a>
             <%} else {%>
             <!-- 로그인했을 때만 header에 로그아웃버튼 생성, 로그아웃 시 뒤로가기를 하면 안되서 replace로 이동 -->
-            	<a href="<%=request.getContextPath()%>/member/myPage" style="display:inline-block;"><img src="<%=myImg%>" alt="마이페이지"></a>
-	            <a onclick="location.replace('<%=request.getContextPath()%>/logout')"><img src="<%=request.getContextPath()%>/image/logout.png" width="30px" height="30px"></a>	            
+            	<a href="<%=request.getContextPath()%>/member/myPage" style="display:inline-block;"><img src="<%=myImg%>" alt="마이페이지" id="login_alarm1"></a>
+	            <a onclick="location.replace('<%=request.getContextPath()%>/logout')"><img src="<%=request.getContextPath()%>/image/logout.png" width="30px" height="25px" id="logoutBtn"></a>	            
             <%} %>
         </div>
     </header>
