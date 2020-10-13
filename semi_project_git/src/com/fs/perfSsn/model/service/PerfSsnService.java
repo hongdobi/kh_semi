@@ -4,6 +4,7 @@ import static com.fs.common.JDBCTemplate.close;
 import static com.fs.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import com.fs.model.vo.PerfSsn;
@@ -21,6 +22,17 @@ public class PerfSsnService {
 		close(conn);
 		return list;
 	}
+
+	
+	//날짜별 회차 가져오기
+	public List<PerfSsn> selectSsnTime(String perfNo, Date bookDate) {
+		Connection conn=getConnection();
+		List<PerfSsn> list=dao.selectSsnTime(conn,perfNo,bookDate);
+		close(conn);
+		return list;
+	}
+	
+
 	public int ticketTotal(String month,String cate){
 		Connection conn=getConnection();
 		int result=dao.ticketTotal(conn,month,cate);
@@ -35,4 +47,5 @@ public class PerfSsnService {
 		close(conn);
 		return list;
 	}
+
 }
