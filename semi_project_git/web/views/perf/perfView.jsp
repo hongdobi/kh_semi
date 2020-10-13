@@ -30,8 +30,8 @@
 	//해당공연 예매가능일 가져오기
 	List dateList=(List)request.getAttribute("dateList");
 	
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월 dd일");
 	
-		
 	//공연번호로 카테고리만들기
 	String category = "";
 	String cg = "";
@@ -424,7 +424,7 @@ $(function(){
     	<%}%>      	
 		,maxDate: new Date("<%=perf.getPerfEnd()%>") //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후) 
 		<%if(dateList!=null){%>
-			//조건에 맞는 날짜,
+			//조건에 맞는 날짜만 선택가능하게,
 			,beforeShowDay:available
 		<%}%> 
 		//선택한 날짜
@@ -433,14 +433,10 @@ $(function(){
 	          $("input[name=day]").val(d);
 	          console.log($("input[name=day]").val());
 	     }
-		 
 	});  
-
 
 });        
 </script>
-
-
 
 <section>
 
@@ -474,7 +470,7 @@ $(function(){
 				</tr>
 				<tr>
 					<th>공연기간</th>
-					<td><%=perf.getPerfStart()%>~<%=perf.getPerfEnd()%></td>
+					<td><%=sdf.format(perf.getPerfStart())%>~<%=sdf.format(perf.getPerfEnd())%></td>
 				</tr>
 				<tr>
 					<th>등급</th>
