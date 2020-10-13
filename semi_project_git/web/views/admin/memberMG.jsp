@@ -139,7 +139,7 @@
 <section>
 	<div id="title">
 		<h1>
-			<span style="color: lightcoral">오성티켓</span> 랭킹
+			<span style="color: lightcoral">오성티켓</span> 관리자페이지
 		</h1>
 	</div>
 	<br>

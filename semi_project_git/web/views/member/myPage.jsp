@@ -29,6 +29,7 @@
 		top:100px;
 		display:inline-block;
 	}
+	p:hover { cursor: pointer; }
 </style>
 
 
