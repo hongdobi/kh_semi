@@ -40,6 +40,8 @@
 		border:3px solid gainsboro;
 		display: inline-block;
 		text-align:center;
+		font-family:Noto Sans KR;
+		font-weight: 300;
 	}
 	div#inquiry-container{
 		height: auto;
@@ -85,12 +87,12 @@
 	<div id="inquiry-container">
 		<table id="table-inquiry">
 			<tr>
-				<td>번호</td>
-				<td>문의유형</td>
-				<td>제목</td>
-				<td>문의날짜</td>
-				<td>답변여부</td>
-				<td>답변날짜</td>
+				<th>번호</th>
+				<th>문의유형</th>
+				<th>제목</th>
+				<th>문의날짜</th>
+				<th>답변여부</th>
+				<th>답변날짜</th>
 			</tr>
 		<% for(Inquiry iq : list) {%>
 			<tr>

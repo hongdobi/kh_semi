@@ -12,6 +12,8 @@
    /* 1:1문의 스타일 */
    #wrap-out{
       padding-bottom:50px;
+      font-family:Noto Sans KR;
+      font-weight: 300;
    }
 	div#wrap-inquiry{
 		margin: 0 auto;
@@ -43,6 +45,7 @@
    }
 	table#tbl-inquiry tr td{
 		text-align:center;
+      padding:4px;
 	}
    table#tbl-inquiry2{
       width:100%;
@@ -121,17 +124,47 @@
       display: block;
    }
     
-  section#FAQ-container {   
-  width: 600px;   margin: 0 auto;   
-  text-align: center; height:575px; min-height: 100%; 
-  position: relative; padding-bottom: 200px;}
-   section#FAQ-container h2 {   margin: 10px 0;}
-   div#faq-container{ width:100%;height:400px;}
-   div#tbl-FAQ {width:60%; margin: 0 auto;   border: 1px solid ivory; border-collapse: collapse;}
-   div#tbl-FAQ div, div#tbl-notice p {   border: 1px solid ivory;   padding: 5px 0;   text-align: center;}
-   div#tbl-notice p{font-size: 50px;} 
-   div#tbl-FAQ div, div#title{width:100%; height:30px; background-color: pink; cursor:pointer;}
-   div#tbl-FAQ div+p{display:none; width:100%; height:auto; }
+   section#FAQ-container {   
+      width: 600px;
+      margin: 0 auto;   
+      text-align: center;
+      height:575px; 
+      min-height: 100%; 
+      position: relative; 
+      padding-bottom: 200px;
+   }
+   section#FAQ-container h2 {
+      margin: 10px 0;
+   }
+   div#faq-container{
+      width:100%;
+      height:400px;
+   }
+   div#tbl-FAQ {
+      width:60%; 
+      margin: 0 auto;   
+      border: 1px solid ivory; 
+      border-collapse: collapse;
+   }
+   div#tbl-FAQ div, div#tbl-notice p {   
+      border: 1px solid ivory;   
+      padding: 5px 0;   
+      text-align: center;
+   }
+   div#tbl-notice p{
+      font-size: 50px;
+   } 
+   div#tbl-FAQ div, div#title{
+      width:100%; 
+      height:30px; 
+      background-color: pink; 
+      cursor:pointer;
+   }
+   div#tbl-FAQ div+p{
+      display:none; 
+      width:100%; 
+      height:auto; 
+   }
 </style>
 
 <section style="text-align:center; id="FAQ-container">
