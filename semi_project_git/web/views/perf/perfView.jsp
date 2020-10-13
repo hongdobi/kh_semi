@@ -296,6 +296,13 @@ div#pageBar{
 	background-color: lightcoral;
 	color: #fff;
 }
+#simpleNavi{
+	position:fixed;
+	
+	top:50%;
+	right: 1%;
+	
+}
 </style>
 <script>
 $(function(){
@@ -439,7 +446,7 @@ $(function(){
 </script>
 
 <section>
-
+	<div id="simpleNavi"><a href="#"><img src="<%=request.getContextPath() %>/image/top.png" alt="상단으로" height="50px" width="50px"></a></div>
 	<form id="revform" name="revform">
 		<%int result=0;
 		if(loginMember!=null){
