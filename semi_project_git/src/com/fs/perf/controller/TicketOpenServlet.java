@@ -1,8 +1,8 @@
 package com.fs.perf.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,23 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fs.banner.model.service.BannerService;
-import com.fs.model.vo.Banner;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.fs.model.vo.Performance;
 import com.fs.perf.model.service.PerfService;
 
-
 /**
- * Servlet implementation class MusicalViewServlet
+ * Servlet implementation class TicketOpenServlet
  */
-@WebServlet("/perf/categoryView")
-public class CategoryViewServlet extends HttpServlet {
+@WebServlet("/perf/ticketOpen")
+public class TicketOpenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CategoryViewServlet() {
+    public TicketOpenServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,23 +35,25 @@ public class CategoryViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//주소값으로 전달 받은 카테고리 파라미터가지고 해당페이지로 이동
 		String cate=request.getParameter("cate");
-		
-		List <Banner> list=new BannerService().selectBanner(cate);
-		List <Banner> vList=new BannerService().selectVideo(cate);
-		
-		List<String> locList=new PerfService().searchLocation(cate);
-		Map<String,Performance> map=new PerfService().locationPick(locList,cate);
-		
-		request.setAttribute("cate", cate);
-		request.setAttribute("list", list);
-		request.setAttribute("vList", vList);
-		request.setAttribute("locList", locList);
-		request.setAttribute("map", map);
-		
-		System.out.println("카테고리뷰용 배너리스트"+list);
-		request.getRequestDispatcher("/views/perf/CategoryView.jsp").forward(request, response);
+		List<Performance> list=new PerfService().ticketOpen(cate);
+		JSONArray arr=new JSONArray();
+		JSONObject j;
+		if(list!=null) {
+			for(Performance perf:list) {
+				j=new JSONObject(); 
+				j.put("perfNo",perf.getPerfNo());
+				j.put("perfName",perf.getPerfName());
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월 dd일");
+				j.put("perfStart",sdf.format(perf.getPerfStart()));
+				j.put("location",perf.getPerfLocation()); 
+				j.put("poster",perf.getPerfPoster());
+				j.put("dDay",perf.getdDay());
+				arr.add(j);
+			}
+		}
+		response.setContentType("application/json;charset=utf-8");
+		response.getWriter().print(arr);
 	}
 
 	/**
