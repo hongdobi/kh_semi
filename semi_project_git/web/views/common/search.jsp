@@ -58,7 +58,7 @@
           <%if(p.getPerfNo().substring(0,1).equals("S")){ %>
           <dd class="detail-result">
             <div class="box-poster">
-              <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
+              <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
               </a>
             </div>
@@ -69,7 +69,7 @@
               <%}else { %>
               	<span class="unvisitable">판매종료</span>
               <%} %>
-              <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
+              <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[연극]<%=p.getPerfName() %></h4>
                 <p><%=p.getPerfPg() %>세 이상</p>
               </a>
@@ -91,7 +91,7 @@
           <%if(p.getPerfNo().substring(0,1).equals("M")){ %>
           <dd class="detail-result">
             <div class="box-poster">
-              <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
+              <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
               </a>
             </div>
@@ -102,7 +102,7 @@
               <%}else { %>
               	<span class="unvisitable">판매종료</span>
               <%} %>
-                <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
+                <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[뮤지컬]<%=p.getPerfName() %></h4>
                 <p><%=p.getPerfPg() %>세 이상</p>
               </a>
@@ -124,7 +124,7 @@
           <%if(p.getPerfNo().substring(0,1).equals("E")){ %>
           <dd class="detail-result">
             <div class="box-poster">
-              <a href="<%=request.getContextPath() %>/perf/perfVies?perfNo=<%=p.getPerfNo()%>">
+              <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
               </a>
             </div>
@@ -135,7 +135,7 @@
               <%}else { %>
               	<span class="unvisitable">판매종료</span>
               <%} %>
-                <a href="<%=request.getContextPath() %>/perf/perfView.do?perfNo=<%=p.getPerfNo()%>">
+                <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[전시]<%=p.getPerfName() %></h4>
                 <p><%=p.getPerfPg() %>세 이상</p>
               </a>
