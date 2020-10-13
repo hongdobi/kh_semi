@@ -84,7 +84,7 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
             border:1px lightcoral solid;
             border-radius: 10px;
         }
-        section input[type="submit"],#inputcheck{
+        #inputcheck{
             width:100px;
             height:40px;
             background-color: lightcoral;
