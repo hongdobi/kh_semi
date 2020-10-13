@@ -189,12 +189,16 @@ $(function(){
 		if((choice==("공연"))||(choice==("메인"))){
 			let td=$("<td colspan='2'>");
 			let file=$("<input type='file' name='upload' id='upload'>");
-			let num1=$("<input type='number' name='w' id='w' min=1 placeholder='폭'>");
-			let num2=$("<input type='number' name='h' id='h' min=1 placeholder='넓이'>");
+			//let num1=$("<input type='number' name='w' id='w' min=1 placeholder='폭'>");
+			//let num2=$("<input type='number' name='h' id='h' min=1 placeholder='넓이'>");
+			let num1=$("<input>").attr({"type":"number","name":"w","id":"w","min":1,"placeholder":"폭"});
+			let num2=$("<input>").attr({"type":"number","name":"h","id":"h","min":1,"placeholder":"넓이"});
 			let con=$("<div id='imgContainer'>");
 			$("#resultTR").append(td);
 			td.append(file);
+			td.append("미리보기 크기");
 			td.append(num1);
+			td.append("*");
 			td.append(num2);
 			td.append(con);
 		}else if(choice=="동영상"){
