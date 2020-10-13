@@ -232,7 +232,14 @@ caption>h1{
 	text-shadow:3px 2px 2px lightpink, 1px 2px 2px lightgray;
 	color: lightcoral;
 }
+/*지역추천*/
 img.locPoster{
+	height:250px;
+	width: 250px;
+	border-radius: 100%;	
+}
+#locPosterDiv{
+	overflow: hidden;
 	height:250px;
 	width: 250px;
 	border-radius: 100%;	
@@ -417,7 +424,7 @@ $(function(){
 			String poster=p.getPerfPoster();%>
 		<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=perfNo%>">
 			<div><h3><img src="<%=request.getContextPath()%>/image/위치표시.png" width="20px;"><%=entry.getKey()%></h3></div>
-			<img class="locPoster" src="<%=request.getContextPath()%>/image/perf/<%=perfNo%>/<%=poster%>" alt="<%=perfName %>">		
+			<div id="locPosterDiv"><img class="locPoster" src="<%=request.getContextPath()%>/image/perf/<%=perfNo%>/<%=poster%>" alt="<%=perfName %>"></div>		
 			<div >
 				<h3><%=perfName %></h3>
 				<p class="small"><%=perfStart %>~<%=perfEnd %></p>

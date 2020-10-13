@@ -298,7 +298,8 @@ div#pageBar{
 }
 #simpleNavi{
 	position:fixed;
-	
+	background-color:white;
+	border-radius:100%;
 	top:50%;
 	right: 1%;
 	
