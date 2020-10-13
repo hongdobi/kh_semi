@@ -248,7 +248,7 @@
 		$(event.target).attr("href", msg);
 		$.ajax({
 			url:msg,
-			type:"get",
+			type:"get"
 			success:function(data){
 				$("body").html(data);
 			}

@@ -55,6 +55,8 @@ public class FaqDao {
 		 }return list;
 	 }
 	 
+	 
+	 
 	 public int selectFaqCount(Connection conn) {
 		 PreparedStatement pstmt = null;
 		 ResultSet rs=null;
@@ -73,6 +75,7 @@ public class FaqDao {
         }return result;
 	 }
  
+	 
 	 public FAQ selectFaqOne(Connection conn, int no) {
 		 PreparedStatement pstmt = null;
 		 ResultSet rs = null;
@@ -138,6 +141,38 @@ public class FaqDao {
 			
 	 }
 
+	 public int deleteFaq(Connection conn, int no) {
+		 PreparedStatement pstmt = null;
+		 int result=0;
+		 try {
+			 pstmt = conn.prepareStatement(prop.getProperty("deleteFaq"));
+			 pstmt.setInt(1, no);
+			 result =pstmt.executeUpdate();
+			
+		   }catch(SQLException e) {
+			   e.printStackTrace();
+		   }finally {
+			   close(pstmt);
+		   }return result;
+	 }
+	 
+	 public int updateFaq(Connection conn, FAQ f, int no) {
+			PreparedStatement pstmt=null;
+			int result=0;
+			try {
+				pstmt=conn.prepareStatement(prop.getProperty("updateFaq"));
+				pstmt.setInt(1, no);
+				pstmt.setNString(1, f.getFaqTitle());
+				pstmt.setNString(2, f.getFaqContent());
+				pstmt.setNString(3, f.getFaqHashTag());
+				result=pstmt.executeUpdate();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}return result;
+			
+		}
 	 
 
 	 

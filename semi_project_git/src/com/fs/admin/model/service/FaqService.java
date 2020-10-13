@@ -57,6 +57,25 @@ public class FaqService {
 	  
   }
 	
- 
+  public int deleteFaq(int no) {
+		Connection conn=getConnection();
+		int result = dao.deleteFaq(conn,no);
+		 if(result>0) commit(conn);
+		   else rollback(conn);
+		   close(conn);
+		   return result;
+	}
 
+public int updateFaq(FAQ f, int no) {
+	 Connection conn=getConnection();
+	   int result=dao.updateFaq(conn,f,no);
+	   if(result>0) commit(conn);
+	   else rollback(conn);
+	   close(conn);
+	   return result;
 }
+
+
+  }
+
+ 
