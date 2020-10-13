@@ -64,7 +64,9 @@ public class SearchMemberServlet extends HttpServlet {
 				pageBar+="<span>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()+
-						"/admin/searchMember?cPage="+pageNo+"' class='pageNo'>" + pageNo+"</a>";
+						"/admin/searchMember?searchType="
+						+ type + "&searchKeyword="
+								+ key + "&cPage="+pageNo+"' class='pageNo'>" + pageNo+"</a>";
 			}
 			pageNo++;
 		}

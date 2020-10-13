@@ -47,6 +47,7 @@ public class EditMemberServlet extends HttpServlet {
 		m.setEmail(request.getParameter("Email"));		
 		Date bday = Date.valueOf(request.getParameter("Bday"));
 		m.setBday(bday);
+		m.setManagerYn("N");
 		int result = 0;
 		System.out.println("checkpoint 2");
 		if(b == true) {
