@@ -66,6 +66,7 @@ public class FaqService {
 		   return result;
 	}
 
+  
 public int updateFaq(FAQ f, int no) {
 	 Connection conn=getConnection();
 	   int result=dao.updateFaq(conn,f,no);

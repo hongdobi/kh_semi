@@ -113,7 +113,7 @@ section#faq-container h2 {
 
 			<tr>
 				<th>번호</th>
-				<td ><%=f.getFaqNo()%><input type="text" name="faqNo" id="faqNo" value="<%=f.getFaqNo()%>">
+				<td ><%=f.getFaqNo()%><input name="faqNo" id="faqNo" value="<%=f.getFaqNo()%>">
 				</td>
 			</tr>
 			<tr>
@@ -148,14 +148,14 @@ section#faq-container h2 {
            }
            
            function fn_move_delete(){
-        	<%-- /*  */$("#deleteform").attr("action", "<%=request.getContextPath()%>/admin/deleteFaq"); --%>
+        	$("#deleteform").attr("action", "<%=request.getContextPath()%>/admin/deleteFaq"); 
        		console.log($("#faqNo"));
-        	<%-- let faqNo = $(event.target).parent().parent().children(":nth-child(2)").text();
+        	/*  let faqNo = $(event.target).parent().parent().children(":nth-child(2)").text(); */
        		$("#faqNo").val(faqNo);
        		console.log(faqNo);
        		alert(<%=f.getFaqNo()%> + "게시글을 삭제하시겠습니까?");
        		$("#deleteform").attr("faqNo", faqNo);
-       		location.href="<%=request.getContextPath()%>/admin/deleteFaq"; --%>
+       		location.href="<%=request.getContextPath()%>/admin/deleteFaq"; 
        	}
            </script>
 		</table>

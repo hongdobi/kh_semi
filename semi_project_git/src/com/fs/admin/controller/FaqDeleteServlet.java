@@ -35,7 +35,6 @@ public class FaqDeleteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		int no = Integer.parseInt(request.getParameter("faqNo"));
-		System.out.println("delete servlet"+no);
 		int result = new FaqService().deleteFaq(no);
 			
 		
