@@ -28,7 +28,9 @@
        		width:96%;
        		background-color: white;
        		z-index: 10000;
-       		display:flex
+       		display:flex;
+       		font-family: 'Noto Sans KR';
+       		
        	}
        	body{
        	 padding-top: 105px;

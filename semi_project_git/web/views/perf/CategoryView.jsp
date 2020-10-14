@@ -19,6 +19,13 @@
 
 %>
 <style>
+section{
+	font-family: 'Noto Sans KR';
+}
+button{
+	font-family: 'Noto Sans KR';
+}
+
 /*관리자용 배너 등록 버튼*/
 #addBtn{
 	width: 120px;
@@ -227,16 +234,18 @@ div.info{
 	border-radius: 10px;
 }
 /*부제목 크기*/
-caption>h1{
+caption>h1,#locPick>h1{
 	font-size: 30px;
 	text-shadow:3px 2px 2px lightpink, 1px 2px 2px lightgray;
 	color: lightcoral;
+	text-align:center;
 }
 /*지역추천*/
 img.locPoster{
 	height:250px;
 	width: 250px;
 	border-radius: 100%;	
+	
 }
 #locPosterDiv{
 	overflow: hidden;
@@ -255,6 +264,7 @@ table#locTbl td{
 	padding: 20px;
 }
 .small{font-size: 12px;}
+
 </style>
 <script>
 $(function(){
@@ -435,7 +445,7 @@ $(function(){
 	<% }%>
 	</tr>
 	</table>
-</div>
+</div> 
 <br><br>
 <!--오성티켓 pick -->
 <div id="pick">

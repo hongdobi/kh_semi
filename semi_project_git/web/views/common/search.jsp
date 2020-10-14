@@ -173,7 +173,9 @@
 <%@ include file="/views/common/footer.jsp" %>
 </body>
 <style>
-    
+    body{
+	    font-family: 'Noto Sans KR';
+    }
     .area-top{
     	padding-top: 105px;
     }

@@ -52,6 +52,10 @@ section {
 	min-width: 1000px;
 	max-width: 1200px;
 	margin: auto;
+	font-family: 'Noto Sans KR';
+}
+input[type=button],button{
+font-family: 'Noto Sans KR';
 }
 
 /* a태그 밑줄없애기 */
