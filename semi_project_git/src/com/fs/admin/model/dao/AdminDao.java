@@ -68,6 +68,7 @@ public class AdminDao {
 			pstmt.setString(2, iq.getInqCategory());
 			pstmt.setString(3, iq.getInqTitle());
 			pstmt.setString(4, iq.getInqContent());
+			pstmt.setString(5, iq.getInqFileName());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -218,6 +219,7 @@ public class AdminDao {
 				iq.setInqYn(rs.getString("inq_yn"));
 				iq.setInqAnswer(rs.getString("inq_answer"));
 				iq.setInqAnsDate(rs.getDate("inq_ans_date"));
+				iq.setInqFileName(rs.getString("inq_filename"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

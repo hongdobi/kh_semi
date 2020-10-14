@@ -13,13 +13,14 @@ public class Inquiry {
 	private String inqYn;
 	private String inqAnswer;
 	private Date inqAnsDate;
+	private String inqFileName;
 	
 	public Inquiry() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Inquiry(int memberNo, int inqNo, String inqCategory, String inqTitle, String inqContent, Date inqDate,
-			String inqYn, String inqAnswer, Date inqAnsDate) {
+			String inqYn, String inqAnswer, Date inqAnsDate, String inqFileName) {
 		super();
 		this.memberNo = memberNo;
 		this.inqNo = inqNo;
@@ -30,6 +31,7 @@ public class Inquiry {
 		this.inqYn = inqYn;
 		this.inqAnswer = inqAnswer;
 		this.inqAnsDate = inqAnsDate;
+		this.inqFileName = inqFileName;
 	}
 
 	public int getMemberNo() {
@@ -104,21 +106,21 @@ public class Inquiry {
 		this.inqAnsDate = inqAnsDate;
 	}
 
+	public String getInqFileName() {
+		return inqFileName;
+	}
+
+	public void setInqFileName(String inqFileName) {
+		this.inqFileName = inqFileName;
+	}
+
 	@Override
 	public String toString() {
 		return "Inquiry [memberNo=" + memberNo + ", inqNo=" + inqNo + ", inqCategory=" + inqCategory + ", inqTitle="
 				+ inqTitle + ", inqContent=" + inqContent + ", inqDate=" + inqDate + ", inqYn=" + inqYn + ", inqAnswer="
-				+ inqAnswer + ", inqAnsDate=" + inqAnsDate + "]";
+				+ inqAnswer + ", inqAnsDate=" + inqAnsDate + ", inqFileName=" + inqFileName + "]";
 	}
 
-	
-	
-	
-
-	
-
-	
-	
 	
 
 }

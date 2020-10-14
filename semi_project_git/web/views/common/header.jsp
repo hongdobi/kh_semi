@@ -95,7 +95,7 @@
             <!-- 사람모양 아이콘 클릭 -->
             <% if(loginMember==null) {%>
 	            <!-- 로그인 안 했을 때 -> 로그인페이지로 이동 -> 메인으로 이동 -->
-	            <a href="<%=request.getContextPath()%>/loginSignup" style="display:inline-block;"><img src="<%=myImg%>" alt="로그인" id="login_alarm"></a>&nbsp;&nbsp;
+	            <a href="<%=request.getContextPath()%>/loginSignup" style="display:inline-block;"><img src="<%=myImg%>" alt="로그인"></a>
             <%} else if(loginMember.getManagerYn().equals("Y")){ %>
             	<a href="<%=request.getContextPath() %>/adminPage">
             	<img src="https://www.flaticon.com/svg/static/icons/svg/773/773634.svg" id="crown"  width="30px" height="40px"></a>&nbsp;&nbsp;
@@ -108,15 +108,6 @@
             <%} %>
         </div>
     </header>
-
-    <script>
-        $(function(){
-            $("#login_alarm").click(function(){
-                alert("로그인을 먼저 해주세요");
-            });
-        });
-
-    </script>
     
 </body>
 </html>

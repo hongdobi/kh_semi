@@ -44,6 +44,7 @@ public class SignupEndServlet extends HttpServlet {
 		m.setPhone(request.getParameter("phone"));
 		m.setEmail(request.getParameter("email"));
 		String bday =  request.getParameter("bday");
+		System.out.println(m);
 		
 		//bday String -> Date로 형변환하기
 		//bday 클라이언트에게 입력받는 String 8자리
