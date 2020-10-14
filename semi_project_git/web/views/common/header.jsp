@@ -21,12 +21,6 @@
 <script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/slick/slick.min.js"></script>
 <style>
-      	#crown{
-       	height:20px;
-       	width:30px;
-       	position:relative;
-       	top:5px;
-       	}
        	header{
        		position:fixed;
        		height:100px;
@@ -34,14 +28,15 @@
        		width:96%;
        		background-color: white;
        		z-index: 10000;
+       		display:flex
        	}
        	body{
        	 padding-top: 105px;
        	}
-		header>ul>li>a{
+		#mainNav>ul>li>a{
 			font-weight: bolder;
 		}
-		header>ul>li:after {
+		#mainNav>ul>li:after {
 		  display:block;
 		  content: ''; 
 		  height: 10px;
@@ -49,21 +44,24 @@
 		  transform: scaleX(0);  
 		  transition: transform 250ms ease-in-out;
 		}
-		header>ul>li>a:hover{
+		#mainNav>ul>li>a:hover{
 			font-size: 1.2em;
 			color: lightcoral;
 		}
-		header>ul>li:hover:after { transform: scaleX(1); }
-		header>ul>li{
-		 margin-left: 30px; 
+		#mainNav>ul>li:hover:after { transform: scaleX(1); }
+		#mainNav>ul>li{
+			 margin-left: 30px; 
+		}
+		#login_alarm1,#crown,#logoutBtn{
+			margin-left: 10px;
+			height:30px;
+       		width:30px;
+		}
+		#iconBox{
+			display: flex;
+			height: 30px;
 		}
 
-		#login_alarm1,#crown,#logoutBtn{
-			margin: 10px;
-		}
-		.search-bar{
-			margin-top:10px;
-		}
 </style>
 </head>
 <body>
@@ -72,15 +70,17 @@
 			<a href="#">마이페이지</a>
 		</div>
 	</div> -->
-    <header>
-        <h1><a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath() %>/image/logo.png" alt="오성티켓" width="250px"></a></h1>
-        <ul>
-            <li><a href="<%=request.getContextPath()%>/perf/categoryView?cate=M">뮤지컬</a></li>
-            <li><a href="<%=request.getContextPath()%>/perf/categoryView?cate=E">전시</a></li>
-            <li><a href="<%=request.getContextPath()%>/perf/categoryView?cate=S">연극</a></li>
-            <li><a href="<%=request.getContextPath()%>/perf/RankList">랭킹</a></li>
-        </ul>
-        <div style="display:flex;">
+    <header >
+        <div id="mainLogo"><a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath() %>/image/logo.png" alt="오성티켓" width="250px"></a></div>
+        <div id="mainNav">
+	        <ul>
+	            <li><a href="<%=request.getContextPath()%>/perf/categoryView?cate=M">뮤지컬</a></li>
+	            <li><a href="<%=request.getContextPath()%>/perf/categoryView?cate=E">전시</a></li>
+	            <li><a href="<%=request.getContextPath()%>/perf/categoryView?cate=S">연극</a></li>
+	            <li><a href="<%=request.getContextPath()%>/perf/RankList">랭킹</a></li>
+	        </ul>
+        </div>
+        <div id="iconBox">
         	<%-- <form action="<%=request.getContextPath() %>/search.do" method="get" class="searchForm">
             	<input class="inputText" type="text" name="keyword">
             	<input class="inputSubmit" type="submit" value="">
