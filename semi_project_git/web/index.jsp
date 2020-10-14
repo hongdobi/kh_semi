@@ -22,10 +22,17 @@
 		$("body").css("padding","0px");
 		document.getElementById("buttonImg").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-srch.png");
 		<%if(loginMember!=null){%>
-		document.getElementById("logoutBtn").setAttribute("src","<%=request.getContextPath()%>/image/logoutw.png");
-		document.getElementById("login_alarm1").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+			document.getElementById("logoutBtn").setAttribute("src","<%=request.getContextPath()%>/image/logoutw.png");
+		//document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+			<%if(loginMember.getManagerYn().equals("Y")){%>
+				document.getElementById("crown").setAttribute("src","<%=request.getContextPath()%>/image/crown-w.png");
+			<%}else{%>
+				document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+			<%}%>
+		<%}else{%>
+			document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+			//document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png"); 
 		<%}%>
-		document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png"); 
 		
 	</script>
     <div class="container">
