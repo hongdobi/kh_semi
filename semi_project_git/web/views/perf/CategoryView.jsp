@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/slick/slick-theme.css">
  
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <% 	
 	String cate=(String)request.getAttribute("cate");
 	List<Banner> list=(List)request.getAttribute("list");

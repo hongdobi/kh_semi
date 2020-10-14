@@ -20,6 +20,7 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/slick/slick-theme.css">
 <script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/slick/slick.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
        	header{
        		position:fixed;
@@ -28,7 +29,9 @@
        		width:96%;
        		background-color: white;
        		z-index: 10000;
-       		display:flex
+       		display:flex;
+       		padding-right:50px;
+       		border-bottom:1px gray solid;
        	}
        	body{
        	 padding-top: 105px;
@@ -63,6 +66,20 @@
 		}
 
 </style>
+<script>
+    //검색어 자동완성
+		$(function() {
+			$.ajax({
+				url:"<%=request.getContextPath()%>/search/autoComplete",
+				success:data=>{
+					console.log(data);
+					$( "#tag" ).autocomplete({
+					      source: availableTags=data.split(",")
+					});
+				}
+			});
+		});
+	</script>
 </head>
 <body>
 	<!-- <div class="top-content">
@@ -86,7 +103,7 @@
             	<input class="inputSubmit" type="submit" value="">
             </form> --%>
             <form action="<%=request.getContextPath() %>/search.do" class="search-bar" method="get">
-				<input type="search" name="keyword" pattern=".*\S.*" class="searchText" placeholder="검색어를 입력하세요."autocomplete="off">
+				<input type="search" name="keyword" pattern=".*\S.*" class="searchText" placeholder="검색어를 입력하세요."autocomplete="off" id=tag>
 				<button class="search-btn" type="submit" style="margin-right:10px;">
 				<img src="<%=buttonImg%>" id="buttonImg">
 				</button>
@@ -109,5 +126,30 @@
         </div>
     </header>
     
+    
+	<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+	<style>
+	.ui-menu {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: block;
+		outline: 0;
+		z-index:10001;
+		position:fixed;
+		width:50px;
+		background-color:white;
+	}
+	.ui-menu .ui-menu-item {
+		margin: 0;
+		cursor: pointer;
+		border-bottom:1px solid gray;
+	}
+	.ui-menu .ui-menu-item-wrapper {
+		position: relative;
+		padding: 3px 1em 3px .4em;
+	}
+	.ui-helper-hidden-accessible {visibility: hidden;}
+	</style>
 </body>
 </html>
