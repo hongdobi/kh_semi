@@ -272,13 +272,14 @@
 					<th>공연 좌석수</th>
 					<td>
 						<div class="div_input">
-							<span class="span_input"><input type="number" name="perfCapacity" id="perf_capacity" min="0" value="300"></span>석
+							<span class="span_input"><input type="number" name="perfCapacity" id="perf_capacity" min="0" value="300" ></span>석
 						</div>
 						<div class="li_class">
 							<ul>
 								<li>공연 좌석수를 숫자로 입력해주세요</li>
 								<li>기본 좌석수는 300석으로 입력되어있습니다</li>
 								<li>300석인 경우 : 300을 입력</li>
+								<li>별도의 지정좌석이 없는 경우 0을 입력해주세요</li>
 							</ul>
 						</div> 
 					</td>

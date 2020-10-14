@@ -34,10 +34,10 @@
 <body>
 <%@ include file="/views/common/header.jsp" %>
   <div class="container">
+        <%if(list.size()>0){ %>
     <div class="area-top">
       <div class="inner">
         <h2>검색 결과</h2>
-        <%if(list.size()>0){ %>
         <p><span class="word-search">'<%=keyword %>'</span>에 대한 검색결과 '<%=list.size() %>'건 입니다.</p>
         <p></p>
         <div class="box-input">
@@ -155,29 +155,28 @@
     </div>
   </div>
 <%} else{%>
-  <p><span class="word-search">'<%=keyword %>'</span>에 대한 검색결과 '<%=list.size() %>'건 입니다.</p>
-  <div class="box-input">
-    <input type="text" placeholder="검색어를 입력하세요">
-    <button class="btn-search">search</button>
-  </div>
-  <div class="area-contents">
-    <div class="inner">
-      <div class="list-result">
-        <div class="detail-result">
-          <div class="box-poster">
-          </div>
-          <div class="box-text">
-            <h4>검색 결과가 없습니다.</h4>
-          </div>
+ <div class="area-top">
+      <div class="inner">
+        <h2>검색 결과</h2>
+        <p><span class="word-search">'<%=keyword %>'</span>에 대한 검색결과가 없습니다.</p>
+        <p></p>
+        <div class="box-input">
+        <form action="<%=request.getContextPath()%>/search.do">
+          <input type="text" name="keyword"placeholder="검색어를 입력하세요">
+          <button class="btn-search" type="submit">search</button>
+          </form>
         </div>
       </div>
-    </div>
-  </div> 
+  </div>
   
 <%} %>
 <%@ include file="/views/common/footer.jsp" %>
 </body>
 <style>
+    
+    .area-top{
+    	padding-top: 105px;
+    }
   body, html, div,h1,h2,h3,h4,p,dl,dt,dd{margin: 0; padding: 0}
   button{appearance: none; background-color: transparent; border: none;}
   /* top  */

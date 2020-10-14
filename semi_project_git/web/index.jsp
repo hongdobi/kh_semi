@@ -9,6 +9,7 @@
 <%
 	
 %>
+
 <body>
 	<%@ include file="/views/common/header.jsp" %>
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/indexHeader.css"></link>
@@ -17,24 +18,33 @@
  		//buttonImg="http://tkfile.yes24.com/imgNew/common/pf-srch.png";
 	%>
 	<script>
+		$("header").css({"backgroundColor":"rgba(0,0,0,0.1)","position":"fixed"});
+		$("body").css("padding","0px");
 		document.getElementById("buttonImg").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-srch.png");
 		<%if(loginMember!=null){%>
-		document.getElementById("logoutBtn").setAttribute("src","<%=request.getContextPath()%>/image/logoutw.png");
-		document.getElementById("login_alarm1").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+			document.getElementById("logoutBtn").setAttribute("src","<%=request.getContextPath()%>/image/logoutw.png");
+		//document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+			<%if(loginMember.getManagerYn().equals("Y")){%>
+				document.getElementById("crown").setAttribute("src","<%=request.getContextPath()%>/image/crown-w.png");
+			<%}else{%>
+				document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+			<%}%>
+		<%}else{%>
+			document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+			//document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png"); 
 		<%}%>
-		document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
 		
 	</script>
     <div class="container">
         <div class="top-picture"
-             style="background-color:salmon; height: 700px; margin-top: -100px; /* background-image: url(http://tkfile.yes24.com/Upload2/Display/202007/20200721/wel_mv_cdbe9e.jpg/dims/quality/70/); */ background-size: auto 100%; background-repeat: no-repeat; background-position: center;z-index:-1;">
+             style="background-color:salmon; height: 700px; margin-top: -100px; /* background-image: url(http://tkfile.yes24.com/Upload2/Display/202007/20200721/wel_mv_cdbe9e.jpg/dims/quality/70/); */ background-size: auto 100%; background-repeat: no-repeat; background-position: center;">
              <!-- <div><img src="http://tkfile.yes24.com/Upload2/Display/202009/20200925/wel_mv_37154.jpg/dims/quality/70/"></div>
              <div><img src="http://tkfile.yes24.com/Upload2/Display/202009/20200924/wel_mv_hope.jpg/dims/quality/70/"></div>
              <div><img src="http://tkfile.yes24.com/Upload2/Display/202009/20200925/wel_mv_000.jpg/dims/quality/70/"></div>
              <div><img src="http://tkfile.yes24.com/Upload2/Display/202010/20201007/wel_mv_si.jpg/dims/quality/70/"></div> -->
              <%for(Banner b : list) {%>
              	<%if(b.getBanner1()!=null) {%>
-             		<div><a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=b.getPerfNo()%>"><img src="<%=request.getContextPath()%>/image/banner/<%=b.getBanner1()%>" width="1920" height="700" style="z-index:1"></a></div>
+             		<div><a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=b.getPerfNo()%>"><img src="<%=request.getContextPath()%>/image/banner/<%=b.getBanner1()%>" width="100%" height="700"></a></div>
             		<%} %>
              <%} %>
         </div>

@@ -102,10 +102,8 @@ section#faq-container h2 {
 
 
 <section>
-
 	<div id="faq-container">
-<%-- 	<form action="<%=request.getContextPath()%>/admin/deleteFaq" method="post" id="deleteform"> --%>
-		<form action="" method="post" id="deleteform">
+		<form action="<%=request.getContextPath()%>/admin/deleteFaq" method="post" id="deleteform">
 		<h2 align="center">FAQ</h2>
 		<div id="editor" ></div>
 		
@@ -113,8 +111,7 @@ section#faq-container h2 {
 
 			<tr>
 				<th>번호</th>
-				<td ><%=f.getFaqNo()%><input type="text" name="faqNo" id="faqNo" value="<%=f.getFaqNo()%>">
-				</td>
+				<td><%=f.getFaqNo()%><input type="hidden" name="faqNo" id="faqNo" value="<%=f.getFaqNo()%>"></td>
 			</tr>
 			<tr>
 				<th>해시태그</th>
@@ -137,25 +134,23 @@ section#faq-container h2 {
 				</th>
 			</tr>
 			</div>
-			</form>
-			<%-- <form action="<%=request.getContextPath()%>/admin/faqDelete" >
-				<input type="hidden" value="<%=f.getFaqNo() %>" name="no">
-			</form>
-		 --%>
-           <script>
+		</form>
+			
+			
+<script>
            function fn_move_list(){
         	   location.replace("<%=request.getContextPath()%>/admin/faqList");
            }
            
            function fn_move_delete(){
-        	<%-- /*  */$("#deleteform").attr("action", "<%=request.getContextPath()%>/admin/deleteFaq"); --%>
+        	$("#deleteform").attr("action", "<%=request.getContextPath()%>/admin/deleteFaq");
        		console.log($("#faqNo"));
-        	<%-- let faqNo = $(event.target).parent().parent().children(":nth-child(2)").text();
+        	let faqNo = $(event.target).parent().parent().children(":nth-child(2)").text();
        		$("#faqNo").val(faqNo);
        		console.log(faqNo);
        		alert(<%=f.getFaqNo()%> + "게시글을 삭제하시겠습니까?");
        		$("#deleteform").attr("faqNo", faqNo);
-       		location.href="<%=request.getContextPath()%>/admin/deleteFaq"; --%>
+       		location.href="<%=request.getContextPath()%>/admin/deleteFaq";
        	}
            </script>
 		</table>

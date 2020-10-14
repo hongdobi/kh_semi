@@ -296,6 +296,13 @@ div#pageBar{
 	background-color: lightcoral;
 	color: #fff;
 }
+#simpleNavi{
+	position:fixed;
+	background-color:white;
+	border-radius:100%;
+	bottom:5%;
+	right: 1%;
+}
 </style>
 <script>
 $(function(){
@@ -439,7 +446,7 @@ $(function(){
 </script>
 
 <section>
-
+	<div id="simpleNavi"><a href="#"><img src="<%=request.getContextPath() %>/image/top.png" alt="상단으로" height="30px" width="30px"></a></div>
 	<form id="revform" name="revform">
 		<%int result=0;
 		if(loginMember!=null){
@@ -470,7 +477,7 @@ $(function(){
 				</tr>
 				<tr>
 					<th>공연기간</th>
-					<td><%=sdf.format(perf.getPerfStart())%>~<%=sdf.format(perf.getPerfEnd())%></td>
+					<td style="font-size:15px;"><%=sdf.format(perf.getPerfStart())%>~<%=sdf.format(perf.getPerfEnd())%></td>
 				</tr>
 				<tr>
 					<th>등급</th>

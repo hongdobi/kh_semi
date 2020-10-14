@@ -84,7 +84,7 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
             border:1px lightcoral solid;
             border-radius: 10px;
         }
-        section input[type="submit"]{
+        #inputcheck{
             width:100px;
             height:40px;
             background-color: lightcoral;
@@ -126,9 +126,9 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
 <body>
 	<section>
 		<%if(revUpdate!=null){ %>
-			<form action="<%=request.getContextPath() %>/review/reviewUpdateEnd" mothod="post">
+			<form name="reviewUpdate"action="<%=request.getContextPath() %>/review/reviewUpdateEnd" mothod="post">
 		<%}else{ %>
-			<form action="<%=request.getContextPath() %>/review/reviewWirteEnd" mothod="post">
+			<form name="reviewWrite" action="<%=request.getContextPath() %>/review/reviewWirteEnd" mothod="post">
 		<%} %>	
 			<div>
 				<br>
@@ -148,8 +148,8 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
 							<%if(revUpdate!=null){ %>
 								<%=sdf.format(revUpdate.getPerfDate()) %>
 							<%}else{ %>
-								<select name="perfDate" id="perfDate">
-									<option value="noChoice">관람일시를 선택해주세요</option>
+								<select name="perfDate" id="perfDate" required>
+									<option value="">선택해주세요</option>
 									<%for(Booking bk:bkList){%>
 										<%String day=sdf.format(bk.getPerfDate());%>
 										<option value="<%=day %>,<%=bk.getNthPerf()%>,<%=bk.getBookNo()%>"><%=day %></option>
@@ -203,7 +203,8 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
 				<input type="hidden" name="perfNo" value="<%=revUpdate.getPerfNo()%>">
 				<input type="hidden" name="bookNo" value="<%=revUpdate.getBookNo()%>">
 				<input type="button" value="닫기" onclick="self.close();">&nbsp;&nbsp;&nbsp;
-				<input type="submit" value="수정">
+				<button type="button" id="inputcheck">수정</button>
+
 			<%}else{ %>
 				<input type="hidden" name="memberNo" value="<%=memberNo%>">
 				<input type="hidden" name="bookNo">
@@ -212,7 +213,7 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
 				<input type="hidden" name="revScore">
 				<input type="hidden" name="perfNo" value="<%=perf.getPerfNo()%>">
 				<input type="button" value="닫기" onclick="self.close();">&nbsp;&nbsp;&nbsp;
-				<input type="submit" value="등록">
+				<button type="button" id="inputcheck">등록</button>
 			<%} %>	
 			</div>
 		</form>
@@ -229,14 +230,36 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
 			$("input[name=revScore]").val(idx);	
 		});
 		
-		 
+		$("#inputcheck").click(e=>{
+			<%if(revUpdate!=null){ %>
+			
+				if(!$("input[name=revScore]").val()) {
+					   alert("별점을 선택해주세요"); return;
+				}
+				if(!$("#reviewtext").val()){
+					   alert("리뷰글을 입력해주세요");	 return;			
+				}
+					reviewUpdate.submit();
+				
+			<%}else{%>
+				if(!$("input[name=perfDate]").val()){
+					  alert("관람일자를 선택해주세요");
+					  return;
+				}
+				if(!$("input[name=revScore]").val()) {
+					   alert("별점을 선택해주세요"); return;
+				}
+				if(!$("#reviewtext").val()){
+					   alert("리뷰글을 입력해주세요");	 return;			
+				}
+					reviewWrite.submit();
+			<%}%>
+			
+		});
+		
 		//관람일시 선택시 히든값으로 보내기
         $("#perfDate").change(e=>{ 
         	let v= $(e.target).val();
-        	if(v=='noChoice'){
-        		console.log(v);
-        		alert('관람일시를 선택해주세요');
-        	}else{
         		let arr=v.split(",");
 	        	console.log(arr[0]);
 	        	console.log(arr[1]);
@@ -244,7 +267,7 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
 	        	$("input[name=perfDate]").val(arr[0]); 
 	        	$("input[name=nthPerf]").val(arr[1]); 
 	        	$("input[name=bookNo]").val(arr[2]); 
-        	}
+        	
         });
 		
 	});
