@@ -40,6 +40,7 @@ public class BookCheckServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		int memberNo = loginMember.getMemberNo();
+		System.out.println("회원번호:" + memberNo);
 		/*
 		 * String memberId = loginMember.getMemberId(); int memberNo =
 		 * Integer.parseInt(new MemberService().memberNo(memberId)); // 정상

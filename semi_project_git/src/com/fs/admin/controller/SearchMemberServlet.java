@@ -56,7 +56,9 @@ public class SearchMemberServlet extends HttpServlet {
 			pageBar += "<span>[이전]</span>";
 		}else {
 			pageBar+="<a href='" + request.getContextPath() + 
-					"/admin/searchMember?cpage="+(pageNo-1) + "'>[이전]</a>";
+					"/admin/searchMember?searchType="
+					+ type + "&searchKeyword="
+						+ key + "&cpage="+(pageNo-1) + "'>[이전]</a>";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -74,7 +76,9 @@ public class SearchMemberServlet extends HttpServlet {
 			pageBar+="<span>" + pageNo + "</span>";
 		}else {
 			pageBar+="<a href='" + request.getContextPath()+
-					"/admin/searchMember?cPage=" + pageNo + "' class='pageNo'>[다음]</a>";
+					"/admin/searchMember?searchType="
+					+ type + "&searchKeyword="
+							+ key + "&cPage=" + pageNo + "' class='pageNo'>[다음]</a>";
 		}
 		
 		

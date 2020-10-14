@@ -36,6 +36,7 @@ public class BookingService {
 	//회원이 예약한 목록(오늘날짜이전에 관람한, 리뷰를 작성하지 않은)
 	public List<Booking> selectBookingRV(String perfNo, int memberNo) {
 		Connection conn=getConnection();
+		System.out.println("서비스 회원번호:" +memberNo);
 		List<Booking> bkList=dao.selectBookingRV(conn,perfNo,memberNo);
 		System.out.println("service옴"+bkList);
 									
