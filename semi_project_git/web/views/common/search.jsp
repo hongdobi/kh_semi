@@ -178,6 +178,10 @@
 <%@ include file="/views/common/footer.jsp" %>
 </body>
 <style>
+    
+    .area-top{
+    	padding-top: 105px;
+    }
   body, html, div,h1,h2,h3,h4,p,dl,dt,dd{margin: 0; padding: 0}
   button{appearance: none; background-color: transparent; border: none;}
   /* top  */
