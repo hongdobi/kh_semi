@@ -30,6 +30,8 @@
        		z-index: 10000;
        		display:flex;
        		font-family: 'Noto Sans KR';
+       		padding-right:50px;
+       		border-bottom:1px gray solid;
        		
        	}
        	body{
