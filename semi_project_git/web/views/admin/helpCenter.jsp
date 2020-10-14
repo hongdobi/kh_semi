@@ -6,20 +6,20 @@
 
 <%
    List<FAQ> list = (List)request.getAttribute("FAQ");
-	List<Inquiry> list2 = (List)request.getAttribute("Inquiry");
+   List<Inquiry> list2 = (List)request.getAttribute("Inquiry");
 %>
 <style>
    /* 1:1문의 스타일 */
    #wrap-out{
       padding-bottom:50px;
    }
-	div#wrap-inquiry{
-		margin: 0 auto;
-    	padding: 15px 0 30px;
-    	border: solid 1px #d8d8d8;
-    	background-color: #fff;
-    	width: 930px;
-	}
+   div#wrap-inquiry{
+      margin: 0 auto;
+       padding: 15px 0 30px;
+       border: solid 1px #d8d8d8;
+       background-color: #fff;
+       width: 930px;
+   }
    div#wrap-hap{
       width: 830px;
       margin: auto;
@@ -29,36 +29,36 @@
       /* display:inline-block; */
       text-align:right;
    }
-	div#inquiry-container{
-		width:830px;
-		height:auto;
-		text-align:center;
-		border-radius:3px;
-		background-color: #f8f8f8;
-		margin:auto;
-	}
+   div#inquiry-container{
+      width:830px;
+      height:auto;
+      text-align:center;
+      border-radius:3px;
+      background-color: #f8f8f8;
+      margin:auto;
+   }
    table#tbl-inquiry{
       width:100%;
       height: 200px;
    }
-	table#tbl-inquiry tr td{
-		text-align:center;
-	}
+   table#tbl-inquiry tr td{
+      text-align:center;
+   }
    table#tbl-inquiry2{
       width:100%;
       height:200px;
    }
-	.nodata{
-		font-family:"Noto Sans KR";
-		font-size:15px;
-		/* padding:70px 0 20px 0; */
-	}
+   .nodata{
+      font-family:"Noto Sans KR";
+      font-size:15px;
+      /* padding:70px 0 20px 0; */
+   }
    .tabs {
         display: flex;
         flex-wrap: wrap;
         padding: 50px;
-	   text-align: center;
-	   margin: auto;
+      text-align: center;
+      margin: auto;
    } 
       
    .tabs label {
@@ -120,6 +120,8 @@
    .tabs input[type="checkbox"]:checked + label + .tab {
       display: block;
    }
+  
+  //박스 안에 박스 스타일 
     
   section#FAQ-container {   
   width: 600px;   margin: 0 auto;   
@@ -133,6 +135,8 @@
    div#tbl-FAQ div, div#title{width:100%; height:30px; background-color: pink; cursor:pointer;}
    div#tbl-FAQ div+p{display:none; width:100%; height:auto; }
 </style>
+
+
 
 <section style="text-align:center; id="FAQ-container">
    <h2>자주하는 질문</h2>            
@@ -251,7 +255,7 @@
                   <tr>  
                      <td><a href="<%=request.getContextPath()%>/admin/inquiryAnswer?inqNo=<%=iq.getInqNo()%>" onclick="open(this.href,'','top=100px, left=300px, width=600px, height=400px, scrollbars=no');return false;"><%=iq.getInqTitle() %></a></td>
                      <td><% if(iq.getInqYn().equals("N")){%>
-                           처리중			
+                           처리중         
                         <%}else {%>
                            답변완료
                         <%} %>
@@ -276,18 +280,18 @@ function fn_inquiry() {
 }
  
 $(function(){
-	$("#faq-container div, div#title").click(function(){
-		$("#faq-container p ").slideUp();
-		if(!$(this).next().is(":visible"))
-		{
-			$(this).next().slideDown();
-		}
-	})
+   $("#faq-container div, div#title").click(function(){
+      $("#faq-container p").slideUp("slow");
+      if(!$(this).next().is(":visible"))
+      {
+         $(this).next().slideDown();
+      }
+   })
 
    $("input[name=tab]").click(e=>{
-  	 let key=$(e.target).val();
-  	 console.log(key);
-		 location.href="<%=request.getContextPath()%>/admin/helpCenter?memberNo=<%=loginMember.getMemberNo()%>&keyword="+key;
+      let key=$(e.target).val();
+      console.log(key);
+       location.href="<%=request.getContextPath()%>/admin/helpCenter?memberNo=<%=loginMember.getMemberNo()%>&keyword="+key;
 
    });
 
