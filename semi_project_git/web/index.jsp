@@ -52,13 +52,13 @@
         </div>
         <div class="box-guide">
             <div class="ranking">
-                <h2>RANKING</h2>
-                <ul class="tab-list">
+                <h2>월간 예매랭킹</h2>
+                <%-- <ul class="tab-list">
                     <li><a href="">#뮤지컬</a></li>
                     <li><a href="">#연극</a></li>
                     <li><a href="">#전시</a></li>
                     <li><a href="<%=request.getContextPath()%>/perf/RankList.do">#랭킹</a></li>
-                </ul>
+                </ul> --%>
                 <ul class="tab-contents">
                     <li>
                         <ul class="tab-content">
