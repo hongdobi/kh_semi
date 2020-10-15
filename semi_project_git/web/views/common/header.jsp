@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css"></link>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/slick/slick-theme.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/slick/slick.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -144,7 +146,7 @@
 	.ui-menu .ui-menu-item {
 		margin: 0;
 		cursor: pointer;
-		border-bottom:1px solid gray;
+		border-bottom:1px solid #a0a0a0;
 	}
 	.ui-menu .ui-menu-item-wrapper {
 		position: relative;

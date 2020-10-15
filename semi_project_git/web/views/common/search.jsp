@@ -191,8 +191,8 @@
     background-color: salmon;
     text-align: center;
   }
-  .visitable{color: orange; margin-bottom:10px;height: 5px; border:1px solid orange;}
-  .unvisitable{color: gray; margin-bottom:10px;height: 5px; border:1px solid gray;}
+  .visitable{color: white; margin-bottom:10px;height: 5px; border:1px solid orange;background-color:orange;}
+  .unvisitable{color: white; margin-bottom:10px;height: 5px; border:1px solid gray;background-color:gray;}
   .area-top h2 + p{margin-top: 20px; font-size: 20px; color:white;}
   .area-top p .word-search{font-size: 1.3em; font-weight: bold;}
   .area-top .box-input{display: flex; justify-content: center; margin-top: 20px;}

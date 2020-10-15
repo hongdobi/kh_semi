@@ -5,7 +5,6 @@
 <%@ include file="/views/common/header.jsp"%>
 <% 
 	List <Performance>list=(List)request.getAttribute("list");
-
 	int total=Integer.parseInt(request.getAttribute("total").toString());
 	SimpleDateFormat sdf=new SimpleDateFormat("MM월 dd일");
 %>
@@ -40,7 +39,6 @@ ul.Rank-nav li {
 	border: 1px lightgray solid;
 	text-align: center;
 }
-
 div#month-check {
 	text-align: center;
 	min-width: 1000px;
@@ -128,9 +126,7 @@ $(function(){
     let mm=date.getMonth()+1>9?date.getMonth()+1:"0"+(date.getMonth()+1);
     $("input#rankMonth").attr("max",yyyy+"-"+mm);
     console.log($("#rankMonth").attr("max"));
-	
-	
-	
+
 	let month=null;
 	let cate=null;
 
@@ -248,7 +244,7 @@ $(function(){
 							<%=perf.getPerfLocation()%><br><br>
 							<button>예약하기</button><br>
 							<div class="count">
-							<!-- 소수점 두자리까짐만 표시 -->
+							<!-- 소수점 두자리까지만 표시 -->
 							<% DecimalFormat df = new DecimalFormat("0.##");%>
 							<%double c=(perf.getPerfCount());%>
 							<%=df.format(c/total*100)%>% 

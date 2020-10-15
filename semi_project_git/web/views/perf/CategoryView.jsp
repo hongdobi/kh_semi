@@ -3,13 +3,13 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.Banner,java.util.List, java.util.ArrayList,java.util.Iterator,java.util.Map,java.util.Set,java.text.SimpleDateFormat"%>
 <%@ include file="/views/common/header.jsp"%>
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<%-- <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/slick/slick.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/slick/slick-theme.css">
  
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  --%>
 <% 	
 	String cate=(String)request.getAttribute("cate");
 	List<Banner> list=(List)request.getAttribute("list");
@@ -26,7 +26,6 @@ section{
 button{
 	font-family: 'Noto Sans KR';
 }
-
 /*관리자용 배너 등록 버튼*/
 #addBtn{
 	width: 120px;
@@ -39,7 +38,6 @@ button{
 }
 /*오성티켓 pick*/
 div#pick{
-	
 	height: 700px;
 	margin: auto;
 	margin-top: 30px;
@@ -76,7 +74,7 @@ table#pickTbl div.in h3{
 	margin-top: 30px;
 }
 
-/*콘텐츠 박스*/
+/*동영상 콘텐츠 박스*/
 div.perfContent{
 	background-color:black;
 	color:white;
@@ -143,28 +141,22 @@ div.perfContent .slick-next:before {
 	margin: auto;
 	min-width:1300px;
 }
-
 .slider1 .slick-slide {
      margin: 0px 20px;
-  }
-
+ }
 .slider1 .slick-slide img {
      width: 100% ;
  }
-
 .slider1 .slick-prev:before,
 .slider1 .slick-next:before {
     color: lightgray;
 }
-
 .slider1 .slick-slide {
     transition: all ease-in-out .3s;
     opacity: .3;
-}
-    
+}    
 .slider1 .slick-active {
-   opacity: .7;
-    	
+   opacity: .7;   	
 }
 .slider1 img.banner{
     width:350px;
@@ -172,8 +164,7 @@ div.perfContent .slick-next:before {
    box-shadow: 2px 2px 1px 1px gray;
 }
 .slider1 .slick-current {
-	opacity: 1;
-     
+	opacity: 1;    
 }
 .slider1 .slick-current img{
 transform:scale(1.1);
@@ -245,8 +236,7 @@ caption>h1,#locPick>h1{
 img.locPoster{
 	height:250px;
 	width: 250px;
-	border-radius: 100%;	
-	
+	border-radius: 100%;		
 }
 #locPosterDiv{
 	overflow: hidden;
@@ -259,7 +249,6 @@ img.locPoster:hover{
 	transform:scale(1.1);	
 }
 .small{font-size: 12px;}
-
 #locOutBox{
 	margin: auto;
 	min-width: 1300px;

@@ -135,6 +135,15 @@ table {
             font-size: 30px;
             font-family:"Noto Sans KR";
         }
+        
+        .container .ranking .rankBtn{
+			display:inline-block;        	
+        	border:1px solid gray;
+			width:214px;
+			height:40px;
+			line-height:40px;
+			font-size:12px;
+        }
 
         .container .ranking .tab-list {
             display: flex;
@@ -174,7 +183,7 @@ table {
 
         .container .ranking .tab-contents .tab-content .area-text .text-fire-1 {
             position: absolute;
-            margin-left: 70px;
+            margin-left: 40px;
             margin-top: -90px;
             z-index: 1;
         }
