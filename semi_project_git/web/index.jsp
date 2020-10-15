@@ -137,8 +137,6 @@
 					</section>
 				</div>
     </div>
-    <a href="views/error404.jsp">없는페이지 이동</a>
-    <a href="views/common/500.jsp">500 페이지 이동</a>
 	<%@ include file="/views/common/footer.jsp" %>
 </body>
 <script type="text/javascript">
