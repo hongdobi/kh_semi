@@ -71,7 +71,11 @@
               <%} %>
               <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[연극]<%=p.getPerfName() %></h4>
-                <p><%=p.getPerfPg() %>세 이상</p>
+                <p><%if(p.getPerfPg()!=0){%>
+                <%=p.getPerfPg() %>세 이상
+                <%}else{ %></p>
+                <p>전체관람가</p>
+                <%} %>
               </a>
               </div>
               <div class="wrap-text sub">
@@ -104,7 +108,11 @@
               <%} %>
                 <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[뮤지컬]<%=p.getPerfName() %></h4>
-                <p><%=p.getPerfPg() %>세 이상</p>
+                <p><%if(p.getPerfPg()!=0){%>
+                <%=p.getPerfPg() %>세 이상
+                <%}else{ %></p>
+                <p>전체관람가</p>
+                <%} %>
               </a>
               </div>
               <div class="wrap-text sub">
@@ -137,7 +145,11 @@
               <%} %>
                 <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[전시]<%=p.getPerfName() %></h4>
-                <p><%=p.getPerfPg() %>세 이상</p>
+                <p><%if(p.getPerfPg()!=0){%>
+                <%=p.getPerfPg() %>세 이상
+                <%}else{ %></p>
+                <p>전체관람가</p>
+                <%} %>
               </a>
               </div>
               <div class="wrap-text sub">
