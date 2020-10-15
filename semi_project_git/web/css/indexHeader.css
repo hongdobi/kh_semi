@@ -87,6 +87,7 @@ table {
 		margin-right:-10px;
 		width:280px;
 		height:20px;
+		color:white;
         }
         header {
             display: flex;
@@ -174,7 +175,7 @@ table {
 
         .container .ranking .tab-contents .tab-content .area-text .text-fire-1 {
             position: absolute;
-            margin-left: 70px;
+            margin-left: 40px;
             margin-top: -90px;
             z-index: 1;
         }

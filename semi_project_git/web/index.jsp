@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.Banner,java.util.List, java.util.ArrayList,com.fs.banner.model.service.BannerService" %>
+<%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.Banner,java.util.List, java.util.ArrayList,com.fs.banner.model.service.BannerService,com.fs.perfSsn.model.service.PerfSsnService" %>
 <!DOCTYPE html>
 <%
 	List<Banner> list = new BannerService().selectBannerList("All");
+	List<Performance> rank = new PerfSsnService().rank();
+	int ranking = 1;
 %>
 <html lang="ko">
 <%
@@ -60,31 +62,24 @@
                 <ul class="tab-contents">
                     <li>
                         <ul class="tab-content">
-                            <li>
-                                <a href="">
-                                    <img src="http://tkfile.yes24.com/upload2/perfblog/202007/20200720/20200720-37241_1.jpg/dims/quality/70/"
-                                         alt="">
-                                    <div class="area-text">
-                                        <span class="text-fire-1">1위</span>
-                                        <h3> 뮤지컬 -캣츠- 40주년 내한공연 </h3>
-                                        <span class="text-small-1">2020.09.09~2020.11.08 샤롯데씨어터</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="http://tkfile.yes24.com/upload2/perfblog/202008/20200806/20200806-37312_11.jpg/dims/quality/70/"
-                                         alt="">
-                                    <div class="area-text">
-                                        <span class="text-fire-1">2위</span>
-                                        <h3> 조선샘총사 </h3>
-                                        <span class="text-small-1">2020.09.09~2020.11.08 샤롯데씨어터</span>
-                                    </div>
-                                </a>
-                            </li>
+                            <%if(rank!=null) {%>
+                            	<% for(Performance p : rank){%>
+                            		<li>
+                                		<a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
+                                    		<img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster"alt="">
+                                    		<div class="area-text">
+                                        	<span class="text-fire-1"><%=ranking %>위</span>
+                                        	<h3> <%=p.getPerfName() %> </h3>
+                                        	<span class="text-small-1"><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
+                                    		</div>
+                                		</a>
+                            		</li>
+                            	<%ranking++;}%>
+                            <%} %>
                         </ul>
                     </li>
                 </ul>
+                <a href="<%=request.getContextPath()%>/perf/RankList" class="rankBtn"><span>more ranking+</span></a>
             </div>
         </div>
     </div>
