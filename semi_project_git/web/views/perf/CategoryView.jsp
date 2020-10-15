@@ -20,6 +20,13 @@
 
 %>
 <style>
+section{
+	font-family: 'Noto Sans KR';
+}
+button{
+	font-family: 'Noto Sans KR';
+}
+
 /*관리자용 배너 등록 버튼*/
 #addBtn{
 	width: 120px;
@@ -228,34 +235,42 @@ div.info{
 	border-radius: 10px;
 }
 /*부제목 크기*/
-caption>h1{
+caption>h1,#locPick>h1{
 	font-size: 30px;
 	text-shadow:3px 2px 2px lightpink, 1px 2px 2px lightgray;
 	color: lightcoral;
+	text-align:center;
 }
 /*지역추천*/
 img.locPoster{
 	height:250px;
 	width: 250px;
 	border-radius: 100%;	
+	
 }
 #locPosterDiv{
 	overflow: hidden;
 	height:250px;
 	width: 250px;
 	border-radius: 100%;	
+	margin:auto;
 }
 img.locPoster:hover{
 	transform:scale(1.1);	
 }
-table#locTbl{
-	text-align:center;
-	margin:auto;
-}
-table#locTbl td{
-	padding: 20px;
-}
 .small{font-size: 12px;}
+
+#locOutBox{
+	margin: auto;
+	min-width: 1300px;
+	width:1300px;
+	text-align: center;
+}
+.locInBox{
+	display:inline-block;
+	width: 300px;	
+	height: 420px;
+}
 </style>
 <script>
 $(function(){
@@ -408,14 +423,13 @@ $(function(){
 <br><br>
 <!--지역추천 -->
 <div id="locPick">
-	<table id="locTbl">
-	<caption><h1>지역별 추천</h1></caption>
-	<tr>
+	<h1>지역별 추천</h1>
+	<div id="locOutBox">
 	<%Set mapEntry=map.entrySet();
 	Iterator it=mapEntry.iterator();
 	while(it.hasNext()){
 		Map.Entry entry=(Map.Entry)it.next();%>
-		<td>
+		<div class="locInBox">
 		<%Performance p=(Performance)entry.getValue(); 
 			String perfNo=p.getPerfNo();
 			String perfName=p.getPerfName();
@@ -425,18 +439,19 @@ $(function(){
 			String poster=p.getPerfPoster();%>
 		<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=perfNo%>">
 			<div><h3><img src="<%=request.getContextPath()%>/image/위치표시.png" width="20px;"><%=entry.getKey()%></h3></div>
-			<div id="locPosterDiv"><img class="locPoster" src="<%=request.getContextPath()%>/image/perf/<%=perfNo%>/<%=poster%>" alt="<%=perfName %>"></div>		
+			<div id="locPosterDiv" style="text-align: center;"><img class="locPoster" src="<%=request.getContextPath()%>/image/perf/<%=perfNo%>/<%=poster%>" alt="<%=perfName %>"></div>		
 			<div >
 				<h3><%=perfName %></h3>
 				<p class="small"><%=perfStart %>~<%=perfEnd %></p>
 				<p class="small"><%=location %></p>
 			</div>
 		</a>	
-		</td>
+		</div>
 	<% }%>
-	</tr>
-	</table>
-</div>
+	
+	</div>
+</div> 
+
 <br><br>
 <!--오성티켓 pick -->
 <div id="pick">

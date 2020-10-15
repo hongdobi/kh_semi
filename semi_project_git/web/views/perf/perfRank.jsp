@@ -15,6 +15,10 @@ section {
 	padding: 50px;
 	text-align: center;
 	margin: auto;
+	font-family: 'Noto Sans KR';
+}
+button{
+	font-family: 'Noto Sans KR';
 }
 /*랭킹타이틀*/
 section>div#title {

@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	footer{
+		font-family: 'Noto Sans KR';
+	}	
+
+</style>
 </head>
 <body>
     <footer>

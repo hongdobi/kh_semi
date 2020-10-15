@@ -29,7 +29,10 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
 <link href="<%=request.getContextPath() %>/css/style.css" rel="stylesheet">
     <style>
         body{
-            font-family: Noto Sans KR;
+            font-family: 'Noto Sans KR';
+        }
+        button{        	
+            font-family: 'Noto Sans KR';
         }
         section{
             padding: 30px;
