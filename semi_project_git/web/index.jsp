@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.Banner,java.util.List, java.util.ArrayList,com.fs.banner.model.service.BannerService,com.fs.perfSsn.model.service.PerfSsnService" %>
+<%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.Banner,java.util.List, java.util.ArrayList,com.fs.banner.model.service.BannerService,com.fs.perfSsn.model.service.PerfSsnService,com.fs.perf.model.service.PerfService" %>
 <!DOCTYPE html>
 <%
 	List<Banner> list = new BannerService().selectBannerList("All");
 	List<Performance> rank = new PerfSsnService().rank();
+	List<Performance> musical = new PerfService().mainPoster("M");
+	List<Performance> show= new PerfService().mainPoster("S");
+	List<Performance> exhibition = new PerfService().mainPoster("E");
 	int ranking = 1;
 %>
 <html lang="ko">
@@ -14,14 +17,13 @@
 
 <body>
 	<%@ include file="/views/common/header.jsp" %>
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/indexHeader.css"></link>
 	<% 
 		//myImg="http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png";
  		//buttonImg="http://tkfile.yes24.com/imgNew/common/pf-srch.png";
 	%>
 	<script>
-		$("header").css({"backgroundColor":"rgba(0,0,0,0.1)","position":"fixed"});
-		$("body").css("padding","0px");
+		document.getElementById("header").className="mainHeader";
+		
 		document.getElementById("buttonImg").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-srch.png");
 		<%if(loginMember!=null){%>
 			document.getElementById("logoutBtn").setAttribute("src","<%=request.getContextPath()%>/image/logoutw.png");
@@ -50,38 +52,90 @@
             		<%} %>
              <%} %>
         </div>
-        <div class="box-guide">
-            <div class="ranking">
-                <h2>월간 예매랭킹</h2>
-                <%-- <ul class="tab-list">
-                    <li><a href="">#뮤지컬</a></li>
-                    <li><a href="">#연극</a></li>
-                    <li><a href="">#전시</a></li>
-                    <li><a href="<%=request.getContextPath()%>/perf/RankList.do">#랭킹</a></li>
-                </ul> --%>
-                <ul class="tab-contents">
-                    <li>
-                        <ul class="tab-content">
-                            <%if(rank!=null) {%>
-                            	<% for(Performance p : rank){%>
-                            		<li>
-                                		<a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
-                                    		<img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster"alt="">
-                                    		<div class="area-text">
-                                        	<span class="text-fire-1"><%=ranking %>위</span>
-                                        	<h3> <%=p.getPerfName() %> </h3>
-                                        	<span class="text-small-1"><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
-                                    		</div>
-                                		</a>
-                            		</li>
-                            	<%ranking++;}%>
-                            <%} %>
-                        </ul>
-                    </li>
-                </ul>
-                <a href="<%=request.getContextPath()%>/perf/RankList" class="rankBtn"><span>more ranking+</span></a>
-            </div>
-        </div>
+				<div class="box-guide">
+					<section class="section-main ranking">
+						<h2 class="title">월간 예매랭킹</h2>
+						<%-- <ul class="tab-list">
+									<li><a href="">#뮤지컬</a></li>
+									<li><a href="">#연극</a></li>
+									<li><a href="">#전시</a></li>
+									<li><a href="<%=request.getContextPath()%>/perf/RankList.do">#랭킹</a></li>
+						</ul> --%>
+						<ul class="list-column">
+							<%if(rank!=null) {%>
+							<% for(Performance p : rank){%>
+							<li>
+								<a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
+									<div class="area-img bg-clone" style="background-image:url('<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>')">
+										<img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
+									</div>
+									<div class="area-text">
+										<span class="text-fire-1"><%=ranking %>위</span>
+										<h3> <%=p.getPerfName() %> </h3>
+										<span class="text-small-1"><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
+									</div>
+								</a>
+							</li>
+							<%ranking++;}%>
+							<%} %>
+						</ul>
+						<a href="<%=request.getContextPath()%>/perf/RankList" class="rankBtn"><span>more ranking+</span></a>
+					</section>
+					<section class="section-main">			
+						<h2 class="title">MUSICAL</h2>
+						<ul class="list-column">
+							<%for(Performance p : musical) {%>
+							<li>
+								<a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
+									<div class="area-img basic">
+										<img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
+									</div>
+									<div class="area-text">
+										<h3> <%=p.getPerfName()%> </h3>
+										<span class="text-small-1">><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
+									</div>
+								</a>
+							</li>
+							<%} %>
+						</ul>
+					</section>
+					<section class="section-main">
+						<h2 class="title">EXHIBITION</h2>
+						<ul class="list-column">
+							<%for(Performance p : exhibition) {%>
+							<li>
+								<a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
+									<div class="area-img basic">
+										<img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
+									</div>
+									<div class="area-text">
+										<h3> <%=p.getPerfName()%> </h3>
+										<span class="text-small-1">><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
+									</div>
+								</a>
+							</li>
+							<%} %>
+						</ul>
+					</section>
+					<section class="section-main">		
+						<h2 class="title">SHOW</h2>
+						<ul class="list-column">
+							<%for(Performance p : show) {%>
+							<li>
+								<a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
+									<div class="area-img basic">
+										<img src="<%=request.getContextPath() %>/image/perf/<%=p.getPerfNo()%>/<%=p.getPerfPoster() %>" alt="" class="poster">
+									</div>
+									<div class="area-text">
+										<h3> <%=p.getPerfName()%> </h3>
+										<span class="text-small-1">><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
+									</div>
+								</a>
+							</li>
+							<%} %>
+						</ul>
+					</section>
+				</div>
     </div>
     <a href="views/error404.jsp">없는페이지 이동</a>
     <a href="views/common/500.jsp">500 페이지 이동</a>

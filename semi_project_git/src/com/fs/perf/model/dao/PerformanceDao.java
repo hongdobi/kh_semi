@@ -67,6 +67,40 @@ private Properties prop = new Properties();
 		}
 		return list;
 	}
+	public ArrayList<Performance> mainPoster(Connection conn,String cate) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Performance> list = new ArrayList<Performance>();
+		Performance perf = null;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectPerfCate"));
+			pstmt.setString(1, cate + "%");
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				perf=new Performance();
+	            perf.setPerfNo(rs.getString("perf_no"));
+	            perf.setPerfName(rs.getString("perf_name"));
+	            perf.setPerfRuntime(rs.getInt("perf_runtime"));
+	            perf.setPerfStart(rs.getDate("perf_start"));
+	            perf.setPerfEnd(rs.getDate("perf_end"));
+	            perf.setPerfPg(rs.getInt("perf_pg"));
+	            perf.setPerfLocation(rs.getString("perf_location"));
+	            perf.setPerfAddress(rs.getString("perf_address"));
+	            perf.setPerfCapacity(rs.getInt("perf_capacity"));
+	            perf.setPerfPoster(rs.getString("perf_poster"));
+	            perf.setPerfTimeInfo(rs.getString("perf_timeinfo"));
+	            perf.setPerfPriceInfo(rs.getString("perf_priceInfo"));
+				list.add(perf);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 	//상세페이지
 	public Performance selectPerformance(Connection conn,String perfNo) {
 		PreparedStatement pstmt = null;

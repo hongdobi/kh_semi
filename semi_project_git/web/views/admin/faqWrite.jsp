@@ -7,19 +7,16 @@
 
  <style>
  
-table{
-		width:100%;
-	}
-	table, tr, th, td{
-		border: 3px solid gainsboro;
-		padding: 5px;
-	}
 	.button{
 		background-color: lightpink;
 		border: 3px solid gainsboro;
-	}
+		display: flex;
+        justify-content: center;
+       
+			}
 		section {
 		padding: 50px;
+		text-align: center;
 		margin: auto;
 	}
 
@@ -45,50 +42,38 @@ table{
 	}
 
 	#faqView{
-		width:1200px;
-		height:600px;
+		width:800px;
 		border:3px solid gainsboro;
 		display: inline-block;
+		/* text-align:center; */
+		font-family:Noto Sans KR;
+		font-weight: 300;
 	}
+     div#faq-container{
+		height: auto;
+    	padding: 15px;
+	}
+	
     table#table-faq{
 		width:100%; 
-		margin:0 auto; 
-		border:1px solid grey; 
+		border:3px solid gainsboro;
 		border-collapse:collapse;
+		text-align:left;
 	}
     table#table-faq th, table#table-faq td {
 		border:1px solid; 
-		padding: 5px 0; 
-		text-align:center;
-		font-size:17px;
+		padding: 7px 0; 
+		/* text-align:center; */
+		font-size:15px;
+		border:3px solid gainsboro;
 	}
-section#faq-container {
-	width: 600px;
-	margin: 0 auto;
-	
-}
 
-section#faq-container h2 {
-	margin: 10px 0;
-}
 
-table#tbl-faq {
-	width: 100%;
-	margin: 0 auto;
-	border: 1px solid black;
-	border-collapse: collapse;
-	clear: both;
-}
-
-table#tbl-faq th, table#tbl-faq td {
-	border: 1px solid;
-	padding: 5px 0;
-
-}
 </style>
 
+<section>
 <div id="title">
-		<h1 align="center">
+		<h1>
 			<span style="color: lightcoral">오성티켓</span> 관리자 페이지
 		</h1>
 	</div>
@@ -102,12 +87,11 @@ table#tbl-faq th, table#tbl-faq td {
 		</ul>
 	</nav>
 
-
-	<section id='faq-container'>
-		<h2 align="center">FAQ 등록하기</h2>
-		<form action='<%=request.getContextPath()%>/admin/faqWriteEnd' method="post" 
-		 >
-			<table id='tbl-faq'>
+   <div id="faqView">
+		<h2 >FAQ 등록하기</h2>
+		<div id="faq-container">
+		<form action='<%=request.getContextPath()%>/admin/faqWriteEnd' method="post" >
+			<table id='table-faq'>
 				<tr>
 					<th weight="20" >해시태그</th>
 					<td name="faq_hashtag">
@@ -130,13 +114,14 @@ table#tbl-faq th, table#tbl-faq td {
 				</tr>
 				
 				<tr>
-					<th colspan="2">
-						<input type="submit" class="button" value="등록">
+					<th colspan="2" align="center"">
+						<input type="submit" class="button"  value="등록">
 					</th>
 				</tr>
-				
 			</table>
 		</form>
+		</div> 
+		</div>
 	</section>
 	<br>
 	<script>

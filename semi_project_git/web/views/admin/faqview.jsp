@@ -12,24 +12,17 @@
 %>
 
 <style>
-	body{
-	    font-family: Noto Sans KR;
-	}
- 	table{
-		width:100%;
-	}
-	table, tr, th, td{
-		border: 3px solid gainsboro;
-		padding: 5px;
-	}
+
 	.button{
 		background-color: lightpink;
 		border: 3px solid gainsboro;
 	}
 		section {
 		padding: 50px;
+		text-align: center;
 		margin: auto;
-	} 
+	}
+	
 
 	/*오성티켓 관리자페이지 타이틀*/
 	section>div#title {
@@ -52,37 +45,39 @@
 	}
 
 	#faqView{
-		width:1200px;
+		width:1000px;
 		border:3px solid gainsboro;
 		display: inline-block;
+		text-align:center;
+		font-family:Noto Sans KR;
+		font-weight: 300;
 	}
+	
+    div#faq-container{
+		height: auto;
+    	text-align: center;
+    	padding: 15px;
+	}
+	
     table#table-faq{
 		width:100%; 
-		margin:0 auto; 
-		border:1px solid grey; 
+		border:3px solid gainsboro;
 		border-collapse:collapse;
 	}
     table#table-faq th, table#table-faq td {
 		border:1px solid; 
-		padding: 5px 0; 
+		padding: 7px 0; 
 		text-align:center;
-		font-size:17px;
+		font-size:15px;
+		border:3px solid gainsboro;
 	}
-section#faq-container {
-	width: 600px;
-	margin: 0 auto;
-	
-}
-
-section#faq-container h2 {
-	margin: 10px 0;
-}
 
 
 </style>
 
+<section>
 <div id="title">
-		<h1 align="center">
+		<h1 >
 			<span style="color: lightcoral">오성티켓</span> 관리자 페이지
 		</h1>
 	</div>
@@ -96,15 +91,13 @@ section#faq-container h2 {
 		</ul>
 	</nav>
 
-
-<section>
-
+<div id="faqView">
 <form name="deleteForm" action="<%=request.getContextPath() %>/faqDelete?no=<%=no %>" method="post">
 
-	<div id="faq-container">
-		<h2 align="center">FAQ</h2>
-		<div id="editor" ></div>
-		<table id="tbl-faq">
+	
+		<h2>FAQ</h2>
+		<div id="faq-container">
+		<table id="table-faq">
 
 			<tr>
 				<th>번호</th>
@@ -120,7 +113,7 @@ section#faq-container h2 {
 			</tr>
 			<tr>
 				<th>답변</th>
-				<td name="faqContent" ><%=f.getFaqContent()%></td>
+				<td name="faqContent" style="word-break:break-all"  ><%=f.getFaqContent()%></td>
 			</tr>
 
 			<tr>

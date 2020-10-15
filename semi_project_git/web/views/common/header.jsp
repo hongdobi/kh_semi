@@ -24,18 +24,7 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/slick/slick.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
-       	header{
-       		position:fixed;
-       		height:100px;
-       		top:0px;
-       		width:96%;
-       		background-color: white;
-       		z-index: 10000;
-       		display:flex;
-       		font-family: 'Noto Sans KR';
-       		padding-right:50px;
-       		border-bottom:1px gray solid;
-       	}
+       	
        	body{
        	 padding-top: 105px;
        	}
@@ -90,7 +79,7 @@
 			<a href="#">마이페이지</a>
 		</div>
 	</div> -->
-    <header >
+    <header id="header">
         <div id="mainLogo"><a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath() %>/image/logo.png" alt="오성티켓" width="250px"></a></div>
         <div id="mainNav">
 	        <ul>
