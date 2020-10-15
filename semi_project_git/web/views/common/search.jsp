@@ -74,7 +74,7 @@
                 <p><%if(p.getPerfPg()!=0){%>
                 <%=p.getPerfPg() %>세 이상
                 <%}else{ %></p>
-                <p>전체이용가</p>
+                <p>전체관람가</p>
                 <%} %>
               </a>
               </div>
@@ -111,7 +111,7 @@
                 <p><%if(p.getPerfPg()!=0){%>
                 <%=p.getPerfPg() %>세 이상
                 <%}else{ %></p>
-                <p>전체이용가</p>
+                <p>전체관람가</p>
                 <%} %>
               </a>
               </div>
@@ -148,7 +148,7 @@
                 <p><%if(p.getPerfPg()!=0){%>
                 <%=p.getPerfPg() %>세 이상
                 <%}else{ %></p>
-                <p>전체이용가</p>
+                <p>전체관람가</p>
                 <%} %>
               </a>
               </div>
