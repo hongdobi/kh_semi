@@ -2,13 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ page
 	import="com.fs.model.vo.Performance,com.fs.model.vo.PerfSsn,java.util.List,java.util.ArrayList,java.text.SimpleDateFormat, java.text.DecimalFormat" %>
-<%@ include file="/views/common/header.jsp"%>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <% 
 	List <Performance>list=(List)request.getAttribute("list");
 	int total=Integer.parseInt(request.getAttribute("total").toString());
 	SimpleDateFormat sdf=new SimpleDateFormat("MM월 dd일");
 %>
-<script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <style>
 section {
 	padding: 50px;
@@ -195,6 +195,7 @@ $(function(){
 });
 	
 </script>
+<%@ include file="/views/common/header.jsp"%>
 <section>
 	<div id="title">
 		<h1>
