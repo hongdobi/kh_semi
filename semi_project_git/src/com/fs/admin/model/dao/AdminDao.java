@@ -9,6 +9,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
+=======
+import java.sql.Timestamp;
+>>>>>>> branch 'develop' of https://github.com/hongdobi/kh_semi.git
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -414,20 +418,20 @@ public class AdminDao {
 		}return result;
 	}
 	//공연시간 등록
-	   public int insertPerfSsn(Connection conn, String perfNo, Date dateTime) {
-	      PreparedStatement pstmt = null;
-	      int result = 0;
-	      PerfSsn ps = null;
-	      String d=new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(dateTime);
-	      try {
-	         pstmt = conn.prepareStatement(prop.getProperty("insertPerfSsn"));
-	         pstmt.setString(1, perfNo);
-	         pstmt.setString(2, new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(dateTime));
-	         result = pstmt.executeUpdate();
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      }finally {
-	         close(pstmt);
-	      }return result;
-	   }
+	public int insertPerfSsn(Connection conn, String perfNo, Date dateTime) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String d=new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(dateTime);
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("insertPerfSsn"));
+			pstmt.setString(1, perfNo);
+			pstmt.setString(2, new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(dateTime));
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 }

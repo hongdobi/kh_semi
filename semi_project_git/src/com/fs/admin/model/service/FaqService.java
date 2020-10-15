@@ -57,25 +57,26 @@ public class FaqService {
 	  
   }
 	
-  public int deleteFaq(int no) {
-		Connection conn=getConnection();
-		int result = dao.deleteFaq(conn,no);
-		 if(result>0) commit(conn);
-		   else rollback(conn);
-		   close(conn);
-		   return result;
-	}
-
-public int updateFaq(FAQ f, int no) {
+ public boolean deleteFaq(int no) {
 	 Connection conn=getConnection();
-	   int result=dao.updateFaq(conn,f,no);
+	   boolean result=dao.deleteFaq(conn,no);
+	   if(!result == false) commit(conn);
+	   else rollback(conn);
+	   close(conn);
+	   return false;
+
+ }
+ 
+ public int faqUpdate(String faqTitle,String faqContent,String faqHashtag) {
+	   Connection conn=getConnection();
+	   int result=dao.faqUpdate(conn,faqTitle,faqContent,faqHashtag);
 	   if(result>0) commit(conn);
 	   else rollback(conn);
 	   close(conn);
 	   return result;
-}
-
-
+	   
+ }
+ 
   }
 
  

@@ -24,6 +24,7 @@
 		padding: 50px;
 		text-align: center;
 		margin: auto;
+		font-family: 'Noto Sans KR';
 	}
 	/*랭킹타이틀*/
 	section>div#title {
@@ -145,9 +146,8 @@
 	<br>
 	<nav>
 		<ul class="Rank-nav">
-			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
-			<li class="rk-li">리뷰관리</li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>
@@ -225,6 +225,16 @@
 
 
 <script>
+	//카테고리 마우스호버
+	$(function(){
+		$(".rk-li").hover(function(){
+			$(this).css("background-color","lightcoral");
+		},
+		function(){
+			$(this).css("background-color","initial");
+		});
+	});
+
 	function auth(){
 		$('#authMGForm').attr('action', "<%=request.getContextPath()%>/admin/authMG");
 		let memberId = $(event.target).parent().parent().children(":nth-child(2)").text();

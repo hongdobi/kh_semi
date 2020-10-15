@@ -18,22 +18,13 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css"></link>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/slick/slick-theme.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/slick/slick.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
-       	header{
-       		position:fixed;
-       		height:100px;
-       		top:0px;
-       		width:96%;
-       		background-color: white;
-       		z-index: 10000;
-       		display:flex;
-       		font-family: 'Noto Sans KR';
-       		padding-right:50px;
-       		border-bottom:1px gray solid;
-       	}
+       	
        	body{
        	 padding-top: 105px;
        	}
@@ -88,7 +79,7 @@
 			<a href="#">마이페이지</a>
 		</div>
 	</div> -->
-    <header >
+    <header id="header">
         <div id="mainLogo"><a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath() %>/image/logo.png" alt="오성티켓" width="250px"></a></div>
         <div id="mainNav">
 	        <ul>
@@ -144,7 +135,7 @@
 	.ui-menu .ui-menu-item {
 		margin: 0;
 		cursor: pointer;
-		border-bottom:1px solid gray;
+		border-bottom:1px solid #a0a0a0;
 	}
 	.ui-menu .ui-menu-item-wrapper {
 		position: relative;

@@ -73,5 +73,12 @@ public class PerfService {
 		dao.updatePoster(conn, p);
 		close(conn);
 	}
+	
+	public List<Performance> mainPoster(String cate){
+		Connection conn=getConnection();
+		List<Performance> list=dao.mainPoster(conn,cate);
+		close(conn);
+		return list;
+	}
 
 }

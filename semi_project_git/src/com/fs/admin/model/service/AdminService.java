@@ -154,14 +154,15 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
+	
 	//공연시간 등록 
-	   public int insertPerfSsn(String perfNo, Date dateTime) {
-	      Connection conn = getConnection();
-	      int result = dao.insertPerfSsn(conn, perfNo, dateTime);
-	      if(result>0) commit(conn);
-	      else rollback(conn);
-	      close(conn);
-	      return result;
-	   }
+	public int insertPerfSsn(String perfNo, Date dateTime) {
+		Connection conn = getConnection();
+		int result = dao.insertPerfSsn(conn, perfNo, dateTime);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 	
 }

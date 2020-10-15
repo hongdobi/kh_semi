@@ -71,7 +71,11 @@
               <%} %>
               <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[연극]<%=p.getPerfName() %></h4>
-                <p><%=p.getPerfPg() %>세 이상</p>
+                <p><%if(p.getPerfPg()!=0){%>
+                <%=p.getPerfPg() %>세 이상
+                <%}else{ %></p>
+                <p>전체관람가</p>
+                <%} %>
               </a>
               </div>
               <div class="wrap-text sub">
@@ -104,7 +108,11 @@
               <%} %>
                 <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[뮤지컬]<%=p.getPerfName() %></h4>
-                <p><%=p.getPerfPg() %>세 이상</p>
+                <p><%if(p.getPerfPg()!=0){%>
+                <%=p.getPerfPg() %>세 이상
+                <%}else{ %></p>
+                <p>전체관람가</p>
+                <%} %>
               </a>
               </div>
               <div class="wrap-text sub">
@@ -137,7 +145,11 @@
               <%} %>
                 <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[전시]<%=p.getPerfName() %></h4>
-                <p><%=p.getPerfPg() %>세 이상</p>
+                <p><%if(p.getPerfPg()!=0){%>
+                <%=p.getPerfPg() %>세 이상
+                <%}else{ %></p>
+                <p>전체관람가</p>
+                <%} %>
               </a>
               </div>
               <div class="wrap-text sub">
@@ -191,8 +203,8 @@
     background-color: salmon;
     text-align: center;
   }
-  .visitable{color: orange; margin-bottom:10px;height: 5px; border:1px solid orange;}
-  .unvisitable{color: gray; margin-bottom:10px;height: 5px; border:1px solid gray;}
+  .visitable{color: white; margin-bottom:10px;height: 5px; border:1px solid orange;background-color:orange;}
+  .unvisitable{color: white; margin-bottom:10px;height: 5px; border:1px solid gray;background-color:gray;}
   .area-top h2 + p{margin-top: 20px; font-size: 20px; color:white;}
   .area-top p .word-search{font-size: 1.3em; font-weight: bold;}
   .area-top .box-input{display: flex; justify-content: center; margin-top: 20px;}

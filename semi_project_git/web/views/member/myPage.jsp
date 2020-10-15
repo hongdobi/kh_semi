@@ -4,6 +4,9 @@
 <html lang="ko">
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <style>
+	section{
+		font-family:"Noto Sans KR";
+	}
 	#sidebar{
 		background-color:ghostwhite;
 		height:500px;
