@@ -84,14 +84,14 @@
               <br/>
               <h3>간단하게 오성티켓에 가입하세요 :-)</h3>
             </div>
-            <div class="forms_buttons_link">
+            <%-- <div class="forms_buttons_link">
               <button type="button">
                 <img src="<%=request.getContextPath() %>/image/login_icons/google.png" id="google_btn">
               </button>
               <button type="button">
                 <img src="<%=request.getContextPath() %>/image/login_icons/kakao.png" id="kakao_btn">
               </button>
-            </div>
+            </div> --%>
         </div>
         
        <!-- 회원가입 form -->

@@ -141,7 +141,7 @@
         <h2 style="text-align:center">공연회차 등록/삭제</h2>
         <p style="text-align:center">회차정보가 없는 상시공연의 경우 아래 화면은 작성하지 않습니다.</p>
         <div id="wrap-out">
-            <form class="forms_form" action="<%=request.getContextPath() %>/admin/perfEndEnroll" method="post">
+            <form class="forms_form" action="<%=request.getContextPath() %>/admin/perfSsnEnd" method="post">
                 <div id="wrap-enroll">
                     <table id="table-enroll">
                         <tr>
@@ -166,19 +166,19 @@
                         </tr>
                         <tr id="resultTR">  
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <th><label for="perf_start">공연시작날짜</label></th>
                             <td><input type="date" name="perfStart" min="2020-10-01" max="2021-12-31"></td>
                         </tr>
                         <tr>
                             <th><label for="perf_end">공연종료날짜</label></th>
                             <td><input type="date" name="perfEnd" min="2020-10-01" max="2021-12-31"></td>
-                        </tr>
+                        </tr> -->
                         <tr>
-                            <th>요일</th>
+                            <th>공연시간</th>
                             <td>
                                 <div class="wrap-category">
-                                    <select name="weekChoice" id="weekChoice">
+                                    <!-- <select name="weekChoice" id="weekChoice">
                                         <option value="월">월</option>
                                         <option value="화">화</option>
                                         <option value="수">수</option>
@@ -188,14 +188,16 @@
                                         <option value="일">일</option>
                                     </select>
                                     <input type="time" name="timeChoice" id="timeChoice">
-                                    <input type="button" id="timeResult" value="확인"><br>
+                                    <input type="button" id="timeResult" value="확인"><br> -->
+                                    <input type="datetime-local" name="timeChoice" id="timeChoice">
+                                    <input type="button" id="btn_time" value="확인"><br>
                                 </div>
-                                    <span id="result2" style="display:inline-block;">선택한 요일/시간 : </span>
-                                    <div class="li_class">
-                                        <ul>
-                                            <li>요일 및 시간을 선택하게 되면 공연시작날부터 공연종료일까지 자동적으로 매주 공연이 반복됩니다</li>
-                                        </ul>
-                                    </div>
+                                <span style="display:inline-block;">선택한 요일/시간 : <span id="result2"></span></span>
+                                <div class="li_class">
+                                    <ul>
+                                        <li>요일 및 시간을 선택하게 되면 공연시작날부터 공연종료일까지 자동적으로 매주 공연이 반복됩니다</li>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -273,10 +275,11 @@
 
     $(function(){
         //요일 받아오기
-        $("#timeResult").click(function(){
-            $("#result2").html("선택한 요일/시간 : "+$("#weekChoice").val()+" "+$("#timeChoice").val());
-        })
-    })
+        $("#btn_time").click(function(){
+            var dateTime = new Date($("#timeChoice").val()).toISOString().substring(0,16);
+            $("#result2").html(dateTime);
+        });
+    });
 </script>
 
 </html>
