@@ -6,6 +6,7 @@ import static com.fs.common.JDBCTemplate.getConnection;
 import static com.fs.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import com.fs.admin.model.dao.AdminDao;
@@ -153,5 +154,14 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
+	//공연시간 등록 
+	   public int insertPerfSsn(String perfNo, Date dateTime) {
+	      Connection conn = getConnection();
+	      int result = dao.insertPerfSsn(conn, perfNo, dateTime);
+	      if(result>0) commit(conn);
+	      else rollback(conn);
+	      close(conn);
+	      return result;
+	   }
 	
 }

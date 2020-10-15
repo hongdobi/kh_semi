@@ -246,14 +246,6 @@
 					</td>
 				</tr>
 				<tr>
-					<th>공연포스터</th>
-					<td>
-						<div id="poster-container">
-							<input type="file" name="perfPoster" id="perf_poster">
-						</div>
-					</td>
-				</tr>
-				<tr>
 					<th>공연장 주소</th>
 					<td>
 						<div class="div_input">
@@ -286,13 +278,12 @@
 				</tr>
 				<tr>
 					<th colspan="2">
-						<input type="submit" value="등록">
+						<input type="submit" value="다음">
 						<input type="reset" value="취소">
 					</th>
 				</tr>
 			</table>
 			<br>
-			<input type="button" value="다음">
 		</div>
 	</form>
     </div>
@@ -326,6 +317,9 @@
 			
     	});
 	});//function 끝
+<%-- 	function uploadPage(){
+		location.href="<%= request.getContextPath()%>/admin/poster";
+	} --%>
     
    
     

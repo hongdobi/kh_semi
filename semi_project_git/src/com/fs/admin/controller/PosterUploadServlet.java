@@ -56,7 +56,9 @@ public class PosterUploadServlet extends HttpServlet {
 		System.out.println(mr.getFilesystemName("perfPoster") + "//" + perfNo);
 		p.setPerfNo(perfNo);
 		new PerfService().updatePoster(p);
-		request.getRequestDispatcher("/views/admin/admin.jsp").forward(request, response);
+		
+		System.out.println("admin.jsp 가기 직전");
+		request.getRequestDispatcher("/views/admin/perfSsn.jsp").forward(request, response);
 		
 	}
 
