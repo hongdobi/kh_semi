@@ -16,10 +16,11 @@ String key = request.getParameter("searchKeyword");
 		background-color: lightpink;
 		border: 3px solid gainsboro;
 	}
-		section {
+	section {
 		padding: 50px;
 		text-align: center;
 		margin: auto;
+		font-family: 'Noto Sans KR';
 	}
 
 	/*오성티켓 관리자페이지 타이틀*/
@@ -67,11 +68,6 @@ String key = request.getParameter("searchKeyword");
 		font-size:15px;
 		border:3px solid gainsboro;
 	}
-	#pageBar{
-		margin:auto;
-		padding:20px;
-	}
-	
 
 div#search-hashtag {
 	display: inline-block;
@@ -79,8 +75,9 @@ div#search-hashtag {
 
 </style>
 
-
 <section>
+
+
 <div id="title">
          <h1>
 			<span style="color: lightcoral">오성티켓</span> 관리자 페이지
@@ -181,7 +178,5 @@ $(function(){
 
 
 </script>     
-
-</script>
 
 <%@ include file="/views/common/footer.jsp"%>

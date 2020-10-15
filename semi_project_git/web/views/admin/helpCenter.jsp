@@ -9,6 +9,12 @@
    List<Inquiry> list2 = (List)request.getAttribute("Inquiry");
 %>
 <style>
+<<<<<<< HEAD
+	/* 전체 폰트 스타일 */
+	section{
+		font-family:"Noto Sans KR";
+	}
+
 
 .button{
 		background-color: lightpink;

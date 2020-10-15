@@ -24,6 +24,7 @@
 		padding: 50px;
 		text-align: center;
 		margin: auto;
+		font-family: 'Noto Sans KR';
 	}
 	/*랭킹타이틀*/
 	section>div#title {
@@ -224,6 +225,16 @@
 
 
 <script>
+	//카테고리 마우스호버
+	$(function(){
+		$(".rk-li").hover(function(){
+			$(this).css("background-color","lightcoral");
+		},
+		function(){
+			$(this).css("background-color","initial");
+		});
+	});
+
 	function auth(){
 		$('#authMGForm').attr('action', "<%=request.getContextPath()%>/admin/authMG");
 		let memberId = $(event.target).parent().parent().children(":nth-child(2)").text();

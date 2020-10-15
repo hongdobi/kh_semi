@@ -13,7 +13,7 @@
 
 <style>
 
-.button{
+	.button{
 		background-color: lightpink;
 		border: 3px solid gainsboro;
 	}
@@ -29,7 +29,6 @@
 		font-size: 30px;
 		text-align: center;
 		min-width: 1000px;
-		font-family: Noto Sans KR;
 	}
 	/*랭킹 카테고리*/
 	ul.Rank-nav {

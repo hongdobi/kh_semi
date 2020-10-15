@@ -13,13 +13,13 @@
 		padding: 50px;
 		text-align: center;
 		margin: auto;
+		font-family: 'Noto Sans KR';
 	}
 	/*오성티켓 관리자페이지 타이틀*/
 	section>div#title {
 		font-size: 30px;
 		text-align: center;
 		min-width: 1000px;
-		font-family: Noto Sans KR;
 	}
 	/*랭킹 카테고리*/
 	ul.Rank-nav {
@@ -40,7 +40,6 @@
 		border:3px solid gainsboro;
 		display: inline-block;
 		text-align:center;
-		font-family:Noto Sans KR;
 		font-weight: 300;
 	}
 	div#inquiry-container{
@@ -76,7 +75,7 @@
 	<nav>
 		<ul class="Rank-nav">
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
-			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li> 
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>

@@ -5,15 +5,14 @@
 <style>
 	section {
 		padding: 50px;
-		 text-align: center;  
 		margin: auto;
+		font-family: 'Noto Sans KR';
 	}
 	/*오성티켓 관리자페이지 타이틀*/
 	section>div#title {
 		font-size: 30px;
 		text-align: center;
 		min-width: 1000px;
-		font-family: Noto Sans KR;
 	}
 	/*랭킹 카테고리*/
 	ul.Rank-nav {
@@ -93,6 +92,9 @@
     }
     input[type=text]:focus, input[type=number]:focus, input[type=date]:focus{
         outline:none;
+    }
+    input[type=button]{
+    	font-family: 'Noto Sans KR';
     }
     div>ul{
         margin:0px;
@@ -291,7 +293,7 @@
 				</tr>
 			</table>
 			<br>
-			<input type="button" value="다음">
+			<input type="button" value="다음" onclick="fn_poster();">
 		</div>
 	</form>
     </div>
@@ -325,6 +327,10 @@
 			
     	});
 	});//function 끝
+	
+	function fn_poster(){
+		location.replace("<%=request.getContextPath()%>/admin/poster");
+	}
     
    
     
