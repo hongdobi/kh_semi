@@ -52,6 +52,10 @@ section {
 	min-width: 1000px;
 	max-width: 1200px;
 	margin: auto;
+	font-family: 'Noto Sans KR';
+}
+input[type=button],button{
+font-family: 'Noto Sans KR';
 }
 
 /* a태그 밑줄없애기 */
@@ -300,9 +304,8 @@ div#pageBar{
 	position:fixed;
 	background-color:white;
 	border-radius:100%;
-	top:50%;
+	bottom:5%;
 	right: 1%;
-	
 }
 </style>
 <script>
@@ -447,7 +450,7 @@ $(function(){
 </script>
 
 <section>
-	<div id="simpleNavi"><a href="#"><img src="<%=request.getContextPath() %>/image/top.png" alt="상단으로" height="50px" width="50px"></a></div>
+	<div id="simpleNavi"><a href="#"><img src="<%=request.getContextPath() %>/image/top.png" alt="상단으로" height="30px" width="30px"></a></div>
 	<form id="revform" name="revform">
 		<%int result=0;
 		if(loginMember!=null){
@@ -478,7 +481,7 @@ $(function(){
 				</tr>
 				<tr>
 					<th>공연기간</th>
-					<td><%=sdf.format(perf.getPerfStart())%>~<%=sdf.format(perf.getPerfEnd())%></td>
+					<td style="font-size:15px;"><%=sdf.format(perf.getPerfStart())%>~<%=sdf.format(perf.getPerfEnd())%></td>
 				</tr>
 				<tr>
 					<th>등급</th>

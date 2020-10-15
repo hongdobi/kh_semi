@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	footer{
+		font-family: 'Noto Sans KR';
+	}	
+
+</style>
 </head>
 <body>
     <footer>
@@ -12,7 +18,7 @@
             
             <div class="box-bottom">
                 <div>
-                    <a href=""><img src="<%=request.getContextPath() %>/image/logo.png" style="width:150px;height:70px;" alt="오성티켓"></a>
+                    <a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath() %>/image/logo.png" style="width:150px;height:70px;" alt="오성티켓"></a>
                 </div>
                 <div class="box-text">
                     <p><b>FIVE STAR</b></p>

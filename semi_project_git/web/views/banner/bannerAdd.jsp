@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>배너/프로모션관리 -관리자-</title>
 <script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
+
 <style>
 		body{
 	     font-family: Noto Sans KR;
@@ -16,6 +18,10 @@
 	      padding: 30px;
 	      margin:auto;
 	      text-align: center;
+	     
+	    }
+	    button,input[type=button]{
+	    	font-family: 'Noto Sans KR';
 	    }
         table{
             width:700px;

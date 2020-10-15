@@ -34,10 +34,10 @@
 <body>
 <%@ include file="/views/common/header.jsp" %>
   <div class="container">
+        <%if(list.size()>0){ %>
     <div class="area-top">
       <div class="inner">
         <h2>검색 결과</h2>
-        <%if(list.size()>0){ %>
         <p><span class="word-search">'<%=keyword %>'</span>에 대한 검색결과 '<%=list.size() %>'건 입니다.</p>
         <p></p>
         <div class="box-input">
@@ -71,7 +71,11 @@
               <%} %>
               <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[연극]<%=p.getPerfName() %></h4>
-                <p><%=p.getPerfPg() %>세 이상</p>
+                <p><%if(p.getPerfPg()!=0){%>
+                <%=p.getPerfPg() %>세 이상
+                <%}else{ %></p>
+                <p>전체관람가</p>
+                <%} %>
               </a>
               </div>
               <div class="wrap-text sub">
@@ -104,7 +108,11 @@
               <%} %>
                 <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[뮤지컬]<%=p.getPerfName() %></h4>
-                <p><%=p.getPerfPg() %>세 이상</p>
+                <p><%if(p.getPerfPg()!=0){%>
+                <%=p.getPerfPg() %>세 이상
+                <%}else{ %></p>
+                <p>전체관람가</p>
+                <%} %>
               </a>
               </div>
               <div class="wrap-text sub">
@@ -137,7 +145,11 @@
               <%} %>
                 <a href="<%=request.getContextPath() %>/perf/perfView?perfNo=<%=p.getPerfNo()%>">
                 <h4>[전시]<%=p.getPerfName() %></h4>
-                <p><%=p.getPerfPg() %>세 이상</p>
+                <p><%if(p.getPerfPg()!=0){%>
+                <%=p.getPerfPg() %>세 이상
+                <%}else{ %></p>
+                <p>전체관람가</p>
+                <%} %>
               </a>
               </div>
               <div class="wrap-text sub">
@@ -155,29 +167,30 @@
     </div>
   </div>
 <%} else{%>
-  <p><span class="word-search">'<%=keyword %>'</span>에 대한 검색결과 '<%=list.size() %>'건 입니다.</p>
-  <div class="box-input">
-    <input type="text" placeholder="검색어를 입력하세요">
-    <button class="btn-search">search</button>
-  </div>
-  <div class="area-contents">
-    <div class="inner">
-      <div class="list-result">
-        <div class="detail-result">
-          <div class="box-poster">
-          </div>
-          <div class="box-text">
-            <h4>검색 결과가 없습니다.</h4>
-          </div>
+ <div class="area-top">
+      <div class="inner">
+        <h2>검색 결과</h2>
+        <p><span class="word-search">'<%=keyword %>'</span>에 대한 검색결과가 없습니다.</p>
+        <p></p>
+        <div class="box-input">
+        <form action="<%=request.getContextPath()%>/search.do">
+          <input type="text" name="keyword"placeholder="검색어를 입력하세요">
+          <button class="btn-search" type="submit">search</button>
+          </form>
         </div>
       </div>
-    </div>
-  </div> 
+  </div>
   
 <%} %>
 <%@ include file="/views/common/footer.jsp" %>
 </body>
 <style>
+    body{
+	    font-family: 'Noto Sans KR';
+    }
+    .area-top{
+    	padding-top: 105px;
+    }
   body, html, div,h1,h2,h3,h4,p,dl,dt,dd{margin: 0; padding: 0}
   button{appearance: none; background-color: transparent; border: none;}
   /* top  */
@@ -190,8 +203,8 @@
     background-color: salmon;
     text-align: center;
   }
-  .visitable{color: orange; margin-bottom:10px;height: 5px; border:1px solid orange;}
-  .unvisitable{color: gray; margin-bottom:10px;height: 5px; border:1px solid gray;}
+  .visitable{color: white; margin-bottom:10px;height: 5px; border:1px solid orange;background-color:orange;}
+  .unvisitable{color: white; margin-bottom:10px;height: 5px; border:1px solid gray;background-color:gray;}
   .area-top h2 + p{margin-top: 20px; font-size: 20px; color:white;}
   .area-top p .word-search{font-size: 1.3em; font-weight: bold;}
   .area-top .box-input{display: flex; justify-content: center; margin-top: 20px;}
