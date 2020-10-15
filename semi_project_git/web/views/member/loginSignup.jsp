@@ -100,7 +100,7 @@
          <form class="forms_form" action="<%=request.getContextPath() %>/signupEnd" method="post">
             <fieldset class="forms_fieldset">
               <div class="forms_field">
-                <input type="text" name="memberId" id="memberId_" placeholder="아이디:영소문자/숫자 5~15자 이내" class="forms_field-input" required>
+                <input type="text" name="memberId" id="memberId_" placeholder="아이디:영소문자 또는 숫자로 시작, 5~15자 이내" class="forms_field-input" required>
                 <input type="button" id="idcheck" class="selfcheck" value="중복확인"><br>
                 <span id="result1"></span>
               </div>
@@ -216,14 +216,6 @@
       })
 
       //정규표현식 생년월일
-      /* var bdayck = RegExp(/([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/);
-      $("#bday").keyup(function(){
-        if(!bdayck.test($("#bday").val())){
-          $("#result6").html("생년월일 형식에 맞춰 입력해주세요").css("color","lightcoral");
-        }else{
-          $("#result6").html("");
-        }
-      }); */
       var bdayck = false;
       $("#bday").keyup(function(){
     	 var dateStr = $("#bday").val();
@@ -296,8 +288,6 @@
       });
       
       //아이디, 이메일 중복확인 체크여부
-      var arr_check = new Array(5).fill(false);
-      
       $("#signup").click(function(){
         if($("input[name='idcheck']").val()==""){
         	alert("아이디 중복확인을 해주세요");
@@ -308,6 +298,9 @@
           $("input[name='emailcheck']").focus();
           return false;
         }
+      	
+        //가입 전 유효성검사가 되었는지 확인 
+        var arr_check = new Array(5).fill(false);
         
         if(memberIdck.test($("#memberId_").val())){
         	arr_check[0] = true;

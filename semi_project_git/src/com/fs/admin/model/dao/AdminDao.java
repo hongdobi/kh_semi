@@ -9,6 +9,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -418,11 +420,11 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		PerfSsn ps = null;
-		
+		String d=new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(dateTime);
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("insertPerfSsn"));
 			pstmt.setString(1, perfNo);
-			pstmt.setDate(2, dateTime);
+			pstmt.setString(2, new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(dateTime));
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

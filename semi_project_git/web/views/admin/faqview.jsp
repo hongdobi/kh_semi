@@ -11,7 +11,10 @@
 %>
 
 <style>
- table{
+	body{
+	    font-family: Noto Sans KR;
+	}
+ 	table{
 		width:100%;
 	}
 	table, tr, th, td{
@@ -32,7 +35,6 @@
 		font-size: 30px;
 		text-align: center;
 		min-width: 1000px;
-		font-family: Noto Sans KR;
 	}
 	/*랭킹 카테고리*/
 	ul.Rank-nav {
@@ -94,7 +96,6 @@ section#faq-container h2 {
 		<ul class="Rank-nav">
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
-			<li class="rk-li">리뷰관리</li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>

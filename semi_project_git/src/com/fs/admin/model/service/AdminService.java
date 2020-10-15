@@ -161,6 +161,7 @@ public class AdminService {
 		int result = dao.insertPerfSsn(conn, perfNo, dateTime);
 		if(result>0) commit(conn);
 		else rollback(conn);
+		close(conn);
 		return result;
 	}
 	

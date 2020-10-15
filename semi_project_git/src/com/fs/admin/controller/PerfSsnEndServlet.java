@@ -3,7 +3,10 @@ package com.fs.admin.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,13 +40,14 @@ public class PerfSsnEndServlet extends HttpServlet {
 		
 		String str = request.getParameter("timeChoice");
 		LocalDateTime parseLocalDateTime = LocalDateTime.parse(str);
+		//parseLocalDateTime.
 		
 		String str2 = parseLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		Date dateTime = Date.valueOf(str2);
+		Date dateTime = new Date(parseLocalDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 		
-		
-		
-		System.out.println("perfSsnServlet :"+perfNo+dateTime);
+		Calendar c=Calendar.getInstance();
+				c.setTime(dateTime);
+		System.out.println("perfSsnServlet :"+perfNo+c.get(Calendar.HOUR)+c.get(Calendar.MINUTE));
 		
 		
 		

@@ -166,29 +166,10 @@
                         </tr>
                         <tr id="resultTR">  
                         </tr>
-                        <!-- <tr>
-                            <th><label for="perf_start">공연시작날짜</label></th>
-                            <td><input type="date" name="perfStart" min="2020-10-01" max="2021-12-31"></td>
-                        </tr>
-                        <tr>
-                            <th><label for="perf_end">공연종료날짜</label></th>
-                            <td><input type="date" name="perfEnd" min="2020-10-01" max="2021-12-31"></td>
-                        </tr> -->
                         <tr>
                             <th>공연시간</th>
                             <td>
                                 <div class="wrap-category">
-                                    <!-- <select name="weekChoice" id="weekChoice">
-                                        <option value="월">월</option>
-                                        <option value="화">화</option>
-                                        <option value="수">수</option>
-                                        <option value="목">목</option>
-                                        <option value="금">금</option>
-                                        <option value="토">토</option>
-                                        <option value="일">일</option>
-                                    </select>
-                                    <input type="time" name="timeChoice" id="timeChoice">
-                                    <input type="button" id="timeResult" value="확인"><br> -->
                                     <input type="datetime-local" name="timeChoice" id="timeChoice">
                                     <input type="button" id="btn_time" value="확인"><br>
                                 </div>
@@ -272,7 +253,8 @@
     	});
 
     });
-
+	//여기까지
+   	
     $(function(){
         //요일 받아오기
         $("#btn_time").click(function(){

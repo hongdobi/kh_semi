@@ -293,7 +293,7 @@
 				</tr>
 			</table>
 			<br>
-			<input type="button" value="다음">
+			<input type="button" value="다음" onclick="fn_poster();">
 		</div>
 	</form>
     </div>
@@ -328,7 +328,9 @@
     	});
 	});//function 끝
 	
-	
+	function fn_poster(){
+		location.replace("<%=request.getContextPath()%>/admin/poster");
+	}
     
    
     
