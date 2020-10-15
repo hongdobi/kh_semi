@@ -46,6 +46,7 @@ public class MyReviewServlet extends HttpServlet {
 		for(int i = 0; i < rvList.size(); i++) {
 			perfName += ps.findPerfName(rvList.get(i).getPerfNo()) + ",";
 		}
+		System.out.println(perfName);
 		request.setAttribute("rvList", rvList);
 		request.setAttribute("perfName", perfName);
 		request.getRequestDispatcher("/views/member/myReview.jsp").forward(request, response);

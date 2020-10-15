@@ -9,6 +9,7 @@
 <%
 	
 %>
+
 <body>
 	<%@ include file="/views/common/header.jsp" %>
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/indexHeader.css"></link>
@@ -17,12 +18,14 @@
  		//buttonImg="http://tkfile.yes24.com/imgNew/common/pf-srch.png";
 	%>
 	<script>
+		$("header").css({"backgroundColor":"rgba(0,0,0,0.1)","position":"static"});
+		$("body").css("padding","0px");
 		document.getElementById("buttonImg").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-srch.png");
 		<%if(loginMember!=null){%>
 		document.getElementById("logoutBtn").setAttribute("src","<%=request.getContextPath()%>/image/logoutw.png");
 		document.getElementById("login_alarm1").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
 		<%}%>
-		document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png");
+		document.getElementById("login_alarm").setAttribute("src","http://tkfile.yes24.com/imgNew/common/pf-ticket-w.png"); 
 		
 	</script>
     <div class="container">
