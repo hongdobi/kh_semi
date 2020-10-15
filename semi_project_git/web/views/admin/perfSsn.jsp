@@ -5,6 +5,7 @@
 <style>
     section {
 		padding: 50px;
+        text-align: center;
 		margin: auto;
 		font-family: 'Noto Sans KR';
 	}
@@ -27,25 +28,28 @@
 		border: 1px lightgray solid;
 		text-align: center;
 	}
-    #adminView {
-        width: 1200px;
+
+	#adminView{
+		width:1200px;
+		border:3px solid gainsboro;
+		display: inline-block;
+		font-weight: 300;
+	}
+    div#ssn-container{
         height: auto;
-        border: 3px solid gainsboro;
-        font-weight: 300;
-    }
-    #wrap-out{
-        margin: auto;
-        display: table;
-    }
-    div#wrap-enroll {
         padding: 15px;
     }
-    table {
-        border-spacing: 2px;
-        border-collapse: collapse;
-        border: solid 1px #d8d8d8;
+    div#wrap-enroll {
+        height:auto;
+        padding:15px;
     }
-    th,td {
+    table#table-enroll{
+        width: 100%;
+        border-spacing: 2px;
+        border: solid 1px #d8d8d8;
+        border-collapse: collapse;
+    }
+    table#table-enroll th, table#table-enroll td {
         border: solid 1px #d8d8d8;
         padding: 7px;
     }
@@ -90,14 +94,14 @@
     input[type=date]:focus {
         outline: none;
     }
-    div>ul {
+    /* div>ul {
         margin: 0px;
         padding: 10px 20px 10px 20px;
-    }
+    } */
     #adminView div>ul>li {
-        font-size: 12px;
+        font-size: 20px;
         list-style-type: disc;
-        padding: 3px;
+        padding: 7px;
     }
     textarea {
         width: 99%;
@@ -111,15 +115,28 @@
     #submit {
         position: relative;
     }
-    /* #result1 {
-        font-size: 13px;
-    } */
     table#searchTbl{
         margin: 7px auto 7px 0px;
     }
     div.wrap-category{
         margin: 7px 0px 7px 0px;
+        text-align: left;
     }
+
+    /* 공연정보바 */
+    #perf-nav-out{
+        margin:auto;
+        display:table;
+        font-size: 13px;
+    }
+    .perf-nav{
+        padding: 20px 0 10px 0
+    }
+    .perf-nav li{
+        list-style-type: none;
+		display: inline-block;
+    }
+   
 </style>
 </head>
 <section>
@@ -131,16 +148,17 @@
 	<br>
 	<nav>
 		<ul class="Rank-nav">
-			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>
 	</nav>
     <div id="adminView">
-        <h2 style="text-align:center">공연회차 등록/삭제</h2>
-        <p style="text-align:center">회차정보가 없는 상시공연의 경우 아래 화면은 작성하지 않습니다.</p>
-        <div id="wrap-out">
+        <h2 style="text-align:center">공연회차 등록</h2>
+        <p style="text-align:center">공연등록(3/3)단계</p>
+        <p style="text-align:center">현재 페이지는 공연회차를 등록하는 화면입니다. 회차정보가 없는 상시공연의 경우 아래 화면은 작성하지 않습니다.</p>
+        <div id="ssn-container">
             <form class="forms_form" action="<%=request.getContextPath() %>/admin/perfSsnEnd" method="post">
                 <div id="wrap-enroll">
                     <table id="table-enroll">
@@ -159,9 +177,9 @@
                                     <input type="button" id="searchBtn" value="검색">
                                     <div id="searchResult" style="overflow:auto; width:750px; max-height:150px;"></div>
                                 </div>
-                                <div>
+                                <div class="wrap-category">
                                     <span id="result1">공연회차 확인 : <input type="text" name="perfNo" required="required"></p>
-                                </div>    
+                                </div>     
                             </td>
                         </tr>
                         <tr id="resultTR">  
@@ -173,11 +191,8 @@
                                     <input type="datetime-local" name="timeChoice" id="timeChoice">
                                     <input type="button" id="btn_time" value="확인"><br>
                                 </div>
-                                <span style="display:inline-block;">선택한 요일/시간 : <span id="result2"></span></span>
-                                <div class="li_class">
-                                    <ul>
-                                        <li>요일 및 시간을 선택하게 되면 공연시작날부터 공연종료일까지 자동적으로 매주 공연이 반복됩니다</li>
-                                    </ul>
+                                <div class="wrap-category">
+                                    <span style="display:inline-block;">선택한 요일/시간 : <span id="result2"></span></span>
                                 </div>
                             </td>
                         </tr>
@@ -254,14 +269,34 @@
 
     });
 	//여기까지
+	
+	//카테고리 마우스호버
+	$(function(){
+		$(".rk-li").hover(function(){
+			$(this).css("background-color","lightcoral");
+		},
+		function(){
+			$(this).css("background-color","initial");
+		});
+	});
+	
+	//공연네비바 마우스호버
+	$(function(){
+		$(".pf-li").hover(function(){
+			$(this).css("color","lightcoral");
+		},
+		function(){
+			$(this).css("color","initial");
+		});
+	});
    	
+    //요일 받아오기
     $(function(){
-        //요일 받아오기
         $("#btn_time").click(function(){
-            var dateTime = new Date($("#timeChoice").val()).toISOString().substring(0,16);
-            $("#result2").html(dateTime);
+            $("#result2").html($("#timeChoice").val());
         });
-    });
+	});
+
 </script>
 
 </html>

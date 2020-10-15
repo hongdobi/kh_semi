@@ -419,8 +419,8 @@ public class AdminDao {
 	public int insertPerfSsn(Connection conn, String perfNo, Date dateTime) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		PerfSsn ps = null;
 		String d=new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(dateTime);
+		
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("insertPerfSsn"));
 			pstmt.setString(1, perfNo);
