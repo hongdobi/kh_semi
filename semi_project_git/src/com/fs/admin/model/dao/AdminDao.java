@@ -9,10 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< HEAD
-=======
 import java.sql.Timestamp;
->>>>>>> branch 'develop' of https://github.com/hongdobi/kh_semi.git
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
