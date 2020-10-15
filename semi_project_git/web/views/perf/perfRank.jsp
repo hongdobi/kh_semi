@@ -4,6 +4,7 @@
 	import="com.fs.model.vo.Performance,com.fs.model.vo.PerfSsn,java.util.List,java.util.ArrayList,java.text.SimpleDateFormat, java.text.DecimalFormat" %>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<%@ include file="/views/common/header.jsp"%>
 <% 
 	List <Performance>list=(List)request.getAttribute("list");
 	int total=Integer.parseInt(request.getAttribute("total").toString());
@@ -195,7 +196,8 @@ $(function(){
 });
 	
 </script>
-<%@ include file="/views/common/header.jsp"%>
+
+
 <section>
 	<div id="title">
 		<h1>

@@ -6,22 +6,33 @@
 
 <%
    List<FAQ> list = (List)request.getAttribute("FAQ");
-	List<Inquiry> list2 = (List)request.getAttribute("Inquiry");
+   List<Inquiry> list2 = (List)request.getAttribute("Inquiry");
 %>
 <style>
+<<<<<<< HEAD
+	/* 전체 폰트 스타일 */
+	section{
+		font-family:"Noto Sans KR";
+	}
+
+
+.button{
+		background-color: lightpink;
+		border: 3px solid gainsboro;
+	}
    /* 1:1문의 스타일 */
    #wrap-out{
       padding-bottom:50px;
       font-family:Noto Sans KR;
       font-weight: 300;
    }
-	div#wrap-inquiry{
-		margin: 0 auto;
-    	padding: 15px 0 30px;
-    	border: solid 1px #d8d8d8;
-    	background-color: #fff;
-    	width: 930px;
-	}
+   div#wrap-inquiry{
+      margin: 0 auto;
+       padding: 15px 0 30px;
+       /* border: solid 1px #d8d8d8; */
+       background-color: #fff;
+       width: 930px;
+   }
    div#wrap-hap{
       width: 830px;
       margin: auto;
@@ -31,38 +42,40 @@
       /* display:inline-block; */
       text-align:right;
    }
-	div#inquiry-container{
-		width:830px;
-		height:auto;
-		text-align:center;
-		border-radius:3px;
-		background-color: #f8f8f8;
-		margin:auto;
-	}
+   div#inquiry-container{
+      width:830px;
+      height:auto;
+      text-align:center;
+      border-radius:3px;
+      background-color: #f8f8f8;
+      margin:auto;
+   }
    table#tbl-inquiry{
       width:100%;
       height: 200px;
    }
-	table#tbl-inquiry tr td{
-		text-align:center;
+   table#tbl-inquiry tr td{
+      text-align:center;
       padding:4px;
-	}
+   }
    table#tbl-inquiry2{
       width:100%;
       height:200px;
    }
-	.nodata{
-		font-family:"Noto Sans KR";
-		font-size:15px;
-		/* padding:70px 0 20px 0; */
-	}
+   .nodata{
+      font-family:"Noto Sans KR";
+      font-size:15px;
+      /* padding:70px 0 20px 0; */
+   }
    .tabs {
         display: flex;
         flex-wrap: wrap;
         padding: 50px;
-	   text-align: center;
-	   margin: auto;
+      text-align: center;
+      margin: auto;
    } 
+   
+   /*  FAQ 스타일 시작  */
       
    .tabs label {
        width: 200px;
@@ -77,20 +90,6 @@
    }
       
       
-   .tab label:hover{
-      clor:pink;
-      opacity:1;
-      transform:scale(1);
-   }
-      
-   /*박스배경*/
-   .tabs .tab {
-      order: 99;
-      flex-grow: 1;
-      display: none;
-      padding: 1rem;
-      background: white;
-   }
    .tabs input[type="radio"] {
       display: none;
    }
@@ -98,11 +97,21 @@
       display: block;
    }
    .tabs {
-      display: flex;
-      flex-wrap: wrap; 
+   diplay:flex;
+   justify-content: center;
+   align-items: center;
    }
     
    /*박스배경*/
+   
+  tabs.input[]{
+   diplay:flex;
+   justify-content: center;
+   align-items: center;
+   
+   
+   }
+   
    .tabs .tab {
       order: 99;
       flex-grow: 1;
@@ -168,20 +177,23 @@
 </style>
 
 <section style="text-align:center; id="FAQ-container">
-   <h2>자주하는 질문</h2>            
+   <h2 style="font-family:Noto Sans KR;" >자주하는 질문</h2>            
    <div class="tabs">
    
       <input type="checkbox" name="tab" id="tab1" value="회원" checked />
-      <label for="tab1"> 회원 </label>
-      <div class="tab">
+       <label for="tab1" class="ch"> 회원 </label>
+      <div class="tab" style="
+    padding-top: 50px;
+    padding-bottom: 0px;  height: 300px;"
+    >
    
    
    <div id="faq-container">
       <div id="tbl-FAQ">
          <%if (list != null) {
             for (FAQ f : list) {%>
-            <div id=title><%=f.getFaqTitle()%></div>
-         <p class="content"><%=f.getFaqContent()%></p>
+            <div id=title style="font-family:Noto Sans KR;"><%=f.getFaqTitle()%></div>
+         <p class="content" style="font-family:Noto Sans KR;"><%=f.getFaqContent()%></p>
          
             <%}
          }%>
@@ -191,7 +203,7 @@
    </div>
    
    <input type="checkbox" name="tab" id="tab2" value="티켓수령" />
-      <label for="tab2"> 티켓수령 </label>
+      <label for="tab2" class="ch"> 티켓수령 </label>
       <div class="tab">
    
    <div id="faq-container">
@@ -205,18 +217,17 @@
          }%>
       </div>
    </div>
-   
    </div>
    
     <input type="checkbox" name="tab" id="tab3" value="예매/결제" />
-      <label for="tab3"> 예매/결제  </label>
+      <label for="tab3" class="ch"> 예매/결제  </label>
       <div class="tab">
    
    <div id="faq-container">
       <div id="tbl-FAQ">
          <%if (list != null) {
             for (FAQ f : list) {%>
-            <div><%=f.getFaqTitle()%></div>
+            <div id="title"><%=f.getFaqTitle()%></div>
          <p><%=f.getFaqContent()%></p>
          
             <%}
@@ -226,7 +237,7 @@
    </div>
    
     <input type="checkbox" name="tab" id="tab4" value="취소/환불"  />
-      <label for="tab4"> 취소/환불 </label>
+      <label for="tab4" class="ch"> 취소/환불 </label>
       <div class="tab">
    
    <div id="faq-container">
@@ -243,10 +254,11 @@
    </div>
    
     <input type="checkbox" name="tab" id="tab5" value="기타" />
-      <label for="tab5"> 기타 </label>
+      <label for="tab5" class="ch"> 기타 </label>
       <div class="tab">
    
    <div id="faq-container">
+   
       <div id="tbl-FAQ">
          <%if (list != null) {
             for (FAQ f : list) {%>
@@ -266,7 +278,7 @@
          <div id="wrap-hap">
             <h2 style="display:inline-block;">1:1 문의내역</h2>
             <div class="btn_txt">
-               <input type="button" onclick="fn_inquiry();" class="btn" value="문의하기">
+               <input type="button" onclick="fn_inquiry();" class="button" value="문의하기">
             </div>
          </div>
          <div id="inquiry-container">
@@ -284,7 +296,7 @@
                   <tr>  
                      <td><a href="<%=request.getContextPath()%>/admin/inquiryAnswer?inqNo=<%=iq.getInqNo()%>" onclick="open(this.href,'','top=100px, left=300px, width=600px, height=400px, scrollbars=no');return false;"><%=iq.getInqTitle() %></a></td>
                      <td><% if(iq.getInqYn().equals("N")){%>
-                           처리중			
+                           처리중         
                         <%}else {%>
                            답변완료
                         <%} %>
@@ -308,19 +320,17 @@ function fn_inquiry() {
   open(url, "", status);
 }
  
-$(function(){
-	$("#faq-container div, div#title").click(function(){
-		$("#faq-container p").slideUp("slow");
-		if(!$(this).next().is(":visible"))
-		{
-			$(this).next().slideDown();
-		}
-	})
-
+ $(function(){
+   $("div#title").click(function(){
+      $("#faq-container p").not($(this).next()).slideUp("slow");
+      $(this).next().slideDown();
+   })
+ 
+   
    $("input[name=tab]").click(e=>{
-  	 let key=$(e.target).val();
-  	 console.log(key);
-		 location.href="<%=request.getContextPath()%>/admin/helpCenter?memberNo=<%=loginMember.getMemberNo()%>&keyword="+key;
+      let key=$(e.target).val();
+      console.log(key);
+       location.href="<%=request.getContextPath()%>/admin/helpCenter?memberNo=<%=loginMember.getMemberNo()%>&keyword="+key;
 
    });
 
@@ -328,6 +338,15 @@ $(function(){
    $("#tbl-inquiry tr ")
 
  });
+ 
+$(function(){
+	$(".ch").hover(function(){
+		$(this).css("background-color","lightcoral");
+	},
+	function(){
+		$(this).css("background-color","initial");
+	});
+});
  
 </script>
 

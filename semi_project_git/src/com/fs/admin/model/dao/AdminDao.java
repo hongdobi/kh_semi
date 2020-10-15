@@ -5,9 +5,12 @@ import static com.fs.common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -15,6 +18,7 @@ import java.util.Properties;
 import com.fs.model.vo.FAQ;
 import com.fs.model.vo.Inquiry;
 import com.fs.model.vo.Member;
+import com.fs.model.vo.PerfSsn;
 import com.fs.model.vo.Performance;
 
 public class AdminDao {
@@ -405,6 +409,24 @@ public class AdminDao {
 			pstmt.setNString(2, memberId);
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	//공연시간 등록
+	public int insertPerfSsn(Connection conn, String perfNo, Date dateTime) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		PerfSsn ps = null;
+		String d=new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(dateTime);
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("insertPerfSsn"));
+			pstmt.setString(1, perfNo);
+			pstmt.setString(2, new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(dateTime));
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);

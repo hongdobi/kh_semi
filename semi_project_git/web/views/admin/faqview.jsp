@@ -7,32 +7,28 @@
 
 <%
 	FAQ f = (FAQ) request.getAttribute("FAQ");
-/*  List<FAQ> list = (List) request.getAttribute("FAQ"); */
+    int no = Integer.parseInt(request.getParameter("no"));
+
 %>
 
 <style>
- table{
-		width:100%;
-	}
-	table, tr, th, td{
-		border: 3px solid gainsboro;
-		padding: 5px;
-	}
+
 	.button{
 		background-color: lightpink;
 		border: 3px solid gainsboro;
 	}
 		section {
 		padding: 50px;
+		text-align: center;
 		margin: auto;
-	} 
+	}
+	
 
 	/*오성티켓 관리자페이지 타이틀*/
 	section>div#title {
 		font-size: 30px;
 		text-align: center;
 		min-width: 1000px;
-		font-family: Noto Sans KR;
 	}
 	/*랭킹 카테고리*/
 	ul.Rank-nav {
@@ -49,43 +45,39 @@
 	}
 
 	#faqView{
-		width:1200px;
-		height:600px;
+		width:1000px;
 		border:3px solid gainsboro;
 		display: inline-block;
+		text-align:center;
+		font-family:Noto Sans KR;
+		font-weight: 300;
 	}
+	
+    div#faq-container{
+		height: auto;
+    	text-align: center;
+    	padding: 15px;
+	}
+	
     table#table-faq{
 		width:100%; 
-		margin:0 auto; 
-		border:1px solid grey; 
+		border:3px solid gainsboro;
 		border-collapse:collapse;
 	}
     table#table-faq th, table#table-faq td {
 		border:1px solid; 
-		padding: 5px 0; 
+		padding: 7px 0; 
 		text-align:center;
-		font-size:17px;
+		font-size:15px;
+		border:3px solid gainsboro;
 	}
-section#faq-container {
-	width: 600px;
-	margin: 0 auto;
-	
-}
 
-section#faq-container h2 {
-	margin: 10px 0;
-}
-[contenteditable="ture"]{
- color:#C00;
-}
-[contenteditable="true"] {
-  color: #C00;
-}
 
 </style>
 
+<section>
 <div id="title">
-		<h1 align="center">
+		<h1 >
 			<span style="color: lightcoral">오성티켓</span> 관리자 페이지
 		</h1>
 	</div>
@@ -94,68 +86,59 @@ section#faq-container h2 {
 		<ul class="Rank-nav">
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
-			<li class="rk-li">리뷰관리</li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>
 	</nav>
 
+<div id="faqView">
+<form name="deleteForm" action="<%=request.getContextPath() %>/faqDelete?no=<%=no %>" method="post">
 
-<section>
-	<div id="faq-container">
-		<form action="<%=request.getContextPath()%>/admin/deleteFaq" method="post" id="deleteform">
-		<h2 align="center">FAQ</h2>
-		<div id="editor" ></div>
-		
-		<table id="tbl-faq">
+	
+		<h2>FAQ</h2>
+		<div id="faq-container">
+		<table id="table-faq">
 
 			<tr>
 				<th>번호</th>
-				<td><%=f.getFaqNo()%><input type="hidden" name="faqNo" id="faqNo" value="<%=f.getFaqNo()%>"></td>
+				<td ><%=f.getFaqNo()%></td>
 			</tr>
 			<tr>
 				<th>해시태그</th>
-				<td name="faqHashTag" contenteditable="true"><%=f.getFaqHashTag()%></td>
+				<td name="faqHashTag" ><%=f.getFaqHashTag()%></td>
 			</tr>
 			<tr>
 				<th>질문</th>
-				<td name="faqTitle" contenteditable="true"><%=f.getFaqTitle()%></td>
+				<td name="faqTitle" ><%=f.getFaqTitle()%></td>
 			</tr>
 			<tr>
 				<th>답변</th>
-				<td name="faqContent" contenteditable="true"><%=f.getFaqContent()%></td>
+				<td name="faqContent" style="word-break:break-all"  ><%=f.getFaqContent()%></td>
 			</tr>
 
 			<tr>
 				<th colspan="2">
 				<button type="button" class="button" onclick="fn_move_list()">목록</button>
-			   <input type="button" class="button" value="수정" onclick="return invalidate();">
-				<button type="button" class="button" onclick="fn_move_delete()">삭제</button>
+			   <button type="submit" class="button" onclick="fn_move_delete()">삭제</button>
+				
 				</th>
 			</tr>
 			</div>
-		</form>
-			
-			
-<script>
+
+		
+           <script>
            function fn_move_list(){
         	   location.replace("<%=request.getContextPath()%>/admin/faqList");
            }
-           
            function fn_move_delete(){
-        	$("#deleteform").attr("action", "<%=request.getContextPath()%>/admin/deleteFaq");
-       		console.log($("#faqNo"));
-        	let faqNo = $(event.target).parent().parent().children(":nth-child(2)").text();
-       		$("#faqNo").val(faqNo);
-       		console.log(faqNo);
-       		alert(<%=f.getFaqNo()%> + "게시글을 삭제하시겠습니까?");
-       		$("#deleteform").attr("faqNo", faqNo);
-       		location.href="<%=request.getContextPath()%>/admin/deleteFaq";
-       	}
+        	   location.replace("<%=request.getContextPath()%>/faqDelete");
+           }
+           
+          
            </script>
 		</table>
-
 	</div>
+	</form>
 </section>
 <br>
 <script>

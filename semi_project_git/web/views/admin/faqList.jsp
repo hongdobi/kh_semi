@@ -11,21 +11,16 @@ String key = request.getParameter("searchKeyword");
 
 
 <style>
-table{
-		width:100%;
-	}
-	table, tr, th, td{
-		border: 3px solid gainsboro;
-		padding: 5px;
-	}
+
 	.button{
 		background-color: lightpink;
 		border: 3px solid gainsboro;
 	}
-		section {
+	section {
 		padding: 50px;
 		text-align: center;
 		margin: auto;
+		font-family: 'Noto Sans KR';
 	}
 
 	/*오성티켓 관리자페이지 타이틀*/
@@ -51,72 +46,40 @@ table{
 
 	#faqView{
 		width:1200px;
-		height:600px;
 		border:3px solid gainsboro;
 		display: inline-block;
-		text-align:center;
+		font-family:Noto Sans KR;
+		font-weight: 300;
 	}
-    table#table-faq{
+		div#faq-container{
+		height: auto;
+    	 text-align: center; 
+    	padding: 15px;
+	}
+ table#table-faq{
 		width:100%; 
-		margin:0 auto; 
-		border:1px solid grey; 
+		border:3px solid gainsboro;
 		border-collapse:collapse;
 	}
     table#table-faq th, table#table-faq td {
 		border:1px solid; 
-		padding: 5px 0; 
-		text-align:center;
-		font-size:17px;
+		padding: 7px 0; 
+		/* text-align:center; */
+		font-size:15px;
+		border:3px solid gainsboro;
 	}
-section#faq-container {
-	width: 600px;
-	margin: 0 auto;
-	text-align: center;
-}
-
-section#faq-container h2 {
-	margin: 10px 0;
-}
-
-table#tbl-faq {
-	width: 100%;
-	margin: 0 auto;
-	border: 1px solid black;
-	border-collapse: collapse;
-	clear: both;
-}
-
-table#tbl-faq th, table#tbl-faq td {
-	border: 1px solid;
-	padding: 5px 0;
-	text-align: center;
-}
-
-
-div#pageBar {
-	margin-top: 15px;
-	text-align: center;
-	background-color: pink;
-}
-
-div#pageBar span.cPage {
-	color: pink;
-}
-
-div#search-container {
-	margin: 0 0 10px 0; padding 3px;
-	bacground-color: pink;
-}
 
 div#search-hashtag {
 	display: inline-block;
 }
+
 </style>
 
+<section>
 
 
 <div id="title">
-		<h1 align="center">
+         <h1>
 			<span style="color: lightcoral">오성티켓</span> 관리자 페이지
 		</h1>
 	</div>
@@ -125,17 +88,18 @@ div#search-hashtag {
 		<ul class="Rank-nav">
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
-			<li class="rk-li">리뷰관리</li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>
 	</nav>
 
+<div id="faqView">
 
-	<h2 align="center">FAQ 관리하기</h2>
+	<h2 >FAQ 관리하기</h2>
 
-
+<div id="faq-container">
 	<button type="button" onclick="fn_move_view()" class="button">FAQ 등록하기</button>	
+			<br>
 			<br>
 	<script>
 	function fn_move_view(){
@@ -144,10 +108,6 @@ div#search-hashtag {
 	</script>
 	
 
-<div id="search-container"> 
-
-
-</div>
 <div id="search-hashtag">
 
   <form action="<%=request.getContextPath() %>/admin/searchFaq">
@@ -157,8 +117,10 @@ div#search-hashtag {
 </div>
 <br>
 <br>
-<div id="faqVew">
-	<table id="tbl-faq" style="table-layout: fixed;">
+
+
+
+	<table id="table-faq" >
 
 		<tr>
 			<td>번호</td>
@@ -171,10 +133,10 @@ div#search-hashtag {
 				if (list != null) {
 				for (FAQ f : list) {
 			%>
-			<td><div><%=f.getFaqNo()%></div></td>
-			<td><div><%=f.getFaqHashTag()%></div></td>
+			<td><%=f.getFaqNo()%></td>
+			<td><%=f.getFaqHashTag()%></td>
 			<td><div
-					style="text-overflow: ellipsis; overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+					style="text-overflow: ellipsis; overflow: ellipsis; overflow: hidden; white-space: nowrap; text-align: left;">
 					<a
 						href="<%=request.getContextPath()%>/admin/faqview?no=<%=f.getFaqNo()%>">
 						<%=f.getFaqTitle()%></a>
@@ -187,13 +149,14 @@ div#search-hashtag {
 		%>
 
 	</table>
+	</div>
+	
 	<div id="pageBar">
 		<%=request.getAttribute("pageBar")%>
 	</div>
 	</div>
 </section>
-<br>
-<br>
+
 <script>
 
 $("#numPerPage").change(e => {
@@ -215,7 +178,5 @@ $(function(){
 
 
 </script>     
-
-</script>
 
 <%@ include file="/views/common/footer.jsp"%>

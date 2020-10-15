@@ -51,7 +51,7 @@ public class InquiryViewServlet extends HttpServlet {
 		
 		request.getRequestDispatcher(path).forward(request, response);
 		
-		request.getRequestDispatcher("/views/admin/inquiryView.jsp").forward(request, response);
+		//request.getRequestDispatcher("/views/admin/inquiryView.jsp").forward(request, response);
 	}
 
 	/**
