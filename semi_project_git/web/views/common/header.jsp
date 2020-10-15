@@ -90,7 +90,7 @@
 			<a href="#">마이페이지</a>
 		</div>
 	</div> -->
-    <header >
+    <header id="header">
         <div id="mainLogo"><a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath() %>/image/logo.png" alt="오성티켓" width="250px"></a></div>
         <div id="mainNav">
 	        <ul>
