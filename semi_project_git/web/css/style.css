@@ -302,6 +302,7 @@ header ul li a {
 .container .list-column .area-img.basic {
 	overflow: hidden;
 	height: 310px;
+	transition: 0.3s;
 }
 
 .container .list-column .area-img.basic img {
@@ -309,6 +310,10 @@ header ul li a {
 	transform: translateX(-50%);
 }
 
+.container .list-column .area-img.basic:hover{
+	transform: scale(1.05)
+}
+	
 /* 포스터 확대 배경 이미지 */
 .container .list-column .area-img.bg-clone {
 	position: relative;

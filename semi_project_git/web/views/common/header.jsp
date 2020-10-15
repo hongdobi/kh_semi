@@ -24,18 +24,7 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/slick/slick.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
-       	header{
-       		position:fixed;
-       		height:100px;
-       		top:0px;
-       		width:96%;
-       		background-color: white;
-       		z-index: 10000;
-       		display:flex;
-       		font-family: 'Noto Sans KR';
-       		padding-right:50px;
-       		border-bottom:1px gray solid;
-       	}
+       	
        	body{
        	 padding-top: 105px;
        	}
