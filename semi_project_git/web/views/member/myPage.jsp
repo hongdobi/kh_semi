@@ -9,7 +9,7 @@
 	}
 	#sidebar{
 		background-color:ghostwhite;
-		height:500px;
+		height:400px;
 		width:200px;
 		position:absolute;
 		top:300px;
@@ -39,12 +39,12 @@
 <%@ include file="/views/common/header.jsp" %>
 <section>
 	<div id="sidebar">
+		<br><br>
 		<div>
 			<h1>MY PAGE</h1>
 		</div>
 		<div>
 			<p><%=loginMember.getMemberName() %>님</p>
-			<p>포인트: 000점</p><br>
 		</div>
 		<div>
 			<p id="bookCheck">예매확인 / 취소</p>
