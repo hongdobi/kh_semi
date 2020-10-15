@@ -33,6 +33,7 @@ public class DeleteAuthorityServlet extends HttpServlet {
 		System.out.println("권한회수 서블릿 접속");
 		String memberId = request.getParameter("member_id");
 		System.out.println("권한 회수할 아이디 :" + memberId);
+		
 		int result = as.delAuth(memberId);
 		System.out.println(result);
 		String referer = request.getHeader("Referer");

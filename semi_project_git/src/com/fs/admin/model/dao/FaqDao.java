@@ -141,42 +141,50 @@ public class FaqDao {
 			
 	 }
 
-	 public int deleteFaq(Connection conn, int no) {
+	 public boolean deleteFaq(Connection conn, int no) {
 		 PreparedStatement pstmt = null;
-		 int result=0;
+		 ResultSet rs = null;
+		 int result =0;
 		 try {
 			 pstmt = conn.prepareStatement(prop.getProperty("deleteFaq"));
 			 pstmt.setInt(1, no);
-			 result =pstmt.executeUpdate();
-			
+			 rs=pstmt.executeQuery();
+			 if(result ==0) {
+				 return false;
+			 }else {
+				 return true;
+			 }
 		   }catch(SQLException e) {
 			   e.printStackTrace();
 		   }finally {
+			   close(rs);
 			   close(pstmt);
-		   }return result;
+		   }return false;
 	 }
-	 
-	 public int updateFaq(Connection conn, FAQ f, int no) {
-			PreparedStatement pstmt=null;
-			int result=0;
-			try {
-				pstmt=conn.prepareStatement(prop.getProperty("updateFaq"));
-				pstmt.setInt(1, no);
-				pstmt.setNString(1, f.getFaqTitle());
-				pstmt.setNString(2, f.getFaqContent());
-				pstmt.setNString(3, f.getFaqHashTag());
-				result=pstmt.executeUpdate();
-			}catch(SQLException e) {
-				e.printStackTrace();
-			}finally {
-				close(pstmt);
-			}return result;
-			
-		}
-	 
+
+	public int faqUpdate(Connection conn,String faqTitle,String faqContent,String faqHashtag) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("faqUpdate"));
+			pstmt.setString(1, faqTitle);
+			pstmt.setString(2, faqContent);
+			pstmt.setString(3, faqHashtag);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+		
+	}
+
+
+		
+}
 
 	 
-	 }
+	 
 		
 		   
 		   

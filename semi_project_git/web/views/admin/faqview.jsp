@@ -7,7 +7,8 @@
 
 <%
 	FAQ f = (FAQ) request.getAttribute("FAQ");
-/*  List<FAQ> list = (List) request.getAttribute("FAQ"); */
+    int no = Integer.parseInt(request.getParameter("no"));
+
 %>
 
 <style>
@@ -52,7 +53,6 @@
 
 	#faqView{
 		width:1200px;
-		height:600px;
 		border:3px solid gainsboro;
 		display: inline-block;
 	}
@@ -77,12 +77,7 @@ section#faq-container {
 section#faq-container h2 {
 	margin: 10px 0;
 }
-[contenteditable="ture"]{
- color:#C00;
-}
-[contenteditable="true"] {
-  color: #C00;
-}
+
 
 </style>
 
@@ -103,60 +98,54 @@ section#faq-container h2 {
 
 
 <section>
+
+<form name="deleteForm" action="<%=request.getContextPath() %>/faqDelete?no=<%=no %>" method="post">
+
 	<div id="faq-container">
-		<form action="<%=request.getContextPath()%>/admin/deleteFaq" method="post" id="deleteform">
 		<h2 align="center">FAQ</h2>
 		<div id="editor" ></div>
-		
 		<table id="tbl-faq">
 
 			<tr>
 				<th>번호</th>
-				<td><%=f.getFaqNo()%><input type="hidden" name="faqNo" id="faqNo" value="<%=f.getFaqNo()%>"></td>
+				<td ><%=f.getFaqNo()%></td>
 			</tr>
 			<tr>
 				<th>해시태그</th>
-				<td name="faqHashTag" contenteditable="true"><%=f.getFaqHashTag()%></td>
+				<td name="faqHashTag" ><%=f.getFaqHashTag()%></td>
 			</tr>
 			<tr>
 				<th>질문</th>
-				<td name="faqTitle" contenteditable="true"><%=f.getFaqTitle()%></td>
+				<td name="faqTitle" ><%=f.getFaqTitle()%></td>
 			</tr>
 			<tr>
 				<th>답변</th>
-				<td name="faqContent" contenteditable="true"><%=f.getFaqContent()%></td>
+				<td name="faqContent" ><%=f.getFaqContent()%></td>
 			</tr>
 
 			<tr>
 				<th colspan="2">
 				<button type="button" class="button" onclick="fn_move_list()">목록</button>
-			   <input type="button" class="button" value="수정" onclick="return invalidate();">
-				<button type="button" class="button" onclick="fn_move_delete()">삭제</button>
+			   <button type="submit" class="button" onclick="fn_move_delete()">삭제</button>
+				
 				</th>
 			</tr>
 			</div>
-		</form>
-			
-			
-<script>
+
+		
+           <script>
            function fn_move_list(){
         	   location.replace("<%=request.getContextPath()%>/admin/faqList");
            }
-           
            function fn_move_delete(){
-        	$("#deleteform").attr("action", "<%=request.getContextPath()%>/admin/deleteFaq");
-       		console.log($("#faqNo"));
-        	let faqNo = $(event.target).parent().parent().children(":nth-child(2)").text();
-       		$("#faqNo").val(faqNo);
-       		console.log(faqNo);
-       		alert(<%=f.getFaqNo()%> + "게시글을 삭제하시겠습니까?");
-       		$("#deleteform").attr("faqNo", faqNo);
-       		location.href="<%=request.getContextPath()%>/admin/deleteFaq";
-       	}
+        	   location.replace("<%=request.getContextPath()%>/faqDelete");
+           }
+           
+          
            </script>
 		</table>
-
 	</div>
+	</form>
 </section>
 <br>
 <script>

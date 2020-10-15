@@ -54,7 +54,6 @@ String key = request.getParameter("searchKeyword");
 
 	#faqView{
 		width:1200px;
-		height:600px;
 		border:3px solid gainsboro;
 		display: inline-block;
 		text-align:center;
@@ -112,6 +111,31 @@ String key = request.getParameter("searchKeyword");
 	div#search-hashtag {
 		display: inline-block;
 	}
+div#pageBar {
+	margin-top: 15px;
+	text-align: center;
+	
+}
+
+div#pageBar span.cPage {
+	color: pink;
+}
+
+div#search-container {
+	margin: 0 0 10px 0; padding 3px;
+	bacground-color: pink;
+}
+
+div#search-hashtag {
+	display: inline-block;
+}
+
+div#faq-container{
+
+padding:15px;
+
+
+}
 </style>
 <section>
 
@@ -130,11 +154,13 @@ String key = request.getParameter("searchKeyword");
 		</ul>
 	</nav>
 
+<div id="faqView">
 
 	<h2 align="center">FAQ 관리하기</h2>
 
 
 	<button type="button" onclick="fn_move_view()" class="button">FAQ 등록하기</button>	
+			<br>
 			<br>
 	<script>
 	function fn_move_view(){
@@ -146,7 +172,6 @@ String key = request.getParameter("searchKeyword");
 <div id="search-container"> 
 
 
-</div>
 <div id="search-hashtag">
 
   <form action="<%=request.getContextPath() %>/admin/searchFaq">
@@ -156,8 +181,10 @@ String key = request.getParameter("searchKeyword");
 </div>
 <br>
 <br>
-<div id="faqVew">
-	<table id="tbl-faq" style="table-layout: fixed;">
+
+
+<div id="faq-container">
+	<table id="tbl-faq" style="table-layout: fixed;" >
 
 		<tr>
 			<td>번호</td>
@@ -186,8 +213,11 @@ String key = request.getParameter("searchKeyword");
 		%>
 
 	</table>
+	</div>
+	
 	<div id="pageBar">
 		<%=request.getAttribute("pageBar")%>
+	</div>
 	</div>
 	</div>
 </section>
