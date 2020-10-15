@@ -11,8 +11,10 @@ String key = request.getParameter("searchKeyword");
 
 
 <style>
-table{
+	table{
 		width:100%;
+		font-family:Noto Sans KR;
+      	font-weight: 300;
 	}
 	table, tr, th, td{
 		border: 3px solid gainsboro;
@@ -22,10 +24,11 @@ table{
 		background-color: lightpink;
 		border: 3px solid gainsboro;
 	}
-		section {
+	section {
 		padding: 50px;
 		text-align: center;
 		margin: auto;
+		font-family: 'Noto Sans KR';
 	}
 
 	/*오성티켓 관리자페이지 타이틀*/
@@ -68,52 +71,49 @@ table{
 		text-align:center;
 		font-size:17px;
 	}
-section#faq-container {
+	section#faq-container {
 	width: 600px;
 	margin: 0 auto;
 	text-align: center;
-}
+	}
 
-section#faq-container h2 {
+	section#faq-container h2 {
 	margin: 10px 0;
-}
+	}
 
-table#tbl-faq {
+	table#tbl-faq {
 	width: 100%;
 	margin: 0 auto;
 	border: 1px solid black;
 	border-collapse: collapse;
 	clear: both;
-}
+	}
+	table#tbl-faq th, table#tbl-faq td {
+		border: 1px solid;
+		padding: 5px 0;
+		text-align: center;
+	}
+	div#pageBar {
+		margin-top: 15px;
+		text-align: center;
+		background-color: pink;
+	}
 
-table#tbl-faq th, table#tbl-faq td {
-	border: 1px solid;
-	padding: 5px 0;
-	text-align: center;
-}
+	div#pageBar span.cPage {
+		color: pink;
+	}
 
+	div#search-container {
+		margin: 0 0 10px 0; 
+		padding: 3px;
+		background-color: pink;
+	}
 
-div#pageBar {
-	margin-top: 15px;
-	text-align: center;
-	background-color: pink;
-}
-
-div#pageBar span.cPage {
-	color: pink;
-}
-
-div#search-container {
-	margin: 0 0 10px 0; padding 3px;
-	bacground-color: pink;
-}
-
-div#search-hashtag {
-	display: inline-block;
-}
+	div#search-hashtag {
+		display: inline-block;
+	}
 </style>
-
-
+<section>
 
 <div id="title">
 		<h1 align="center">
@@ -125,7 +125,6 @@ div#search-hashtag {
 		<ul class="Rank-nav">
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
-			<li class="rk-li">리뷰관리</li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>

@@ -9,6 +9,11 @@
 	List<Inquiry> list2 = (List)request.getAttribute("Inquiry");
 %>
 <style>
+	/* 전체 폰트 스타일 */
+	section{
+		font-family:"Noto Sans KR";
+	}
+
    /* 1:1문의 스타일 */
    #wrap-out{
       padding-bottom:50px;

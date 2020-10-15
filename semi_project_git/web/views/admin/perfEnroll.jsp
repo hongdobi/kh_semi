@@ -5,15 +5,14 @@
 <style>
 	section {
 		padding: 50px;
-		/* text-align: center; */
 		margin: auto;
+		font-family: 'Noto Sans KR';
 	}
 	/*오성티켓 관리자페이지 타이틀*/
 	section>div#title {
 		font-size: 30px;
 		text-align: center;
 		min-width: 1000px;
-		font-family: Noto Sans KR;
 	}
 	/*랭킹 카테고리*/
 	ul.Rank-nav {
@@ -94,6 +93,9 @@
     input[type=text]:focus, input[type=number]:focus, input[type=date]:focus{
         outline:none;
     }
+    input[type=button]{
+    	font-family: 'Noto Sans KR';
+    }
     div>ul{
         margin:0px;
         padding:10px 20px 10px 20px;
@@ -131,7 +133,6 @@
 		<ul class="Rank-nav">
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
-			<li class="rk-li"><a href="">리뷰관리</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>
@@ -326,6 +327,8 @@
 			
     	});
 	});//function 끝
+	
+	
     
    
     
