@@ -123,9 +123,9 @@ div#search-hashtag {
 	<table id="table-faq" >
 
 		<tr>
-			<td>번호</td>
-			<td style="word-break: break-all;">해시태그</td>
-			<td>제목</td>
+			<th>번호</th>
+			<th style="word-break: break-all;">해시태그</th>
+			<th>제목</th>
 		</tr>
 
 		<tr>
