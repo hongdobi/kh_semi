@@ -76,8 +76,7 @@
 	<nav>
 		<ul class="Rank-nav">
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
-			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
-			<li class="rk-li"><a href="">리뷰관리</a></li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li> 
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>

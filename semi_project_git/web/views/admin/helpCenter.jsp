@@ -83,8 +83,6 @@
       font-family: Noto Sans KR;   
    }
       
-   
-   }
       
    .tabs input[type="radio"] {
       display: none;
@@ -93,12 +91,20 @@
       display: block;
    }
    .tabs {
-      padding: 50px 50px 20px 50px;
-      text-align: center;
-      margin: auto;
+   diplay:flex;
+   justify-content: center;
+   align-items: center;
    }
     
    /*박스배경*/
+   
+  tabs.input[]{
+   diplay:flex;
+   justify-content: center;
+   align-items: center;
+   
+   
+   }
    
    .tabs .tab {
       order: 99;
@@ -165,11 +171,11 @@
 </style>
 
 <section style="text-align:center; id="FAQ-container">
-   <h2>자주하는 질문</h2>            
+   <h2 style="font-family:Noto Sans KR;" >자주하는 질문</h2>            
    <div class="tabs">
    
       <input type="checkbox" name="tab" id="tab1" value="회원" checked />
-      <label for="tab1" class="ch"> 회원 </label>
+       <label for="tab1" class="ch"> 회원 </label>
       <div class="tab" style="
     padding-top: 50px;
     padding-bottom: 0px;  height: 300px;"
@@ -180,8 +186,8 @@
       <div id="tbl-FAQ">
          <%if (list != null) {
             for (FAQ f : list) {%>
-            <div id=title><%=f.getFaqTitle()%></div>
-         <p class="content"><%=f.getFaqContent()%></p>
+            <div id=title style="font-family:Noto Sans KR;"><%=f.getFaqTitle()%></div>
+         <p class="content" style="font-family:Noto Sans KR;"><%=f.getFaqContent()%></p>
          
             <%}
          }%>
@@ -205,7 +211,6 @@
          }%>
       </div>
    </div>
-   
    </div>
    
     <input type="checkbox" name="tab" id="tab3" value="예매/결제" />
@@ -309,12 +314,13 @@ function fn_inquiry() {
   open(url, "", status);
 }
  
-$(function(){
+ $(function(){
    $("div#title").click(function(){
       $("#faq-container p").not($(this).next()).slideUp("slow");
       $(this).next().slideDown();
    })
-
+ 
+   
    $("input[name=tab]").click(e=>{
       let key=$(e.target).val();
       console.log(key);

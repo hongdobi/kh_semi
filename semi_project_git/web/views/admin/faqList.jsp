@@ -11,13 +11,7 @@ String key = request.getParameter("searchKeyword");
 
 
 <style>
-table{
-		width:100%;
-	}
-	table, tr, th, td{
-		border: 3px solid gainsboro;
-		padding: 5px;
-	}
+
 	.button{
 		background-color: lightpink;
 		border: 3px solid gainsboro;
@@ -53,76 +47,42 @@ table{
 		width:1200px;
 		border:3px solid gainsboro;
 		display: inline-block;
-		text-align:center;
+		font-family:Noto Sans KR;
+		font-weight: 300;
 	}
-    table#table-faq{
+		div#faq-container{
+		height: auto;
+    	 text-align: center; 
+    	padding: 15px;
+	}
+ table#table-faq{
 		width:100%; 
-		margin:0 auto; 
-		border:1px solid grey; 
+		border:3px solid gainsboro;
 		border-collapse:collapse;
 	}
     table#table-faq th, table#table-faq td {
 		border:1px solid; 
-		padding: 5px 0; 
-		text-align:center;
-		font-size:17px;
+		padding: 7px 0; 
+		/* text-align:center; */
+		font-size:15px;
+		border:3px solid gainsboro;
 	}
-section#faq-container {
-	width: 600px;
-	margin: 0 auto;
-	text-align: center;
-}
-
-section#faq-container h2 {
-	margin: 10px 0;
-}
-
-table#tbl-faq {
-	width: 100%;
-	margin: 0 auto;
-	border: 1px solid black;
-	border-collapse: collapse;
-	clear: both;
-}
-
-table#tbl-faq th, table#tbl-faq td {
-	border: 1px solid;
-	padding: 5px 0;
-	text-align: center;
-}
-
-
-div#pageBar {
-	margin-top: 15px;
-	text-align: center;
+	#pageBar{
+		margin:auto;
+		padding:20px;
+	}
 	
-}
-
-div#pageBar span.cPage {
-	color: pink;
-}
-
-div#search-container {
-	margin: 0 0 10px 0; padding 3px;
-	bacground-color: pink;
-}
 
 div#search-hashtag {
 	display: inline-block;
 }
 
-div#faq-container{
-
-padding:15px;
-
-
-}
 </style>
 
 
-
+<section>
 <div id="title">
-		<h1 align="center">
+         <h1>
 			<span style="color: lightcoral">오성티켓</span> 관리자 페이지
 		</h1>
 	</div>
@@ -131,7 +91,6 @@ padding:15px;
 		<ul class="Rank-nav">
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록/삭제</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
-			<li class="rk-li">리뷰관리</li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>
@@ -139,9 +98,9 @@ padding:15px;
 
 <div id="faqView">
 
-	<h2 align="center">FAQ 관리하기</h2>
+	<h2 >FAQ 관리하기</h2>
 
-
+<div id="faq-container">
 	<button type="button" onclick="fn_move_view()" class="button">FAQ 등록하기</button>	
 			<br>
 			<br>
@@ -151,9 +110,6 @@ padding:15px;
 	}
 	</script>
 	
-
-<div id="search-container"> 
-
 
 <div id="search-hashtag">
 
@@ -166,8 +122,8 @@ padding:15px;
 <br>
 
 
-<div id="faq-container">
-	<table id="tbl-faq" style="table-layout: fixed;" >
+
+	<table id="table-faq" >
 
 		<tr>
 			<td>번호</td>
@@ -180,10 +136,10 @@ padding:15px;
 				if (list != null) {
 				for (FAQ f : list) {
 			%>
-			<td><div><%=f.getFaqNo()%></div></td>
-			<td><div><%=f.getFaqHashTag()%></div></td>
+			<td><%=f.getFaqNo()%></td>
+			<td><%=f.getFaqHashTag()%></td>
 			<td><div
-					style="text-overflow: ellipsis; overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+					style="text-overflow: ellipsis; overflow: ellipsis; overflow: hidden; white-space: nowrap; text-align: left;">
 					<a
 						href="<%=request.getContextPath()%>/admin/faqview?no=<%=f.getFaqNo()%>">
 						<%=f.getFaqTitle()%></a>
@@ -202,10 +158,8 @@ padding:15px;
 		<%=request.getAttribute("pageBar")%>
 	</div>
 	</div>
-	</div>
 </section>
-<br>
-<br>
+
 <script>
 
 $("#numPerPage").change(e => {
