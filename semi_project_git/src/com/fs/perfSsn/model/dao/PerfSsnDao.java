@@ -158,6 +158,7 @@ public class PerfSsnDao {
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				ssn=new PerfSsn();
+				ssn.setNthPerf(rs.getString("nth_perf"));
 				ssn.setPerfNo(rs.getString("perf_no"));
 				String day=rs.getString("P");//시간까지 받아서 나오게 어떻게 만들지?
 				java.util.Date d = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(day);
@@ -165,8 +166,7 @@ public class PerfSsnDao {
 				ssn.setDateTime(perfDate);
 //				System.out.println(rs.getDate("P"));
 				list.add(ssn);
-			}
-			System.out.println("dao: "+list);
+			}			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -177,5 +177,9 @@ public class PerfSsnDao {
 			close(pstmt);
 		}return list;
 	}
+	
+	
+	
+	
 	
 }

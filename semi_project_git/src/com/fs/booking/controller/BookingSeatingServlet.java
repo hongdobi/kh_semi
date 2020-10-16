@@ -44,9 +44,10 @@ public class BookingSeatingServlet extends HttpServlet {
 		
 		//perf는 startDate와 endDate를 알기위해 가져옴
 		Performance perf=new BookingService().selectBookingDate(perfNo,bookDate);
-		//list에는 perfNo와 dateTime이 들어있음
+		//list에는 nthPerf, perfNo, dateTime이 들어있음
 		List<PerfSsn> list=new PerfSsnService().selectSsnTime(perfNo,bookDate);			
-
+		
+		System.out.println("perfssn: "+list);
 		System.out.println("perf: "+perf);
 		
 		//여기서 bookDate를 다시 시간까지 해서 준다면?

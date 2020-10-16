@@ -69,8 +69,9 @@
                 <div id="seats">
                     <div id="seat_choice_div">
                         <!-- 여기 각 row마다 for문 - div늘려  -->
-                        <%-- <div class="s0 or s1" id="10001<%=seatNo%>" name="seat" value="<%=r%>열 <%=n%>번" grade=""></div> --%>
-                        <img src="<%=request.getContextPath() %>/image/seat-img.jpg" alt="공연배치도" id="seat-img" height="440">
+                        <%-- <div class="s0 or s1" id="10001<%=seatNo%>" name="seat" value="<%=r%>열 <%=n%>번" grade=""></div> --%>                       
+                        <img src="<%=request.getContextPath() %>/image/seat-image.gif" alt="공연배치도" id="seat-img" height="430">
+                        <%-- <img src="<%=request.getContextPath() %>/image/seat-img.jpg" alt="공연배치도" id="seat-img" height="440"> --%>
                     </div>
                     <!-- 좌석 좍 나온다음에 -->
                     <div>
@@ -99,30 +100,138 @@
                     			no++;
                     	%>
                     		<div>
-	                           <span>좌석선택</span><br>	                           
+	                           <span>좌석선택</span><br>	    
+	                           <!-- 첫번쨰 select 열을 선택하면 두번째 select option을 조정할 수 있을까? -->                       
 	                           <select name="seat_row<%=no %>" id="seat_row<%=no %>" class="seat_pick">
 	                               <%-- <option value="<%=n열 %>">n열</option> --%>
 	                               <option value="" selected disabled hidden>열 선택</option>
-	                               <option value="10">10열</option>
+	                               <%
+	                               		int n=66;
+	                               		for(int j=0;j<18;j++){
+	                               			n++;
+	                               			char r=(char)n;
+	                               %>
+	                               <option value="<%=r %>"><%=r %>열</option>
+	                               <%	} %>
 	                           </select>
+	                           <script>
+	                           		$("#seat_row"+<%=no %>).change(e=>{
+	                           			let r=$(e.target).val().substring(0,1);
+	                        			let num;	                        			
+	                        			switch(r){
+		                               		case "C":num=28;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "D":num=28;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "E":num=30;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "F":num=30;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "G":num=32;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "H":num=32;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "I":num=27;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "J":num=34;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "K":num=36;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "L":num=36;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "M":num=38;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "N":num=38;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "O":num=38;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "P":num=38;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "Q":num=38;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "R":num=38;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "S":num=31;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;
+		                               		case "T":num=16;for(let z=1;z<=num;z++){$("#seat_column"+<%=no %>).append($("<option value="+z+">"+z+"번"+"</option>"));};break;	                               			
+	                               		}
+	                           		});
+	                           		
+	                           </script>
 	                           <select name="seat_column<%=no %>" id="seat_column<%=no %>" class="seat_pick">
 	                               <%-- <option value="<%=nn번 %>">nn번</option> --%>
-	                               <option value="" selected disabled hidden>좌석선택</option>
-	                               <option value="19">19번</option>
-	                               <option value="20">20번</option>
-	                               <option value="21">21번</option>
-	                               <option value="22">22번</option>
+	                               <option value="" selected disabled hidden>좌석선택</option>	                               
+	                               <!-- <option value="19">10열 19번</option>
+	                               <option value="20">10열 20번</option>
+	                               <option value="21">10열 21번</option>
+	                               <option value="22">10열 22번</option>	 -->                               
 	                           </select>	                           
+	                           <script>	                           	                           		
+		                           $("#seat_column"+<%=no %>).change(e=>{	                           		
+		                       		let pInfo='<%=perf.getPerfPriceInfo() %>'.split('@');
+			                       	console.log(pInfo);	
+		                       		let rArray=[];
+		                       		let cArray=[];  
+		                       		let no=0;
+		                       		let t=0;
+		                       		for(let i=0;i<<%=nofTicket%>;i++){
+		                       			no++;
+		           	            		rArray.push($("#seat_row"+no).val());
+		           	            		cArray.push($("#seat_column"+no).val());		           	            		
+		                       		}
+		                      			for(let i=0;i<<%=nofTicket%>;i++){
+		                      				t++;
+			           	           			if(pInfo.length==6){
+			           	           				if(rArray[i]=='C'&&cArray[i]>8&&cArray[i]<21){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='OP'>"));
+			           	           				}else if(rArray[i]=='D'&&cArray[i]>5&&cArray[i]<24||rArray[i]=='E'&&cArray[i]>6&&cArray[i]<25||rArray[i]=='F'&&cArray[i]>6&&cArray[i]<25||rArray[i]=='G'&&cArray[i]>7&&cArray[i]<26){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='VIP'>"));
+			           	           				}else if(rArray[i]=='C'&&(cArray[i]<9||cArray[i]>20)||rArray[i]=='D'&&(cArray[i]<6||cArray[i]>23)||rArray[i]=='E'&&(cArray[i]<7||cArray[i]>24)||
+			           	           						rArray[i]=='F'&&(cArray[i]<7||cArray[i]>24)||rArray[i]=='G'&&(cArray[i]<8||cArray[i]>25)||rArray[i]=='H'||rArray[i]=='I'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='R'>"));
+			           	           				}else if(rArray[i]=='J'||rArray[i]=='K'||rArray[i]=='L'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='S'>"));
+			           	           				}else if(rArray[i]=='M'||rArray[i]=='N'||rArray[i]=='O'||rArray[i]=='P'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='A'>"));
+			           	           				}else if(rArray[i]=='Q'||rArray[i]=='R'||rArray[i]=='S'||rArray[i]=='T'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='B'>"));
+			           	           				}
+			           	           			}else if(pInfo.length==5){
+			           	           				if(rArray[i]=='C'||rArray[i]=='D'||rArray[i]=='E'||rArray[i]=='F'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='VIP'>"));
+			           	           				}else if(rArray[i]=='G'||rArray[i]=='H'||rArray[i]=='I'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='R'>"));
+			           	           				}else if(rArray[i]=='J'||rArray[i]=='K'||rArray[i]=='L'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='S'>"));
+			           	           				}else if(rArray[i]=='M'||rArray[i]=='N'||rArray[i]=='O'||rArray[i]=='P'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='A'>"));
+			           	           				}else if(rArray[i]=='Q'||rArray[i]=='R'||rArray[i]=='S'||rArray[i]=='T'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='B'>"));
+			           	           				}
+			           	           			}else if(pInfo.length==4){
+			           	           				if(rArray[i]=='C'||rArray[i]=='D'||rArray[i]=='E'||rArray[i]=='F'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='VIP'>"));
+			           	           				}else if(rArray[i]=='G'||rArray[i]=='H'||rArray[i]=='I'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='R'>"));
+			           	           				}else if(rArray[i]=='J'||rArray[i]=='K'||rArray[i]=='L'||rArray[i]=='M'||rArray[i]=='N'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='S'>"));
+			           	           				}else if(rArray[i]=='O'||rArray[i]=='P'||rArray[i]=='Q'||rArray[i]=='R'||rArray[i]=='S'||rArray[i]=='T'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='A'>"));
+			           	           				}
+			           	           			}else if(pInfo.length==3){
+			           	           				if(rArray[i]=='C'||rArray[i]=='D'||rArray[i]=='E'||rArray[i]=='F'||rArray[i]=='G'||rArray[i]=='H'||rArray[i]=='I'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='R'>"));
+			           	           				}else if(rArray[i]=='J'||rArray[i]=='K'||rArray[i]=='L'||rArray[i]=='M'||rArray[i]=='N'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='S'>"));
+			           	           				}else if(rArray[i]=='O'||rArray[i]=='P'||rArray[i]=='Q'||rArray[i]=='R'||rArray[i]=='S'||rArray[i]=='T'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='A'>"));
+			           	           				}
+			           	           			}else if(pInfo.length==2){
+			           	           				if(rArray[i]=='C'||rArray[i]=='D'||rArray[i]=='E'||rArray[i]=='F'||rArray[i]=='G'||rArray[i]=='H'||rArray[i]=='I'){
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='R'>"));
+			           	           				}else {
+			           	           					$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='S'>"));
+			           	           				}
+			           	           			}else{
+			           	           				$(e.target).parent().append($("<input type='hidden' name='priceInfo"+t+"' value='Free'>"));
+			           	           			}           				
+		                      			}
+		                      				                           				                           		
+		                      		});
+	                           </script>	                           
 	                   		</div>
                    		<%} %>        
                        </div>
                        <input type="hidden" name="nofTicket" value="<%=nofTicket %>">
                        <input type="hidden" name="memberNo" value="<%=memberNo %>">
-                       <input type="hidden" name="perfNo" value="<%=perfNo %>">                      
+                       <input type="hidden" name="perfNo" value="<%=perfNo %>">                                          
                     </div>
                 </div>
             </form>
-            <script>                   	
+            <script>            	
             	function fn_checkSeat() {
             		let rArray=[];
             		let cArray=[];  
@@ -137,8 +246,9 @@
             		if(rArray.includes(null)||cArray.includes(null)) {
             			alert("좌석을 선택해주세요");
             			return false;
-            		}     		
+            		}
             	}
+            	            	
             </script>
         </section>
     </div>
@@ -205,7 +315,7 @@
             margin-bottom:30px;
             width:470px;
             height:440px;
-            background-color: aliceblue;
+            /* background-color: aliceblue; */
         }
         #seats>div:nth-child(2){
             margin-left:15px;

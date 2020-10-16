@@ -14,6 +14,7 @@
 	Date bookDate=(Date)request.getAttribute("bookDate");
 	Date today=new Date();
 	SimpleDateFormat sdf=new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+	List dateList=(List)request.getAttribute("dateList");//선택가능한 날짜 목록
 %>
     
 <!DOCTYPE html>
@@ -77,6 +78,33 @@
 		                    <div id="calendar">
 		                        <!-- <img src="image/calendar.png" alt="" id="cpic"> -->
 		                        <script>
+		                        
+		                      //선택가능 날짜 추가
+	                             var availableDates = [];
+	                              <%if(dateList.size()>0){
+	                                 for(int i=0;i<dateList.size();i++){%>
+	                                      availableDates.push("<%=dateList.get(i)%>");
+	                                <%}
+	                              }%>
+	                             
+	                                function available(date) {
+	                                   var thismonth = date.getMonth()+1;
+	                                   var thisday = date.getDate();
+	                                   if(thismonth<10){
+	                                      thismonth = "0"+thismonth;
+	                                   }
+	                                   if(thisday<10){
+	                                      thisday = "0"+thisday;
+	                                   }
+	                                    ymd = date.getFullYear() + "-" + thismonth + "-" + thisday;
+	                                    if ($.inArray(ymd, availableDates) >= 0) {
+	                                        return [true,"",""];
+	                                    } else {
+	                                        return [false,"",""];
+	                                    }
+	                                }
+       
+		                        
 		                            $("#calendar").datepicker({
 		                                dateFormat: 'yyyy-mm-dd',
 		                                prevText: '이전 달',
@@ -88,19 +116,47 @@
 		                                dayNamesShort: ['일','월','화','수','목','금','토'],
 		                                dayNamesMin: ['일','월','화','수','목','금','토'],
 		                                showMonthAfteryear: true,
-		                                yearSuffix: '년',
+		                                yearSuffix: '년',		 
+		                                defaultDate: new Date('<%=bookDate %>'),
 		                                maxDate:new Date('<%=perf.getPerfEnd() %>'),		                                
 		                                <%int com=perf.getPerfStart().compareTo(new Date());
 			                            if(com<0){ %>
-			                              minDate:"-0D"
+			                              minDate:"-0D",
 			                           <%}else{ %> 
-			                              minDate:new Date("<%=perf.getPerfStart()%>")			                              
+			                              minDate:new Date("<%=perf.getPerfStart()%>"),			                              
 			                           <%}%>
-		                            });		                            		                          
-		                            console.log(new Date("<%=perf.getPerfStart()%>"));
+			                         //공연이 열리는 날짜 불러오기
+	                                   <%if(dateList!=null){%>
+	                                    beforeShowDay:available
+	                                 	<%}%>	                                 	
+		                            });		                    
+		                            
+		                            console.log(new Date("<%=perf.getPerfStart()%>"));		                            		                          
+		                            
+		                            <%-- function pleaseAjax(){
+		                            	var currentDate = $( "#calendar" ).datepicker( "getDate" );
+		                            	if(new Date('<%=bookDate%>')!=currentDate){
+		                            		$.ajax({
+	                            				url:"<%=request.getContextPath()%>/book/datepick",
+	                            				data:{"datepick":currentDate,"perfNo":<%=perfNo%>},//서버에 전달할 데이터 자바스크립트 객체형식으로 보냄{key:value...}
+	                            				type:"get",
+	                            				dataType:"html",
+	                            				success:data=>{
+	                            					$("#ajax_div").html(data);                        					
+	                            				},
+	                            				error:(request,status,error)=>{
+	                            					console.log(request);
+	                            					console.log(status);
+	                            					console.log(error);
+	                            				}
+	                            			});		                            		
+		                            	}		                            		                            
+		                            }); --%>		                            		                            
+		                            
+		                            
 		                        </script>
 		                    </div>
-		                    <div>
+		                    <div id="ajax_div">
 			                    <select id="select_ticket" name="nofTicket">
 	                                <option value="" selected disabled hidden>매수를 선택하세요</option>
 	                                <option value="1">1매</option>
@@ -118,10 +174,10 @@
 		                        <%-- <input type="button" onclick="switchClass();" class="ssn_blank" value="<%=ssn.getDateTime()%>"> --%>
 		                        	<%} %>
 		                        <%} %>
-		                        <input type="hidden" name="memberNo" value="<%=memberNo %>">
-		                        <input type="hidden" name="perfNo" value="<%=perfNo %>">
-		                    </div>
-		                </div>
+		                    </div>		                    			                    	                  
+	                        <input type="hidden" name="memberNo" value="<%=memberNo %>">
+	                        <input type="hidden" name="perfNo" value="<%=perfNo %>">
+		                </div>		                
 					</form>		   
 					<script>
 						function fn_checkTicket(){							
