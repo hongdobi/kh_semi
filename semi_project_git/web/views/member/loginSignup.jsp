@@ -342,7 +342,7 @@
         if(allcheck){
         	//alert("입력성공");
         }else{
-        	//alert("입력한 정보들을 다시 확인해주세요");
+        	alert("입력한 정보들을 다시 확인해주세요");
         	return false;
         }
         
