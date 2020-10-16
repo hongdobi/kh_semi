@@ -154,7 +154,7 @@ public class PerfSsnDao {
 			pstmt=conn.prepareStatement(prop.getProperty("selectSsnTime"));
 			pstmt.setString(1, perfNo);
 			pstmt.setString(2, bookDate+"%");
-			System.out.println((bookDate+"%").substring(2));
+//			System.out.println((bookDate+"%").substring(2));
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				ssn=new PerfSsn();
