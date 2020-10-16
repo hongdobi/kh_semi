@@ -24,7 +24,13 @@ public class PerfSsnService {
 		close(conn);
 		return list;
 	}
-
+	//메인페이지 랭킹(상위 3개)
+	public List<Performance> rank(){
+		Connection conn=getConnection();
+		List<Performance> list=dao.selectThirdRank(conn);
+		close(conn);
+		return list;
+	}
 	
 	//날짜별 회차 가져오기
 	public List<PerfSsn> selectSsnTime(String perfNo, Date bookDate) {
@@ -49,9 +55,5 @@ public class PerfSsnService {
 		close(conn);
 		return list;
 	}
-	
-	
-
-	
 
 }

@@ -142,17 +142,16 @@
 	<h1><%=key %></h1> --%>
 	<div id="title">
 		<h1>
-			<span style="color: lightcoral">오성티켓</span> 랭킹
+			<span style="color: lightcoral">오성티켓</span> 관리자페이지
 		</h1>
 	</div>
 	<br>
 	<nav>
 		<ul class="Rank-nav">
-			<li class="rk-li">공연 등록/삭제</li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/perfEnroll">공연 등록</a></li>
 			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/memberMG">회원관리</a></li>
-			<li class="rk-li">리뷰관리</li>
-			<li class="rk-li">FAQ</li>
-			<li class="rk-li">1:1문의</li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/faqList">FAQ</a></li>
+			<li class="rk-li"><a href="<%=request.getContextPath()%>/admin/inquiryList">1:1문의</a></li>
 		</ul>
 	</nav>
 	<div id="adminView">

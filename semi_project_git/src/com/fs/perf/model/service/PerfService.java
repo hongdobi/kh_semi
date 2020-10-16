@@ -62,5 +62,23 @@ public class PerfService {
 		close(conn);
 		return map;
 	}
+	public Performance findPerfNo(String perfName) {
+		Connection conn = getConnection();
+		Performance perf = dao.findPerfNo(conn, perfName);
+		close(conn);
+		return perf;
+	}
+	public void updatePoster(Performance p) {
+		Connection conn = getConnection();
+		dao.updatePoster(conn, p);
+		close(conn);
+	}
+	
+	public List<Performance> mainPoster(String cate){
+		Connection conn=getConnection();
+		List<Performance> list=dao.mainPoster(conn,cate);
+		close(conn);
+		return list;
+	}
 
 }

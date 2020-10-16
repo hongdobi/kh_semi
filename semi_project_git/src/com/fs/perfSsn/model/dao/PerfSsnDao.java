@@ -66,6 +66,32 @@ public class PerfSsnDao {
 			close(pstmt);
 		}return list;
 	}
+	public List<Performance> selectThirdRank(Connection conn){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Performance> list=new ArrayList();
+		Performance perf=null; 
+		try {
+			pstmt =conn.prepareStatement(prop.getProperty("selectThird"));
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				perf=new Performance();
+				perf.setPerfNo(rs.getString("perf_no"));
+				perf.setPerfName(rs.getString("perf_name"));
+				perf.setPerfStart(rs.getDate("perf_start"));
+				perf.setPerfEnd(rs.getDate("perf_end"));
+				perf.setPerfLocation(rs.getString("perf_location"));
+				perf.setPerfPoster(rs.getString("perf_poster"));
+				perf.setPerfCount(rs.getInt("cnt"));
+				list.add(perf);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
 	//랭킹페이지용 해당 카테고리, 월별 테켓 총합
 	public int ticketTotal(Connection conn,String month,String cate){
 		PreparedStatement pstmt=null;

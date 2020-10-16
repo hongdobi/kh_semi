@@ -3,12 +3,13 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.Banner,java.util.List, java.util.ArrayList,java.util.Iterator,java.util.Map,java.util.Set,java.text.SimpleDateFormat"%>
 <%@ include file="/views/common/header.jsp"%>
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<%-- <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/slick/slick.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/slick/slick-theme.css">
  
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  --%>
 <% 	
 	String cate=(String)request.getAttribute("cate");
 	List<Banner> list=(List)request.getAttribute("list");
@@ -19,6 +20,12 @@
 
 %>
 <style>
+section{
+	font-family: 'Noto Sans KR';
+}
+button{
+	font-family: 'Noto Sans KR';
+}
 /*관리자용 배너 등록 버튼*/
 #addBtn{
 	width: 120px;
@@ -31,7 +38,6 @@
 }
 /*오성티켓 pick*/
 div#pick{
-	
 	height: 700px;
 	margin: auto;
 	margin-top: 30px;
@@ -68,7 +74,7 @@ table#pickTbl div.in h3{
 	margin-top: 30px;
 }
 
-/*콘텐츠 박스*/
+/*동영상 콘텐츠 박스*/
 div.perfContent{
 	background-color:black;
 	color:white;
@@ -135,28 +141,22 @@ div.perfContent .slick-next:before {
 	margin: auto;
 	min-width:1300px;
 }
-
 .slider1 .slick-slide {
      margin: 0px 20px;
-  }
-
+ }
 .slider1 .slick-slide img {
      width: 100% ;
  }
-
 .slider1 .slick-prev:before,
 .slider1 .slick-next:before {
     color: lightgray;
 }
-
 .slider1 .slick-slide {
     transition: all ease-in-out .3s;
     opacity: .3;
-}
-    
+}    
 .slider1 .slick-active {
-   opacity: .7;
-    	
+   opacity: .7;   	
 }
 .slider1 img.banner{
     width:350px;
@@ -164,8 +164,7 @@ div.perfContent .slick-next:before {
    box-shadow: 2px 2px 1px 1px gray;
 }
 .slider1 .slick-current {
-	opacity: 1;
-     
+	opacity: 1;    
 }
 .slider1 .slick-current img{
 transform:scale(1.1);
@@ -227,27 +226,40 @@ div.info{
 	border-radius: 10px;
 }
 /*부제목 크기*/
-caption>h1{
+caption>h1,#locPick>h1{
 	font-size: 30px;
 	text-shadow:3px 2px 2px lightpink, 1px 2px 2px lightgray;
 	color: lightcoral;
+	text-align:center;
 }
+/*지역추천*/
 img.locPoster{
 	height:250px;
 	width: 250px;
+	border-radius: 100%;		
+}
+#locPosterDiv{
+	overflow: hidden;
+	height:250px;
+	width: 250px;
 	border-radius: 100%;	
+	margin:auto;
 }
 img.locPoster:hover{
 	transform:scale(1.1);	
 }
-table#locTbl{
-	text-align:center;
-	margin:auto;
-}
-table#locTbl td{
-	padding: 20px;
-}
 .small{font-size: 12px;}
+#locOutBox{
+	margin: auto;
+	min-width: 1300px;
+	width:1300px;
+	text-align: center;
+}
+.locInBox{
+	display:inline-block;
+	width: 300px;	
+	height: 420px;
+}
 </style>
 <script>
 $(function(){
@@ -400,14 +412,13 @@ $(function(){
 <br><br>
 <!--지역추천 -->
 <div id="locPick">
-	<table id="locTbl">
-	<caption><h1>지역별 추천</h1></caption>
-	<tr>
+	<h1>지역별 추천</h1>
+	<div id="locOutBox">
 	<%Set mapEntry=map.entrySet();
 	Iterator it=mapEntry.iterator();
 	while(it.hasNext()){
 		Map.Entry entry=(Map.Entry)it.next();%>
-		<td>
+		<div class="locInBox">
 		<%Performance p=(Performance)entry.getValue(); 
 			String perfNo=p.getPerfNo();
 			String perfName=p.getPerfName();
@@ -417,18 +428,19 @@ $(function(){
 			String poster=p.getPerfPoster();%>
 		<a href="<%=request.getContextPath()%>/perf/perfView?perfNo=<%=perfNo%>">
 			<div><h3><img src="<%=request.getContextPath()%>/image/위치표시.png" width="20px;"><%=entry.getKey()%></h3></div>
-			<img class="locPoster" src="<%=request.getContextPath()%>/image/perf/<%=perfNo%>/<%=poster%>" alt="<%=perfName %>">		
+			<div id="locPosterDiv" style="text-align: center;"><img class="locPoster" src="<%=request.getContextPath()%>/image/perf/<%=perfNo%>/<%=poster%>" alt="<%=perfName %>"></div>		
 			<div >
 				<h3><%=perfName %></h3>
 				<p class="small"><%=perfStart %>~<%=perfEnd %></p>
 				<p class="small"><%=location %></p>
 			</div>
 		</a>	
-		</td>
+		</div>
 	<% }%>
-	</tr>
-	</table>
-</div>
+	
+	</div>
+</div> 
+
 <br><br>
 <!--오성티켓 pick -->
 <div id="pick">

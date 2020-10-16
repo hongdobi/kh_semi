@@ -39,6 +39,8 @@ public class BannerUploadServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = getServletContext().getRealPath("/image/banner");
+		File dir=new File(path);
+		if(!dir.exists()) dir.mkdirs();
 		int maxSize = 1024 * 1024 * 1000;
 		
 		MultipartRequest mr=new MultipartRequest(request, path,maxSize,

@@ -83,12 +83,14 @@ public class BookingDao {
 
 	@SuppressWarnings("null")
 	public List<Booking> findBooking(Connection conn, int memberNo) {
+		System.out.println("다오 회원번호:"+memberNo);
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Booking> list = new ArrayList();
 		try {
-			pstmt = conn.prepareStatement(prop.getProperty("findBookingByMemNo"));
+			pstmt = conn.prepareStatement(prop.getProperty("findBooking"));
 			pstmt.setInt(1, memberNo);
+			System.out.println(pstmt);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Booking b = new Booking();
