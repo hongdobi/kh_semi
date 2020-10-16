@@ -39,7 +39,7 @@ public class EditMemberServlet extends HttpServlet {
 		System.out.println("checkpoint 1" + b);
 		Member m = new Member();
 		String msg="";
-		String loc="";		
+		String loc="/member/myPage";		
 		m.setMemberId(request.getParameter("memberId"));
 		m.setMemberPw(request.getParameter("newPw"));
 		m.setMemberName(request.getParameter("memberName"));
@@ -57,15 +57,15 @@ public class EditMemberServlet extends HttpServlet {
 		
 		if(result>0) {
 			msg="회원정보가 수정되었습니다";
-			loc="/";
 		}else {
 			msg="회원정보 수정 실패";
-			loc="/";
 		}		
+		
 		request.getSession().removeAttribute("loginMember");
 		request.getSession().setAttribute("loginMember", m);
-		request.getSession().setAttribute("msg", msg);
-		request.getRequestDispatcher("/views/member/myPage.jsp").forward(request, response);
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
 
 	/**
