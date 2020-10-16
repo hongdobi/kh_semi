@@ -533,13 +533,7 @@ $(function(){
 		<form id="bookSelect" name="bookSelect">
 			<!-- 공연일 리스트에 null값이 있을 경우 날짜지정 불필요 안내  -->
 			<%if(dateList.size()<1){ %>
-
-				<div id="cal">
-					불편을 드려 죄송합니다. 공연정보가 준비되지 못했습니다. 관리자에게 문의바랍니다.
-				</div>				
-
 				<div id="calNo">상시상품으로 날짜지정이 별도로 없습니다. 하단의 예매하기를 눌러 예매를 진행해주세요</div>
-
 			<%}else{ %>
 				<div id="cal">
 					<div id="datepicker"></div>

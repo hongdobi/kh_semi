@@ -156,7 +156,7 @@ private Properties prop = new Properties();
 		return perfName;
 	}
 	
-	//랜덤하게 해당 카테고리 공연 6개 가져오기
+	//랜덤하게 해당 카테고리 공연 8개 가져오기
 	public List<Performance> randomPerf(Connection conn, String cate) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -164,7 +164,7 @@ private Properties prop = new Properties();
 		Performance perf = null;
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("randomPerf"));
-			pstmt.setString(1, cate+"_");
+			pstmt.setString(1, cate+"%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				perf=new Performance();
