@@ -20,14 +20,14 @@
     cursor: pointer;
   }
 
-  #selfcheck {
+  .selfcheck {
     border: 1px solid lightpink;
     background-color: white;
     color: lightpink;
     padding: 4px;
   }
 
-  #selfcheck:hover {
+  .selfcheck:hover {
     color: white;
     background-color: lightpink;
   }
@@ -49,7 +49,7 @@
     font-family:"Noto Sans KR";
     font-weight: 300;
     letter-spacing: 0.1rem;
-    color: #ccc;
+    color: grey;
   }
 
   input::-moz-placeholder {
@@ -58,7 +58,7 @@
     font-family:"Noto Sans KR";
     font-weight: 300;
     letter-spacing: 0.1rem;
-    color: #ccc;
+    color: grey;
   }
 
   input:-ms-input-placeholder {
@@ -67,7 +67,7 @@
     font-family:"Noto Sans KR";
     font-weight: 300;
     letter-spacing: 0.1rem;
-    color: #ccc;
+    color: grey;
   }
 
   input::-ms-input-placeholder {
@@ -76,7 +76,7 @@
     font-family:"Noto Sans KR";
     font-weight: 300;
     letter-spacing: 0.1rem;
-    color: #ccc;
+    color: grey;
   }
 
   input::placeholder {
@@ -85,7 +85,7 @@
     font-family:"Noto Sans KR";
     font-weight: 300;
     letter-spacing: 0.1rem;
-    color: #ccc;
+    color: grey;
   }
 
   /**
@@ -299,30 +299,31 @@
   }
 
   .user_options-forms .forms_field:not(:last-of-type) {
-    margin-bottom: 20px;
+    margin-top: 3px;
+    margin-bottom: 17px;
   }
 
   /*text입력칸 width:100% -> 70%로 조정*/
   .user_options-forms .forms_field-input {
     width: 70%;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid darkslategrey;
     padding: 6px 20px 6px 6px;
     /* font-family: "Montserrat", sans-serif; */
     font-family:"Noto Sans KR";
     font-size: 1rem;
     font-weight: 300;
-    color:grey;
+    color:initial;
     letter-spacing: 0.1rem;
     -webkit-transition: border-color 0.2s ease-in-out;
     transition: border-color 0.2s ease-in-out;
   }
 
   .user_options-forms .forms_field-input:focus {
-    border-color: gray;
+    border-color: darkslategrey;
   }
 
   .info {
-    color: gray;
+    color: darkslategrey;
   }
 
   .user_options-forms .forms_buttons {
@@ -471,4 +472,12 @@
       padding: 50px 45px;
     }
   }
+  
+   /* 비밀번호확인 */
+  span{
+      font-family: "Noto Sans KR";
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.15rem;
+    }
 </style>

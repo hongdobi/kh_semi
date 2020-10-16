@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import com.fs.model.vo.Member;
@@ -27,7 +28,7 @@ public class MemberDao {
 	
 	public int insertMember(Connection conn, Member m) {
 		PreparedStatement pstmt = null;
-		int result = 0;
+		int result = 0; 
 		
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("insertMember"));
@@ -59,6 +60,36 @@ public class MemberDao {
 			
 			if(rs.next()) {
 				m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberId(rs.getString("member_id"));
+				m.setMemberPw(rs.getString("member_pw"));
+				m.setMemberName(rs.getString("member_name"));
+				m.setPhone(rs.getString("phone"));
+				m.setEmail(rs.getString("email"));
+				m.setBday(rs.getDate("bday"));
+				m.setManagerYn(rs.getString("manager_yn"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println(m);
+		return m;		
+	}
+	
+	public Member memberInfo(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = null;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("memberInfo"));
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				m = new Member();
 				m.setMemberId(rs.getString("member_id"));
 				m.setMemberPw(rs.getString("member_pw"));
 				m.setMemberName(rs.getString("member_name"));
@@ -73,9 +104,109 @@ public class MemberDao {
 			close(pstmt);
 		}
 		System.out.println(m);
-		return m;
+		return m;	
+	}
+	public int updateMember(Connection conn, Member m) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("updateMember"));
+			pstmt.setNString(1, m.getMemberPw());
+			pstmt.setNString(2, m.getPhone());
+			pstmt.setNString(3, m.getEmail());
+			pstmt.setNString(4, m.getMemberId());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			System.out.println("회원정보 DAO");
+		}return result;
+	}
+	
+	public String emailDuplicate(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String result = null;
 		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("emailDuplicate"));
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
 		
 	}
 
+	public String memberNo(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String memberNo = "";
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("memberNo"));
+			pstmt.setNString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				memberNo = rs.getNString("member_no");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			System.out.println(memberNo);
+		}return memberNo;
+	}
+
+	
+	/*
+	 * public Member totalSearch(Connection conn, String s) { PreparedStatement
+	 * pstmt = null; ResultSet rs = null; Member m = null; try { m = new Member();
+	 * pstmt = conn.prepareStatement(prop.getProperty("totalSearch"));
+	 * pstmt.setNString(1, s); rs = pstmt.executeQuery(); }catch(SQLException e) {
+	 * e.printStackTrace(); }finally { close(rs); close(pstmt); }return m; }
+	 */
+	public Boolean checkPw(Connection conn, String memberId, String memberPw) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Boolean b = false;
+		String pw ="";
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("checkPw"));
+			pstmt.setNString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				pw += rs.getNString("member_pw");
+			}
+			if(pw.equals(memberPw)) {
+				b = true;
+			}else b = false;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return b;
+	}
+	public void cancelBook(Connection conn, String bookNo) {
+		PreparedStatement pstmt = null;
+		String n = "N";
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("cancelBook"));
+			pstmt.setNString(1, n);
+			pstmt.setNString(2, bookNo);
+			pstmt.executeQuery();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+	}
+	
 }

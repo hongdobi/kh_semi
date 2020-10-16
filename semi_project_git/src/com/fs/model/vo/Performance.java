@@ -16,6 +16,8 @@ public class Performance {
 	private String perfPoster;
 	private String perfTimeInfo;
 	private String perfPriceInfo;
+	private int perfCount; //랭킹을 위한 멤버변수 추가
+	private int dDay;//티켓오픈을 위한 변수추가
 	
 	public Performance() {
 		// TODO Auto-generated constructor stub
@@ -37,6 +39,38 @@ public class Performance {
 		this.perfPoster = perfPoster;
 		this.perfTimeInfo = perfTimeInfo;
 		this.perfPriceInfo = perfPriceInfo;
+	}
+
+
+
+
+
+	public Performance(String perfNo, String perfName, int perfRuntime, Date perfStart, Date perfEnd, int perfPg,
+			String perfLocation, String perfAddress, int perfCapacity, String perfPoster, String perfTimeInfo,
+			String perfPriceInfo, int perfCount, int dDay) {
+		super();
+		this.perfNo = perfNo;
+		this.perfName = perfName;
+		this.perfRuntime = perfRuntime;
+		this.perfStart = perfStart;
+		this.perfEnd = perfEnd;
+		this.perfPg = perfPg;
+		this.perfLocation = perfLocation;
+		this.perfAddress = perfAddress;
+		this.perfCapacity = perfCapacity;
+		this.perfPoster = perfPoster;
+		this.perfTimeInfo = perfTimeInfo;
+		this.perfPriceInfo = perfPriceInfo;
+		this.perfCount = perfCount;
+		this.dDay = dDay;
+	}
+
+	public int getdDay() {
+		return dDay;
+	}
+
+	public void setdDay(int dDay) {
+		this.dDay = dDay;
 	}
 
 	public String getPerfNo() {
@@ -134,14 +168,22 @@ public class Performance {
 	public void setPerfPriceInfo(String perfPriceInfo) {
 		this.perfPriceInfo = perfPriceInfo;
 	}
+	public int getPerfCount() {
+		return perfCount;
+	}
 
+	public void setPerfCount(int perfCount) {
+		this.perfCount = perfCount;
+	}
 	@Override
 	public String toString() {
 		return "Performance [perfNo=" + perfNo + ", perfName=" + perfName + ", perfRuntime=" + perfRuntime
 				+ ", perfStart=" + perfStart + ", perfEnd=" + perfEnd + ", perfPg=" + perfPg + ", perfLocation="
 				+ perfLocation + ", perfAddress=" + perfAddress + ", perfCapacity=" + perfCapacity + ", perfPoster="
-				+ perfPoster + ", perfTimeInfo=" + perfTimeInfo + ", perfPriceInfo=" + perfPriceInfo + "]";
+				+ perfPoster + ", perfTimeInfo=" + perfTimeInfo + ", perfPriceInfo=" + perfPriceInfo + ", perfCount="
+				+ perfCount + "]";
 	}
+
 	
 	
 }
