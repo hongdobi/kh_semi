@@ -181,7 +181,7 @@ video {
 									</div>
 									<div class="area-text">
 										<h3> <%=p.getPerfName()%> </h3>
-										<span class="text-small-1">><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
+										<span class="text-small-1"><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
 									</div>
 								</a>
 							</li>
@@ -199,7 +199,7 @@ video {
 									</div>
 									<div class="area-text">
 										<h3> <%=p.getPerfName()%> </h3>
-										<span class="text-small-1">><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
+										<span class="text-small-1"><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
 									</div>
 								</a>
 							</li>
@@ -217,7 +217,7 @@ video {
 									</div>
 									<div class="area-text">
 										<h3> <%=p.getPerfName()%> </h3>
-										<span class="text-small-1">><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
+										<span class="text-small-1"><%=p.getPerfStart() %>~<%=p.getPerfEnd() %></span>
 									</div>
 								</a>
 							</li>
