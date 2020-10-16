@@ -194,5 +194,19 @@ public class MemberDao {
 			close(pstmt);
 		}return b;
 	}
+	public void cancelBook(Connection conn, String bookNo) {
+		PreparedStatement pstmt = null;
+		String n = "N";
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("cancelBook"));
+			pstmt.setNString(1, n);
+			pstmt.setNString(2, bookNo);
+			pstmt.executeQuery();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+	}
 	
 }
