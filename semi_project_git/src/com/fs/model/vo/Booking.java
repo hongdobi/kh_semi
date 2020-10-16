@@ -33,6 +33,21 @@ public class Booking {
 		this.perfDate = perfDate;
 	}
 
+	
+	
+	public Booking(String bookNo, int memberNo, String perfNo, String nthPerf, int buyTicket, int totalPrice,
+			Date bookDate, String bookYn) {
+		super();
+		this.bookNo = bookNo;
+		this.memberNo = memberNo;
+		this.perfNo = perfNo;
+		this.nthPerf = nthPerf;
+		this.buyTicket = buyTicket;
+		this.totalPrice = totalPrice;
+		this.bookDate = bookDate;
+		this.bookYn = bookYn;
+	}
+
 
 	public String getBookNo() {
 		return bookNo;

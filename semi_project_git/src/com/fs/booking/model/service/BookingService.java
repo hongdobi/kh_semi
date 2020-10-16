@@ -1,29 +1,25 @@
 package com.fs.booking.model.service;
 
-import java.sql.Connection;
-import java.util.List;
 import static com.fs.common.JDBCTemplate.close;
+import static com.fs.common.JDBCTemplate.commit;
 import static com.fs.common.JDBCTemplate.getConnection;
-
-import java.sql.Connection;
-import java.util.List;
+import static com.fs.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.List;
 
 import com.fs.booking.model.dao.BookingDao;
 import com.fs.model.vo.Booking;
-import com.fs.model.vo.Performance;
-
-import static com.fs.common.JDBCTemplate.close;
-import static com.fs.common.JDBCTemplate.getConnection;
+import com.fs.model.vo.Member;
+import com.fs.model.vo.Performance;;
 
 
 public class BookingService {
 	
 	private BookingDao dao=new BookingDao();
 	
-	//예약날짜 받아오기
+	//perfNo에 맞는 performance객체 조회
 	public Performance selectBookingDate(String perfNo, Date bookDate) {
 		Connection conn=getConnection();
 		Performance perf=dao.selectBookingDate(conn,perfNo,bookDate);
@@ -51,5 +47,37 @@ public class BookingService {
 		close(conn);
 		return list;
 	}
+	
+	
+	//예약넣기
+	public int insertBooking(String bookNo,int memberNo,String perfNo,String nthPerf,int nofTicket,int totalPrice,Date today) {
+		Connection conn=getConnection();
+		int result=dao.insertBooking(conn,bookNo,memberNo,perfNo,nthPerf,nofTicket,totalPrice,today);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	
+	//에앾번호(bookNo)로 예약조회
+	public Booking selectBooking(String bookNo) {
+		Connection conn=getConnection();
+		Booking book=dao.selectBooking(conn, bookNo);
+		close(conn);
+		return book;
+	}
+	
+	
+	//memberNo로 member조회하기(수령방법에서 필요)
+	public Member selectMember(int memberNo) {
+		Connection conn=getConnection();
+		Member m=dao.selectMember(conn,memberNo);
+		close(conn);
+		return m;
+	}
+	
+	
+	
 
 }

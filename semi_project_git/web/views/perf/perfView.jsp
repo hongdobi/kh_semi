@@ -449,7 +449,7 @@ $(function(){
 		if(loginMember!=null){
 			result=loginMember.getMemberNo();
 		}%>
-		<input type="hidden" id="memberNo" name="memberNo" value="<%=result%>">
+		<input type="hidden" id="memberNo" name="memberNo" value="<%=result%>">		
 		<input type="hidden" id="perfNo" name="perfNo" value="<%=perf.getPerfNo()%>">
 	</form> 
 	<div>
@@ -528,7 +528,7 @@ $(function(){
 			<%if(dateList.size()<1){ %>
 				<div id="cal">
 					불편을 드려 죄송합니다. 공연정보가 준비되지 못했습니다. 관리자에게 문의바랍니다.
-				</div>
+				</div>				
 			<%}else{ %>
 				<%if(dateList.get(0)!=null){ %>
 					<div id="cal">

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.fs.model.vo.Booking;
+import com.fs.model.vo.Member;
 import com.fs.model.vo.Performance;
 
 public class BookingDao {
@@ -130,7 +131,7 @@ public class BookingDao {
 	 * }
 	 */
 	
-	//예약날짜 받아오기
+	//perfNo에 맞는 performance객체 조회
 	public Performance selectBookingDate(Connection conn,String perfNo,Date bookDate) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -148,6 +149,7 @@ public class BookingDao {
 				perf.setPerfCapacity(rs.getInt("perf_capacity"));
 				perf.setPerfTimeInfo(rs.getString("perf_timeinfo"));
 				perf.setPerfPriceInfo(rs.getString("perf_priceinfo"));
+				perf.setPerfPoster(rs.getString("perf_poster"));
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -156,5 +158,89 @@ public class BookingDao {
 			close(pstmt);
 		}return perf;
 	}
+	
+	
+	//예약넣기
+	public int insertBooking(Connection conn,String bookNo,int memberNo,String perfNo,String nthPerf,int nofTicket,int totalPrice,Date today) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("insertBooking"));
+			pstmt.setString(1, bookNo);
+			pstmt.setInt(2, memberNo);
+			pstmt.setString(3, perfNo);
+			pstmt.setString(4, nthPerf);
+			pstmt.setInt(5, nofTicket);
+			pstmt.setInt(6, totalPrice);			
+			pstmt.setDate(7, today);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	
+	//예약번호(bookNo)로 예약조회
+	public Booking selectBooking(Connection conn,String bookNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Booking book=null;
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectBookingDetail"));
+			pstmt.setString(1, bookNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				book=new Booking();
+				book.setBookNo(rs.getNString("book_no"));
+				book.setMemberNo(rs.getInt("member_no"));
+				book.setPerfNo(rs.getNString("perf_no"));
+				book.setNthPerf(rs.getNString("nth_perf"));
+				book.setBuyTicket(rs.getInt("buy_ticket"));
+				book.setTotalPrice(rs.getInt("total_price"));
+				book.setBookDate(rs.getDate("book_date"));
+				book.setBookYn(rs.getNString("book_yn"));				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return book;
+	}
+	
+	
+	//memberNo로 member조회하기(수령방법에서 필요)
+	public Member selectMember(Connection conn,int memberNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectMember"));
+			pstmt.setInt(1, memberNo);			
+			rs=pstmt.executeQuery();			
+			if(rs.next()) {
+				m=new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberId(rs.getString("member_id"));
+				m.setMemberPw(rs.getString("member_pw"));
+				m.setMemberName(rs.getString("member_name"));
+				m.setPhone(rs.getString("phone"));
+				m.setEmail(rs.getString("email"));
+				m.setBday(rs.getDate("bday"));
+				m.setManagerYn(rs.getString("manager_yn"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;		
+	}
+	
+	
+	
 
 }
