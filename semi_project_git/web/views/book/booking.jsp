@@ -189,7 +189,7 @@
 					</script>
 					
                 <%}else { %>
-                	<form action="" method="post">
+                	<form action="<%=request.getContextPath() %>/book/promo" method="post">
 		                <div id="alternate_div">
 		                    <table>
 		                        <tr>
@@ -203,20 +203,18 @@
 		                                    <option value="1매">1매</option>
 		                                    <option value="2매">2매</option>
 		                                    <option value="3매">3매</option>
-		                                    <option value="4매">4매</option>
-		                                    <option value="5매">5매</option>
-		                                    <option value="6매">6매</option>
-		                                    <option value="7매">7매</option>
-		                                    <option value="8매">8매</option>
+		                                    <option value="4매">4매</option>		                                    
 		                                </select>
 		                            </td>
 		                        </tr>
 		                    </table>
 		                    <div>
-		                        *안내 <b>8매 초과 구매시 단체구매로 처리되오니 고객센터로 문의주시기 바랍니다.</b>
+		                        *안내 <b>4매 초과 구매시 단체구매로 처리되오니 고객센터로 문의주시기 바랍니다.</b>
 		                    </div>
 		                </div>
 		                <input type="submit" id="btn" value="확인">
+		                <input type="hidden" name="memberNo" value="<%=memberNo %>">
+	                    <input type="hidden" name="perfNo" value="<%=perfNo %>">
 		            </form>
                 <% }%>
             </div>

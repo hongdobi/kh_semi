@@ -21,7 +21,7 @@
 <body>
     <div id="container">
         <header>
-            <img src="<%=request.getContextPath() %>/image/logo_book.png" alt="오성티켓" id="logo" width="250" height="66">
+            <img src="<%=request.getContextPath() %>/image/logo_book.png" alt="오성티켓" id="logo" width="208" height="55">
             <nav>
                 <ul id="headerMenu">
                     <li>step 1<br>관람일/회차</li>
@@ -99,27 +99,31 @@
         #container{
             background-image:url('<%=request.getContextPath() %>/image/curtain.jpg');
             background-size:contain;
-            min-width:1000px;
+            max-height:670px;
+            max-width:980px;
+            width:auto;
+            height:auto; 
+            font-size:14px;
         }
         #headerMenu{
-            margin-left:350px;
+            margin-left:110px;
             margin-bottom:-2px;
-            margin-top:-15px;
+            margin-top:-2px;
         }
         #headerMenu li{
-            color:white;
-            background-color:rgb(85, 82, 82);
-            opacity:0.8;
-            display:inline-block;
-            border-radius: 5px;
-            justify-content: center;
-            text-align: center;
-            padding-left:40px;
-            padding-right:40px;
-            padding-top:20px;
-            padding-bottom:20px;
-            margin-right:7px;
-        }
+	        color:white;
+	        background-color:rgb(85, 82, 82);
+	        opacity:0.8;
+	        display:inline-block;
+	        border-radius: 5px;
+	        justify-content: center;
+	        text-align: center;
+	        padding-left:26px;
+	        padding-right:26px;
+	        padding-top:14px;
+	        padding-bottom:14px;
+	        margin-right:10px;	        
+	    }
         #showStepDiv{
             display:flex;
             margin-bottom:-5px;
@@ -128,7 +132,7 @@
             padding-top:15px;
             padding-bottom:3px;
             padding-left:35px;
-            margin-left: 376px;
+            margin-left: 130px;
             background-color:white;
             font-weight: bolder;
             font-size:17px;
@@ -140,7 +144,7 @@
             padding-left: 10px;
             padding-top:10px;
             padding-bottom: 10px;
-            margin-left:376px;
+            margin-left:130px;
             background-color:white;
             font-weight: bolder;
             border-radius: 4px;
@@ -158,7 +162,7 @@
         }
         #order_check_t{
             border-collapse: collapse;
-            margin-left:376px;
+            margin-left:130px;
             margin-top:3px;
             width:712px;
         }
@@ -192,12 +196,12 @@
             color:azure;
             font-size: 16px;
             border-radius: 4px;
-            margin-left:670px;
+            margin-left:410px;
             margin-top:13px;
             margin-bottom: 10px;
         }
         #warning_container{
-            margin-left:300px;
+            margin-left:80px;
             height:210px;
         }
         #warning{
@@ -205,7 +209,7 @@
             background-color:rgba(87, 85, 85, 0.473);
             opacity:0.9;
             color:aliceblue;
-            width:900px;
+            width:800px;
             padding-left:20px;
         }
         #warning li span{
