@@ -85,9 +85,14 @@
                             </div>                           
                         </div>                        
                         <div id="btns">
-                            <input class="btn" type="button" value="이전화면" onclick="location.assign('<%=request.getContextPath()%>/book/booking')">
+                            <input class="btn" type="button" value="이전화면" onclick="fn_alert();">
                             <input class="btn" type="reset" value="좌석 다시선택">
                         </div>
+                        <script>
+                        	function fn_alert(){
+                        		alert("서비스 준비중에 있습니다.");
+                        	}
+                        </script>
                         <div>
                             <input type="submit" id="submit" value="좌석선택 완료" onclick="return fn_checkSeat();">
                         </div>

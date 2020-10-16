@@ -91,5 +91,11 @@ public class MemberService {
 		return b;
 		
 	}
+	public void cancelBook(String bookNo) {
+		Connection conn=getConnection();
+		dao.cancelBook(conn, bookNo);
+		close(conn);
+	}
+	
 
 }

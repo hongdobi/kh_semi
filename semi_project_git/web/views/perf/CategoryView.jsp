@@ -226,7 +226,7 @@ div.info{
 	border-radius: 10px;
 }
 /*부제목 크기*/
-caption>h1,#locPick>h1{
+caption>h1,#locPick h1{
 	font-size: 30px;
 	text-shadow:3px 2px 2px lightpink, 1px 2px 2px lightgray;
 	color: lightcoral;
@@ -320,7 +320,6 @@ $(function(){
 					div.append(a);
 				}else{
 					div.html("준비중입니다."+"<br>"+"-오성티켓-");
-					
 				}
 				td.append(div);
 				if(i<4){
@@ -412,8 +411,8 @@ $(function(){
 <br><br>
 <!--지역추천 -->
 <div id="locPick">
-	<h1>지역별 추천</h1>
 	<div id="locOutBox">
+	<h1>지역별 추천</h1>
 	<%Set mapEntry=map.entrySet();
 	Iterator it=mapEntry.iterator();
 	while(it.hasNext()){

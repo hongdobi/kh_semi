@@ -67,6 +67,7 @@
 
 <section id="bookings">
 	<h1><%=m.getMemberName() %>님</h1>
+	<form action="<%=request.getContextPath() %>/member/cancel" method="post">
 	<table id="bookTBL">
 		<thead>
 		<tr>
@@ -87,26 +88,33 @@
 		<%}else{
 				for(int i = 0; i < list.size(); i++){
 			%>
-			<tr>
-				<td><%=list.get(i).getBookNo() %></td>
-				<td><%=list.get(i).getBookDate() %></td>
-				<td><%=pN[i] %></td>
-				<td><%=list.get(i).getPerfDate() %></td>
-				<td><%=list.get(i).getBuyTicket() %></td>
-				<td><%=list.get(i).getBookYn() %></td>
-				<td><button onclick="cancel()">취소</button></td>
-			</tr>
+				<tr>
+					
+					<td><%=list.get(i).getBookNo() %><input type="hidden" name="bookNo" id="bookNo"></td>
+					<td><%=list.get(i).getBookDate() %></td>
+					<td><%=pN[i] %></td>
+					<td><%=list.get(i).getPerfDate() %></td>
+					<td><%=list.get(i).getBuyTicket() %></td>
+					<td><%=list.get(i).getBookYn() %></td>
+					<td><input type="submit" id="cancel" value="취소"></td>
+				</tr>
+			
 		<%}
 		}%>
 		
            </tbody>
 	</table>
+	</form>
 	
 
 </section>
 
 <script>
-	function cancel(){
-		alert("안됑 니 돈 내꺼");
-	}
+	$("#cancel").click(e=>{
+		let bookNo=$(e.target).closest("tr").find("td:eq(0)").text();
+		alert("예매를 취소하시겠습니까?");
+		$("#bookNo").val(bookNo);
+		
+	});
+	
 </script>

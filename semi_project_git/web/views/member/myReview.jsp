@@ -75,8 +75,7 @@
 			<th>공연명</th>
 			<th>리뷰 내용</th>
 			<th>리뷰 점수</th>
-			<th>리뷰 날짜</th>				
-			<th>작성자</th>				
+			<th>리뷰 날짜</th>								
 		</tr>	
 		</thead>
 		<tbody>
@@ -92,7 +91,6 @@
 				<td><%=list.get(i).getRevContent() %></td>
 				<td><%=list.get(i).getRevScore() %></td>
 				<td><%=list.get(i).getRevDate() %></td>
-				<td><%=list.get(i).getMemberId() %></td>
 			</tr>
 		<%}
 		}%>
