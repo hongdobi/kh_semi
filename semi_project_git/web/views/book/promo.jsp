@@ -312,8 +312,8 @@
             display:inline-flex;
         }
         #super{            
-            height:700px;
-            width:310px;                     
+            height:670px;
+            width:310px;                      
             background-image:url('<%=request.getContextPath() %>/image/curtain.jpg');
             background-size:cover;
             border-left:2px rgb(85, 82, 82) solid;        
@@ -331,6 +331,7 @@
         }
         #super th{
         	text-align:left;
+            color:darkgray;
         }
         #super td{
             padding-left:60px;
@@ -380,50 +381,56 @@
         #container{
             background-image:url('<%=request.getContextPath() %>/image/curtain.jpg');
             background-size:contain;
-            min-width:1000px;
+            max-height:670px;
+            max-width:980px;
+            width:auto;
+            height:auto;
+            font-size:14px;
         }
         #headerMenu{
-            margin-left:350px;
+            margin-left:12px;	       	        	        
         }
         #headerMenu li{
-            color:white;
-            background-color:rgb(85, 82, 82);
-            opacity:0.8;
-            display:inline-block;
-            border-radius: 5px;
-            justify-content: center;
-            text-align: center;
-            padding-left:40px;
-            padding-right:40px;
-            padding-top:20px;
-            padding-bottom:20px;
-            margin-right:7px;
-        }
+	        color:white;
+	        background-color:rgb(85, 82, 82);
+	        opacity:0.8;
+	        display:inline-block;
+	        border-radius: 5px;
+	        justify-content: center;
+	        text-align: center;
+	        padding-left:26px;
+	        padding-right:26px;
+	        padding-top:14px;
+	        padding-bottom:14px;
+	        margin-right:10px;	        
+	    }	   
         #showStepDiv{
             display:flex;
         }
         #showStepTitle{
-            padding-top:15px;
-            padding-bottom:3px;
-            padding-left:35px;
-            margin-left: 376px;
+            padding-top:14px;
+            padding-bottom:5px;
+            padding-left:23px;	        
+            margin-left: 25px;
             background-color:white;
-            font-weight: bolder;
-            font-size:17px;
+            font-weight: bolder;  
+            font-size:16px;         
             border-radius: 4px;
-            height:36px;
-            width:107px;
+            height:30px;
+            width:146px; 
+            margin-top:4px;          
         }
         #rank_choice{
             padding-left: 10px;
             padding-top:15px;
             padding-bottom: 15px;
-            margin-left:376px;
+            margin-left:25px;
+            margin-right:10px;
             background-color:white;
             font-weight: bolder;
             border-radius: 4px;
             display:inline-block;
-            width:700px;
+            width:670px;
         }
         #box{
             margin-left: 15px;
@@ -432,7 +439,7 @@
             padding-bottom: 8px;
             background-color:cornsilk;
             display:inline-block;
-            width:600px;
+            width:570px;
         }
         #rank_desc{
             display:flex;
@@ -440,8 +447,8 @@
         #rank_desc table{
             border-collapse: collapse;
             margin-top:10px;
-            margin-left:376px;
-            width:710px;
+            margin-left:25px;
+            width:680px;
         }
         #rank_desc thead{
             background-color: aliceblue;
@@ -485,7 +492,7 @@
             color:azure;
             font-size: 16px;
             border-radius: 4px;
-            margin-left:670px;
+            margin-left:370px;
             margin-top:25px;
             margin-bottom:20px;
         }

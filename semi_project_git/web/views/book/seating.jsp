@@ -29,7 +29,7 @@
         </header>
         <section>
             <form action="<%=request.getContextPath() %>/book/promo" method="post">
-                <img src="<%=request.getContextPath() %>/image/logo_book.png" alt="오성티켓" id="logo" width="250" height="66">
+                <img src="<%=request.getContextPath() %>/image/logo_book.png" alt="오성티켓" id="logo" width="208" height="55">
                 <!-- 여기엔 공연시작/종료날 불러오면됨 -->
                 <div id="date_choice_div">           
                     관람일 변경 <input type="date" id="date_choice" name="date_choice" value="<%=sdf2.format(bookDate) %>" max="<%=perf.getPerfEnd() %>" 
@@ -261,11 +261,13 @@
         #container{
             background-image:url('<%=request.getContextPath() %>/image/curtain.jpg');
             background-size:contain;
-            min-width:1000px;
+        max-height:670px;
+            max-width:980px;
+            width:auto;
+            height:auto;
         }
         #headerMenu{
-            margin-left:350px;
-            margin-bottom:-5px;
+            margin-left:90px;	       	        	        
         }
         #headerMenu li{
             color:white;
@@ -275,33 +277,34 @@
             border-radius: 5px;
             justify-content: center;
             text-align: center;
-            padding-left:40px;
-            padding-right:40px;
-            padding-top:20px;
-            padding-bottom:20px;
-            margin-right:7px;
+            padding-left:26px;
+            padding-right:26px;
+            padding-top:14px;
+            padding-bottom:14px;
+            margin-right:10px;	        
         }
         #showStepDiv{
             display:flex;
             margin-bottom:-8px;
         }
         #showStepTitle{
-            padding-top:15px;
-            padding-bottom:3px;
-            padding-left:35px;
-            margin-left: 376px;
+            padding-top:14px;
+            padding-bottom:5px;
+            padding-left:23px;	        
+            margin-left: 60px;
             background-color:white;
-            font-weight: bolder;
-            font-size:17px;
+            font-weight: bolder;  
+            font-size:16px;         
             border-radius: 4px;
-            height:36px;
-            width:107px;
+            height:30px;
+            width:146px; 
+            margin-top:4px;          
         }
         #date_choice_div{
-            margin-left:480px;
+            margin-left:250px;
             color:rgba(240, 255, 255, 0.829);
             font-size:17px;
-            margin-top:-28px;
+            margin-top:-34px;
         }
         #date_choice{
             margin-left:8px;
@@ -309,25 +312,26 @@
             font-size:14px;
         }
         #ssn_choice{
-            margin-left:8px;
+            margin-left:5px;
             font-size:16px;
         }
         #seats{
             display:flex;
         }
         #seat_choice_div{
-            margin-left:376px;
+            margin-left:60px;
             margin-bottom:30px;
             width:470px;
             height:440px;
             /* background-color: aliceblue; */
         }
         #seats>div:nth-child(2){
-            margin-left:15px;
+            margin-left:20px;
         }
         #seats>div:last-child{
             /* background-color: aqua; */
             margin-left:12px;
+            margin-right:10px;
             color:white;
             opacity:0.8;
             height:292px;
@@ -339,18 +343,18 @@
         #seats>div:last-child>div>div{
             margin:8px;
             padding:7px;
-            border: 1px lightgray solid;
+            border: 1px lightgray solid;            
         }
         #seat_desc{
-            margin-left:20px;
+            margin-left:10px;
             background-color: rgb(85, 82, 82);
             opacity:0.8;
             width:200px;
-            height:302px;
+            height:310px;
             color:rgba(240, 255, 255, 0.829);
             text-align: center;
-            padding-top:10px;
-        }      
+            padding-top:3px;
+        }    
         #seat_rank>ul li{
         	list-style: square;
             font-size:14px;
@@ -374,17 +378,17 @@
         .btn{
             padding:12px;
             background-color:antiquewhite;
-            font-size: 16px;
+            font-size: 14px;
             border-radius: 4px;
         }
         #submit{
             margin-top:8px;
             padding:12px;
-            padding-left:61px;
-            padding-right:61px;
+            padding-left:57px;
+            padding-right:57px;
             background-color:dodgerblue;
             color:azure;
-            font-size: 16px;
+            font-size: 14px;
             border-radius: 4px;
         }
     </style>

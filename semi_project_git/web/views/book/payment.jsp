@@ -230,11 +230,12 @@
             display:inline-flex;
         }
         #super{            
-            height:710px;
+            height:670px;
             width:310px;                     
             background-image:url('<%=request.getContextPath() %>/image/curtain.jpg');
             background-size:cover;
-            border-left:2px rgb(85, 82, 82) solid;        
+            border-left:2px rgb(85, 82, 82) solid;  
+            font-size:12px;      
         }
         img#poster{
         	margin-top:20px;
@@ -249,6 +250,7 @@
         }
         #super th{
         	text-align:left;
+            color:darkgray;
         }
         #super td{
             padding-left:60px;
@@ -300,27 +302,31 @@
          #container{
             background-image:url('<%=request.getContextPath() %>/image/curtain.jpg');
             background-size:contain;
-            min-width:1000px;
+            max-height:670px;
+            max-width:980px;
+            width:auto;
+            height:auto; 
+            font-size:14px;
         }
         #headerMenu{
-            margin-left:350px;
+            margin-left:50px;
             margin-bottom:-2px;
-            margin-top:-15px;
+            margin-top:-2px;
         }
         #headerMenu li{
-            color:white;
-            background-color:rgb(85, 82, 82);
-            opacity:0.8;
-            display:inline-block;
-            border-radius: 5px;
-            justify-content: center;
-            text-align: center;
-            padding-left:40px;
-            padding-right:40px;
-            padding-top:20px;
-            padding-bottom:20px;
-            margin-right:7px;
-        }
+	        color:white;
+	        background-color:rgb(85, 82, 82);
+	        opacity:0.8;
+	        display:inline-block;
+	        border-radius: 5px;
+	        justify-content: center;
+	        text-align: center;
+	        padding-left:26px;
+	        padding-right:26px;
+	        padding-top:14px;
+	        padding-bottom:14px;
+	        margin-right:10px;	        
+	    }
         #showStepDiv{
             display:flex;
             margin-bottom:-5px;
@@ -329,7 +335,7 @@
             padding-top:15px;
             padding-bottom:3px;
             padding-left:35px;
-            margin-left: 376px;
+            margin-left: 80px;
             background-color:white;
             font-weight: bolder;
             font-size:17px;
@@ -338,7 +344,7 @@
             width:107px;
         }
         #pay_div{
-            margin-left:376px;
+            margin-left:80px;
             background-color: rgba(219, 208, 208, 0.904);
             text-align:center;
             width:700px;
@@ -358,7 +364,7 @@
             padding-left:15px;
         }
         #agree_div{
-            margin-left:390px;
+            margin-left:98px;
             color:white;
             font-weight: 530;
             padding-top:10px;
@@ -375,19 +381,20 @@
             color:azure;
             font-size: 16px;
             border-radius: 4px;
-            margin-left:670px;
+            margin-left:370px;
             margin-top:5px;
             margin-bottom: 10px;
         }
         div#warning{
-            margin-left:376px;
+            margin-left:20px;
             background-color:rgba(87, 85, 85, 0.473);
             opacity:0.9;
             width:810px;
             height:276px;
             border:1px lightgray solid;
             padding-top:10px;
-            padding-bottom:40px;
+            font-size:14px;  
+            padding-bottom:20px;          
         }
         #cancel_time_div{
             border:1px darkgray solid;
