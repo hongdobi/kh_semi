@@ -47,10 +47,7 @@ int inqNo = Integer.parseInt(request.getParameter("inqNo"));
 			path = "/views/admin/inquiryAnswer.jsp";
 		}
 		
-		request.getRequestDispatcher(path).forward(request, response);
-		
-		request.getRequestDispatcher("/views/admin/inquiryAnswer.jsp").forward(request, response);
-	
+		request.getRequestDispatcher(path).forward(request, response);	
 	}
 
 	/**
