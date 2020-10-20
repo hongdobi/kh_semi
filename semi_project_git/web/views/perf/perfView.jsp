@@ -342,7 +342,7 @@ $(function(){
  			bookSelect.submit(); 
 	        
 		<%}else{%>
-		    alert('로그인 후 이용가능합니다.');
+			alert('로그인 후 이용가능합니다.');
 		    return;
 		<%}%>
 		
@@ -361,11 +361,11 @@ $(function(){
 		        revform.method="post";
 		        revform.submit(); 
         	<%}else{%>
-	        	alert('작성할 리뷰가 없습니다. 관람 후에 작성이 가능합니다.');
+	        	 alert('작성할 리뷰가 없습니다. 관람 후에 작성이 가능합니다.'); 
 	        	return;	
         	<%}
          }else{%>
-	        alert('로그인 후 이용가능합니다.');
+	         alert('로그인 후 이용가능합니다.'); 
 	    	return;
 		<%}%>
     });
