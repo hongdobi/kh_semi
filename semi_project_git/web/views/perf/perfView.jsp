@@ -18,6 +18,8 @@
 <%
 	//해당 공연정보 가져오기
 	Performance perf = (Performance)request.getAttribute("performance");
+	//평점 가져오기
+	Double avgRevScore=Double.parseDouble(request.getAttribute("avgRevScore").toString());
 	//공연 상세이미지 가져오기
 	List<PerfFile> fList = (List) request.getAttribute("fList");
 	//해당 공연 리뷰목록 가져오기
@@ -63,7 +65,7 @@ a {text-decoration: none;}
 /* 구분선 */
 section hr {
 	width: 100%;
-	height: 0;
+	height: 2px;
 	border: 1px lightcoral solid;
 	background-color: lightcoral;
 }
@@ -240,10 +242,10 @@ div.reviewInfo>span:nth-of-type(2) {
 	font-size:12px;
 }
 /*리뷰 별점*/
-span.star {
+span.revstar {
 	color: lightcoral;
 	font-size: 20px;
-	letter-spacing: -3px;
+	width: 100px;
 }
 /*리뷰글*/
 div.reviewText {
@@ -307,9 +309,30 @@ div#pageBar{
 	bottom:5%;
 	right: 1%;
 }
+/*평점별*/
+.star{
+	display:inline-block;
+	width: 20px;
+	height: 20px;
+	background-image: url("<%=request.getContextPath() %>/image/ico-star-off.png");
+	background-size: 20px;
+}
+.on{
+	background-image: url("<%=request.getContextPath() %>/image/ico-star-on.png"); 
+	height: 20px;
+	width: 20px;
+	background-repeat:no-repeat;
+	background-size: 20px;
+}
 </style>
 <script>
 $(function(){
+	let score=Math.floor("<%=avgRevScore%>");
+	console.log(score);
+	for(let i=0;i<score;i++){	
+		$(".star").eq(i).addClass("on");
+	}
+		
 	//날짜 계산식
  	let date=new Date();
     let yyyy=date.getFullYear();
@@ -444,7 +467,8 @@ $(function(){
 	          $("input[name=day]").val(d);
 	          console.log($("input[name=day]").val());
 	     }
-	});  
+	}); 
+    
 
 });        
 </script>
@@ -459,12 +483,29 @@ $(function(){
 		<input type="hidden" id="memberNo" name="memberNo" value="<%=result%>">		
 		<input type="hidden" id="perfNo" name="perfNo" value="<%=perf.getPerfNo()%>">
 	</form> 
-	<div>
+	<div id="perfTitle">
 		<p><%=category%></p>
-		<h1>
-			&lt;<%=perf.getPerfName()%>&gt;
-		</h1>
-
+		<table>
+			<tr>
+				<td>
+					<h1 style="font-size: 40px; margin:0;">
+						&lt;&nbsp;<%=perf.getPerfName()%>&nbsp;&gt;&nbsp;&nbsp;
+					</h1>
+				</td>
+				<td>
+					<div id="star-box" style="display:inline-block;">
+						<span class="star"></span> 
+						<span class="star"></span> 
+						<span class="star"></span> 
+						<span class="star"></span> 
+						<span class="star"></span>
+					</div>
+				</td>
+				<td>
+					<div style="font-size: 13px;">(평점: ${requestScope.avgRevScore })</div>
+				</td>
+			</tr>
+		</table>	
 	</div>
 	<hr>
 	<div class="perfInfo">
@@ -611,7 +652,7 @@ $(function(){
 				<div class="reviewInfo">
 					<span class="userId"><%=rv.getMemberId()%></span> 
 					<span class="revDate"><%=rv.getRevDate()%></span> 
-					<span class="star">
+					<span class="revstar">
 						<%for(int i=0;i<5;i++){
 							if(i<rv.getRevScore()){%>★<%}
 							else{%>☆<%}
