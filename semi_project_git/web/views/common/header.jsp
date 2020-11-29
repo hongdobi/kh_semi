@@ -23,8 +23,6 @@
 <script src="<%=request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/slick/slick.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- SweetAlert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
        	
        	body{
@@ -58,29 +56,9 @@
 			display: flex;
 			height: 30px;
 		}
-		.swal-button {
-			background-color: lightcoral;
-			font-size: 12px;
-			text-shadow: 0px -2px 0px rgba(0, 0, 0, 0.3);
-		}
-		
-		.swal-overlay {
-		 	background-color: rgba(0,0,0,0.1);
-		}
-		.swal-button:focus {
-		    outline: none;
-		    box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(0, 0, 0, 0.3);
-		}
+
 </style>
 <script>
-	var alert = function(msg) {
-		swal({
-			title : '',
-			text : msg,
-			closeOnClickOutside: false,
-		});
-	}
-
     //검색어 자동완성
 		$(function() {
 			$.ajax({
