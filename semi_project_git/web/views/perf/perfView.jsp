@@ -4,9 +4,6 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.fs.model.vo.Performance,com.fs.model.vo.PerfFile,com.fs.model.vo.Member,com.fs.model.vo.Booking, 
 	com.fs.model.vo.Review, java.util.List, java.util.ArrayList, java.util.Date"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="/views/common/header.jsp"%>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7a77949d7c0700b7221c0e03857ac002&libraries=services"></script>
@@ -18,20 +15,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <!-- jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
-
-<c:set var="perf" value="${requestScope.performance }"/>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
-<c:set var="avgRevScore" value="${avgRevScore}"/>
-<c:set var="fList" value="${requestScope.fList }"/>
-<c:set var="rvList" value="${requestScope.rvList }"/>
-<c:set var="bkList" value="${requestScope.bkList }"/>
-<c:set var="dateList" value="${requestScope.dateList }"/>
-
-<c:set var="now" value="<%=new java.util.Date() %>"/>
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
-<fmt:formatDate value="${perf.perfStart}" pattern="yyyy-MM-dd" var="start"/>
-<fmt:formatDate value="${perf.perfEnd}" pattern="yyyy-MM-dd" var="end"/>
-<%-- <%
+<%
 	//해당 공연정보 가져오기
 	Performance perf = (Performance)request.getAttribute("performance");
 	//평점 가져오기
@@ -49,8 +33,21 @@
 	List dateList=(List)request.getAttribute("dateList");
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월 dd일");
+	
+	//공연번호로 카테고리만들기
+	String category = "";
+	String cg = "";
+	if (perf != null) {
+		String perfNo = perf.getPerfNo();
+		cg = perfNo.substring(0, 1);
+		switch (cg) {
+			case "M" :category = "뮤지컬";break;
+			case "S" :category = "연극";break;
+			case "E" :category = "전시";break;
+		}
+	}
 
-%>  --%>
+%>
 <style>
 section {
 	padding: 50px;
@@ -330,7 +327,7 @@ div#pageBar{
 </style>
 <script>
 $(function(){
-	let score=Math.floor("<c:out value="${avgRevScore}"/>");
+	let score=Math.floor("<%=avgRevScore%>");
 	console.log(score);
 	for(let i=0;i<score;i++){	
 		$(".star").eq(i).addClass("on");
@@ -344,35 +341,7 @@ $(function(){
   
 	//예매하기 버튼 누르면 나이 체크후 예매창 팝업 띄우기   
 	$('#bookBtn').on("click",e=>{
-	      <c:if test="${not empty sessionScope.loginMember}">
-	      
-	         let bDay=new Date("<c:out value="${loginMember.bday}"/>");
-	         let bDayYear=bDay.getFullYear();
-	         let age=yyyy-bDayYear;
-	         let okAge="<c:out value="${perf.perfPg}"/>";
-	         if(age<okAge){
-	            alert('해당공연의 관람 연령에 적합하지 않습니다.');
-	            return;
-	         }
-	         let day=$("input[name=day]").val();
-	         if(day==""){
-	            alert("날짜를 선택해주세요");
-	            return;
-	         }  
-	         const url="<c:out value="${path}"/>/book/booking"; 
-	            const title="bookSelect";
-	            const status="width=980px, height=670px, top=70px, left=300px";
-	          open("",title,status);
-	          bookSelect.action=url;              
-	          bookSelect.target=title;
-	          bookSelect.method="post";
-	          bookSelect.submit();       
-	      </c:if>
-	      <c:if test="${empty sessionScope.loginMember}">
-	         alert('로그인 후 이용가능합니다.');
-	          return;
-	      </c:if> 
-<%-- 		<%if(loginMember!=null){%>
+		<%if(loginMember!=null){%>
 			let bDay=new Date("<%=loginMember.getBday()%>");
 			let bDayYear=bDay.getFullYear();
 			let age=yyyy-bDayYear;
@@ -398,33 +367,13 @@ $(function(){
 		<%}else{%>
 			alert('로그인 후 이용가능합니다.');
 		    return;
-		<%}%> --%>
+		<%}%>
 		
 	});
 		 
 	//리뷰작성 팝업창 (띄우기전 로그인, 공연관람여부, 리뷰작성여부 확인)
 	$("#addBtn").on("click",e=>{
-		<c:if test="${not empty sessionScope.loginMember}">
-			<c:if test="${not empty bkList}">
-	            const url="<c:out value="${path}"/>/review/reviewWrite"; 
-	               const title="revform";
-	               const status="width=800px, height=600px, top=100px, left=300px";
-	             open("",title,status);
-	             revform.action=url;
-	              revform.target=title;
-	              revform.method="post";
-	              revform.submit(); 
-	         </c:if>
-	         <c:if test="${empty bkList}">
-	            alert('작성할 리뷰가 없습니다. 관람 후에 작성이 가능합니다.'); 
-	              return;
-	         </c:if>
-		</c:if>
-		<c:if test="${empty sessionScope.loginMember}">
-			alert('로그인 후 이용가능합니다.'); 
-	        return;
-		</c:if>
-       <%--  <%if(loginMember!=null){%>
+        <%if(loginMember!=null){%>
         	<%if(bkList.size()>0){%>
 	        	const url="<%=request.getContextPath()%>/review/reviewWrite"; 
 	            const title="revform";
@@ -441,7 +390,7 @@ $(function(){
          }else{%>
 	         alert('로그인 후 이용가능합니다.'); 
 	    	return;
-		<%}%> --%>
+		<%}%>
     });
  
  	//리뷰 삭제버튼클릭시 
@@ -452,7 +401,7 @@ $(function(){
          if(result==false){
              return false;
          }else{
-        	 location.replace("<c:out value="${path}"/>/review/reviewDelete?bNo="+bNo+"&perfNo=<c:out value="${perf.perfNo}"/>");
+        	 location.replace("<%=request.getContextPath()%>/review/reviewDelete?bNo="+bNo+"&perfNo=<%=perf.getPerfNo()%>");
          }
 		
   	}); 
@@ -460,7 +409,7 @@ $(function(){
     $(".update").one("click",e=>{
     	
     	let bNo=$(e.target).parent().children("input[name=bNo]").val();
-    	const url="<c:out value="${path}"/>/review/reviewUpdate?bNo="+bNo+"&perfName=<c:out value="${perf.perfName}"/>"; 
+    	const url="<%=request.getContextPath()%>/review/reviewUpdate?bNo="+bNo+"&perfName=<%=perf.getPerfName()%>"; 
         const status="width=800px, height=600px, top=100px, left=200px";
 		open(url,"",status);
 
@@ -468,11 +417,12 @@ $(function(){
 
   //선택가능 날짜 
 	var availableDates = [];
-  	<c:if test="${not empty dateList}">
-  		<c:forEach items="${dateList}" var="dl">
-  		availableDates.push("<c:out value="${dl}"/>");
-  		</c:forEach>
-  	</c:if>
+    <%if(dateList.size()>0){
+	    for(int i=0;i<dateList.size();i++){%>
+	   		availableDates.push("<%=dateList.get(i)%>");
+		<%}
+	    }%>
+	
 		function available(date) {
 			var thismonth = date.getMonth()+1;
 			var thisday = date.getDate();
@@ -500,17 +450,17 @@ $(function(){
         ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
         ,dayNamesMin: ['일','월','화','수','목','금','토'] 
         ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] 
-		<c:if test="${start <= today}">
-			,minDate:"-0D"
-		</c:if>
-		<c:if test="${start > today}">
-			,minDate:new Date("<c:out value="${perf.perfStart}"/>")
-		</c:if>
-		,maxDate: new Date("<c:out value="${perf.perfEnd}"/>") //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후) 
-		<c:if test="${not empty dateList}">
+        <%int com=perf.getPerfStart().compareTo(new Date());
+     	if(com<0){ %>
+    		,minDate:"-0D"
+    	<%}else{ %> 
+    		,minDate:new Date("<%=perf.getPerfStart()%>")
+    	<%}%>      	
+		,maxDate: new Date("<%=perf.getPerfEnd()%>") //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후) 
+		<%if(dateList!=null){%>
 			//조건에 맞는 날짜만 선택가능하게,
 			,beforeShowDay:available
-		</c:if>
+		<%}%> 
 		//선택한 날짜
 		,onSelect: function(dateText, inst) { 
 	          let d=dateText.substring(4);
@@ -524,39 +474,22 @@ $(function(){
 </script>
 
 <section>
-	
-	<div id="simpleNavi"><a href="#"><img src="<c:out value="${path }"/>/image/top.png" alt="상단으로" height="30px" width="30px"></a></div>
+	<div id="simpleNavi"><a href="#"><img src="<%=request.getContextPath() %>/image/top.png" alt="상단으로" height="30px" width="30px"></a></div>
 	<form id="revform" name="revform">
-		<c:if test="${not empty sessionScope.loginMember}">
-			<c:set var="result" value="${loginMember.memberNo }"/>
-		</c:if>
-		<input type="hidden" id="memberNo" name="memberNo" value="<c:out value="${result }"/>">		
-		<input type="hidden" id="perfNo" name="perfNo" value="<c:out value="${perf.perfNo }"/>">
+		<%int result=0;
+		if(loginMember!=null){
+			result=loginMember.getMemberNo();
+		}%>
+		<input type="hidden" id="memberNo" name="memberNo" value="<%=result%>">		
+		<input type="hidden" id="perfNo" name="perfNo" value="<%=perf.getPerfNo()%>">
 	</form> 
-	
-	
- 	<c:set var="cg" value="${fn:substring(perf.perfNo,0,1) }"/>
-	<c:choose>
-		<c:when test="${cg == 'M' }">
-				<c:set var="category" value="뮤지컬"/>
-		</c:when>
-		<c:when test="${cg == 'S' }">
-				<c:set var="category" value="연극"/>
-		</c:when>
-		<c:when test="${cg == 'E' }">
-				<c:set var="category" value="전시"/>
-		</c:when>
-	</c:choose> 
-	
 	<div id="perfTitle">
-	<c:if test="${not empty category }">
-		<p><c:out value="${category }"/></p>
-	</c:if>
+		<p><%=category%></p>
 		<table>
 			<tr>
 				<td>
 					<h1 style="font-size: 40px; margin:0;">
-						<c:out value="${perf.perfName}"/>&nbsp;&nbsp;
+						&lt;&nbsp;<%=perf.getPerfName()%>&nbsp;&gt;&nbsp;&nbsp;
 					</h1>
 				</td>
 				<td>
@@ -569,7 +502,7 @@ $(function(){
 					</div>
 				</td>
 				<td>
-					<div style="font-size: 13px;">(평점:<c:out value="${requestScope.avgRevScore }"/>)</div>
+					<div style="font-size: 13px;">(평점: ${requestScope.avgRevScore })</div>
 				</td>
 			</tr>
 		</table>	
@@ -578,51 +511,40 @@ $(function(){
 	<div class="perfInfo">
 		<div class="poster">
 			<img
-				src="<c:out value="${path }"/>/image/perf/<c:out value="${perf.perfNo }"/>/<c:out value="${perf.perfPoster }"/>"
-				alt="<c:out value="${perf.perfPoster }"/>포스터" height="500px">
+				src="<%=request.getContextPath()%>/image/perf/<%=perf.getPerfNo()%>/<%=perf.getPerfPoster()%>"
+				alt="<%=perf.getPerfName()%>포스터" height="500px">
 		</div>
 		<div>
 			<table>
 				<tr>
 					<th>공연장소</th>
-					<td><c:out value="${perf.perfLocation }"/></td>
+					<td><%=perf.getPerfLocation()%></td>
 				</tr>
 				<tr>
 					<th>공연기간</th>
-					<td style="font-size:15px;">
-					
-					<fmt:formatDate value="${perf.perfStart }" pattern="yyyy년 MM월 dd일"/>
-					~
-					<fmt:formatDate value="${perf.perfEnd }" pattern="yyyy년 MM월 dd일"/>
-					
-					</td>
+					<td style="font-size:15px;"><%=sdf.format(perf.getPerfStart())%>~<%=sdf.format(perf.getPerfEnd())%></td>
 				</tr>
 				<tr>
 					<th>등급</th>
 					<td>
-						<c:choose>
-							<c:when test="${perf != null and perf.perfPg !=0}">
-								<c:out value="${perf.perfPg }"/>세 이상
-							</c:when>
-							<c:otherwise>
-								<c:out value="전체연령가"/>
-							</c:otherwise>
-						</c:choose>  
+						<%if (perf != null && perf.getPerfPg() != 0) {%> 
+						<%=perf.getPerfPg()%>세 이상
+						<%} else {%> 전체연령가 <%}%>
 					</td>
 				</tr>
-				<c:if test="${perf.perfRuntime>0 }">
+				<%if (perf.getPerfRuntime() > 0) {%>
 				<tr>
 					<th>관람시간</th>
-					<td><c:out value="${perf.perfRuntime }"/>분</td>
+					<td><%=perf.getPerfRuntime()%>분</td>
 				</tr>
-				</c:if>
+				<%}%>
 				<tr>
 					<th>공연시간 안내</th>
 					<td>
 						<ul>
-							<c:forTokens items="${perf.perfTimeInfo }" var="ti" delims="@">
-								<li><c:out value="${ti }"/></li>
-							</c:forTokens>
+							<%for (String time : perf.getPerfTimeInfo().split("@")) {%>
+							<li><%=time%></li>
+							<%}%>
 						</ul>
 					</td>
 				</tr>
@@ -630,9 +552,9 @@ $(function(){
 					<th>가격</th>
 					<td>
 						<ul>
-							<c:forTokens items="${perf.perfPriceInfo }" var="pi" delims="@">							
-								<li><c:out value="${pi}"/></li>
-							</c:forTokens>
+							<%for (String price : perf.getPerfPriceInfo().split("@")) {%>
+								<li><%=price%></li>
+							<%}%>
 						</ul>
 					</td>
 				</tr>
@@ -641,43 +563,7 @@ $(function(){
 	</div>
 	<hr>
 	<!-- 공연마감일이 오늘날짜보다 앞설경우 공연 마감안내하기 -->
-	<c:if test="${today > end }">
-		<div id="cancel">현재 해당 공연예매는 마감되었습니다.</div>
-	</c:if>
-	<c:if test="${today < end }">
-		
-		<div id="calBox">
-			<div class="subTitle">
-				<h2>예매가능 일자</h2>
-			</div>
-			<form id="bookSelect" name="bookSelect">
-				<!-- 공연일 리스트에 null값이 있을 경우 날짜지정 불필요 안내  -->
-				<c:if test="${empty dateList}">
-					<div id="calNo">상시상품으로 날짜지정이 별도로 없습니다. 하단의 예매하기를 눌러 예매를 진행해주세요</div>
-				</c:if>
-				<c:if test="${not empty dateList }">
-					<div id="cal">
-						<div id="datepicker"></div>
-					</div>
-				</c:if>
-				<div>
-					<c:if test="${not emptysessionScope.loginMember }">
-						<input type="hidden" name="memberNo" value="<c:out value="${loginMember.memberNo }"/>">
-					</c:if>
-					<input type="hidden" name="perfNo" value="<c:out value="${perf.perfNo}"/>">
-					<c:if test="${not empty dateList }">
-						<input type="hidden" name="day">
-						<input type="hidden" name="dateList" value="${dateList }">
-					</c:if>
-					<button id="bookBtn" type="button">예매하기</button>
-				</div> 
-			</form> 
-		</div>	
-	</c:if>
-
-	
-	
- 	<%-- <%int compare=perf.getPerfEnd().compareTo(new Date());
+ 	<%int compare=perf.getPerfEnd().compareTo(new Date());
 	if(compare<0){ %>
 		<div id="cancel">현재 해당 공연예매는 마감되었습니다.</div>
 	<%}else{ %> 
@@ -708,7 +594,7 @@ $(function(){
 			</div> 
 		</form>
 	</div>
- 	<%} %> --%>
+ 	<%} %>
 	<hr>
 	<br>
 	<div id="navi">
@@ -722,11 +608,13 @@ $(function(){
 			<h2>상세정보</h2>
 		</div>
 		<div>
-			<c:if test="${not empty fList }">
-				<c:forEach items="${fList }" var="pf">
-					<img alt=""공연상세정보" src="${path }/image/perf/${perf.perfNo}/${pf.perfFileName}" width="80%"></img>
-				</c:forEach>
-			</c:if>
+			<%if (fList != null) {
+				for (PerfFile pf : fList) {
+					String fName = pf.getPerfFileName();%>
+					<img src="<%=request.getContextPath()%>/image/perf/<%=perf.getPerfNo()%>/<%=fName%>"
+					alt="공연상세정보" width="80%"> <img>
+				<%}
+			}%>
 		</div>
 		<div>
 			<a href="#cal">△예매하기</a>
@@ -737,8 +625,8 @@ $(function(){
 	<div id="mapBox">
 		<div class="subTitle"> <h2>오시는 길</h2> </div>
 		<div>
-			<p id="placeName"><c:out value="${perf.perfLocation }"/></p>
-			<p id="address"><c:out value="${perf.perfAddress }"/></p>
+			<p id="placeName"><%=perf.getPerfLocation()%></p>
+			<p id="address"><%=perf.getPerfAddress()%></p>
 			<br>
 			<div class="mapWrap">
 				<div id="map" style="width: 70%; height: 400px;"></div>
@@ -757,58 +645,8 @@ $(function(){
 			<h2>관람후기</h2>
 			<button type="button" id="addBtn">관람후기 등록</button>
 		</div>
-		
 		<ul>
-		<c:if test="${not empty rvList }">
-			<c:forEach items="${rvList }" var="rv">
-				<li id="reviewResult">
-				 	<div class="reviewInfo">
-						<span class="userId"><c:out value="${rv.memberId }"/></span> 
-						<span class="revDate"><c:out value="${rv.revDate }"/></span> 
-						<span class="revstar">
-							<c:forEach var="i" begin="0" end="4" step="1">
-								<c:choose>
-									<c:when test="${i < rv.revScore }">★</c:when>
-									<c:otherwise>☆</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</span>
-						<span class="perfDate">(관람일시:<c:out value="${rv.perfDate }"/>)</span>
-						<span>
-						
-							<c:if test="${not empty sessionScope.loginMember }">
-								<c:choose>
-									<c:when test="${loginMember.managerYn eq 'Y' }">
-									 	<input type="hidden" name="bNo" value="<c:out value="${rv.bookNo }"/>">
-										<c:if test="${loginMember.memberNo eq rv.memberNo }/>">
-											<button type="button" class="update">수정</button>
-										</c:if> 
-										<button type="button" class="del">삭제</button>
-									</c:when>
-									<c:when test="${loginMember.memberNo eq rv.memberNo }">
-										<input type="hidden" name="bNo" value="<c:out value="${rv.bookNo }"/>">
-										<button type="button" class="update">수정</button> <button type="button" class="del">삭제</button>
-									</c:when>	
-								</c:choose>
-							</c:if>
-						</span>
-					</div>
-					<div class="reviewText"><c:out value="${rv.revContent }"/></div>
-				</li> 
-			</c:forEach>
-			<br>	
-			<br>
-			<div id="pageBar">
-				<c:out value="${pageBar }" escapeXml="false"/>
-			</div>
-		</c:if>
-		<c:if test="${empty rvList }">
-			<div style="text-align:center; font-weight:bolder">등록된 리뷰가 없습니다.</div>
-		</c:if>
-		</ul>
-		
-		<%-- <ul>
-		<%if(rvList.size()>0){	
+		<%if(rvList.size()>0){
 			for(Review rv: rvList){%>
 			<li id="reviewResult">
 				<div class="reviewInfo">
@@ -844,13 +682,13 @@ $(function(){
 				<br>	
 				<br>
 				<div id="pageBar">
-					<c:out value="${pageBar }" escapeXml="false"/>
+					<%=(String)request.getAttribute("pageBar")%>
 				</div>
 				
 		<%}else{ %>
 			<div style="text-align:center; font-weight:bolder">등록된 리뷰가 없습니다.</div>
 		<%} %>
-		</ul> --%>
+		</ul>
 		<br>
 		<div>
 			<a href="#cal">△예매하기</a>
@@ -876,7 +714,7 @@ $(function(){
 	// 주소-좌표 변환 객체를 생성합니다
 	var geocoder = new kakao.maps.services.Geocoder();
 	
-	var address='<c:out value="${perf.perfAddress}"/>';
+	var address='<%=perf.getPerfAddress()%>';
 	// 주소로 좌표를 검색합니다
 	geocoder.addressSearch(address, function(result, status) {
 	
@@ -893,7 +731,7 @@ $(function(){
 	
 	// 인포윈도우로 장소에 대한 설명을 표시합니다
 	var infowindow = new kakao.maps.InfoWindow({
-	     content: '<div style="width:150px;text-align:center;padding:6px 0;font-size:10px;"><c:out value="${perf.perfLocation}"/></div>'
+	     content: '<div style="width:150px;text-align:center;padding:6px 0;font-size:10px;"><%=perf.getPerfLocation()%></div>'
 	});
 	infowindow.open(map, marker);
 
