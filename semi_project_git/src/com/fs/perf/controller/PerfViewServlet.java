@@ -51,6 +51,7 @@ public class PerfViewServlet extends HttpServlet {
 		String perfNo=(String)request.getParameter("perfNo");
 		//공연정보, 상세페이지 가져오기,해당 공연회차정보가져오기
 		Performance perf=new PerfService().selectPerformance(perfNo);
+		double avgRevScore=new PerfService().avgRevScore(perfNo); //리뷰평점
 		List<PerfFile> fList=new PerfFileService().selectPerfFile(perfNo);		
 		List<Booking> bkList=new BookingService().selectBookingRV(perfNo, memberNo);
 		//공연 날짜만 가져오기
@@ -108,6 +109,7 @@ public class PerfViewServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("performance", perf);
+		request.setAttribute("avgRevScore", avgRevScore);
 		request.setAttribute("dateList", dateList);
 		request.setAttribute("fList", fList);
 		request.setAttribute("bkList", bkList);

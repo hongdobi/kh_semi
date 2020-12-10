@@ -319,6 +319,26 @@ private Properties prop = new Properties();
 			close(pstmt);
 		}
 	}
+
+	public double avgRevScore(Connection conn,String perfNo) {
+		double avgRevScore = 0;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("avgRevScore"));
+			pstmt.setString(1,perfNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				avgRevScore=rs.getDouble(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return avgRevScore;
+	}
 	
 	
 }

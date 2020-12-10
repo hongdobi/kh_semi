@@ -80,5 +80,11 @@ public class PerfService {
 		close(conn);
 		return list;
 	}
+	public double avgRevScore(String perfNo) {
+		Connection conn=getConnection();
+		double avgRevScore=dao.avgRevScore(conn,perfNo);
+		close(conn);
+		return avgRevScore;
+	}
 
 }

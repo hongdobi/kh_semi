@@ -119,7 +119,7 @@ java.sql.Date, java.util.List,java.util.ArrayList,java.text.SimpleDateFormat" %>
         }
         .on{
             background-image: url("<%=request.getContextPath() %>/image/ico-star-on.png"); 
-            width: 30p
+            width: 30px;
             height: 30px;
             background-repeat:no-repeat;
         }
